@@ -1,0 +1,52 @@
+@import "ui-button.less";
+
+// declare rt-button
+.ui-button-mixin();
+
+.rt_file_loader {
+  .tool-bar {
+    margin-bottom: 15px;
+
+    > * {
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .rt-button + .rt-button {
+      margin-left: 0;
+    }
+
+    .add-local-input {
+      display: none;
+
+      &:focus + * {
+        outline: 1px dotted #000;
+        outline: -webkit-focus-ring-color auto 5px;
+      }
+    }
+  }
+
+  .thumbnail-viewer {
+    .thumbnail {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 15px;
+      position: relative;
+
+      .img {
+        background-color: #c1c1c1;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        display: inline-block;
+        border-radius: 5px;
+      }
+
+      .delete {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+}
