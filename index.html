@@ -11,11 +11,15 @@
   <script src="rt_file_loader.js" type="text/javascript"></script>
 </head>
 <body>
-  <div id="loader" style="margin: 20px; min-height: 150px; padding: 5px; background-color: #f3f3f3;"></div>
+  <div id="loader" style="margin: 20px; min-height: 150px; background-color: #f3f3f3;"></div>
   <script>
     $(function() {
       var fileLoader = window.RT.fileLoader;
-      fileLoader($('#loader'), {});
+      fileLoader($('#loader'), {
+        minHeight: 150,
+        thumbnailWidth: 120,
+        thumbnailHeight: 90
+      });
     });
   </script>
 </body>

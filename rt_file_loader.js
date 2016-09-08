@@ -5,9 +5,10 @@ window.RT = window.RT || {};
    * exported API
    * @param {$elm} $container
    * @param {Object} opts
-   * @param {string} thumbnailWidth
-   * @param {string} thumbnailHeight
-   * @param {number} limit
+   * @param {number} opts.minHeight
+   * @param {number} opts.thumbnailWidth
+   * @param {number} opts.thumbnailHeight
+   * @param {number} opts.limit
    */
   NAMESPACE.fileLoader = function($container, opts) {
     var appendUIToContainer = curryIt(appendNode, $container);
@@ -23,7 +24,11 @@ window.RT = window.RT || {};
   var seasonOpts = function(opts) {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     return $.extend({}, opts, {
-      uiType: checkEnv(userAgent)
+      uiType: checkEnv(userAgent),
+      minHeight: opts.minHeight || 140,
+      thumbnailWidth: opts.thumbnailWidth || 120,
+      thumbnailHeight: opts.thumbnailHeight || 90,
+      limit: opts.limit || 3
     });
   };
 
@@ -39,18 +44,16 @@ window.RT = window.RT || {};
     var $store = createStore(initState);
 
     /* create file loader ui */
-    var $root = $('<div />')
-      .addClass(IDENTIFIER);
-
-    var appendComponentToRoot = curryIt(appendNode, $root);
-
+    var $app = app($store, opts);
     var $toolBar = toolBar($store, opts);
     var $thumbnailViewer = thumbnailViewer($store, opts);
 
-    appendComponentToRoot($toolBar);
-    appendComponentToRoot($thumbnailViewer);
+    var appendComponentToApp = curryIt(appendNode, $app);
 
-    return $root;
+    appendComponentToApp($toolBar);
+    appendComponentToApp($thumbnailViewer);
+
+    return $app;
   };
 /**/
 
@@ -60,68 +63,147 @@ window.RT = window.RT || {};
    * which elements should update on certain part of store changes
    * since we don't have a good re-render machanism like react
    */
-  var toolBar = function($store, opts) {
-    var limit = opts.limit || 3;
+  var app = function($store, opts) {
+    var limit = opts.limit
+
     var getStoreFileDepot = curryIt(getStorePart, $store, FILE_DEPOT);
     var setStoreFileDepot = curryIt(setStorePart, $store, FILE_DEPOT);
 
-   var render = function($root) {
-      var $addLocalInput = $('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
-        .addClass('add-local-input')
-        .attr('multiple', '')
-        .change(function(e) {
-          var $this = $(this);
-          var storeFileDepot = getStoreFileDepot();
-          var oldFileEntities = storeFileDepot.entities;
-          var oldFileOrder = storeFileDepot.order;
-          var insertResult = insertFileListIntoFileEntities(oldFileEntities, oldFileOrder, $this[0].files, limit);
+    var $root = $('<div />')
+      .addClass(IDENTIFIER)
+      .on('dragover', function(e) {
+        e.preventDefault();
+        $root.addClass('drag-over');
+      })
+      .on('dragleave', function(e) {
+        e.preventDefault();
+        $root.removeClass('drag-over');
+      })
+      .on('drop', function(e) {
+        e.preventDefault();
+        $root.removeClass('drag-over');
+        var storeFileDepot = getStoreFileDepot();
+        var files = e.originalEvent.dataTransfer.files;
+        var oldFileEntities = storeFileDepot.entities;
+        var oldFileOrder = storeFileDepot.order;
+        var insertResult = insertFileListIntoFileEntities(oldFileEntities, oldFileOrder, files, limit);
 
-          setStoreFileDepot($.extend({}, storeFileDepot, {
-            entities: insertResult.entities,
-            order: insertResult.order,
-            selections: []
-          }));
-       });
+        setStoreFileDepot($.extend({}, storeFileDepot, {
+          entities: insertResult.entities,
+          order: insertResult.order,
+          selections: []
+        }));
+      });
 
-      var $addLocalFakeButton = $('<div />')
-        .addClass('rt-button')
-        .addClass('rt-button-mini')
-        .addClass('rt-button-default')
-        .text('從本機新增');
+    return $root;
+  };
 
-      var $addLocal = $('<label />')
-        .append($addLocalInput)
-        .append($addLocalFakeButton);
+  var toolBar = function($store, opts) {
+    var limit = opts.limit;
 
-      var $addRuten = $('<button />')
-        .addClass('rt-button')
-        .addClass('rt-button-mini')
-        .addClass('rt-button-default')
-        .text('從露天圖庫新增');
+    var getStoreFileDepot = curryIt(getStorePart, $store, FILE_DEPOT);
+    var setStoreFileDepot = curryIt(setStorePart, $store, FILE_DEPOT);
+    var onStoreFileDepotChange = curryIt(addStoreListener, $store, FILE_DEPOT);
 
-      var $delete = $('<button />')
-        .addClass('rt-button')
-        .addClass('rt-button-mini')
-        .addClass('rt-button-default')
-        .text('刪除圖片');
+    var $hintText1 = $('<div />')
+      .addClass('hint-text')
+      .append($('<span />').text('選擇檔案'));
 
-      return $root
-        .append($addLocal)
-        .append($addRuten)
-        .append($delete);
-    };
+    var $hintText2 = $('<div />')
+      .addClass('hint-text')
+      .append($('<span />').addClass('separator').text('或'))
+      .append($('<span />').text('拖曳檔案至此'));
+
+    var $uploadIcon = $('<i />')
+      .addClass('upload-icon')
+      .addClass('fa')
+      .addClass('fa-upload');
+
+    var _$addLocalInput = $('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
+      .addClass('add-local-input')
+      .attr('multiple', '')
+      .change(function(e) {
+        var $this = $(this);
+        var storeFileDepot = getStoreFileDepot();
+        var oldFileEntities = storeFileDepot.entities;
+        var oldFileOrder = storeFileDepot.order;
+        var insertResult = insertFileListIntoFileEntities(oldFileEntities, oldFileOrder, $this[0].files, limit);
+
+        setStoreFileDepot($.extend({}, storeFileDepot, {
+          entities: insertResult.entities,
+          order: insertResult.order,
+          selections: []
+        }));
+
+        $this.val('');
+     });
+
+    var _$addLocalFakeButton = $('<div />')
+      .addClass('rt-button')
+      .addClass('rt-button-mini')
+      .addClass('rt-button-default')
+      .text('本地檔案');
+
+    var $addLocal = $('<label />')
+      .addClass('action')
+      .append(_$addLocalInput)
+      .append(_$addLocalFakeButton);
+
+    var $addRuten = $('<button />')
+      .addClass('action')
+      .addClass('rt-button')
+      .addClass('rt-button-mini')
+      .addClass('rt-button-default')
+      .text('露天圖庫');
+
+    var $delete = $('<button />')
+      .addClass('rt-button')
+      .addClass('rt-button-mini')
+      .addClass('rt-button-default')
+      .text('刪除圖片');
+
+    var $wrap = $('<div />')
+      .addClass('wrap')
+      .append($uploadIcon)
+      .append($hintText1)
+      .append($addLocal)
+      .append($addRuten)
+      .append($hintText2);
 
     var $root = $('<div />')
-      .addClass('tool-bar');
+      .addClass('tool-bar')
+      .append($wrap);
+      // .append($delete);
+
+    var render = function($root) {
+      var storeFileDepot = getStoreFileDepot();
+
+      if (!storeFileDepot.order.length) {
+        $root
+          .addClass('hint')
+          .css('height', opts.minHeight - 10);
+      } else {
+        $root
+          .removeClass('hint')
+          .css('height', 'auto');
+      }
+
+      return $root;
+    };
+
+    onStoreFileDepotChange(function() {
+      render($root);
+    });
 
     return render($root);
   };
 
   var thumbnailViewer = function($store, opts) {
-    var thumbnailWidth = opts.thumbnailWidth || 120;
-    var thumbnailHeight = opts.thumbnailHeight || 90;
+    var thumbnailWidth = opts.thumbnailWidth;
+    var thumbnailHeight = opts.thumbnailHeight;
 
     var getStoreFileDepot = curryIt(getStorePart, $store, FILE_DEPOT);
+    var setStoreFileDepot = curryIt(setStorePart, $store, FILE_DEPOT);
     var onStoreFileDepotChange = curryIt(addStoreListener, $store, FILE_DEPOT);
     var genThumbnailImgCSS = curryIt(mapOrientationToCSS, thumbnailWidth, thumbnailHeight);
 
@@ -140,13 +222,26 @@ window.RT = window.RT || {};
         var $img = $('<div />')
           .addClass('img');
 
+        var $imgWrap = $('<div />')
+          .addClass('img-wrap')
+          .css('width', thumbnailWidth)
+          .css('height', thumbnailHeight)
+          .append($img);
+
         var $delete = $('<i />')
-          // .addClass('fa')
-          // .addClass('fa-trash-o')
-          .addClass('delete');
+          .addClass('fa')
+          .addClass('fa-times')
+          .addClass('delete')
+          .click(function() {
+            var deleteResult = deleteFromFileEntities(storeFileDepot.entities, storeFileDepot.order, entityID);
+            setStoreFileDepot($.extend({}, storeFileDepot, {
+              entities: deleteResult.entities,
+              order: deleteResult.order
+            }));
+          });
 
         $elm
-          .append($img)
+          .append($imgWrap)
           .append($delete);
 
         reader.onloadend = function() {
@@ -309,6 +404,27 @@ window.RT = window.RT || {};
       entities: newEntities,
       order: newEntityOrder
     };
+  };
+
+  var deleteFromFileEntities = function(entities, entityOrder, id) {
+    var newEntities = $.extend({}, entities);
+    var newEntityOrder = entityOrder.slice(0);
+    var idx = newEntityOrder.indexOf(id);
+
+    if (idx === -1) {
+      return {
+        entities: newEntities,
+        order: newEntityOrder
+      };
+    } else {
+      delete newEntities[id];
+      newEntityOrder.splice(idx, 1);
+
+      return {
+        entities: newEntities,
+        order: newEntityOrder
+      }
+    }
   };
 /**/
 
