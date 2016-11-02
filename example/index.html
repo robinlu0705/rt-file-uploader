@@ -14,8 +14,8 @@
   <div id="loader" style="margin: 20px; min-height: 150px; background-color: #f3f3f3;"></div>
   <script>
     $(function() {
-      var fileLoader = window.RT.fileLoader;
-      fileLoader($('#loader'), {
+      var FileLoader = window.RT.FileLoader;
+      FileLoader.gen($('#loader'), {
         minHeight: 150,
         thumbnailWidth: 120,
         thumbnailHeight: 90
