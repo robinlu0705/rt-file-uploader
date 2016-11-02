@@ -1,7 +1,7 @@
-/* will add __FileLoaderDependencies__ and FileLoader to your namespace */
+/* will add __FileUploaderDependencies__ and FileUploader to your namespace */
 window.RT = window.RT || {};
-RT.__FileLoaderDependencies__ = {};
-RT.FileLoader = {};
+RT.__FileUploaderDependencies__ = {};
+RT.FileUploader = {};
 
 (function(DEPENDENCIES_NAMESPACE, APP_NAMESPACE) {
   /* functional programming utility functions */
@@ -48,7 +48,7 @@ RT.FileLoader = {};
     var FpUtils = DEPENDENCIES.FpUtils;
 
     /* constants */
-    var IDENTIFIER = 'RT_FILE_LOADER';
+    var IDENTIFIER = 'RT_FILE_UPLOADER';
 
     var createStore = function(reducer) {
       var $store = $('<div />');
@@ -585,7 +585,7 @@ RT.FileLoader = {};
     var Actions = DEPENDENCIES.Actions;
 
     /* css prefix constants */
-    var IDENTIFIER = 'RT_FILE_LOADER';
+    var IDENTIFIER = 'RT_FILE_UPLOADER';
 
     var gen = function($store, opts) {
       var limit = opts.limit
@@ -1057,4 +1057,4 @@ RT.FileLoader = {};
     ToolBar: DEPENDENCIES_NAMESPACE.ToolBar,
     ThumbnailViewer: DEPENDENCIES_NAMESPACE.ThumbnailViewer
   }));
-}(RT.__FileLoaderDependencies__, RT.FileLoader));
+}(RT.__FileUploaderDependencies__, RT.FileUploader));
