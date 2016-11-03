@@ -50,7 +50,7 @@ RT.FileUploader = {};
     /* constants */
     var IDENTIFIER = 'RT_FILE_UPLOADER';
 
-    var createStore = function(reducer) {
+    var createStore = function(reducer, debug) {
       var $store = $('<div />');
       var reduce = FpUtils.curryIt(__calcNewState__, reducer);
       var fireChange = FpUtils.curryIt(__fireStoreChange__, $store, IDENTIFIER);
@@ -69,14 +69,23 @@ RT.FileUploader = {};
         var newState = reduce($store.state, action);
         var diff = __diffStates__($store.state, newState);
 
+        if (debug) {
+          var changedParts = {};
+
+          for (var i = 0; i < diff.length; i++) {
+            changedParts[diff[i]] = newState[diff[i]];
+          }
+
+          console.log('\n===Action fired===');
+          console.log('-> Action:');
+          console.log(action);
+          console.log('-> Changed parts: ');
+          console.log(changedParts);
+          console.log('===================\n');
+        }
+
         if (diff.length) {
           $store.state = newState;
-          $store.state.__DEBUG__ = {
-            action: action,
-            diff: diff
-          };
-
-          fireChange([ '__DEBUG__' ]);
           fireChange(diff);
         }
       };
@@ -263,7 +272,7 @@ RT.FileUploader = {};
     var UPDATE_EDIT = 'UPDATE_EDIT';
     var END_EDIT = 'END_EDIT';
     var UPDATE_PLACEHOLDER = 'UPDATE_PLACEHOLDER';
-    var UPDATE_LAYOUT = 'UPDATE_LAYOUT'
+    var UPDATE_LAYOUT = 'UPDATE_LAYOUT';
 
     var addFile = function(fileList, limit) {
       return {
@@ -1011,26 +1020,7 @@ RT.FileUploader = {};
         return newState;
       };
 
-      var $store = StoreUtils.createStore(combinedReducer);
-
-      /* for debug, output state change */
-      if (opts.debug) {
-        $store.listen('__DEBUG__', function() {
-          var debug = $store.getState('__DEBUG__');
-          var changedParts = {};
-          $.each(debug.diff, function(idx, name) {
-            changedParts[name] = $store.getState(name);
-          });
-
-          console.log('===Store changed===');
-          console.log('--Action: --');
-          console.log(debug.action);
-          console.log('--Changed part: --');
-          console.log(changedParts);
-          console.log('===================');
-        });
-      }
-
+      var $store = StoreUtils.createStore(combinedReducer, opts.debug);
       /* create file loader ui */
       var $App = App.gen($store, opts);
       var $ToolBar = ToolBar.gen($store, opts);
