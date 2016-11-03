@@ -1014,9 +1014,22 @@ RT.FileUploader = {};
       var $store = StoreUtils.createStore(combinedReducer);
 
       /* for debug, output state change */
-      $store.listen('__DEBUG__', function() {
-        // console.log($store.getState('__DEBUG__'));
-      });
+      if (opts.debug) {
+        $store.listen('__DEBUG__', function() {
+          var debug = $store.getState('__DEBUG__');
+          var changedParts = {};
+          $.each(debug.diff, function(idx, name) {
+            changedParts[name] = $store.getState(name);
+          });
+
+          console.log('===Store changed===');
+          console.log('--Action: --');
+          console.log(debug.action);
+          console.log('--Changed part: --');
+          console.log(changedParts);
+          console.log('===================');
+        });
+      }
 
       /* create file loader ui */
       var $App = App.gen($store, opts);
