@@ -66,27 +66,31 @@ RT.FileUploader = {};
       $store.getState = getState;
       $store.listen = listen;
       $store.dispatch = function(action) {
-        var newState = reduce($store.state, action);
-        var diff = __diffStates__($store.state, newState);
+        if (typeof action === 'function') {
+          action($store.dispatch);
+        } else {
+          var newState = reduce($store.state, action);
+          var diff = __diffStates__($store.state, newState);
 
-        if (debug) {
-          var changedParts = {};
+          if (debug) {
+            var changedParts = {};
 
-          for (var i = 0; i < diff.length; i++) {
-            changedParts[diff[i]] = newState[diff[i]];
+            for (var i = 0; i < diff.length; i++) {
+              changedParts[diff[i]] = newState[diff[i]];
+            }
+
+            console.log('\n===Action fired===');
+            console.log('-> Action:');
+            console.log(action);
+            console.log('-> Changed parts: ');
+            console.log(changedParts);
+            console.log('===================\n');
           }
 
-          console.log('\n===Action fired===');
-          console.log('-> Action:');
-          console.log(action);
-          console.log('-> Changed parts: ');
-          console.log(changedParts);
-          console.log('===================\n');
-        }
-
-        if (diff.length) {
-          $store.state = newState;
-          fireChange(diff);
+          if (diff.length) {
+            $store.state = newState;
+            fireChange(diff);
+          }
         }
       };
 
@@ -175,70 +179,6 @@ RT.FileUploader = {};
       }
     };
 
-    var mapOrientationToCSS = function(width, height, orientation) {
-      var adjustTop = (height - width) / 2;
-      var adjustLeft = (width - height) / 2;
-      var ret = {
-        position: 'relative',
-        width: width,
-        height: height
-      };
-
-      switch (orientation) {
-        case 2:
-          // horizontal flip
-          return $.extend({}, ret, __transformPrefixer__('scale3d(-1, 1, 1)'));
-        break;
-        case 3:
-          // 180° rotate left
-          return $.extend({}, ret, __transformPrefixer__('rotate(180deg)'));
-        break;
-        case 4:
-          // vertical flip
-          return $.extend({}, ret, __transformPrefixer__('scale3d(1, -1, 1)'));
-        break;
-        case 5:
-          // vertical flip + 90 rotate right
-          return $.extend({}, ret, {
-            width: height,
-            height: width,
-            left: adjustLeft,
-            top: adjustTop
-          }, __transformPrefixer__('scale3d(1, -1, 1) rotate(90deg)'));
-        break;
-        case 6:
-          // 90° rotate right
-          return $.extend({}, ret, {
-            width: height,
-            height: width,
-            left: adjustLeft,
-            top: adjustTop
-          }, __transformPrefixer__('rotate(90deg)'));
-        break;
-        case 7:
-          // horizontal flip + 90 rotate right
-          return $.extend({}, ret, {
-            width: height,
-            height: width,
-            left: adjustLeft,
-            top: adjustTop
-          }, __transformPrefixer__('scale3d(-1, 1, 1) rotate(90deg)'));
-        break;
-        case 8:
-          // 90° rotate left
-          return $.extend({}, ret, {
-            width: height,
-            height: width,
-            left: adjustLeft,
-            top: adjustTop
-          }, __transformPrefixer__('rotate(-90deg)'));
-        break;
-        default:
-          return ret;
-        break;
-      }
-    };
-
     var __transformPrefixer__ = function(op) {
       return {
         '-webkit-transform': op,
@@ -254,7 +194,6 @@ RT.FileUploader = {};
       checkEnv: checkEnv,
       appendNode: appendNode,
       isCollided: isCollided,
-      mapOrientationToCSS: mapOrientationToCSS,
       __transformPrefixer__: __transformPrefixer__,
     };
   }({ $: $ }));
@@ -266,6 +205,8 @@ RT.FileUploader = {};
     var EDIT_MODE = 'EDIT_MODE';
 
     /* action type constants */
+    var ADD_LOADING_FILE = 'ADD_LOADING_FILE';
+    var COMPLETE_LOADING_FILE = 'COMPLETE_LOADING_FILE';
     var ADD_FILE = 'ADD_FILE';
     var DELETE_FILE = 'DELETE_FILE';
     var START_EDIT = 'START_EDIT';
@@ -273,6 +214,47 @@ RT.FileUploader = {};
     var END_EDIT = 'END_EDIT';
     var UPDATE_PLACEHOLDER = 'UPDATE_PLACEHOLDER';
     var UPDATE_LAYOUT = 'UPDATE_LAYOUT';
+
+    var uploadStart = function(fileList, limit, runningID) {
+      return function(dispatch) {
+        var IDList = [];
+        var urlList = [];
+        var count = 0;
+
+        for (var i = 0; i < fileList.length && i < limit; i++) {
+          IDList.push(runningID + 1 + i);
+          urlList.push('https://unsplash.it/120/90?image=' + (i + 101).toString());
+          ++count;
+        }
+
+        dispatch(addLoadingFile(IDList, runningID + count, limit));
+
+        setTimeout(function() {
+          dispatch(completeLoadingFile(IDList, urlList));
+        }, 3000);
+      };
+    };
+
+    var addLoadingFile = function(IDList, runningID, limit) {
+      return {
+        type: ADD_LOADING_FILE,
+        payload: {
+          IDList: IDList,
+          runningID: runningID,
+          limit: limit
+        }
+      };
+    };
+
+    var completeLoadingFile = function(IDList, urlList) {
+      return {
+        type: COMPLETE_LOADING_FILE,
+        payload: {
+          IDList: IDList,
+          urlList: urlList
+        }
+      };
+    };
 
     var addFile = function(fileList, limit) {
       return {
@@ -350,6 +332,8 @@ RT.FileUploader = {};
       DISPLAY_MODE: DISPLAY_MODE,
       EDIT_MODE: EDIT_MODE,
 
+      ADD_LOADING_FILE: ADD_LOADING_FILE,
+      COMPLETE_LOADING_FILE: COMPLETE_LOADING_FILE,
       ADD_FILE: ADD_FILE,
       DELETE_FILE: DELETE_FILE,
       START_EDIT: START_EDIT,
@@ -358,7 +342,7 @@ RT.FileUploader = {};
       UPDATE_PLACEHOLDER: UPDATE_PLACEHOLDER,
       UPDATE_LAYOUT: UPDATE_LAYOUT,
 
-      addFile: addFile,
+      uploadStart: uploadStart,
       deleteFile: deleteFile,
       updateLayout: updateLayout,
       startEdit: startEdit,
@@ -370,6 +354,10 @@ RT.FileUploader = {};
 
   /* reducers */
   (function(DEPENDENCIES) {
+    /* common constants */
+    FILE_STATUS_LOADING = 'FILE_STATUS_LOADING';
+    FILE_STATUS_COMPLETE = 'FILE_STATUS_COMPLETE';
+
     /* state parts constants */
     var FILE_DEPOT = 'FILE_DEPOT';
     var LAYOUT_DEPOT = 'LAYOUT_DEPOT';
@@ -383,13 +371,86 @@ RT.FileUploader = {};
     var fileDepotDefaultState = {
       entities: {},
       order: [],
-      selections: []
+      selections: [],
+      runningID: 0
     };
 
     var fileDepot = function(state, action) {
       state = state || fileDepotDefaultState;
 
       switch (action.type) {
+        case Actions.ADD_LOADING_FILE:
+          var IDList = action.payload.IDList;
+          var runningID = action.payload.runningID;
+          var limit = action.payload.limit;
+          var newEntities = {};
+          var newEntityOrder = [];
+          var count = 0;
+
+          for (var i = 0; i < IDList.length && count < limit; i++) {
+            var id = IDList[i];
+            newEntities[id] = {
+              url: '',
+              status: FILE_STATUS_LOADING,
+              progress: 0
+            };
+
+            newEntityOrder.push(id);
+            ++count;
+          }
+
+          for (var i = 0; i < state.order.length && count < limit; i++) {
+            var id = state.order[i];
+            newEntities[id] = state.entities[id];
+            newEntityOrder.push(id);
+            ++count;
+          }
+
+          return $.extend({}, state, {
+            entities: newEntities,
+            order: newEntityOrder,
+            selections: [],
+            runningID: runningID
+          });
+        break;
+
+        case Actions.COMPLETE_LOADING_FILE:
+          var IDList = action.payload.IDList;
+          var urlList = action.payload.urlList;
+          var needUpdate = false;
+
+          for (var i = 0; i < state.order.length; i++) {
+            var id = state.order[i];
+            if (IDList.indexOf(id) !== -1) {
+              needUpdate = true;
+              break;
+            }
+          }
+
+          if (!needUpdate) {
+            return state;
+          } else {
+            var newEntities = $.extend({}, state.entities);
+            var newEntityOrder = state.order.slice(0);
+
+            for (var i = 0; i < IDList.length; i++) {
+              var id = IDList[i];
+              var url = urlList[i];
+              var entity = newEntities[id];
+              if (entity) {
+                entity.url = url;
+                entity.status = FILE_STATUS_COMPLETE;
+                entity.progress = 100;
+              }
+            }
+
+            return $.extend({}, state, {
+              entities: newEntities,
+              order: newEntityOrder
+            });
+          }
+        break;
+
         case Actions.ADD_FILE:
           var limit = action.payload.limit;
           var fileList = action.payload.fileList;
@@ -574,6 +635,9 @@ RT.FileUploader = {};
 
     /* exports */
     DEPENDENCIES_NAMESPACE.Reducers = {
+      FILE_STATUS_LOADING: FILE_STATUS_LOADING,
+      FILE_STATUS_COMPLETE: FILE_STATUS_COMPLETE,
+
       FILE_DEPOT: FILE_DEPOT,
       LAYOUT_DEPOT: LAYOUT_DEPOT,
       MODE_DEPOT: MODE_DEPOT,
@@ -592,6 +656,8 @@ RT.FileUploader = {};
   (function(DEPENDENCIES) {
     /* depedencies */
     var Actions = DEPENDENCIES.Actions;
+    var FpUtils = DEPENDENCIES.FpUtils;
+    var Reducers = DEPENDENCIES.Reducers;
 
     /* css prefix constants */
     var IDENTIFIER = 'RT_FILE_UPLOADER';
@@ -612,8 +678,9 @@ RT.FileUploader = {};
         .on('drop', function(e) {
           e.preventDefault();
           $root.removeClass('drag-over');
+          var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
           var files = e.originalEvent.dataTransfer.files;
-          $store.dispatch(Actions.addFile(files, limit));
+          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID));
         });
 
       return $root;
@@ -623,7 +690,11 @@ RT.FileUploader = {};
     DEPENDENCIES_NAMESPACE.App = {
       gen: gen
     };
-  }({ Actions: DEPENDENCIES_NAMESPACE.Actions }));
+  }({
+    Actions: DEPENDENCIES_NAMESPACE.Actions,
+    FpUtils: DEPENDENCIES_NAMESPACE.FpUtils,
+    Reducers: DEPENDENCIES_NAMESPACE.Reducers
+  }));
 
   /* component - ToolBar */
   (function(DEPENDENCIES) {
@@ -653,9 +724,10 @@ RT.FileUploader = {};
         .addClass('add-local-input')
         .attr('multiple', '')
         .change(function(e) {
+          var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
           var $this = $(this);
           var files = $this[0].files;
-          $store.dispatch(Actions.addFile(files, limit));
+          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID));
           $this.val('');
        });
 
@@ -767,7 +839,6 @@ RT.FileUploader = {};
       /* get states */
       var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
       var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
-      var genThumbnailImgCSS = FpUtils.curryIt(Utils.mapOrientationToCSS, thumbnailWidth, thumbnailHeight);
       $root.empty();
 
       var thumbnails = $.map(getFileDepot().order, function(entityID, idx) {
@@ -799,6 +870,26 @@ RT.FileUploader = {};
         var $img = $('<div />')
           .addClass('img');
 
+        switch (file.status) {
+          case Reducers.FILE_STATUS_LOADING:
+            $icon = $('<i />')
+              .addClass('fa fa-circle-o-notch fa-spin fa-2x fa-fw loading-ring');
+            $img.append($icon);
+          break;
+
+          case Reducers.FILE_STATUS_COMPLETE:
+            if (file.url) {
+              $img.css('background-image', 'url(' + file.url + ')');
+            } else {
+              $msg = $('<div />')
+                .addClass('msg')
+                .append($('<i />').addClass('fa fa-exclamation-triangle icon'))
+                .append($('<div />').addClass('text').text('檔案格式錯誤'));
+              $img.append($msg);
+            }
+          break;
+        }
+
         var $imgWrap = $('<div />')
           .addClass('img-wrap')
           .css('width', thumbnailWidth)
@@ -820,17 +911,6 @@ RT.FileUploader = {};
         $elm
           .append($imgWrap)
           .append($delete);
-
-        reader.onloadend = function() {
-          EXIF.getData(file, function() {
-            var style = genThumbnailImgCSS(this.exifdata.Orientation);
-            $img
-              .css(style)
-              .css('background-image', 'url(' + reader.result + ')');
-          });
-        };
-
-        reader.readAsDataURL(file);
 
         return $elm;
       });
