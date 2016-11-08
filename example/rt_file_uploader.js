@@ -214,6 +214,11 @@ RT.FileUploader = {};
     var END_EDIT = 'END_EDIT';
     var UPDATE_PLACEHOLDER = 'UPDATE_PLACEHOLDER';
     var UPDATE_LAYOUT = 'UPDATE_LAYOUT';
+    var TRIGGER_GALLERY = 'TRIGGER_GALLERY';
+    var CHANGE_GALLERY_FILTER = 'CHANGE_GALLERY_FILTER';
+    var REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
+    var RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
+    var CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
 
     var uploadStart = function(fileList, limit, runningID) {
       return function(dispatch) {
@@ -256,12 +261,22 @@ RT.FileUploader = {};
       };
     };
 
-    var addFile = function(fileList, limit) {
+    var addFile = function(urlList, limit, runningID) {
+      var IDList = [];
+      var count = 0;
+
+      for (var i = 0; i < urlList.length && i < limit; i++) {
+        IDList.push(runningID + 1 + i);
+        ++count;
+      }
+
       return {
         type: ADD_FILE,
         payload: {
           limit: limit,
-          fileList: fileList
+          IDList: IDList,
+          urlList: urlList,
+          runningID: runningID + count
         }
       };
     };
@@ -327,6 +342,57 @@ RT.FileUploader = {};
       };
     };
 
+    var triggerGallery = function() {
+      return {
+        type: TRIGGER_GALLERY
+      };
+    };
+
+    var changeGalleryFilter = function(category, page) {
+      return {
+        type: CHANGE_GALLERY_FILTER,
+        payload: {
+          category: category,
+          page: page
+        }
+      }
+    };
+
+    var fetchGalleryImage = function(category, page) {
+      return function(dispatch) {
+        dispatch(requestGalleryImage());
+
+        var list = [];0
+        for (var i = 0; i < 30; i++) {
+          list.push('https://unsplash.it/120/90?image=' + page.toString());
+        }
+
+        setTimeout(function() {
+          dispatch(receiveGalleryImage(list));
+        }, 3000);
+      };
+    };
+
+    var requestGalleryImage = function() {
+      return {
+        type: REQUEST_GALLERY_IMAGE
+      };
+    };
+
+    var receiveGalleryImage = function(list) {
+      return {
+        type: RECEIVE_GALLERY_IMAGE,
+        payload: list
+      }
+    };
+
+    var changeGallerySelection = function(list) {
+      return {
+        type: CHANGE_GALLERY_SELECTION,
+        payload: list
+      };
+    };
+
     /* exports */
     DEPENDENCIES_NAMESPACE.Actions = {
       DISPLAY_MODE: DISPLAY_MODE,
@@ -341,14 +407,24 @@ RT.FileUploader = {};
       END_EDIT: END_EDIT,
       UPDATE_PLACEHOLDER: UPDATE_PLACEHOLDER,
       UPDATE_LAYOUT: UPDATE_LAYOUT,
+      TRIGGER_GALLERY: TRIGGER_GALLERY,
+      CHANGE_GALLERY_FILTER: CHANGE_GALLERY_FILTER,
+      REQUEST_GALLERY_IMAGE: REQUEST_GALLERY_IMAGE,
+      RECEIVE_GALLERY_IMAGE: RECEIVE_GALLERY_IMAGE,
+      CHANGE_GALLERY_SELECTION: CHANGE_GALLERY_SELECTION,
 
       uploadStart: uploadStart,
+      addFile: addFile,
       deleteFile: deleteFile,
       updateLayout: updateLayout,
       startEdit: startEdit,
       endEdit: endEdit,
       updateEdit: updateEdit,
-      updatePlaceholder: updatePlaceholder
+      updatePlaceholder: updatePlaceholder,
+      triggerGallery: triggerGallery,
+      changeGalleryFilter: changeGalleryFilter,
+      fetchGalleryImage: fetchGalleryImage,
+      changeGallerySelection: changeGallerySelection
     };
   }());
 
@@ -364,6 +440,10 @@ RT.FileUploader = {};
     var MODE_DEPOT = 'MODE_DEPOT';
     var EDIT_DEPOT = 'EDIT_DEPOT';
     var PLACEHOLDER_DEPOT = 'PLACEHOLDER_DEPOT';
+    var GALLERY_STATUS_DEPOT = 'GALLERY_STATUS_DEPOT';
+    var GALLERY_FILTER_DEPOT = 'GALLERY_FILTER_DEPOT';
+    var GALLERY_IMAGE_DEPOT = 'GALLERY_IMAGE_DEPOT';
+    var GALLERY_SELECTION_DEPOT = 'GALLERY_SELECTION_DEPOT';
 
     /* dependencies */
     var Actions = DEPENDENCIES.Actions;
@@ -452,29 +532,39 @@ RT.FileUploader = {};
         break;
 
         case Actions.ADD_FILE:
+          var IDList = action.payload.IDList;
+          var urlList = action.payload.urlList;
+          var runningID = action.payload.runningID;
           var limit = action.payload.limit;
-          var fileList = action.payload.fileList;
-          var count = 0;
           var newEntities = {};
           var newEntityOrder = [];
+          var count = 0;
 
-          for (var i = 0; count < limit && i < fileList.length; i++) {
-            newEntities[count] = fileList[i];
-            newEntityOrder.push(count);
-            count++;
+          for (var i = 0; i < IDList.length && count < limit; i++) {
+            var id = IDList[i];
+            var url = urlList[i];
+            newEntities[id] = {
+              url: url,
+              status: FILE_STATUS_COMPLETE,
+              progress: 100
+            };
+
+            newEntityOrder.push(id);
+            ++count;
           }
 
-          for (var i = 0; count < limit && i < state.order.length; i++) {
-            var idx = (state.order)[i];
-            newEntities[count] = (state.entities)[idx];
-            newEntityOrder.push(count);
-            count++;
+          for (var i = 0; i < state.order.length && count < limit; i++) {
+            var id = state.order[i];
+            newEntities[id] = state.entities[id];
+            newEntityOrder.push(id);
+            ++count;
           }
 
           return $.extend({}, state, {
             entities: newEntities,
             order: newEntityOrder,
-            selections: []
+            selections: [],
+            runningID: runningID
           });
         break;
 
@@ -633,6 +723,113 @@ RT.FileUploader = {};
       }
     };
 
+    var galleryStatusDepotDefaultState = {
+      isOpened: false
+    };
+
+    var galleryStatusDepot = function(state, action) {
+      state = state || galleryStatusDepotDefaultState;
+      switch (action.type) {
+        case Actions.TRIGGER_GALLERY:
+          return $.extend({}, state, {
+            isOpened: !state.isOpened
+          });
+        break;
+
+        default:
+          return state;
+      }
+    };
+
+    var galleryFilterDepotDefaultState = {
+      totalPage: 5,
+      page: 1,
+      categoryList: [{text: '全部圖片 (72)', val: ''}, {text: '未分類 (72)', val: '0'}], 
+      category: '',
+      isFetching: false
+    };
+
+    var galleryFilterDepot = function(state, action) {
+      state = state || galleryFilterDepotDefaultState;
+      switch (action.type) {
+        case Actions.CHANGE_GALLERY_FILTER:
+          var category = action.payload.category;
+          var page = action.payload.page;
+
+          return $.extend({}, state, {
+            page: page,
+            category: category
+          });
+        break;
+
+        case Actions.REQUEST_GALLERY_IMAGE:
+          return $.extend({}, state, {
+            isFetching: true
+          });
+        break;
+
+        case Actions.RECEIVE_GALLERY_IMAGE:
+          return $.extend({}, state, {
+            isFetching: false
+          });
+        break;
+
+        default:
+          return state;
+      }
+    };
+
+    var galleryImageDepotDefaultState = {
+      list: [],
+      isFetching: false
+    };
+
+    var galleryImageDepot = function(state, action) {
+      state = state || galleryImageDepotDefaultState;
+      switch (action.type) {
+        case Actions.REQUEST_GALLERY_IMAGE:
+          return $.extend({}, state, {
+            isFetching: true,
+            list: []
+          });
+        break;
+
+        case Actions.RECEIVE_GALLERY_IMAGE:
+          return $.extend({}, state, {
+            isFetching: false,
+            list: action.payload
+          });
+        break;
+
+        default:
+          return state;
+      }
+    };
+
+    var gallerySelectionDepotDefaultState = {
+      list: []
+    };
+
+    var gallerySelectionDepot = function(state, action) {
+      state = state || gallerySelectionDepotDefaultState;
+      switch (action.type) {
+        case Actions.CHANGE_GALLERY_SELECTION:
+          return $.extend({}, state, {
+            list: action.payload
+          });
+        break;
+
+        case Actions.REQUEST_GALLERY_IMAGE:
+          return $.extend({}, state, {
+            list: []
+          });
+        break;
+
+        default:
+          return state;
+      }
+    };
+
     /* exports */
     DEPENDENCIES_NAMESPACE.Reducers = {
       FILE_STATUS_LOADING: FILE_STATUS_LOADING,
@@ -643,12 +840,20 @@ RT.FileUploader = {};
       MODE_DEPOT: MODE_DEPOT,
       EDIT_DEPOT: EDIT_DEPOT,
       PLACEHOLDER_DEPOT: PLACEHOLDER_DEPOT,
+      GALLERY_STATUS_DEPOT: GALLERY_STATUS_DEPOT,
+      GALLERY_FILTER_DEPOT: GALLERY_FILTER_DEPOT,
+      GALLERY_IMAGE_DEPOT: GALLERY_IMAGE_DEPOT,
+      GALLERY_SELECTION_DEPOT: GALLERY_SELECTION_DEPOT,
 
       fileDepot: fileDepot,
       layoutDepot: layoutDepot,
       modeDepot: modeDepot,
       editDepot: editDepot,
-      placeholderDepot: placeholderDepot
+      placeholderDepot: placeholderDepot,
+      galleryStatusDepot: galleryStatusDepot,
+      galleryFilterDepot: galleryFilterDepot,
+      galleryImageDepot: galleryImageDepot,
+      gallerySelectionDepot: gallerySelectionDepot
     };
   }({ Actions: DEPENDENCIES_NAMESPACE.Actions }));
 
@@ -704,6 +909,8 @@ RT.FileUploader = {};
     var Reducers = DEPENDENCIES.Reducers;
 
     var gen = function($store, opts) {
+      var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+
       var limit = opts.limit;
 
       var $hintText1 = $('<div />')
@@ -747,7 +954,11 @@ RT.FileUploader = {};
         .addClass('rt-button')
         .addClass('rt-button-mini')
         .addClass('rt-button-default')
-        .text('露天圖庫');
+        .text('露天圖庫')
+        .click(function() {
+          $store.dispatch(Actions.triggerGallery());
+          $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().category, getGalleryFilterDepot().page));
+        });
 
       var $wrap = $('<div />')
         .addClass('wrap')
@@ -1063,6 +1274,304 @@ RT.FileUploader = {};
     Actions: DEPENDENCIES_NAMESPACE.Actions
   }));
 
+  /* component - Gallery */
+  (function(DEPENDENCIES) {
+    /* dependencies */
+    var FpUtils = DEPENDENCIES.FpUtils;
+    var Reducers = DEPENDENCIES.Reducers;
+    var Actions = DEPENDENCIES.Actions;
+
+    var gen = function($store, opts) {
+      var $root = $('<div />')
+        .addClass('gallery');
+
+      $store.listen(Reducers.GALLERY_STATUS_DEPOT, function() {
+        __renderOnGalleryStatusDepotChanged__($store, opts, $root);
+      });
+
+      $store.listen(Reducers.GALLERY_FILTER_DEPOT, function() {
+        __renderOnGalleryFilterDepotChanged__($store, opts, $root);
+      });
+
+      $store.listen(Reducers.GALLERY_IMAGE_DEPOT, function() {
+        __renderOnGalleryImageDepotChanged__($store, opts, $root);
+      });
+
+      $store.listen(Reducers.GALLERY_SELECTION_DEPOT, function() {
+        __renderOnGallerySelectionDepotChanged__($store, opts, $root);
+      });
+
+      return __render__($store, opts, $root);
+    };
+
+    var __render__ = function($store, opts, $root) {
+      /* get states */
+      var getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
+      var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+      var getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
+      var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+
+      if (getGalleryStatusDepot().isOpened) {
+        $root.addClass('is-opened');
+      }
+
+      var $bg = $('<div />')
+        .addClass('overlay')
+        .click(function() {
+          $store.dispatch(Actions.triggerGallery());
+        });
+
+      var $dialogTitle = $('<div />')
+        .addClass('title')
+        .text('露天圖庫');
+
+      var $dialogContent = (function() {
+        var $root = $('<div />')
+          .addClass('content');
+
+        var $wrap = $('<div />')
+          .addClass('wrap');
+
+        var $toolBar = (function() {
+          var $root = $('<div />')
+            .addClass('tool-bar');
+
+          var $pagination = $('<select />')
+            .attr('data-ref', 'galleryPagination');;
+
+          for (var i = 1; i <= getGalleryFilterDepot().totalPage; i++) {
+            var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+
+            $pagination.append($option);
+          }
+
+          $pagination
+            .val(getGalleryFilterDepot().page)
+            .change(function(e) {
+              $this = $(this);
+              $store.dispatch(Actions.changeGalleryFilter(getGalleryFilterDepot().category, Number($this.val())));
+              $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().category, Number($this.val())));
+            });
+
+          var $category = $('<select />')
+            .attr('data-ref', 'galleryCategory');
+
+          for (var i = 0; i < getGalleryFilterDepot().categoryList.length; i++) {
+            var categoryItem = getGalleryFilterDepot().categoryList[i];
+            var $option = $('<option />').attr('value', categoryItem.val).text(categoryItem.text);
+
+            $category.append($option);
+          }
+
+          $category
+            .val(getGalleryFilterDepot().category)
+            .change(function(e) {
+              $this = $(this);
+              $store.dispatch(Actions.changeGalleryFilter($this.val(), 1));
+              $store.dispatch(Actions.fetchGalleryImage($this.val(), 1));
+            });
+
+          return $root
+            .append($category)
+            .append($pagination);
+        }());
+
+        var $listView = (function() {
+          var $root = $('<div />')
+            .addClass('list-view')
+            .attr('data-ref', 'galleryListView');
+
+          for (var i = 0; i < getGalleryImageDepot().list.length; i++) {
+            var url = getGalleryImageDepot().list[i];
+            var $listItem = $('<div />')
+              .addClass('list-item');
+
+            var $img = $('<img />')
+              .attr('width', opts.thumbnailWidth)
+              .attr('height', opts.thumbnailHeight)
+              .attr('src', url);
+
+            $listItem.append($img);
+            $root.append($listItem);
+          }
+
+          return $root;
+        }());
+
+        var $btnBar = (function() {
+          var $root = $('<div />')
+            .addClass('btn-bar');
+
+          var $ok = $('<button />')
+            .attr('type', 'button')
+            .addClass('rt-button rt-button-mini rt-button-submit')
+            .text('確定新增')
+            .click(function() {
+              var urlList = [];
+              var runningID = getFileDepot().runningID;
+              var selectionList = getGallerySelectionDepot().list;
+              var imageList = getGalleryImageDepot().list;
+              if (selectionList.length) {
+                for (var i = 0; i < selectionList.length; i++) {
+                  var selection = selectionList[i];
+                  urlList.push(imageList[selection]);
+                }
+
+                $store.dispatch(Actions.addFile(urlList, opts.limit, runningID));
+                $store.dispatch(Actions.triggerGallery());
+              }
+            });
+
+          var $no = $('<a />')
+            .attr('href', '#')
+            .text('取消')
+            .click(function(e) {
+              e.preventDefault();
+            });
+
+          return $root
+            .append($ok)
+            .append($no);
+        }());
+
+        $wrap
+          .append($toolBar)
+          .append($listView)
+          .append($btnBar);
+
+        return $root.append($wrap);
+      }());
+
+      var $dialog = $('<div />')
+        .addClass('dialog')
+        .append($dialogTitle)
+        .append($dialogContent);
+
+      $root
+        .append($bg)
+        .append($dialog);
+
+      return $root;
+    };
+
+    var __renderOnGalleryStatusDepotChanged__ = function($store, opts, $root) {
+      /* get states */
+      var getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
+
+      if (getGalleryStatusDepot().isOpened) {
+        $root.addClass('is-opened');
+      } else {
+        $root.removeClass('is-opened');
+      }
+    };
+
+    var __renderOnGalleryFilterDepotChanged__ = function($store, opts, $root) {
+      /* get states */
+      var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+
+      var $pagination = $root.find('[data-ref=galleryPagination]');
+      var $category = $root.find('[data-ref=galleryCategory]');
+
+      $pagination.empty();
+      for (var i = 1; i <= getGalleryFilterDepot().totalPage; i++) {
+        var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+
+        $pagination.append($option);
+      }
+
+      $pagination.val(getGalleryFilterDepot().page);
+
+      $category.empty();
+      for (var i = 0; i < getGalleryFilterDepot().categoryList.length; i++) {
+        var categoryItem = getGalleryFilterDepot().categoryList[i];
+        var $option = $('<option />').attr('value', categoryItem.val).text(categoryItem.text);
+
+        $category.append($option);
+      }
+
+      $category.val(getGalleryFilterDepot().category);
+
+      if (getGalleryFilterDepot().isFetching) {
+        $pagination.prop('disabled', true);
+        $category.prop('disabled', true);
+      } else {
+        $pagination.prop('disabled', false);
+        $category.prop('disabled', false);
+      }
+    };
+
+    var __renderOnGalleryImageDepotChanged__ = function($store, opts, $root) {
+      /* get states */
+      var getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
+      var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+
+      var $listView = $root.find('[data-ref=galleryListView]');
+
+      $listView.empty();
+
+      if (getGalleryImageDepot().isFetching) {
+        $icon = $('<i />')
+          .addClass('fa fa-circle-o-notch fa-spin fa-2x fa-fw loading-ring');
+        $listView.append($icon);
+      } else {
+        for (var i = 0; i < getGalleryImageDepot().list.length; i++) {
+          var url = getGalleryImageDepot().list[i];
+          var $listItem = $('<div />')
+            .addClass('list-item')
+            .click(function() {
+              var $this = $(this);
+              var selection = getGallerySelectionDepot().list.slice(0);
+              var n = $this.index();
+              var idx = selection.indexOf(n);
+
+              if (idx === -1) {
+                selection.push(n);
+                if (selection.length > opts.limit) {
+                  selection = selection.slice(selection.length - opts.limit);
+                }
+              } else {
+                selection.splice(idx, 1);
+              }
+
+              $store.dispatch(Actions.changeGallerySelection(selection));
+            });
+
+          var $img = $('<img />')
+            .attr('width', opts.thumbnailWidth)
+            .attr('height', opts.thumbnailHeight)
+            .attr('src', url);
+
+          $listItem.append($img);
+          $listView.append($listItem);
+        }
+      }
+    };
+
+    var __renderOnGallerySelectionDepotChanged__ = function($store, opts, $root) {
+      /* get states */
+      var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+
+      var $listView = $root.find('[data-ref=galleryListView]');
+
+      $listView.find('.is-selected').removeClass('is-selected');
+
+      for (var i = 0; i < getGallerySelectionDepot().list.length; i++) {
+        var n = getGallerySelectionDepot().list[i];
+        $listView.children().eq(n).addClass('is-selected');
+      }
+    };
+
+    /* exports */
+    DEPENDENCIES_NAMESPACE.Gallery = {
+      gen: gen
+    };
+  }({
+    FpUtils: DEPENDENCIES_NAMESPACE.FpUtils,
+    Reducers: DEPENDENCIES_NAMESPACE.Reducers,
+    Actions: DEPENDENCIES_NAMESPACE.Actions
+  }));
+
   /* entry */
   (function(DEPENDENCIES) {
     /* dependencies */
@@ -1074,6 +1583,7 @@ RT.FileUploader = {};
     var App = DEPENDENCIES.App;
     var ToolBar = DEPENDENCIES.ToolBar;
     var ThumbnailViewer = DEPENDENCIES.ThumbnailViewer;
+    var Gallery = DEPENDENCIES.Gallery;
 
     /* main functions */
     var __seasonOpts__ = function(opts) {
@@ -1096,6 +1606,10 @@ RT.FileUploader = {};
         newState[Reducers.MODE_DEPOT] = Reducers.modeDepot(state[Reducers.MODE_DEPOT], action);
         newState[Reducers.EDIT_DEPOT] = Reducers.editDepot(state[Reducers.EDIT_DEPOT], action);
         newState[Reducers.PLACEHOLDER_DEPOT] = Reducers.placeholderDepot(state[Reducers.PLACEHOLDER_DEPOT], action);
+        newState[Reducers.GALLERY_STATUS_DEPOT] = Reducers.galleryStatusDepot(state[Reducers.GALLERY_STATUS_DEPOT], action);
+        newState[Reducers.GALLERY_FILTER_DEPOT] = Reducers.galleryFilterDepot(state[Reducers.GALLERY_FILTER_DEPOT], action);
+        newState[Reducers.GALLERY_IMAGE_DEPOT] = Reducers.galleryImageDepot(state[Reducers.GALLERY_IMAGE_DEPOT], action);
+        newState[Reducers.GALLERY_SELECTION_DEPOT] = Reducers.gallerySelectionDepot(state[Reducers.GALLERY_SELECTION_DEPOT], action);
 
         return newState;
       };
@@ -1105,11 +1619,13 @@ RT.FileUploader = {};
       var $App = App.gen($store, opts);
       var $ToolBar = ToolBar.gen($store, opts);
       var $ThumbnailViewer = ThumbnailViewer.gen($store, opts);
+      var $Gallery = Gallery.gen($store, opts);
 
       var appendComponentToApp = FpUtils.curryIt(Utils.appendNode, $App);
 
       appendComponentToApp($ToolBar);
       appendComponentToApp($ThumbnailViewer);
+      appendComponentToApp($Gallery);
 
       return $App;
     };
@@ -1138,6 +1654,7 @@ RT.FileUploader = {};
     Reducers: DEPENDENCIES_NAMESPACE.Reducers,
     App: DEPENDENCIES_NAMESPACE.App,
     ToolBar: DEPENDENCIES_NAMESPACE.ToolBar,
-    ThumbnailViewer: DEPENDENCIES_NAMESPACE.ThumbnailViewer
+    ThumbnailViewer: DEPENDENCIES_NAMESPACE.ThumbnailViewer,
+    Gallery: DEPENDENCIES_NAMESPACE.Gallery
   }));
 }(RT.__FileUploaderDependencies__, RT.FileUploader));
