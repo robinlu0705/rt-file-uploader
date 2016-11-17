@@ -220,23 +220,33 @@ RT.FileUploader = {};
     var RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
     var CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
 
-    var uploadStart = function(fileList, limit, runningID) {
+    var uploadStart = function(fileList, limit, runningID, uploadFun) {
       return function(dispatch) {
-        var IDList = [];
-        var urlList = [];
-        var count = 0;
-
+        var itemList = [];
         for (var i = 0; i < fileList.length && i < limit; i++) {
-          IDList.push(runningID + 1 + i);
-          urlList.push('https://unsplash.it/120/90?image=' + (i + 101).toString());
-          ++count;
+          itemList.push({
+            id: runningID + 1 + i,
+            file: fileList.item(i)
+          })
         }
 
-        dispatch(addLoadingFile(IDList, runningID + count, limit));
+        dispatch(addLoadingFile($.map(itemList, function(item) {
+          return item.id;
+        }), runningID + itemList.length, limit));
 
-        setTimeout(function() {
-          dispatch(completeLoadingFile(IDList, urlList));
-        }, 3000);
+        var complete = function(retList) {
+          dispatch(completeLoadingFile(retList));
+        };
+
+        var error = function() {
+          /* TODO */
+        };
+
+        var timeout = function() {
+          /* TODO */
+        };
+
+        uploadFun(itemList, complete, error, timeout);
       };
     };
 
@@ -251,13 +261,10 @@ RT.FileUploader = {};
       };
     };
 
-    var completeLoadingFile = function(IDList, urlList) {
+    var completeLoadingFile = function(list) {
       return {
         type: COMPLETE_LOADING_FILE,
-        payload: {
-          IDList: IDList,
-          urlList: urlList
-        }
+        payload: list
       };
     };
 
@@ -362,9 +369,9 @@ RT.FileUploader = {};
       return function(dispatch) {
         dispatch(requestGalleryImage());
 
-        var list = [];0
+        var list = [];
         for (var i = 0; i < 30; i++) {
-          list.push('https://unsplash.it/120/90?image=' + page.toString());
+          list.push('./img/' + page.toString() + '.jpg');
         }
 
         setTimeout(function() {
@@ -495,9 +502,11 @@ RT.FileUploader = {};
         break;
 
         case Actions.COMPLETE_LOADING_FILE:
-          var IDList = action.payload.IDList;
-          var urlList = action.payload.urlList;
+          var list = action.payload;
           var needUpdate = false;
+          var IDList = $.map(list, function(item) {
+            return item.id;
+          });
 
           for (var i = 0; i < state.order.length; i++) {
             var id = state.order[i];
@@ -515,10 +524,12 @@ RT.FileUploader = {};
 
             for (var i = 0; i < IDList.length; i++) {
               var id = IDList[i];
-              var url = urlList[i];
+              var url = list[i].url;
+              var userDefinedData = list[i].userDefinedData;
               var entity = newEntities[id];
               if (entity) {
                 entity.url = url;
+                entity.userDefinedData = userDefinedData;
                 entity.status = FILE_STATUS_COMPLETE;
                 entity.progress = 100;
               }
@@ -885,7 +896,7 @@ RT.FileUploader = {};
           $root.removeClass('drag-over');
           var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
           var files = e.originalEvent.dataTransfer.files;
-          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID));
+          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.uploadFun));
         });
 
       return $root;
@@ -934,7 +945,7 @@ RT.FileUploader = {};
           var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
           var $this = $(this);
           var files = $this[0].files;
-          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID));
+          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.uploadFun));
           $this.val('');
        });
 
@@ -1597,7 +1608,7 @@ RT.FileUploader = {};
       });
     };
 
-    var __genUI__ = function(opts) {
+    var __createStore__ = function(opts) {
       /* create store with initial state */
       var combinedReducer = function(state, action) {
         var newState = {};
@@ -1614,7 +1625,10 @@ RT.FileUploader = {};
         return newState;
       };
 
-      var $store = StoreUtils.createStore(combinedReducer, opts.debug);
+      return StoreUtils.createStore(combinedReducer, opts.debug);
+    };
+
+    var __genUI__ = function($store, opts) {
       /* create file loader ui */
       var $App = App.gen($store, opts);
       var $ToolBar = ToolBar.gen($store, opts);
@@ -1641,8 +1655,25 @@ RT.FileUploader = {};
      */
     APP_NAMESPACE.gen = function($container, opts) {
       var appendUIToContainer = FpUtils.curryIt(Utils.appendNode, $container);
-      var execute = FpUtils.compose(appendUIToContainer, __genUI__, __seasonOpts__);
-      execute(opts);
+      var $store = __createStore__(opts);
+      var $App = __genUI__($store, opts);
+
+      appendUIToContainer($App);
+
+      return {
+        getFiles: function() {
+          var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+          return $.map(getFileDepot().order, function(id) {
+            var entity = getFileDepot().entities[id];
+            if (entity.status === Reducers.FILE_STATUS_COMPLETE) {
+              return {
+                url: entity.url,
+                userDefinedData: entity.userDefinedData
+              }
+            }
+          });
+        }
+      };
     };
 
     APP_NAMESPACE.__genUI__ = __genUI__;

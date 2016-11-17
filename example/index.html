@@ -13,14 +13,58 @@
 <body>
   <div id="loader" style="margin: 20px; min-height: 150px; background-color: #f3f3f3;"></div>
   <script>
+    var fileuploader;
     $(function() {
       var FileUploader = window.RT.FileUploader;
-      FileUploader.gen($('#loader'), {
+      fileuploader = FileUploader.gen($('#loader'), {
         limit: 3,
         minHeight: 150,
         thumbnailWidth: 120,
         thumbnailHeight: 90,
-        debug: true
+        debug: true,
+        /**
+         * @callback uploadFunSuccessCallback
+         * @param {Object[]} list
+         * @param {number} list[].id
+         * @param {string} list[].url
+         * @param {Object} list[].userDefinedData
+         */
+
+         /**
+         * @callback uploadFunErrorCallback
+         * no params
+         */
+
+         /**
+         * @callback uploadFunTimeoutCallback
+         * no params
+         */
+
+        /**
+         * @param {Object[]} itemList
+         * @param {number} itemList[].id
+         * @param {File} itemList[].file
+         * @param {uploadFunSuccessCallback} complete
+         * @param {uploadFunErrorCallback} error
+         * @param {uploadFunTimeoutCallback} timeout
+         */
+        uploadFun: function(itemList, complete, error, timeout) {
+          // replace setTimeout with your upload api using ajax
+          setTimeout(function() {
+            var retList = [];
+            for (var i = 0; i < itemList.length; i++) {
+              retList.push({
+                id: itemList[i].id,
+                url: './img/' + i.toString() + '.jpg',
+                userDefinedData: {
+                  // anything you need
+                }
+              });
+            }
+
+            complete(retList);
+          }, 3000);
+        }
       });
     });
   </script>
