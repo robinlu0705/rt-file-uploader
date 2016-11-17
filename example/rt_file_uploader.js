@@ -206,7 +206,7 @@ RT.FileUploader = {};
 
     /* action type constants */
     var ADD_LOADING_FILE = 'ADD_LOADING_FILE';
-    var COMPLETE_LOADING_FILE = 'COMPLETE_LOADING_FILE';
+    var UPDATE_LOADING_FILE = 'UPDATE_LOADING_FILE';
     var ADD_FILE = 'ADD_FILE';
     var DELETE_FILE = 'DELETE_FILE';
     var START_EDIT = 'START_EDIT';
@@ -220,7 +220,7 @@ RT.FileUploader = {};
     var RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
     var CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
 
-    var uploadStart = function(fileList, limit, runningID, uploadFun) {
+    var uploadStart = function(fileList, limit, runningID, onUpload) {
       return function(dispatch) {
         var itemList = [];
         for (var i = 0; i < fileList.length && i < limit; i++) {
@@ -234,19 +234,20 @@ RT.FileUploader = {};
           return item.id;
         }), runningID + itemList.length, limit));
 
-        var complete = function(retList) {
-          dispatch(completeLoadingFile(retList));
+        var update = function(list) {
+          dispatch(updateLoadingFile($.map(list, function(item) {
+            return {
+              id: item.id,
+              url: item.url,
+              status: item.status,
+              progress: item.progress,
+              errMsg: item.errMsg,
+              userDefinedData: item.userDefinedData
+            };
+          })));
         };
 
-        var error = function() {
-          /* TODO */
-        };
-
-        var timeout = function() {
-          /* TODO */
-        };
-
-        uploadFun(itemList, complete, error, timeout);
+        onUpload(itemList, update);
       };
     };
 
@@ -261,9 +262,9 @@ RT.FileUploader = {};
       };
     };
 
-    var completeLoadingFile = function(list) {
+    var updateLoadingFile = function(list) {
       return {
-        type: COMPLETE_LOADING_FILE,
+        type: UPDATE_LOADING_FILE,
         payload: list
       };
     };
@@ -406,7 +407,7 @@ RT.FileUploader = {};
       EDIT_MODE: EDIT_MODE,
 
       ADD_LOADING_FILE: ADD_LOADING_FILE,
-      COMPLETE_LOADING_FILE: COMPLETE_LOADING_FILE,
+      UPDATE_LOADING_FILE: UPDATE_LOADING_FILE,
       ADD_FILE: ADD_FILE,
       DELETE_FILE: DELETE_FILE,
       START_EDIT: START_EDIT,
@@ -440,6 +441,8 @@ RT.FileUploader = {};
     /* common constants */
     FILE_STATUS_LOADING = 'FILE_STATUS_LOADING';
     FILE_STATUS_COMPLETE = 'FILE_STATUS_COMPLETE';
+    FILE_STATUS_ERROR = 'FILE_STATUS_ERROR';
+    FILE_STATUS_TIMEOUT = 'FILE_STATUS_TIMEOUT';
 
     /* state parts constants */
     var FILE_DEPOT = 'FILE_DEPOT';
@@ -501,7 +504,7 @@ RT.FileUploader = {};
           });
         break;
 
-        case Actions.COMPLETE_LOADING_FILE:
+        case Actions.UPDATE_LOADING_FILE:
           var list = action.payload;
           var needUpdate = false;
           var IDList = $.map(list, function(item) {
@@ -525,13 +528,17 @@ RT.FileUploader = {};
             for (var i = 0; i < IDList.length; i++) {
               var id = IDList[i];
               var url = list[i].url;
+              var status = list[i].status;
+              var progress = list[i].progress;
+              var errMsg = list[i].errMsg;
               var userDefinedData = list[i].userDefinedData;
               var entity = newEntities[id];
               if (entity) {
                 entity.url = url;
+                entity.status = status;
+                entity.progress = progress;
+                entity.errMsg = errMsg;
                 entity.userDefinedData = userDefinedData;
-                entity.status = FILE_STATUS_COMPLETE;
-                entity.progress = 100;
               }
             }
 
@@ -845,6 +852,8 @@ RT.FileUploader = {};
     DEPENDENCIES_NAMESPACE.Reducers = {
       FILE_STATUS_LOADING: FILE_STATUS_LOADING,
       FILE_STATUS_COMPLETE: FILE_STATUS_COMPLETE,
+      FILE_STATUS_ERROR: FILE_STATUS_ERROR,
+      FILE_STATUS_TIMEOUT: FILE_STATUS_TIMEOUT,
 
       FILE_DEPOT: FILE_DEPOT,
       LAYOUT_DEPOT: LAYOUT_DEPOT,
@@ -896,7 +905,7 @@ RT.FileUploader = {};
           $root.removeClass('drag-over');
           var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
           var files = e.originalEvent.dataTransfer.files;
-          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.uploadFun));
+          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.onUpload));
         });
 
       return $root;
@@ -945,7 +954,7 @@ RT.FileUploader = {};
           var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
           var $this = $(this);
           var files = $this[0].files;
-          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.uploadFun));
+          $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.onUpload));
           $this.val('');
        });
 
@@ -1100,15 +1109,15 @@ RT.FileUploader = {};
           break;
 
           case Reducers.FILE_STATUS_COMPLETE:
-            if (file.url) {
-              $img.css('background-image', 'url(' + file.url + ')');
-            } else {
-              $msg = $('<div />')
+            $img.css('background-image', 'url(' + file.url + ')');
+          break;
+
+          case Reducers.FILE_STATUS_ERROR:
+            $msg = $('<div />')
                 .addClass('msg')
                 .append($('<i />').addClass('fa fa-exclamation-triangle icon'))
-                .append($('<div />').addClass('text').text('檔案格式錯誤'));
-              $img.append($msg);
-            }
+                .append($('<div />').addClass('text').text(file.errMsg));
+            $img.append($msg);
           break;
         }
 
@@ -1665,15 +1674,24 @@ RT.FileUploader = {};
           var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
           return $.map(getFileDepot().order, function(id) {
             var entity = getFileDepot().entities[id];
-            if (entity.status === Reducers.FILE_STATUS_COMPLETE) {
-              return {
-                url: entity.url,
-                userDefinedData: entity.userDefinedData
-              }
+            return {
+              id: id,
+              url: entity.url,
+              status: entity.status,
+              progress: entity.progress,
+              errMsg: entity.errMsg,
+              userDefinedData: entity.userDefinedData
             }
           });
         }
       };
+    };
+
+    APP_NAMESPACE.FILE_STATUS = {
+      COMPLETE: Reducers.FILE_STATUS_COMPLETE,
+      LOADING: Reducers.FILE_STATUS_LOADING,
+      ERROR: Reducers.FILE_STATUS_ERROR,
+      TIMEOUT: Reducers.FILE_STATUS_TIMEOUT
     };
 
     APP_NAMESPACE.__genUI__ = __genUI__;

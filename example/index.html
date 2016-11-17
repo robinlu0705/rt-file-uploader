@@ -23,32 +23,23 @@
         thumbnailHeight: 90,
         debug: true,
         /**
-         * @callback uploadFunSuccessCallback
+         * @callback updateCallback
          * @param {Object[]} list
-         * @param {number} list[].id
-         * @param {string} list[].url
+         * @param {Number} list[].id
+         * @param {String} list[].url
+         * @param {String} list[].status
+         * @param {Number} list[].progress
+         * @param {String} list[].errMsg
          * @param {Object} list[].userDefinedData
-         */
-
-         /**
-         * @callback uploadFunErrorCallback
-         * no params
-         */
-
-         /**
-         * @callback uploadFunTimeoutCallback
-         * no params
          */
 
         /**
          * @param {Object[]} itemList
-         * @param {number} itemList[].id
+         * @param {Number} itemList[].id
          * @param {File} itemList[].file
-         * @param {uploadFunSuccessCallback} complete
-         * @param {uploadFunErrorCallback} error
-         * @param {uploadFunTimeoutCallback} timeout
+         * @param {updateCallback} update
          */
-        uploadFun: function(itemList, complete, error, timeout) {
+        onUpload: function(itemList, update) {
           // replace setTimeout with your upload api using ajax
           setTimeout(function() {
             var retList = [];
@@ -56,13 +47,16 @@
               retList.push({
                 id: itemList[i].id,
                 url: './img/' + i.toString() + '.jpg',
+                status: FileUploader.FILE_STATUS.COMPLETE,
+                progress: 100,
+                errMsg: '',
                 userDefinedData: {
                   // anything you need
                 }
               });
             }
 
-            complete(retList);
+            update(retList);
           }, 3000);
         }
       });
