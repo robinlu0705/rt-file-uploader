@@ -269,22 +269,21 @@ RT.FileUploader = {};
       };
     };
 
-    var addFile = function(urlList, limit, runningID) {
-      var IDList = [];
-      var count = 0;
-
-      for (var i = 0; i < urlList.length && i < limit; i++) {
-        IDList.push(runningID + 1 + i);
-        ++count;
-      }
+    var addFile = function(list, limit, runningID) {
+      list = $.map(list.slice(0, limit), function(item, idx) {
+        return {
+          id: runningID + 1 + idx,
+          url: item.url,
+          userDefinedData: item.userDefinedData
+        };
+      });
 
       return {
         type: ADD_FILE,
         payload: {
+          list: list,
           limit: limit,
-          IDList: IDList,
-          urlList: urlList,
-          runningID: runningID + count
+          runningID: runningID + list.length
         }
       };
     };
@@ -372,7 +371,9 @@ RT.FileUploader = {};
 
         var list = [];
         for (var i = 0; i < 30; i++) {
-          list.push('./img/' + page.toString() + '.jpg');
+          list.push({
+            url: './img/' + page.toString() + '.jpg'
+          });
         }
 
         setTimeout(function() {
@@ -550,21 +551,23 @@ RT.FileUploader = {};
         break;
 
         case Actions.ADD_FILE:
-          var IDList = action.payload.IDList;
-          var urlList = action.payload.urlList;
+          var list = action.payload.list;
           var runningID = action.payload.runningID;
           var limit = action.payload.limit;
           var newEntities = {};
           var newEntityOrder = [];
           var count = 0;
 
-          for (var i = 0; i < IDList.length && count < limit; i++) {
-            var id = IDList[i];
-            var url = urlList[i];
+          for (var i = 0; i < list.length && count < limit; i++) {
+            var id = list[i].id;
+            var url = list[i].url;
+            var userDefinedData = list[i].userDefinedData;
             newEntities[id] = {
               url: url,
               status: FILE_STATUS_COMPLETE,
-              progress: 100
+              progress: 100,
+              errMsg: '',
+              userDefinedData: userDefinedData
             };
 
             newEntityOrder.push(id);
@@ -1403,7 +1406,7 @@ RT.FileUploader = {};
             .attr('data-ref', 'galleryListView');
 
           for (var i = 0; i < getGalleryImageDepot().list.length; i++) {
-            var url = getGalleryImageDepot().list[i];
+            var url = getGalleryImageDepot().list[i].url;
             var $listItem = $('<div />')
               .addClass('list-item');
 
@@ -1428,17 +1431,20 @@ RT.FileUploader = {};
             .addClass('rt-button rt-button-mini rt-button-submit')
             .text('確定新增')
             .click(function() {
-              var urlList = [];
+              var list = [];
               var runningID = getFileDepot().runningID;
               var selectionList = getGallerySelectionDepot().list;
               var imageList = getGalleryImageDepot().list;
               if (selectionList.length) {
                 for (var i = 0; i < selectionList.length; i++) {
                   var selection = selectionList[i];
-                  urlList.push(imageList[selection]);
+                  list.push({
+                    url: imageList[selection].url,
+                    userDefinedData: imageList[selection].userDefinedData
+                  });
                 }
 
-                $store.dispatch(Actions.addFile(urlList, opts.limit, runningID));
+                $store.dispatch(Actions.addFile(list, opts.limit, runningID));
                 $store.dispatch(Actions.triggerGallery());
               }
             });
@@ -1448,6 +1454,7 @@ RT.FileUploader = {};
             .text('取消')
             .click(function(e) {
               e.preventDefault();
+              $store.dispatch(Actions.triggerGallery());
             });
 
           return $root
@@ -1536,7 +1543,7 @@ RT.FileUploader = {};
         $listView.append($icon);
       } else {
         for (var i = 0; i < getGalleryImageDepot().list.length; i++) {
-          var url = getGalleryImageDepot().list[i];
+          var url = getGalleryImageDepot().list[i].url;
           var $listItem = $('<div />')
             .addClass('list-item')
             .click(function() {
@@ -1683,6 +1690,16 @@ RT.FileUploader = {};
               userDefinedData: entity.userDefinedData
             }
           });
+        },
+
+        setFiles: function(list) {
+          var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+          $store.dispatch(Actions.addFile($.map(list, function(item) {
+            return {
+              url: item.url,
+              userDefinedData: item.userDefinedData
+            };
+          }), opts.limit, getFileDepot().runningID));
         }
       };
     };
@@ -1701,6 +1718,7 @@ RT.FileUploader = {};
     StoreUtils: DEPENDENCIES_NAMESPACE.StoreUtils,
     Utils: DEPENDENCIES_NAMESPACE.Utils,
     Reducers: DEPENDENCIES_NAMESPACE.Reducers,
+    Actions: DEPENDENCIES_NAMESPACE.Actions,
     App: DEPENDENCIES_NAMESPACE.App,
     ToolBar: DEPENDENCIES_NAMESPACE.ToolBar,
     ThumbnailViewer: DEPENDENCIES_NAMESPACE.ThumbnailViewer,
