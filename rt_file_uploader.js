@@ -895,6 +895,7 @@ RT.FileUploader = {};
 
       var $root = $('<div />')
         .addClass(IDENTIFIER)
+        .css('minHeight', opts.minHeight)
         .on('dragover', function(e) {
           e.preventDefault();
           $root.addClass('drag-over');
@@ -1008,8 +1009,7 @@ RT.FileUploader = {};
 
       if (!getFileDepot().order.length) {
         $root
-          .addClass('hint')
-          .css('height', opts.minHeight - 10);
+          .addClass('hint');
       } else {
         $root
           .removeClass('hint')
@@ -1617,7 +1617,7 @@ RT.FileUploader = {};
       var userAgent = navigator.userAgent || navigator.vendor || window.opera;
       return $.extend({}, opts, {
         uiType: Utils.checkEnv(userAgent),
-        minHeight: opts.minHeight || 140,
+        minHeight: opts.minHeight || 160,
         thumbnailWidth: opts.thumbnailWidth || 120,
         thumbnailHeight: opts.thumbnailHeight || 90,
         limit: opts.limit || 3

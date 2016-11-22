@@ -31,7 +31,7 @@ Supports drag-and-drop uploading, drag-and-drop reordering, 露天圖庫.
 
 **create a container in your html**
 ```html
-<div id="uploader" style="margin: 20px; min-height: 150px; background-color: #f3f3f3;"></div>
+<div id="uploader" style="margin: 20px; min-height: 160px; background-color: #f3f3f3;"></div>
 ```
 
 **generate the file uploader**
@@ -41,7 +41,7 @@ var FileUploader = window.RT.FileUploader;
 var fileuploader = FileUploader.gen($('#uploader'), {
     /* options */
     limit: 3,
-    minHeight: 150,
+    minHeight: 160,
     thumbnailWidth: 120,
     thumbnailHeight: 90,
     debug: false,
@@ -54,7 +54,7 @@ var fileuploader = FileUploader.gen($('#uploader'), {
 ### Options
 
 * `limit`: (Number) How many files uploader can take. **Default**: 3
-* `minHeight`: (Number) Minimum height of uploader in pixels. **Default**: 150
+* `minHeight`: (Number) Minimum height of uploader in pixels. **Default**: 160
 * `thumbnailWidth`: (Number) Thumbnail width in pixels. **Default**: 120
 * `thumbnailHeight`: (Number) Thumbnail height in pixels. **Default**: 90
 * `debug`: (Boolean) If true, module will output some debug information. **Default**: false
