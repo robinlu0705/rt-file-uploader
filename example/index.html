@@ -21,6 +21,12 @@
         minHeight: 160,
         thumbnailWidth: 120,
         thumbnailHeight: 90,
+        galleryFilterOpts: [
+          { categoryName: '全部圖片 (83)', categoryVal: '', totalPages: 3 },
+          { categoryName: '未分類 (72)', categoryVal: '0', totalPages: 3 },
+          { categoryName: 'TEST1 (11)', categoryVal: '4664344', totalPages: 1 }
+        ],
+
         debug: true,
         /**
          * @callback updateCallback
@@ -58,7 +64,64 @@
 
             update(retList);
           }, 3000);
-        }
+        },
+
+        /**
+         * @callback updateGalleryCallback
+         * @param {Object[]} list
+         * @param {String} list[].url
+         * @param {Object} list[].userDefinedData
+         */
+
+        /**
+         * @param {String} categoryVal
+         * @param {Number} page
+         * @param {updateGalleryCallback} update
+         */
+        onFetchGallery: function(categoryVal, page, update) {
+          // replace setTimeout with your fetch api using ajax
+          setTimeout(function() {
+            var retList = [];
+            for (var i = 0; i < 30; i++) {
+              retList.push({
+                url: './img/' + page.toString() + '.jpg',
+                userDefinedData: {
+                  // anything you need
+                }
+              });
+            }
+
+            update(retList);
+          }, 3000);
+        },
+
+        /**
+         * @param {Object[]} itemList
+         * @param {Number} itemList[].id
+         * @param {Number} itemList[].url
+         * @param {File} itemList[].userDefinedData
+         * @param {updateCallback} update
+         */
+        onUploadFromGallery: function(itemList, update) {
+          // replace setTimeout with your upload api using ajax
+          setTimeout(function() {
+            var retList = [];
+            for (var i = 0; i < itemList.length; i++) {
+              retList.push({
+                id: itemList[i].id,
+                url: './img/' + i.toString() + '.jpg',
+                status: FileUploader.FILE_STATUS.COMPLETE,
+                progress: 100,
+                errMsg: '',
+                userDefinedData: {
+                  // anything you need
+                }
+              });
+            }
+
+            update(retList);
+          }, 3000);
+        },
       });
     });
   </script>

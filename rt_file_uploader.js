@@ -215,6 +215,7 @@ RT.FileUploader = {};
     var UPDATE_PLACEHOLDER = 'UPDATE_PLACEHOLDER';
     var UPDATE_LAYOUT = 'UPDATE_LAYOUT';
     var TRIGGER_GALLERY = 'TRIGGER_GALLERY';
+    var SET_GALLERY_FILTER_OPTS = 'SET_GALLERY_FILTER_OPTS';
     var CHANGE_GALLERY_FILTER = 'CHANGE_GALLERY_FILTER';
     var REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
     var RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
@@ -234,20 +235,56 @@ RT.FileUploader = {};
           return item.id;
         }), runningID + itemList.length, limit));
 
-        var update = function(list) {
-          dispatch(updateLoadingFile($.map(list, function(item) {
-            return {
-              id: item.id,
-              url: item.url,
-              status: item.status,
-              progress: item.progress,
-              errMsg: item.errMsg,
-              userDefinedData: item.userDefinedData
-            };
-          })));
-        };
+        if (typeof onUpload === 'function') {
+          var update = function(list) {
+            dispatch(updateLoadingFile($.map(list, function(item) {
+              return {
+                id: item.id,
+                url: item.url,
+                status: item.status,
+                progress: item.progress,
+                errMsg: item.errMsg,
+                userDefinedData: item.userDefinedData
+              };
+            })));
+          };
 
-        onUpload(itemList, update);
+          onUpload(itemList, update);
+        }
+      };
+    };
+
+    var uploadFromGalleryStart = function(fileList, limit, runningID, onUploadFromGallery) {
+      return function(dispatch) {
+        var itemList = [];
+        for (var i = 0; i < fileList.length && i < limit; i++) {
+          itemList.push({
+            id: runningID + 1 + i,
+            url: fileList[i].url,
+            userDefinedData: fileList[i].userDefinedData
+          })
+        }
+
+        dispatch(addLoadingFile($.map(itemList, function(item) {
+          return item.id;
+        }), runningID + itemList.length, limit));
+
+        if (typeof onUploadFromGallery === 'function') {
+          var update = function(list) {
+            dispatch(updateLoadingFile($.map(list, function(item) {
+              return {
+                id: item.id,
+                url: item.url,
+                status: item.status,
+                progress: item.progress,
+                errMsg: item.errMsg,
+                userDefinedData: item.userDefinedData
+              };
+            })));
+          };
+
+          onUploadFromGallery(itemList, update);
+        }
       };
     };
 
@@ -355,6 +392,13 @@ RT.FileUploader = {};
       };
     };
 
+    var setGalleryFilterOpts = function(optList) {
+      return {
+        type: SET_GALLERY_FILTER_OPTS,
+        payload: optList
+      };
+    };
+
     var changeGalleryFilter = function(category, page) {
       return {
         type: CHANGE_GALLERY_FILTER,
@@ -365,20 +409,21 @@ RT.FileUploader = {};
       }
     };
 
-    var fetchGalleryImage = function(category, page) {
+    var fetchGalleryImage = function(categoryVal, page, onFetchGallery) {
       return function(dispatch) {
         dispatch(requestGalleryImage());
+        if (typeof onFetchGallery === 'function') {
+          var update = function(list) {
+            dispatch(receiveGalleryImage($.map(list, function(item) {
+              return {
+                url: item.url,
+                userDefinedData: item.userDefinedData
+              };
+            })));
+          };
 
-        var list = [];
-        for (var i = 0; i < 30; i++) {
-          list.push({
-            url: './img/' + page.toString() + '.jpg'
-          });
+          onFetchGallery(categoryVal, Number(page), update);
         }
-
-        setTimeout(function() {
-          dispatch(receiveGalleryImage(list));
-        }, 3000);
       };
     };
 
@@ -417,12 +462,14 @@ RT.FileUploader = {};
       UPDATE_PLACEHOLDER: UPDATE_PLACEHOLDER,
       UPDATE_LAYOUT: UPDATE_LAYOUT,
       TRIGGER_GALLERY: TRIGGER_GALLERY,
+      SET_GALLERY_FILTER_OPTS: SET_GALLERY_FILTER_OPTS,
       CHANGE_GALLERY_FILTER: CHANGE_GALLERY_FILTER,
       REQUEST_GALLERY_IMAGE: REQUEST_GALLERY_IMAGE,
       RECEIVE_GALLERY_IMAGE: RECEIVE_GALLERY_IMAGE,
       CHANGE_GALLERY_SELECTION: CHANGE_GALLERY_SELECTION,
 
       uploadStart: uploadStart,
+      uploadFromGalleryStart: uploadFromGalleryStart,
       addFile: addFile,
       deleteFile: deleteFile,
       updateLayout: updateLayout,
@@ -431,6 +478,7 @@ RT.FileUploader = {};
       updateEdit: updateEdit,
       updatePlaceholder: updatePlaceholder,
       triggerGallery: triggerGallery,
+      setGalleryFilterOpts: setGalleryFilterOpts,
       changeGalleryFilter: changeGalleryFilter,
       fetchGalleryImage: fetchGalleryImage,
       changeGallerySelection: changeGallerySelection
@@ -763,16 +811,38 @@ RT.FileUploader = {};
     };
 
     var galleryFilterDepotDefaultState = {
-      totalPage: 5,
       page: 1,
-      categoryList: [{text: '全部圖片 (72)', val: ''}, {text: '未分類 (72)', val: '0'}], 
-      category: '',
+      categoryList: [ { text: '--', val: '', totalPages: 1 } ], 
+      category: 0,
       isFetching: false
     };
 
     var galleryFilterDepot = function(state, action) {
       state = state || galleryFilterDepotDefaultState;
       switch (action.type) {
+        case Actions.SET_GALLERY_FILTER_OPTS:
+          var opts = $.grep(action.payload, function(opt) {
+            return opt.hasOwnProperty('categoryVal');
+          });
+
+          if (opts.length > 0) {
+            return $.extend({}, state, {
+              categoryList: $.map(opts, function(opt) {
+                return {
+                  text: opt.categoryName || opt.categoryVal,
+                  val: opt.categoryVal,
+                  totalPages: opt.totalPages
+                };
+              }),
+
+              category: 0,
+              page: 1
+            });
+          } else {
+            return state;
+          }
+        break;
+
         case Actions.CHANGE_GALLERY_FILTER:
           var category = action.payload.category;
           var page = action.payload.page;
@@ -981,7 +1051,7 @@ RT.FileUploader = {};
         .text('露天圖庫')
         .click(function() {
           $store.dispatch(Actions.triggerGallery());
-          $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().category, getGalleryFilterDepot().page));
+          $store.dispatch(Actions.fetchGalleryImage((getGalleryFilterDepot().categoryList)[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
         });
 
       var $wrap = $('<div />')
@@ -1363,7 +1433,7 @@ RT.FileUploader = {};
           var $pagination = $('<select />')
             .attr('data-ref', 'galleryPagination');;
 
-          for (var i = 1; i <= getGalleryFilterDepot().totalPage; i++) {
+          for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
             var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
 
             $pagination.append($option);
@@ -1374,7 +1444,7 @@ RT.FileUploader = {};
             .change(function(e) {
               $this = $(this);
               $store.dispatch(Actions.changeGalleryFilter(getGalleryFilterDepot().category, Number($this.val())));
-              $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().category, Number($this.val())));
+              $store.dispatch(Actions.fetchGalleryImage((getGalleryFilterDepot().categoryList)[getGalleryFilterDepot().category].val, Number($this.val()), opts.onFetchGallery));
             });
 
           var $category = $('<select />')
@@ -1391,8 +1461,8 @@ RT.FileUploader = {};
             .val(getGalleryFilterDepot().category)
             .change(function(e) {
               $this = $(this);
-              $store.dispatch(Actions.changeGalleryFilter($this.val(), 1));
-              $store.dispatch(Actions.fetchGalleryImage($this.val(), 1));
+              $store.dispatch(Actions.changeGalleryFilter(Number($this.val()), 1));
+              $store.dispatch(Actions.fetchGalleryImage((getGalleryFilterDepot().categoryList)[getGalleryFilterDepot().category].val, 1, opts.onFetchGallery));
             });
 
           return $root
@@ -1444,7 +1514,7 @@ RT.FileUploader = {};
                   });
                 }
 
-                $store.dispatch(Actions.addFile(list, opts.limit, runningID));
+                $store.dispatch(Actions.uploadFromGalleryStart(list, opts.limit, runningID, opts.onUploadFromGallery));
                 $store.dispatch(Actions.triggerGallery());
               }
             });
@@ -1501,7 +1571,7 @@ RT.FileUploader = {};
       var $category = $root.find('[data-ref=galleryCategory]');
 
       $pagination.empty();
-      for (var i = 1; i <= getGalleryFilterDepot().totalPage; i++) {
+      for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
         var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
 
         $pagination.append($option);
@@ -1512,7 +1582,7 @@ RT.FileUploader = {};
       $category.empty();
       for (var i = 0; i < getGalleryFilterDepot().categoryList.length; i++) {
         var categoryItem = getGalleryFilterDepot().categoryList[i];
-        var $option = $('<option />').attr('value', categoryItem.val).text(categoryItem.text);
+        var $option = $('<option />').attr('value', i.toString()).text(categoryItem.text);
 
         $category.append($option);
       }
@@ -1620,7 +1690,8 @@ RT.FileUploader = {};
         minHeight: opts.minHeight || 160,
         thumbnailWidth: opts.thumbnailWidth || 120,
         thumbnailHeight: opts.thumbnailHeight || 90,
-        limit: opts.limit || 3
+        limit: opts.limit || 3,
+        galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : []
       });
     };
 
@@ -1670,8 +1741,12 @@ RT.FileUploader = {};
      * @param {number} opts.limit
      */
     APP_NAMESPACE.gen = function($container, opts) {
+      opts = __seasonOpts__(opts);
       var appendUIToContainer = FpUtils.curryIt(Utils.appendNode, $container);
       var $store = __createStore__(opts);
+
+      $store.dispatch(Actions.setGalleryFilterOpts(opts.galleryFilterOpts));
+
       var $App = __genUI__($store, opts);
 
       appendUIToContainer($App);

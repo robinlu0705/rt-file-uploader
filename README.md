@@ -57,9 +57,13 @@ var fileuploader = FileUploader.gen($('#uploader'), {
 * `minHeight`: (Number) Minimum height of uploader in pixels. **Default**: 160
 * `thumbnailWidth`: (Number) Thumbnail width in pixels. **Default**: 120
 * `thumbnailHeight`: (Number) Thumbnail height in pixels. **Default**: 90
+* `galleryFilterOpts`: (Object[]) Used for Gallery's filter and pagination. An array of objects with the properties should be supplied:
+    * `categoryName`: (String) The text showed in the filter select.
+    * `categoryVal`: (String) This value will be used in `onFetchGallery`.
+    * `totalPages`: (Number) Total pages of the category.
 * `debug`: (Boolean) If true, module will output some debug information. **Default**: false
-* `onUpload`: (Function) When it is called, the function is passed 2 arguments: 
-    * `itemList`: (Object[]) A list of objects With two properties, `id` (Number) and `file` (File).
+* `onUpload`: (Function) Called when user inserts some files through DnD/FilePicker. When it is called, the function is passed 2 arguments: 
+    * `itemList`: (Object[]) An array of objects with two properties, `id` (Number) and `file` (File).
     * `update`: (Function) Invoke `update` when you need to update thumbnails.
 
         eg:
@@ -71,7 +75,7 @@ var fileuploader = FileUploader.gen($('#uploader'), {
                     return item.file;
                 })
             }).done(function(dataArray) {
-                /* invoke update with the list of shape: */
+                /* invoke update with an array of objects with the properties: */
                 update($.map(dataArray, function(data, idx) {
                     id: itemList[idx].id,
                     url: data.url,
@@ -79,11 +83,15 @@ var fileuploader = FileUploader.gen($('#uploader'), {
                     progress: 100,
                     errMsg: '',
                     userDefinedData: {
-                        /* anything you need */
+                      /**
+                       * anything you need, the component stores it and pass it back to you on `getFiles`
+                       * e.g.
+                       * hash: data.hash
+                       */
                     }
                 });
             }).fail(function() {
-                /* invoke update with the list of shape: */
+                /* invoke update with an array of objects with the properties: */
                 update($.map(dataArray, function(data, idx) {
                     id: itemList[idx].id,
                     url: '',
@@ -91,7 +99,79 @@ var fileuploader = FileUploader.gen($('#uploader'), {
                     progress: 0,
                     errMsg: 'Error message will show on thumbnails',
                     userDefinedData: {
-                        /* anything you need */
+                      /* anything you need, the component stores it and pass it back to you on `getFiles` */
+                    }
+                });
+            });
+        }
+        ```
+
+* `onFetchGallery`: (Function) Called when Gallery box is up or category/page changed. When it is called, the function is passed 3 arguments: 
+    * `categoryVal`: (String)
+    * `page`: (Number)
+    * `update`: (Function) Invoke `update` to update the images showed in Gallery box.
+
+        eg:
+
+        ```javascript
+        onFetchGallery: function(categoryVal, page, update) {
+            $.post('http://your.gallery.api/', {
+                class: categoryVal,
+                page: page
+            }).done(function(dataArray) {
+                /* invoke update with an array of objects with the properties: */
+                update($.map(dataArray, function(data, idx) {
+                    url: data.url,
+                    userDefinedData: {
+                      /**
+                       * anything you need, the component stores it and pass it back to you on `onUploadFromGallery`
+                       * e.g.
+                       * fileName: data.fileName
+                       */
+                    }
+                });
+            });
+        }
+        ```
+
+* `onUploadFromGallery`: (Function) Called when user inserts some files through Gallery. When it is called, the function is passed 2 arguments: 
+    * `itemList`: (Object[]) An array of objects with three properties, `id` (Number), `url` (String) and `userDefinedData` (Object).
+    * `update`: (Function) Invoke `update` when you need to update thumbnails.
+
+        eg:
+
+        ```javascript
+        onUploadFromGallery: function(itemList, update) {
+            $.post('http://your.upload.from.gallery.api/', {
+                fileArray: $.map(itemList, function(item) {
+                    return item.userDefinedData.fileName;
+                })
+            }).done(function(dataArray) {
+                /* invoke update with an array of objects with the properties: */
+                update($.map(dataArray, function(data, idx) {
+                    id: itemList[idx].id,
+                    url: data.url,
+                    status: FileUploader.FILE_STATUS.COMPLETE,
+                    progress: 100,
+                    errMsg: '',
+                    userDefinedData: {
+                      /**
+                       * anything you need, the component stores it and pass it back to you on `getFiles`
+                       * e.g.
+                       * hash: data.hash
+                       */
+                    }
+                });
+            }).fail(function() {
+                /* invoke update with an array of objects with the properties: */
+                update($.map(dataArray, function(data, idx) {
+                    id: itemList[idx].id,
+                    url: '',
+                    status: FileUploader.FILE_STATUS.ERROR,
+                    progress: 0,
+                    errMsg: 'Error message will show on thumbnails',
+                    userDefinedData: {
+                      /* anything you need, the component stores it and pass it back to you on `getFiles` */
                     }
                 });
             });
@@ -109,7 +189,7 @@ var fileuploader = FileUploader.gen($('#uploader'), {
 
 ## Instance Methods
 
-* `getFiles`: Returns a list of objects with properties:
+* `getFiles`: Returns an array of objects with properties:
     * `id`: (Number)
     * `url`: (String)
     * `status`: (String) One of `FileUploader.FILE_STATUS`.
