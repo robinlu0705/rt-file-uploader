@@ -237,7 +237,7 @@
       background-color: #fff;
       border-radius: 3px;
       margin: 0 auto;
-      width: 580px;
+      width: 710px;
       position: absolute;
       top: 100px;
       right: 0;
@@ -299,14 +299,44 @@
         > .list-item {
           display: inline-block;
           vertical-align: bottom;
-          padding: 4px;
-          margin: 2px;
+          margin: 3px;
+          padding: 3px;
           cursor: pointer;
 
           &.is-selected {
-            padding: 2px;
-            border: 2px solid #f05940;
-            border-radius: 4px;
+            position: relative;
+            padding: 0;
+            border: 3px solid #f05940;
+            border-radius: 7px;
+
+            &:before {
+              content: '';
+              display: inline-block;
+              position: absolute;
+              right: 0;
+              bottom: 0;
+              width: 0;
+              height: 0;
+              border-top: 12px solid transparent;
+              border-right: 12px solid #f05940;
+              border-bottom: 12px solid #f05940;
+              border-left: 12px solid transparent;
+            }
+
+            &:after {
+              content: '';
+              display: inline-block;
+              position: absolute;
+              right: 2px;
+              bottom: 5px;
+              width: 6px;
+              height: 3px;
+              border-bottom: 2px solid white;
+              border-left: 2px solid white;
+              -webkit-transform: rotateZ(-45deg);
+              -ms-transform: rotateZ(-45deg);
+              transform: rotateZ(-45deg);
+            }
           }
 
           img {
