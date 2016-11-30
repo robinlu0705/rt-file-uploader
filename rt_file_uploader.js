@@ -1044,6 +1044,7 @@ RT.FileUploader = {};
         .append(_$addLocalFakeButton);
 
       var $addRuten = $('<button />')
+        .attr('type', 'button')
         .addClass('action')
         .addClass('rt-button')
         .addClass('rt-button-mini')
