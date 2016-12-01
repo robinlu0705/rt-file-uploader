@@ -1,0 +1,30 @@
+{
+  "name": "rt_file_uploader",
+  "version": "0.2.0",
+  "description": "An UI component for file(image) uploading.",
+  "main": "rt_file_uploader.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "build-prod": "webpack -p --config webpack.config.js",
+    "postbuild-prod": "cp src/rt_file_uploader.less dist/ && cp dist/* example",
+    "build-dev": "webpack -d --config webpack.config.js",
+    "postbuild-dev": "cp src/rt_file_uploader.less dist/ && cp dist/* example",
+    "publish": "npm run build-prod",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.240.0.3:80/robinlu/rt_rile_uploader.git"
+  },
+  "author": "Robin Lu",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "webpack": "^1.13.3"
+  }
+}
