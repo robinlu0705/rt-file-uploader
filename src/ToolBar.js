@@ -3,9 +3,9 @@ import * as FpUtils from 'FpUtils';
 import * as Actions from 'Actions';
 import * as Reducers from 'Reducers';
 
-var __renderOnFileDepotChange__ = function($store, opts, $root) {
-  var limit = opts.limit;
-  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+function __renderOnFileDepotChange__($store, opts, $root) {
+  const limit = opts.limit;
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 
   if (!getFileDepot().order.length) {
     $root
@@ -21,59 +21,59 @@ var __renderOnFileDepotChange__ = function($store, opts, $root) {
 
 /* exports */
 export function gen($store, opts) {
-  var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+  const getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
 
-  var limit = opts.limit;
+  const limit = opts.limit;
 
-  var $hintText1 = $('<div />')
+  const $hintText1 = $('<div />')
     .addClass('hint-text')
     .append($('<span />').text('選擇檔案'));
 
-  var $hintText2 = $('<div />')
+  const $hintText2 = $('<div />')
     .addClass('hint-text')
     .append($('<span />').addClass('separator').text('或'))
     .append($('<span />').text('拖曳檔案至此'));
 
-  var $uploadIcon = $('<i />')
+  const $uploadIcon = $('<i />')
     .addClass('upload-icon')
     .addClass('fa')
     .addClass('fa-upload');
 
-  var _$addLocalInput = $('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
+  const _$addLocalInput = $('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
     .addClass('add-local-input')
     .attr('multiple', '')
-    .change(function(e) {
-      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-      var $this = $(this);
-      var files = $this[0].files;
+    .change(e => {
+      const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+      const $this = $(e.currentTarget);
+      const files = $this[0].files;
       $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.onUpload));
       $this.val('');
    });
 
-  var _$addLocalFakeButton = $('<div />')
+  const _$addLocalFakeButton = $('<div />')
     .addClass('rt-button')
     .addClass('rt-button-mini')
     .addClass('rt-button-default')
     .text('本地檔案');
 
-  var $addLocal = $('<label />')
+  const $addLocal = $('<label />')
     .addClass('action')
     .append(_$addLocalInput)
     .append(_$addLocalFakeButton);
 
-  var $addRuten = $('<button />')
+  const $addRuten = $('<button />')
     .attr('type', 'button')
     .addClass('action')
     .addClass('rt-button')
     .addClass('rt-button-mini')
     .addClass('rt-button-default')
     .text('露天圖庫')
-    .click(function() {
+    .click(e => {
       $store.dispatch(Actions.triggerGallery());
       $store.dispatch(Actions.fetchGalleryImage((getGalleryFilterDepot().categoryList)[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
     });
 
-  var $wrap = $('<div />')
+  const $wrap = $('<div />')
     .addClass('wrap')
     .append($uploadIcon)
     .append($hintText1)
@@ -81,11 +81,11 @@ export function gen($store, opts) {
     .append($addRuten)
     .append($hintText2);
 
-  var $root = $('<div />')
+  const $root = $('<div />')
     .addClass('tool-bar')
     .append($wrap);
 
-  $store.listen(Reducers.FILE_DEPOT, function() {
+  $store.listen(Reducers.FILE_DEPOT, () => {
     __renderOnFileDepotChange__($store, opts, $root);
   });
 

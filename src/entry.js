@@ -11,13 +11,11 @@ import * as Gallery from 'Gallery';
 
 
 window.RT = window.RT || {};
-var APP_NAMESPACE = RT.FileUploader = {};
+const APP_NAMESPACE = RT.FileUploader = {};
 
 /* main functions */
-var __seasonOpts__ = function(opts) {
-  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+function __seasonOpts__(opts) {
   return $.extend({}, opts, {
-    uiType: Utils.checkEnv(userAgent),
     minHeight: opts.minHeight || 160,
     thumbnailWidth: opts.thumbnailWidth || 120,
     thumbnailHeight: opts.thumbnailHeight || 90,
@@ -26,10 +24,10 @@ var __seasonOpts__ = function(opts) {
   });
 };
 
-var __createStore__ = function(opts) {
+function __createStore__(opts) {
   /* create store with initial state */
-  var combinedReducer = function(state, action) {
-    var newState = {};
+  const combinedReducer = (state, action) => {
+    const newState = {};
     newState[Reducers.FILE_DEPOT] = Reducers.fileDepot(state[Reducers.FILE_DEPOT], action);
     newState[Reducers.LAYOUT_DEPOT] = Reducers.layoutDepot(state[Reducers.LAYOUT_DEPOT], action);
     newState[Reducers.MODE_DEPOT] = Reducers.modeDepot(state[Reducers.MODE_DEPOT], action);
@@ -46,14 +44,14 @@ var __createStore__ = function(opts) {
   return StoreUtils.createStore(combinedReducer, opts.debug);
 };
 
-var __genUI__ = function($store, opts) {
+function __genUI__($store, opts) {
   /* create file loader ui */
-  var $App = App.gen($store, opts);
-  var $ToolBar = ToolBar.gen($store, opts);
-  var $ThumbnailViewer = ThumbnailViewer.gen($store, opts);
-  var $Gallery = Gallery.gen($store, opts);
+  const $App = App.gen($store, opts);
+  const $ToolBar = ToolBar.gen($store, opts);
+  const $ThumbnailViewer = ThumbnailViewer.gen($store, opts);
+  const $Gallery = Gallery.gen($store, opts);
 
-  var appendComponentToApp = FpUtils.curryIt(Utils.appendNode, $App);
+  const appendComponentToApp = FpUtils.curryIt(Utils.appendNode, $App);
 
   appendComponentToApp($ToolBar);
   appendComponentToApp($ThumbnailViewer);
@@ -71,22 +69,22 @@ var __genUI__ = function($store, opts) {
  * @param {number} opts.thumbnailHeight
  * @param {number} opts.limit
  */
-APP_NAMESPACE.gen = function($container, opts) {
+APP_NAMESPACE.gen = ($container, opts) => {
   opts = __seasonOpts__(opts);
-  var appendUIToContainer = FpUtils.curryIt(Utils.appendNode, $container);
-  var $store = __createStore__(opts);
+  const appendUIToContainer = FpUtils.curryIt(Utils.appendNode, $container);
+  const $store = __createStore__(opts);
 
   $store.dispatch(Actions.setGalleryFilterOpts(opts.galleryFilterOpts));
 
-  var $App = __genUI__($store, opts);
+  const $App = __genUI__($store, opts);
 
   appendUIToContainer($App);
 
   return {
-    getFiles: function() {
-      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-      return $.map(getFileDepot().order, function(id) {
-        var entity = getFileDepot().entities[id];
+    getFiles() {
+      const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+      return getFileDepot().order.map(id => {
+        const entity = getFileDepot().entities[id];
         return {
           id: id,
           url: entity.url,
@@ -94,18 +92,16 @@ APP_NAMESPACE.gen = function($container, opts) {
           progress: entity.progress,
           errMsg: entity.errMsg,
           userDefinedData: entity.userDefinedData
-        }
+        };
       });
     },
 
-    setFiles: function(list) {
-      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-      $store.dispatch(Actions.addFile($.map(list, function(item) {
-        return {
-          url: item.url,
-          userDefinedData: item.userDefinedData
-        };
-      }), opts.limit, getFileDepot().runningID));
+    setFiles(list) {
+      const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+      $store.dispatch(Actions.addFile(list.map(item => ({
+        url: item.url,
+        userDefinedData: item.userDefinedData
+      })), opts.limit, getFileDepot().runningID));
     }
   };
 };

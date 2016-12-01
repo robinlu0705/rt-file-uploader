@@ -3,44 +3,44 @@ import * as FpUtils from 'FpUtils';
 import * as Reducers from 'Reducers';
 import * as Actions from 'Actions';
 
-var __render__ = function($store, opts, $root) {
+function __render__($store, opts, $root) {
   /* get states */
-  var getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
-  var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
-  var getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
-  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
-  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+  const getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
+  const getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+  const getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
+  const getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 
   if (getGalleryStatusDepot().isOpened) {
     $root.addClass('is-opened');
   }
 
-  var $bg = $('<div />')
+  const $bg = $('<div />')
     .addClass('overlay')
     .click(function() {
       $store.dispatch(Actions.triggerGallery());
     });
 
-  var $dialogTitle = $('<div />')
+  const $dialogTitle = $('<div />')
     .addClass('title')
     .text('露天圖庫');
 
-  var $dialogContent = (function() {
-    var $root = $('<div />')
+  const $dialogContent = (() => {
+    const $root = $('<div />')
       .addClass('content');
 
-    var $wrap = $('<div />')
+    const $wrap = $('<div />')
       .addClass('wrap');
 
-    var $toolBar = (function() {
-      var $root = $('<div />')
+    const $toolBar = (() => {
+      const $root = $('<div />')
         .addClass('tool-bar');
 
-      var $pagination = $('<select />')
+      const $pagination = $('<select />')
         .attr('data-ref', 'galleryPagination');;
 
-      for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
-        var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+      for (let i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
+        const $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
 
         $pagination.append($option);
       }
@@ -48,25 +48,25 @@ var __render__ = function($store, opts, $root) {
       $pagination
         .val(getGalleryFilterDepot().page)
         .change(function(e) {
-          var $this = $(this);
+          const $this = $(e.currentTarget);
           $store.dispatch(Actions.changeGalleryFilter(getGalleryFilterDepot().category, Number($this.val())));
           $store.dispatch(Actions.fetchGalleryImage((getGalleryFilterDepot().categoryList)[getGalleryFilterDepot().category].val, Number($this.val()), opts.onFetchGallery));
         });
 
-      var $category = $('<select />')
+      const $category = $('<select />')
         .attr('data-ref', 'galleryCategory');
 
-      for (var i = 0; i < getGalleryFilterDepot().categoryList.length; i++) {
-        var categoryItem = getGalleryFilterDepot().categoryList[i];
-        var $option = $('<option />').attr('value', categoryItem.val).text(categoryItem.text);
+      for (let i = 0; i < getGalleryFilterDepot().categoryList.length; i++) {
+        const categoryItem = getGalleryFilterDepot().categoryList[i];
+        const $option = $('<option />').attr('value', categoryItem.val).text(categoryItem.text);
 
         $category.append($option);
       }
 
       $category
         .val(getGalleryFilterDepot().category)
-        .change(function(e) {
-          var $this = $(this);
+        .change(e => {
+          const $this = $(e.currentTarget);
           $store.dispatch(Actions.changeGalleryFilter(Number($this.val()), 1));
           $store.dispatch(Actions.fetchGalleryImage((getGalleryFilterDepot().categoryList)[getGalleryFilterDepot().category].val, 1, opts.onFetchGallery));
         });
@@ -74,19 +74,19 @@ var __render__ = function($store, opts, $root) {
       return $root
         .append($category)
         .append($pagination);
-    }());
+    })();
 
-    var $listView = (function() {
-      var $root = $('<div />')
+    const $listView = (() => {
+      const $root = $('<div />')
         .addClass('list-view')
         .attr('data-ref', 'galleryListView');
 
-      for (var i = 0; i < getGalleryImageDepot().list.length; i++) {
-        var url = getGalleryImageDepot().list[i].url;
-        var $listItem = $('<div />')
+      for (let i = 0; i < getGalleryImageDepot().list.length; i++) {
+        const url = getGalleryImageDepot().list[i].url;
+        const $listItem = $('<div />')
           .addClass('list-item');
 
-        var $img = $('<img />')
+        const $img = $('<img />')
           .attr('width', opts.thumbnailWidth)
           .attr('height', opts.thumbnailHeight)
           .attr('src', url);
@@ -96,24 +96,24 @@ var __render__ = function($store, opts, $root) {
       }
 
       return $root;
-    }());
+    })();
 
-    var $btnBar = (function() {
-      var $root = $('<div />')
+    const $btnBar = (() => {
+      const $root = $('<div />')
         .addClass('btn-bar');
 
-      var $ok = $('<button />')
+      const $ok = $('<button />')
         .attr('type', 'button')
         .addClass('rt-button rt-button-mini rt-button-submit')
         .text('確定新增')
-        .click(function() {
-          var list = [];
-          var runningID = getFileDepot().runningID;
-          var selectionList = getGallerySelectionDepot().list;
-          var imageList = getGalleryImageDepot().list;
+        .click(e => {
+          const list = [];
+          const runningID = getFileDepot().runningID;
+          const selectionList = getGallerySelectionDepot().list;
+          const imageList = getGalleryImageDepot().list;
           if (selectionList.length) {
-            for (var i = 0; i < selectionList.length; i++) {
-              var selection = selectionList[i];
+            for (let i = 0; i < selectionList.length; i++) {
+              const selection = selectionList[i];
               list.push({
                 url: imageList[selection].url,
                 userDefinedData: imageList[selection].userDefinedData
@@ -128,7 +128,7 @@ var __render__ = function($store, opts, $root) {
       var $no = $('<a />')
         .attr('href', '#')
         .text('取消')
-        .click(function(e) {
+        .click(e => {
           e.preventDefault();
           $store.dispatch(Actions.triggerGallery());
         });
@@ -136,7 +136,7 @@ var __render__ = function($store, opts, $root) {
       return $root
         .append($ok)
         .append($no);
-    }());
+    })();
 
     $wrap
       .append($toolBar)
@@ -144,9 +144,9 @@ var __render__ = function($store, opts, $root) {
       .append($btnBar);
 
     return $root.append($wrap);
-  }());
+  })();
 
-  var $dialog = $('<div />')
+  const $dialog = $('<div />')
     .addClass('dialog')
     .append($dialogTitle)
     .append($dialogContent);
@@ -158,9 +158,9 @@ var __render__ = function($store, opts, $root) {
   return $root;
 };
 
-var __renderOnGalleryStatusDepotChanged__ = function($store, opts, $root) {
+function __renderOnGalleryStatusDepotChanged__($store, opts, $root) {
   /* get states */
-  var getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
+  const getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
 
   if (getGalleryStatusDepot().isOpened) {
     $root.addClass('is-opened');
@@ -169,16 +169,16 @@ var __renderOnGalleryStatusDepotChanged__ = function($store, opts, $root) {
   }
 };
 
-var __renderOnGalleryFilterDepotChanged__ = function($store, opts, $root) {
+function __renderOnGalleryFilterDepotChanged__($store, opts, $root) {
   /* get states */
-  var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+  const getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
 
-  var $pagination = $root.find('[data-ref=galleryPagination]');
-  var $category = $root.find('[data-ref=galleryCategory]');
+  const $pagination = $root.find('[data-ref=galleryPagination]');
+  const $category = $root.find('[data-ref=galleryCategory]');
 
   $pagination.empty();
-  for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
-    var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+  for (let i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
+    const $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
 
     $pagination.append($option);
   }
@@ -186,9 +186,9 @@ var __renderOnGalleryFilterDepotChanged__ = function($store, opts, $root) {
   $pagination.val(getGalleryFilterDepot().page);
 
   $category.empty();
-  for (var i = 0; i < getGalleryFilterDepot().categoryList.length; i++) {
-    var categoryItem = getGalleryFilterDepot().categoryList[i];
-    var $option = $('<option />').attr('value', i.toString()).text(categoryItem.text);
+  for (let i = 0; i < getGalleryFilterDepot().categoryList.length; i++) {
+    const categoryItem = getGalleryFilterDepot().categoryList[i];
+    const $option = $('<option />').attr('value', i.toString()).text(categoryItem.text);
 
     $category.append($option);
   }
@@ -204,29 +204,29 @@ var __renderOnGalleryFilterDepotChanged__ = function($store, opts, $root) {
   }
 };
 
-var __renderOnGalleryImageDepotChanged__ = function($store, opts, $root) {
+function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
   /* get states */
-  var getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
-  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+  const getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
+  const getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
 
-  var $listView = $root.find('[data-ref=galleryListView]');
+  const $listView = $root.find('[data-ref=galleryListView]');
 
   $listView.empty();
 
   if (getGalleryImageDepot().isFetching) {
-    var $icon = $('<i />')
+    const $icon = $('<i />')
       .addClass('fa fa-circle-o-notch fa-spin fa-2x fa-fw loading-ring');
     $listView.append($icon);
   } else {
-    for (var i = 0; i < getGalleryImageDepot().list.length; i++) {
-      var url = getGalleryImageDepot().list[i].url;
-      var $listItem = $('<div />')
+    for (let i = 0; i < getGalleryImageDepot().list.length; i++) {
+      const url = getGalleryImageDepot().list[i].url;
+      const $listItem = $('<div />')
         .addClass('list-item')
-        .click(function() {
-          var $this = $(this);
-          var selection = getGallerySelectionDepot().list.slice(0);
-          var n = $this.index();
-          var idx = selection.indexOf(n);
+        .click(e => {
+          const $this = $(e.currentTarget);
+          let selection = getGallerySelectionDepot().list.slice(0);
+          const n = $this.index();
+          const idx = selection.indexOf(n);
 
           if (idx === -1) {
             selection.push(n);
@@ -240,7 +240,7 @@ var __renderOnGalleryImageDepotChanged__ = function($store, opts, $root) {
           $store.dispatch(Actions.changeGallerySelection(selection));
         });
 
-      var $img = $('<img />')
+      const $img = $('<img />')
         .attr('width', opts.thumbnailWidth)
         .attr('height', opts.thumbnailHeight)
         .attr('src', url);
@@ -251,38 +251,38 @@ var __renderOnGalleryImageDepotChanged__ = function($store, opts, $root) {
   }
 };
 
-var __renderOnGallerySelectionDepotChanged__ = function($store, opts, $root) {
+function __renderOnGallerySelectionDepotChanged__($store, opts, $root) {
   /* get states */
-  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+  const getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
 
-  var $listView = $root.find('[data-ref=galleryListView]');
+  const $listView = $root.find('[data-ref=galleryListView]');
 
   $listView.find('.is-selected').removeClass('is-selected');
 
-  for (var i = 0; i < getGallerySelectionDepot().list.length; i++) {
-    var n = getGallerySelectionDepot().list[i];
+  for (let i = 0; i < getGallerySelectionDepot().list.length; i++) {
+    const n = getGallerySelectionDepot().list[i];
     $listView.children().eq(n).addClass('is-selected');
   }
 };
 
 /* exports */
 export function gen($store, opts) {
-  var $root = $('<div />')
+  const $root = $('<div />')
     .addClass('gallery');
 
-  $store.listen(Reducers.GALLERY_STATUS_DEPOT, function() {
+  $store.listen(Reducers.GALLERY_STATUS_DEPOT, () => {
     __renderOnGalleryStatusDepotChanged__($store, opts, $root);
   });
 
-  $store.listen(Reducers.GALLERY_FILTER_DEPOT, function() {
+  $store.listen(Reducers.GALLERY_FILTER_DEPOT, () => {
     __renderOnGalleryFilterDepotChanged__($store, opts, $root);
   });
 
-  $store.listen(Reducers.GALLERY_IMAGE_DEPOT, function() {
+  $store.listen(Reducers.GALLERY_IMAGE_DEPOT, () => {
     __renderOnGalleryImageDepotChanged__($store, opts, $root);
   });
 
-  $store.listen(Reducers.GALLERY_SELECTION_DEPOT, function() {
+  $store.listen(Reducers.GALLERY_SELECTION_DEPOT, () => {
     __renderOnGallerySelectionDepotChanged__($store, opts, $root);
   });
 

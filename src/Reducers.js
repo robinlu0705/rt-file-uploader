@@ -2,43 +2,41 @@
 import * as Actions from 'Actions';
 
 /* common constants */
-export var FILE_STATUS_LOADING = 'FILE_STATUS_LOADING';
-export var FILE_STATUS_COMPLETE = 'FILE_STATUS_COMPLETE';
-export var FILE_STATUS_ERROR = 'FILE_STATUS_ERROR';
-export var FILE_STATUS_TIMEOUT = 'FILE_STATUS_TIMEOUT';
+export const FILE_STATUS_LOADING = 'FILE_STATUS_LOADING';
+export const FILE_STATUS_COMPLETE = 'FILE_STATUS_COMPLETE';
+export const FILE_STATUS_ERROR = 'FILE_STATUS_ERROR';
+export const FILE_STATUS_TIMEOUT = 'FILE_STATUS_TIMEOUT';
 
 /* state parts constants */
-export var FILE_DEPOT = 'FILE_DEPOT';
-export var LAYOUT_DEPOT = 'LAYOUT_DEPOT';
-export var MODE_DEPOT = 'MODE_DEPOT';
-export var EDIT_DEPOT = 'EDIT_DEPOT';
-export var PLACEHOLDER_DEPOT = 'PLACEHOLDER_DEPOT';
-export var GALLERY_STATUS_DEPOT = 'GALLERY_STATUS_DEPOT';
-export var GALLERY_FILTER_DEPOT = 'GALLERY_FILTER_DEPOT';
-export var GALLERY_IMAGE_DEPOT = 'GALLERY_IMAGE_DEPOT';
-export var GALLERY_SELECTION_DEPOT = 'GALLERY_SELECTION_DEPOT';
+export const FILE_DEPOT = 'FILE_DEPOT';
+export const LAYOUT_DEPOT = 'LAYOUT_DEPOT';
+export const MODE_DEPOT = 'MODE_DEPOT';
+export const EDIT_DEPOT = 'EDIT_DEPOT';
+export const PLACEHOLDER_DEPOT = 'PLACEHOLDER_DEPOT';
+export const GALLERY_STATUS_DEPOT = 'GALLERY_STATUS_DEPOT';
+export const GALLERY_FILTER_DEPOT = 'GALLERY_FILTER_DEPOT';
+export const GALLERY_IMAGE_DEPOT = 'GALLERY_IMAGE_DEPOT';
+export const GALLERY_SELECTION_DEPOT = 'GALLERY_SELECTION_DEPOT';
 
-var fileDepotDefaultState = {
+const fileDepotDefaultState = {
   entities: {},
   order: [],
   selections: [],
   runningID: 0
 };
 
-export function fileDepot(state, action) {
-  state = state || fileDepotDefaultState;
-
+export function fileDepot(state = fileDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.ADD_LOADING_FILE:
-      var IDList = action.payload.IDList;
-      var runningID = action.payload.runningID;
-      var limit = action.payload.limit;
-      var newEntities = {};
-      var newEntityOrder = [];
-      var count = 0;
+    case Actions.ADD_LOADING_FILE: {
+      const IDList = action.payload.IDList;
+      const runningID = action.payload.runningID;
+      const limit = action.payload.limit;
+      const newEntities = {};
+      const newEntityOrder = [];
+      let count = 0;
 
-      for (var i = 0; i < IDList.length && count < limit; i++) {
-        var id = IDList[i];
+      for (let i = 0; i < IDList.length && count < limit; i++) {
+        const id = IDList[i];
         newEntities[id] = {
           url: '',
           status: FILE_STATUS_LOADING,
@@ -49,30 +47,28 @@ export function fileDepot(state, action) {
         ++count;
       }
 
-      for (var i = 0; i < state.order.length && count < limit; i++) {
-        var id = state.order[i];
+      for (let i = 0; i < state.order.length && count < limit; i++) {
+        const id = state.order[i];
         newEntities[id] = state.entities[id];
         newEntityOrder.push(id);
         ++count;
       }
 
-      return $.extend({}, state, {
+      return Object.assign({}, state, {
         entities: newEntities,
         order: newEntityOrder,
         selections: [],
         runningID: runningID
       });
-    break;
+    }
 
-    case Actions.UPDATE_LOADING_FILE:
-      var list = action.payload;
-      var needUpdate = false;
-      var IDList = $.map(list, function(item) {
-        return item.id;
-      });
+    case Actions.UPDATE_LOADING_FILE: {
+      const list = action.payload;
+      let needUpdate = false;
+      const IDList = list.map(item => item.id);
 
-      for (var i = 0; i < state.order.length; i++) {
-        var id = state.order[i];
+      for (let i = 0; i < state.order.length; i++) {
+        const id = state.order[i];
         if (IDList.indexOf(id) !== -1) {
           needUpdate = true;
           break;
@@ -82,17 +78,17 @@ export function fileDepot(state, action) {
       if (!needUpdate) {
         return state;
       } else {
-        var newEntities = $.extend({}, state.entities);
-        var newEntityOrder = state.order.slice(0);
+        const newEntities = $.extend({}, state.entities);
+        const newEntityOrder = state.order.slice(0);
 
-        for (var i = 0; i < IDList.length; i++) {
-          var id = IDList[i];
-          var url = list[i].url;
-          var status = list[i].status;
-          var progress = list[i].progress;
-          var errMsg = list[i].errMsg;
-          var userDefinedData = list[i].userDefinedData;
-          var entity = newEntities[id];
+        for (let i = 0; i < IDList.length; i++) {
+          const id = IDList[i];
+          const url = list[i].url;
+          const status = list[i].status;
+          const progress = list[i].progress;
+          const errMsg = list[i].errMsg;
+          const userDefinedData = list[i].userDefinedData;
+          const entity = newEntities[id];
           if (entity) {
             entity.url = url;
             entity.status = status;
@@ -102,25 +98,25 @@ export function fileDepot(state, action) {
           }
         }
 
-        return $.extend({}, state, {
+        return Object.assign({}, state, {
           entities: newEntities,
           order: newEntityOrder
         });
       }
-    break;
+    }
 
-    case Actions.ADD_FILE:
-      var list = action.payload.list;
-      var runningID = action.payload.runningID;
-      var limit = action.payload.limit;
-      var newEntities = {};
-      var newEntityOrder = [];
-      var count = 0;
+    case Actions.ADD_FILE: {
+      const list = action.payload.list;
+      const runningID = action.payload.runningID;
+      const limit = action.payload.limit;
+      const newEntities = {};
+      const newEntityOrder = [];
+      let count = 0;
 
-      for (var i = 0; i < list.length && count < limit; i++) {
-        var id = list[i].id;
-        var url = list[i].url;
-        var userDefinedData = list[i].userDefinedData;
+      for (let i = 0; i < list.length && count < limit; i++) {
+        const id = list[i].id;
+        const url = list[i].url;
+        const userDefinedData = list[i].userDefinedData;
         newEntities[id] = {
           url: url,
           status: FILE_STATUS_COMPLETE,
@@ -133,102 +129,100 @@ export function fileDepot(state, action) {
         ++count;
       }
 
-      for (var i = 0; i < state.order.length && count < limit; i++) {
-        var id = state.order[i];
+      for (let i = 0; i < state.order.length && count < limit; i++) {
+        const id = state.order[i];
         newEntities[id] = state.entities[id];
         newEntityOrder.push(id);
         ++count;
       }
 
-      return $.extend({}, state, {
+      return Object.assign({}, state, {
         entities: newEntities,
         order: newEntityOrder,
         selections: [],
         runningID: runningID
       });
-    break;
+    }
 
-    case Actions.DELETE_FILE:
-      var id = action.payload;
-      var idx = state.order.indexOf(id);
+    case Actions.DELETE_FILE: {
+      const id = action.payload;
+      const idx = state.order.indexOf(id);
 
       if (idx === -1) {
         return state;
       } else {
-        var newEntities = $.extend({}, state.entities);
-        var newEntityOrder = state.order.slice(0);
+        const newEntities = Object.assign({}, state.entities);
+        const newEntityOrder = state.order.slice(0);
 
         delete newEntities[id];
         newEntityOrder.splice(idx, 1);
 
-        return $.extend({}, state, {
+        return Object.assign({}, state, {
           entities: newEntities,
           order: newEntityOrder,
           selections: []
         });
       }
-    break;
+    }
 
-    case Actions.END_EDIT:
-      var editTarget = action.payload.editTarget;
-      var hoverTarget = action.payload.hoverTarget;
-      var editIdx = state.order.indexOf(editTarget);
-      var hoverIdx = state.order.indexOf(hoverTarget);
-      var order = state.order.slice(0, editIdx).concat(state.order.slice(editIdx + 1));
+    case Actions.END_EDIT: {
+      const editTarget = action.payload.editTarget;
+      const hoverTarget = action.payload.hoverTarget;
+      const editIdx = state.order.indexOf(editTarget);
+      const hoverIdx = state.order.indexOf(hoverTarget);
+      let order = state.order.slice(0, editIdx).concat(state.order.slice(editIdx + 1));
       order = order.slice(0, hoverIdx).concat([ editTarget ]).concat(order.slice(hoverIdx));
       return $.extend({}, state, {
         order: order
       });
-    break;
+    }
 
     default:
       return state;
   }
 };
 
-var layoutDepotDefaultState = {
+const layoutDepotDefaultState = {
   thumbnailLayouts: []
 };
 
-export function layoutDepot(state, action) {
-  state = state || layoutDepotDefaultState;
+export function layoutDepot(state = layoutDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.UPDATE_LAYOUT:
-      return $.extend({}, state, {
+    case Actions.UPDATE_LAYOUT: {
+      return Object.assign({}, state, {
         thumbnailLayouts: action.payload
       });
-    break;
+    }
 
     default:
       return state;
   }
 };
 
-var modeDepotDefaultState = {
+const modeDepotDefaultState = {
   mode: Actions.DISPLAY_MODE
 };
 
-export function modeDepot(state, action) {
-  state = state || modeDepotDefaultState;
+export function modeDepot(state = modeDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.START_EDIT:
-      return $.extend({}, state, {
+    case Actions.START_EDIT: {
+      return Object.assign({}, state, {
         mode: Actions.EDIT_MODE
       });
-    break;
+    }
 
-    case Actions.END_EDIT:
-      return $.extend({}, state, {
+    case Actions.END_EDIT: {
+      return Object.assign({}, state, {
         mode: Actions.DISPLAY_MODE
       });
-    break;
+    }
 
     default:
       return state;
   }
 };
 
-var editDepotDefaultState = {
+const editDepotDefaultState = {
   target: null,
   startPos: {
     x: 0,
@@ -241,11 +235,10 @@ var editDepotDefaultState = {
   }
 };
 
-export function editDepot(state, action) {
-  state = state || editDepotDefaultState;
+export function editDepot(state = editDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.START_EDIT:
-      return $.extend({}, state, {
+    case Actions.START_EDIT: {
+      return Object.assign({}, state, {
         target: action.payload.entityID,
         startPos: {
           x: action.payload.cursorX,
@@ -257,94 +250,87 @@ export function editDepot(state, action) {
           y: action.payload.cursorY
         }
       });
-    break;
+    }
 
-    case Actions.UPDATE_EDIT:
-      return $.extend({}, state, {
+    case Actions.UPDATE_EDIT: {
+      return Object.assign({}, state, {
         currentPos: {
           x: action.payload.cursorX,
           y: action.payload.cursorY
         }
       });
-    break;
+    }
 
     default:
       return state;
   }
 };
 
-var placeholderDepotDefaultState = {
+const placeholderDepotDefaultState = {
   hoverTarget: null
 };
 
-export function placeholderDepot(state, action) {
-  state = state || placeholderDepotDefaultState;
+export function placeholderDepot(state = placeholderDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.START_EDIT:
-      return $.extend({}, state, {
+    case Actions.START_EDIT: {
+      return Object.assign({}, state, {
         hoverTarget: action.payload.entityID
       });
-    break;
+    }
 
-    case Actions.UPDATE_PLACEHOLDER:
-      return $.extend({}, state, {
+    case Actions.UPDATE_PLACEHOLDER: {
+      return Object.assign({}, state, {
         hoverTarget: action.payload
       });
-    break;
+    }
 
-    case Actions.END_EDIT:
-      return $.extend({}, state, {
+    case Actions.END_EDIT: {
+      return Object.assign({}, state, {
         hoverTarget: null
       });
-    break;
+    }
 
     default:
       return state;
   }
 };
 
-var galleryStatusDepotDefaultState = {
+const galleryStatusDepotDefaultState = {
   isOpened: false
 };
 
-export function galleryStatusDepot(state, action) {
-  state = state || galleryStatusDepotDefaultState;
+export function galleryStatusDepot(state = galleryStatusDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.TRIGGER_GALLERY:
-      return $.extend({}, state, {
+    case Actions.TRIGGER_GALLERY: {
+      return Object.assign({}, state, {
         isOpened: !state.isOpened
       });
-    break;
+    }
 
     default:
       return state;
   }
 };
 
-var galleryFilterDepotDefaultState = {
+const galleryFilterDepotDefaultState = {
   page: 1,
   categoryList: [ { text: '--', val: '', totalPages: 1 } ], 
   category: 0,
   isFetching: false
 };
 
-export function galleryFilterDepot(state, action) {
-  state = state || galleryFilterDepotDefaultState;
+export function galleryFilterDepot(state = galleryFilterDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.SET_GALLERY_FILTER_OPTS:
-      var opts = $.grep(action.payload, function(opt) {
-        return opt.hasOwnProperty('categoryVal');
-      });
+    case Actions.SET_GALLERY_FILTER_OPTS: {
+      const opts = action.payload.filter(opt => opt.hasOwnProperty('categoryVal'));
 
       if (opts.length > 0) {
-        return $.extend({}, state, {
-          categoryList: $.map(opts, function(opt) {
-            return {
-              text: opt.categoryName || opt.categoryVal,
-              val: opt.categoryVal,
-              totalPages: opt.totalPages
-            };
-          }),
+        return Object.assign({}, state, {
+          categoryList: opts.map(opt => ({
+            text: opt.categoryName || opt.categoryVal,
+            val: opt.categoryVal,
+            totalPages: opt.totalPages
+          })),
 
           category: 0,
           page: 1
@@ -352,80 +338,78 @@ export function galleryFilterDepot(state, action) {
       } else {
         return state;
       }
-    break;
+    }
 
-    case Actions.CHANGE_GALLERY_FILTER:
-      var category = action.payload.category;
-      var page = action.payload.page;
+    case Actions.CHANGE_GALLERY_FILTER: {
+      const category = action.payload.category;
+      const page = action.payload.page;
 
-      return $.extend({}, state, {
+      return Object.assign({}, state, {
         page: page,
         category: category
       });
-    break;
+    }
 
-    case Actions.REQUEST_GALLERY_IMAGE:
-      return $.extend({}, state, {
+    case Actions.REQUEST_GALLERY_IMAGE: {
+      return Object.assign({}, state, {
         isFetching: true
       });
-    break;
+    }
 
-    case Actions.RECEIVE_GALLERY_IMAGE:
-      return $.extend({}, state, {
+    case Actions.RECEIVE_GALLERY_IMAGE: {
+      return Object.assign({}, state, {
         isFetching: false
       });
-    break;
+    }
 
     default:
       return state;
   }
 };
 
-var galleryImageDepotDefaultState = {
+const galleryImageDepotDefaultState = {
   list: [],
   isFetching: false
 };
 
-export function galleryImageDepot(state, action) {
-  state = state || galleryImageDepotDefaultState;
+export function galleryImageDepot(state = galleryImageDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.REQUEST_GALLERY_IMAGE:
-      return $.extend({}, state, {
+    case Actions.REQUEST_GALLERY_IMAGE: {
+      return Object.assign({}, state, {
         isFetching: true,
         list: []
       });
-    break;
+    }
 
-    case Actions.RECEIVE_GALLERY_IMAGE:
-      return $.extend({}, state, {
+    case Actions.RECEIVE_GALLERY_IMAGE: {
+      return Object.assign({}, state, {
         isFetching: false,
         list: action.payload
       });
-    break;
+    }
 
     default:
       return state;
   }
 };
 
-var gallerySelectionDepotDefaultState = {
+const gallerySelectionDepotDefaultState = {
   list: []
 };
 
-export function gallerySelectionDepot(state, action) {
-  state = state || gallerySelectionDepotDefaultState;
+export function gallerySelectionDepot(state = gallerySelectionDepotDefaultState, action) {
   switch (action.type) {
-    case Actions.CHANGE_GALLERY_SELECTION:
-      return $.extend({}, state, {
+    case Actions.CHANGE_GALLERY_SELECTION: {
+      return Object.assign({}, state, {
         list: action.payload
       });
-    break;
+    }
 
-    case Actions.REQUEST_GALLERY_IMAGE:
-      return $.extend({}, state, {
+    case Actions.REQUEST_GALLERY_IMAGE: {
+      return Object.assign({}, state, {
         list: []
       });
-    break;
+    }
 
     default:
       return state;

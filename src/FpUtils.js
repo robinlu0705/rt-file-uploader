@@ -5,10 +5,10 @@
  * @return {function}
  */
 export function compose(f) {
-  var funcs = arguments;
+  const funcs = arguments;
   return function() {
-    var args = arguments;
-    for (var i = funcs.length; i-- > 0;) {
+    let args = arguments;
+    for (let i = funcs.length; i-- > 0;) {
       args = [ funcs[i].apply(this, args) ];
     }
 
@@ -21,9 +21,9 @@ export function compose(f) {
  * @param {*...} arg
  */
 export function curryIt(f, arg) {
-  var curriedParams = Array.prototype.slice.call(arguments, 1);
+  const curriedParams = Array.prototype.slice.call(arguments, 1);
   return function() {
-    var params = Array.prototype.slice.call(arguments, 0);
+    const params = Array.prototype.slice.call(arguments, 0);
     return f.apply(this, curriedParams.concat(params));
   };
 };

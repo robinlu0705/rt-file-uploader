@@ -4,32 +4,32 @@ import * as Utils from 'Utils';
 import * as Actions from 'Actions';
 import * as Reducers from 'Reducers';
 
-var __render__ = function($store, opts, $root) {
-  var thumbnailWidth = opts.thumbnailWidth;
-  var thumbnailHeight = opts.thumbnailHeight;
+function __render__($store, opts, $root) {
+  const thumbnailWidth = opts.thumbnailWidth;
+  const thumbnailHeight = opts.thumbnailHeight;
 
   /* get states */
-  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+  const getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
   $root.empty();
 
-  var thumbnails = $.map(getFileDepot().order, function(entityID, idx) {
-    var file = getFileDepot().entities[entityID];
-    var reader = new FileReader();
-    var $elm = $('<div />')
+  const $thumbnails = getFileDepot().order.map((entityID, idx) => {
+    const file = getFileDepot().entities[entityID];
+    const $elm = $('<div />')
       .attr('data-ref', 'thumbnail')
       .addClass('thumbnail')
       .attr('data-key', idx)
       .css('width', thumbnailWidth)
       .css('height', thumbnailHeight)
-      .on('touchstart mousedown', function(e) {
+      .on('touchstart mousedown', e => {
         e.preventDefault();
+        const $this = $(e.currentTarget);
         if (getModeDepot().mode === Actions.DISPLAY_MODE) {
-          var rootOffset = $root.offset();
-          var offset = $(this).offset();
-          var touchList = e.originalEvent.targetTouches;
-          var pageX = touchList ? touchList[0].pageX : e.pageX;
-          var pageY = touchList ? touchList[0].pageY : e.pageY;
+          const rootOffset = $root.offset();
+          const offset = $this.offset();
+          const touchList = e.originalEvent.targetTouches;
+          const pageX = touchList ? touchList[0].pageX : e.pageX;
+          const pageY = touchList ? touchList[0].pageY : e.pageY;
 
           $store.dispatch(Actions.startEdit({
             entityID: entityID,
@@ -39,43 +39,48 @@ var __render__ = function($store, opts, $root) {
         }
       });
 
-    var $img = $('<div />')
+    const $img = $('<div />')
       .addClass('img');
 
     switch (file.status) {
-      case Reducers.FILE_STATUS_LOADING:
-        var $icon = $('<i />')
+      case Reducers.FILE_STATUS_LOADING: {
+        const $icon = $('<i />')
           .addClass('fa fa-circle-o-notch fa-spin fa-2x fa-fw loading-ring');
+
         $img.append($icon);
-      break;
+        break;
+      }
 
-      case Reducers.FILE_STATUS_COMPLETE:
+      case Reducers.FILE_STATUS_COMPLETE: {
         $img.css('background-image', 'url(' + file.url + ')');
-      break;
+        break;
+      }
 
-      case Reducers.FILE_STATUS_ERROR:
+      case Reducers.FILE_STATUS_ERROR: {
         $msg = $('<div />')
             .addClass('msg')
             .append($('<i />').addClass('fa fa-exclamation-triangle icon'))
             .append($('<div />').addClass('text').text(file.errMsg));
+
         $img.append($msg);
-      break;
+        break;
+      }
     }
 
-    var $imgWrap = $('<div />')
+    const $imgWrap = $('<div />')
       .addClass('img-wrap')
       .css('width', thumbnailWidth)
       .css('height', thumbnailHeight)
       .append($img);
 
-    var $delete = $('<i />')
+    const $delete = $('<i />')
       .addClass('fa')
       .addClass('fa-times')
       .addClass('delete')
-      .on('touchstart mousedown', function(e) {
+      .on('touchstart mousedown', e => {
         e.stopPropagation();
       }) 
-      .click(function(e) {
+      .click(e => {
         e.stopPropagation();
         $store.dispatch(Actions.deleteFile(entityID));
       });
@@ -87,42 +92,41 @@ var __render__ = function($store, opts, $root) {
     return $elm;
   });
 
-  $.each(thumbnails, function(idx, $thumbnail) {
+  for (let $thumbnail of $thumbnails) {
     $root.append($thumbnail);
-  });
+  }
 
-  var thumbnailLayouts = $.map(thumbnails, function($thumbnail) {
-    return $thumbnail.position();
-  });
+  const thumbnailLayouts = $thumbnails.map($thumbnail => $thumbnail.position());
 
   $store.dispatch(Actions.updateLayout(thumbnailLayouts));
 
   return $root;
 };
 
-var __renderOnModeDepotChange__ = function($store, opts, $root) {
-  var thumbnailWidth = opts.thumbnailWidth;
-  var thumbnailHeight = opts.thumbnailHeight;
-  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
-  var getLayoutDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.LAYOUT_DEPOT);
-  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
-  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-  var getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
+function __renderOnModeDepotChange__($store, opts, $root) {
+  const thumbnailWidth = opts.thumbnailWidth;
+  const thumbnailHeight = opts.thumbnailHeight;
+  const getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
+  const getLayoutDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.LAYOUT_DEPOT);
+  const getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+  const getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
 
   if (getModeDepot().mode === Actions.EDIT_MODE) {
-    $root.on('touchend mouseup', function(e) {
+    $root.on('touchend mouseup', e => {
       if (getModeDepot().mode === Actions.EDIT_MODE) {
         $store.dispatch(Actions.endEdit(getEditDepot().target, getPlaceholderDepot().hoverTarget));
       }
     })
-    .on('touchmove mousemove', function(e) {
+    .on('touchmove mousemove', e => {
       e.preventDefault();
-      var offset = $(this).offset();
-      var touchList = e.originalEvent.targetTouches;
-      var pageX = touchList ? touchList[0].pageX : e.pageX;
-      var pageY = touchList ? touchList[0].pageY : e.pageY;
-      var cursorX = pageX - offset.left;
-      var cursorY = pageY - offset.top;
+      const $this = $(e.currentTarget);
+      const offset = $this.offset();
+      const touchList = e.originalEvent.targetTouches;
+      const pageX = touchList ? touchList[0].pageX : e.pageX;
+      const pageY = touchList ? touchList[0].pageY : e.pageY;
+      const cursorX = pageX - offset.left;
+      const cursorY = pageY - offset.top;
 
       $store.dispatch(Actions.updateEdit({
         entityID: getEditDepot().target,
@@ -130,15 +134,15 @@ var __renderOnModeDepotChange__ = function($store, opts, $root) {
         cursorY: cursorY
       }));
 
-      $.each(getLayoutDepot().thumbnailLayouts, function(idx, layout) {
-        var object = {
+      for (let [ idx, layout ] of getLayoutDepot().thumbnailLayouts.entries()) {
+        const object = {
           left: layout.left,
           top: layout.top,
           width: thumbnailWidth,
           height: thumbnailHeight
         };
 
-        var pos = {
+        const pos = {
           x: cursorX,
           y: cursorY
         };
@@ -147,7 +151,7 @@ var __renderOnModeDepotChange__ = function($store, opts, $root) {
           $store.dispatch(Actions.updatePlaceholder((getFileDepot().order)[idx]));
           return false;
         }
-      });
+      }
     });
   } else {
     $root
@@ -158,14 +162,14 @@ var __renderOnModeDepotChange__ = function($store, opts, $root) {
   }
 };
 
-var __renderOnEditDepotChange__ = function($store, opts, $root) {
-  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
-  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
-  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-  var getLayoutDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.LAYOUT_DEPOT);
+function __renderOnEditDepotChange__($store, opts, $root) {
+  const getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
+  const getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+  const getLayoutDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.LAYOUT_DEPOT);
 
   if (getModeDepot().mode === Actions.EDIT_MODE) {
-    $.each(getFileDepot().order, function(idx, entityID) {
+    for (let [ idx, entityID ] of getFileDepot().order.entries()) {
       if (entityID === getEditDepot().target) {
         $root
           .children('[data-ref=thumbnail]')
@@ -179,30 +183,31 @@ var __renderOnEditDepotChange__ = function($store, opts, $root) {
             top: (getLayoutDepot().thumbnailLayouts)[idx].top + getEditDepot().currentPos.y - getEditDepot().startPos.y - 7
           });
       }
-    });
+    }
   }
 
   return $root;
 };
 
-var __renderOnPlaceholderDepotChange__ = function($store, opts, $root) {
-  var thumbnailWidth = opts.thumbnailWidth;
-  var thumbnailHeight = opts.thumbnailHeight;
+function __renderOnPlaceholderDepotChange__($store, opts, $root) {
+  const thumbnailWidth = opts.thumbnailWidth;
+  const thumbnailHeight = opts.thumbnailHeight;
 
-  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
-  var getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+  const getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
+  const getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
 
-  var hoverTarget = getPlaceholderDepot().hoverTarget;
-  var editTarget = getEditDepot().target;
+  const hoverTarget = getPlaceholderDepot().hoverTarget;
+  const editTarget = getEditDepot().target;
+
   $root.children('[data-ref=placeholder]').remove();
 
   if (hoverTarget !== null) {
-    var placeholderIdx = getFileDepot().order.indexOf(hoverTarget);
-    var editIdx = getFileDepot().order.indexOf(editTarget);
+    const placeholderIdx = getFileDepot().order.indexOf(hoverTarget);
+    const editIdx = getFileDepot().order.indexOf(editTarget);
 
-    var $placeholderTarget = $root.children('[data-ref=thumbnail]').eq(placeholderIdx);
-    var $placeholder = $('<div />')
+    const $placeholderTarget = $root.children('[data-ref=thumbnail]').eq(placeholderIdx);
+    const $placeholder = $('<div />')
       .attr('data-ref', 'placeholder')
       .addClass('placeholder')
       .css({
@@ -223,26 +228,26 @@ var __renderOnPlaceholderDepotChange__ = function($store, opts, $root) {
 /* exports */
 export function gen($store, opts) {
   /* get states */
-  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
-  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
-  var getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
+  const getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
+  const getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
+  const getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
 
-  var $root = $('<div />')
+  const $root = $('<div />')
     .addClass('thumbnail-viewer');
 
-  $store.listen(Reducers.FILE_DEPOT, function() {
+  $store.listen(Reducers.FILE_DEPOT, () => {
     __render__($store, opts, $root);
   });
 
-  $store.listen(Reducers.MODE_DEPOT, function() {
+  $store.listen(Reducers.MODE_DEPOT, () => {
     __renderOnModeDepotChange__($store, opts, $root);
   });
 
-  $store.listen(Reducers.EDIT_DEPOT, function() {
+  $store.listen(Reducers.EDIT_DEPOT, () => {
    __renderOnEditDepotChange__($store, opts, $root);
   });
 
-  $store.listen(Reducers.PLACEHOLDER_DEPOT, function() {
+  $store.listen(Reducers.PLACEHOLDER_DEPOT, () => {
     __renderOnPlaceholderDepotChange__($store, opts, $root);
   });
 

@@ -1,1 +1,3105 @@
-var rt_file_uploader=function(t){function e(a){if(r[a])return r[a].exports;var n=r[a]={exports:{},id:a,loaded:!1};return t[a].call(n.exports,n,n.exports,e),n.loaded=!0,n.exports}var r={};return e.m=t,e.c=r,e.p="",e(0)}([function(t,e,r){t.exports=r(10)},function(t,e){"use strict";function r(t,e,r,a){return function(n){for(var i=[],o=0;o<t.length&&o<e;o++)i.push({id:r+1+o,file:t.item(o)});if(n(b($.map(i,function(t){return t.id}),r+i.length,e)),"function"==typeof a){var l=function(t){n(C($.map(t,function(t){return{id:t.id,url:t.url,status:t.status,progress:t.progress,errMsg:t.errMsg,userDefinedData:t.userDefinedData}})))};a(i,l)}}}function a(t,e,r,a){return function(n){for(var i=[],o=0;o<t.length&&o<e;o++)i.push({id:r+1+o,url:t[o].url,userDefinedData:t[o].userDefinedData});if(n(b($.map(i,function(t){return t.id}),r+i.length,e)),"function"==typeof a){var l=function(t){n(C($.map(t,function(t){return{id:t.id,url:t.url,status:t.status,progress:t.progress,errMsg:t.errMsg,userDefinedData:t.userDefinedData}})))};a(i,l)}}}function n(t,e,r){return t=$.map(t.slice(0,e),function(t,e){return{id:r+1+e,url:t.url,userDefinedData:t.userDefinedData}}),{type:T,payload:{list:t,limit:e,runningID:r+t.length}}}function i(t){return{type:L,payload:t}}function o(t){return{type:h,payload:t}}function l(t){var e=t.entityID,r=t.cursorX,a=t.cursorY;return{type:y,payload:{entityID:e,cursorX:r,cursorY:a}}}function u(t,e){return{type:O,payload:{editTarget:t,hoverTarget:e}}}function d(t){var e=t.entityID,r=t.cursorX,a=t.cursorY;return{type:I,payload:{entityID:e,cursorX:r,cursorY:a}}}function s(t){return{type:v,payload:t}}function c(){return{type:A}}function E(t){return{type:P,payload:t}}function p(t,e){return{type:S,payload:{category:t,page:e}}}function f(t,e,r){return function(a){if(a(F()),"function"==typeof r){var n=function(t){a(Y($.map(t,function(t){return{url:t.url,userDefinedData:t.userDefinedData}})))};r(t,Number(e),n)}}}function g(t){return{type:m,payload:t}}Object.defineProperty(e,"__esModule",{value:!0}),e.uploadStart=r,e.uploadFromGalleryStart=a,e.addFile=n,e.deleteFile=i,e.updateLayout=o,e.startEdit=l,e.endEdit=u,e.updateEdit=d,e.updatePlaceholder=s,e.triggerGallery=c,e.setGalleryFilterOpts=E,e.changeGalleryFilter=p,e.fetchGalleryImage=f,e.changeGallerySelection=g;var _=(e.DISPLAY_MODE="DISPLAY_MODE",e.EDIT_MODE="EDIT_MODE",e.ADD_LOADING_FILE="ADD_LOADING_FILE"),D=e.UPDATE_LOADING_FILE="UPDATE_LOADING_FILE",T=e.ADD_FILE="ADD_FILE",L=e.DELETE_FILE="DELETE_FILE",y=e.START_EDIT="START_EDIT",I=e.UPDATE_EDIT="UPDATE_EDIT",O=e.END_EDIT="END_EDIT",v=e.UPDATE_PLACEHOLDER="UPDATE_PLACEHOLDER",h=e.UPDATE_LAYOUT="UPDATE_LAYOUT",A=e.TRIGGER_GALLERY="TRIGGER_GALLERY",P=e.SET_GALLERY_FILTER_OPTS="SET_GALLERY_FILTER_OPTS",S=e.CHANGE_GALLERY_FILTER="CHANGE_GALLERY_FILTER",R=e.REQUEST_GALLERY_IMAGE="REQUEST_GALLERY_IMAGE",G=e.RECEIVE_GALLERY_IMAGE="RECEIVE_GALLERY_IMAGE",m=e.CHANGE_GALLERY_SELECTION="CHANGE_GALLERY_SELECTION",b=function(t,e,r){return{type:_,payload:{IDList:t,runningID:e,limit:r}}},C=function(t){return{type:D,payload:t}},F=function(){return{type:R}},Y=function(t){return{type:G,payload:t}}},function(t,e){"use strict";function r(t){var e=arguments;return function(){for(var t=arguments,r=e.length;r-- >0;)t=[e[r].apply(this,t)];return t[0]}}function a(t,e){var r=Array.prototype.slice.call(arguments,1);return function(){var e=Array.prototype.slice.call(arguments,0);return t.apply(this,r.concat(e))}}Object.defineProperty(e,"__esModule",{value:!0}),e.compose=r,e.curryIt=a},function(t,e,r){"use strict";function a(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e.default=t,e}function n(t,e){switch(t=t||D,e.type){case f.ADD_LOADING_FILE:for(var r=e.payload.IDList,a=e.payload.runningID,n=e.payload.limit,i={},o=[],l=0,u=0;u<r.length&&l<n;u++){var d=r[u];i[d]={url:"",status:g,progress:0},o.push(d),++l}for(var u=0;u<t.order.length&&l<n;u++){var d=t.order[u];i[d]=t.entities[d],o.push(d),++l}return $.extend({},t,{entities:i,order:o,selections:[],runningID:a});case f.UPDATE_LOADING_FILE:for(var s=e.payload,c=!1,r=$.map(s,function(t){return t.id}),u=0;u<t.order.length;u++){var d=t.order[u];if(r.indexOf(d)!==-1){c=!0;break}}if(c){for(var i=$.extend({},t.entities),o=t.order.slice(0),u=0;u<r.length;u++){var d=r[u],E=s[u].url,p=s[u].status,T=s[u].progress,L=s[u].errMsg,y=s[u].userDefinedData,I=i[d];I&&(I.url=E,I.status=p,I.progress=T,I.errMsg=L,I.userDefinedData=y)}return $.extend({},t,{entities:i,order:o})}return t;case f.ADD_FILE:for(var s=e.payload.list,a=e.payload.runningID,n=e.payload.limit,i={},o=[],l=0,u=0;u<s.length&&l<n;u++){var d=s[u].id,E=s[u].url,y=s[u].userDefinedData;i[d]={url:E,status:_,progress:100,errMsg:"",userDefinedData:y},o.push(d),++l}for(var u=0;u<t.order.length&&l<n;u++){var d=t.order[u];i[d]=t.entities[d],o.push(d),++l}return $.extend({},t,{entities:i,order:o,selections:[],runningID:a});case f.DELETE_FILE:var d=e.payload,O=t.order.indexOf(d);if(O===-1)return t;var i=$.extend({},t.entities),o=t.order.slice(0);return delete i[d],o.splice(O,1),$.extend({},t,{entities:i,order:o,selections:[]});case f.END_EDIT:var v=e.payload.editTarget,h=e.payload.hoverTarget,A=t.order.indexOf(v),P=t.order.indexOf(h),S=t.order.slice(0,A).concat(t.order.slice(A+1));return S=S.slice(0,P).concat([v]).concat(S.slice(P)),$.extend({},t,{order:S});default:return t}}function i(t,e){switch(t=t||T,e.type){case f.UPDATE_LAYOUT:return $.extend({},t,{thumbnailLayouts:e.payload});default:return t}}function o(t,e){switch(t=t||L,e.type){case f.START_EDIT:return $.extend({},t,{mode:f.EDIT_MODE});case f.END_EDIT:return $.extend({},t,{mode:f.DISPLAY_MODE});default:return t}}function l(t,e){switch(t=t||y,e.type){case f.START_EDIT:return $.extend({},t,{target:e.payload.entityID,startPos:{x:e.payload.cursorX,y:e.payload.cursorY},currentPos:{x:e.payload.cursorX,y:e.payload.cursorY}});case f.UPDATE_EDIT:return $.extend({},t,{currentPos:{x:e.payload.cursorX,y:e.payload.cursorY}});default:return t}}function u(t,e){switch(t=t||I,e.type){case f.START_EDIT:return $.extend({},t,{hoverTarget:e.payload.entityID});case f.UPDATE_PLACEHOLDER:return $.extend({},t,{hoverTarget:e.payload});case f.END_EDIT:return $.extend({},t,{hoverTarget:null});default:return t}}function d(t,e){switch(t=t||O,e.type){case f.TRIGGER_GALLERY:return $.extend({},t,{isOpened:!t.isOpened});default:return t}}function s(t,e){switch(t=t||v,e.type){case f.SET_GALLERY_FILTER_OPTS:var r=$.grep(e.payload,function(t){return t.hasOwnProperty("categoryVal")});return r.length>0?$.extend({},t,{categoryList:$.map(r,function(t){return{text:t.categoryName||t.categoryVal,val:t.categoryVal,totalPages:t.totalPages}}),category:0,page:1}):t;case f.CHANGE_GALLERY_FILTER:var a=e.payload.category,n=e.payload.page;return $.extend({},t,{page:n,category:a});case f.REQUEST_GALLERY_IMAGE:return $.extend({},t,{isFetching:!0});case f.RECEIVE_GALLERY_IMAGE:return $.extend({},t,{isFetching:!1});default:return t}}function c(t,e){switch(t=t||h,e.type){case f.REQUEST_GALLERY_IMAGE:return $.extend({},t,{isFetching:!0,list:[]});case f.RECEIVE_GALLERY_IMAGE:return $.extend({},t,{isFetching:!1,list:e.payload});default:return t}}function E(t,e){switch(t=t||A,e.type){case f.CHANGE_GALLERY_SELECTION:return $.extend({},t,{list:e.payload});case f.REQUEST_GALLERY_IMAGE:return $.extend({},t,{list:[]});default:return t}}Object.defineProperty(e,"__esModule",{value:!0}),e.GALLERY_SELECTION_DEPOT=e.GALLERY_IMAGE_DEPOT=e.GALLERY_FILTER_DEPOT=e.GALLERY_STATUS_DEPOT=e.PLACEHOLDER_DEPOT=e.EDIT_DEPOT=e.MODE_DEPOT=e.LAYOUT_DEPOT=e.FILE_DEPOT=e.FILE_STATUS_TIMEOUT=e.FILE_STATUS_ERROR=e.FILE_STATUS_COMPLETE=e.FILE_STATUS_LOADING=void 0,e.fileDepot=n,e.layoutDepot=i,e.modeDepot=o,e.editDepot=l,e.placeholderDepot=u,e.galleryStatusDepot=d,e.galleryFilterDepot=s,e.galleryImageDepot=c,e.gallerySelectionDepot=E;var p=r(1),f=a(p),g=e.FILE_STATUS_LOADING="FILE_STATUS_LOADING",_=e.FILE_STATUS_COMPLETE="FILE_STATUS_COMPLETE",D=(e.FILE_STATUS_ERROR="FILE_STATUS_ERROR",e.FILE_STATUS_TIMEOUT="FILE_STATUS_TIMEOUT",e.FILE_DEPOT="FILE_DEPOT",e.LAYOUT_DEPOT="LAYOUT_DEPOT",e.MODE_DEPOT="MODE_DEPOT",e.EDIT_DEPOT="EDIT_DEPOT",e.PLACEHOLDER_DEPOT="PLACEHOLDER_DEPOT",e.GALLERY_STATUS_DEPOT="GALLERY_STATUS_DEPOT",e.GALLERY_FILTER_DEPOT="GALLERY_FILTER_DEPOT",e.GALLERY_IMAGE_DEPOT="GALLERY_IMAGE_DEPOT",e.GALLERY_SELECTION_DEPOT="GALLERY_SELECTION_DEPOT",{entities:{},order:[],selections:[],runningID:0}),T={thumbnailLayouts:[]},L={mode:f.DISPLAY_MODE},y={target:null,startPos:{x:0,y:0},currentPos:{x:0,y:0}},I={hoverTarget:null},O={isOpened:!1},v={page:1,categoryList:[{text:"--",val:"",totalPages:1}],category:0,isFetching:!1},h={list:[],isFetching:!1},A={list:[]}},function(t,e){"use strict";function r(t){return""}function a(t,e){return t.append(e),t}function n(t,e){var r=t.left,a=t.top,n=t.width,i=t.height,o=e.x,l=e.y,u=r,d=r+n,s=a,c=a+i;return o>u&&o<d&&l>s&&l<c}Object.defineProperty(e,"__esModule",{value:!0}),e.checkEnv=r,e.appendNode=a,e.isCollided=n},function(t,e,r){"use strict";function a(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e.default=t,e}function n(t,e){var r=e.limit,a=$("<div />").addClass(c).css("minHeight",e.minHeight).on("dragover",function(t){t.preventDefault(),a.addClass("drag-over")}).on("dragleave",function(t){t.preventDefault(),a.removeClass("drag-over")}).on("drop",function(n){n.preventDefault(),a.removeClass("drag-over");var i=u.curryIt(t.getState.bind(t),s.FILE_DEPOT),l=n.originalEvent.dataTransfer.files;t.dispatch(o.uploadStart(l,r,i().runningID,e.onUpload))});return a}Object.defineProperty(e,"__esModule",{value:!0}),e.gen=n;var i=r(1),o=a(i),l=r(2),u=a(l),d=r(3),s=a(d),c="RT_FILE_UPLOADER"},function(t,e,r){"use strict";function a(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e.default=t,e}function n(t,e){var r=$("<div />").addClass("gallery");return t.listen(u.GALLERY_STATUS_DEPOT,function(){E(t,e,r)}),t.listen(u.GALLERY_FILTER_DEPOT,function(){p(t,e,r)}),t.listen(u.GALLERY_IMAGE_DEPOT,function(){f(t,e,r)}),t.listen(u.GALLERY_SELECTION_DEPOT,function(){g(t,e,r)}),c(t,e,r)}Object.defineProperty(e,"__esModule",{value:!0}),e.gen=n;var i=r(2),o=a(i),l=r(3),u=a(l),d=r(1),s=a(d),c=function(t,e,r){var a=o.curryIt(t.getState.bind(t),u.GALLERY_STATUS_DEPOT),n=o.curryIt(t.getState.bind(t),u.GALLERY_FILTER_DEPOT),i=o.curryIt(t.getState.bind(t),u.GALLERY_IMAGE_DEPOT),l=o.curryIt(t.getState.bind(t),u.GALLERY_SELECTION_DEPOT),d=o.curryIt(t.getState.bind(t),u.FILE_DEPOT);a().isOpened&&r.addClass("is-opened");var c=$("<div />").addClass("overlay").click(function(){t.dispatch(s.triggerGallery())}),E=$("<div />").addClass("title").text("露天圖庫"),p=function(){var r=$("<div />").addClass("content"),a=$("<div />").addClass("wrap"),o=function(){for(var r=$("<div />").addClass("tool-bar"),a=$("<select />").attr("data-ref","galleryPagination"),i=1;i<=n().categoryList[n().category].totalPages;i++){var o=$("<option />").attr("value",i).text("第 "+i.toString()+" 頁");a.append(o)}a.val(n().page).change(function(r){var a=$(this);t.dispatch(s.changeGalleryFilter(n().category,Number(a.val()))),t.dispatch(s.fetchGalleryImage(n().categoryList[n().category].val,Number(a.val()),e.onFetchGallery))});for(var l=$("<select />").attr("data-ref","galleryCategory"),i=0;i<n().categoryList.length;i++){var u=n().categoryList[i],o=$("<option />").attr("value",u.val).text(u.text);l.append(o)}return l.val(n().category).change(function(r){var a=$(this);t.dispatch(s.changeGalleryFilter(Number(a.val()),1)),t.dispatch(s.fetchGalleryImage(n().categoryList[n().category].val,1,e.onFetchGallery))}),r.append(l).append(a)}(),u=function(){for(var t=$("<div />").addClass("list-view").attr("data-ref","galleryListView"),r=0;r<i().list.length;r++){var a=i().list[r].url,n=$("<div />").addClass("list-item"),o=$("<img />").attr("width",e.thumbnailWidth).attr("height",e.thumbnailHeight).attr("src",a);n.append(o),t.append(n)}return t}(),c=function(){var r=$("<div />").addClass("btn-bar"),a=$("<button />").attr("type","button").addClass("rt-button rt-button-mini rt-button-submit").text("確定新增").click(function(){var r=[],a=d().runningID,n=l().list,o=i().list;if(n.length){for(var u=0;u<n.length;u++){var c=n[u];r.push({url:o[c].url,userDefinedData:o[c].userDefinedData})}t.dispatch(s.uploadFromGalleryStart(r,e.limit,a,e.onUploadFromGallery)),t.dispatch(s.triggerGallery())}}),n=$("<a />").attr("href","#").text("取消").click(function(e){e.preventDefault(),t.dispatch(s.triggerGallery())});return r.append(a).append(n)}();return a.append(o).append(u).append(c),r.append(a)}(),f=$("<div />").addClass("dialog").append(E).append(p);return r.append(c).append(f),r},E=function(t,e,r){var a=o.curryIt(t.getState.bind(t),u.GALLERY_STATUS_DEPOT);a().isOpened?r.addClass("is-opened"):r.removeClass("is-opened")},p=function(t,e,r){var a=o.curryIt(t.getState.bind(t),u.GALLERY_FILTER_DEPOT),n=r.find("[data-ref=galleryPagination]"),i=r.find("[data-ref=galleryCategory]");n.empty();for(var l=1;l<=a().categoryList[a().category].totalPages;l++){var d=$("<option />").attr("value",l).text("第 "+l.toString()+" 頁");n.append(d)}n.val(a().page),i.empty();for(var l=0;l<a().categoryList.length;l++){var s=a().categoryList[l],d=$("<option />").attr("value",l.toString()).text(s.text);i.append(d)}i.val(a().category),a().isFetching?(n.prop("disabled",!0),i.prop("disabled",!0)):(n.prop("disabled",!1),i.prop("disabled",!1))},f=function(t,e,r){var a=o.curryIt(t.getState.bind(t),u.GALLERY_IMAGE_DEPOT),n=o.curryIt(t.getState.bind(t),u.GALLERY_SELECTION_DEPOT),i=r.find("[data-ref=galleryListView]");if(i.empty(),a().isFetching){var l=$("<i />").addClass("fa fa-circle-o-notch fa-spin fa-2x fa-fw loading-ring");i.append(l)}else for(var d=0;d<a().list.length;d++){var c=a().list[d].url,E=$("<div />").addClass("list-item").click(function(){var r=$(this),a=n().list.slice(0),i=r.index(),o=a.indexOf(i);o===-1?(a.push(i),a.length>e.limit&&(a=a.slice(a.length-e.limit))):a.splice(o,1),t.dispatch(s.changeGallerySelection(a))}),p=$("<img />").attr("width",e.thumbnailWidth).attr("height",e.thumbnailHeight).attr("src",c);E.append(p),i.append(E)}},g=function(t,e,r){var a=o.curryIt(t.getState.bind(t),u.GALLERY_SELECTION_DEPOT),n=r.find("[data-ref=galleryListView]");n.find(".is-selected").removeClass("is-selected");for(var i=0;i<a().list.length;i++){var l=a().list[i];n.children().eq(l).addClass("is-selected")}}},function(t,e,r){"use strict";function a(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e.default=t,e}function n(t,e){var r=$("<div />"),a=o.curryIt(u,t),n=o.curryIt(c,r,l),i=o.curryIt(s,r),p=o.curryIt(E,r,l);return r.state=t({},{}),r.state.__DEBUG__={action:{},diff:[]},r.getState=i,r.listen=p,r.dispatch=function(t){if("function"==typeof t)t(r.dispatch);else{var i=a(r.state,t),o=d(r.state,i);if(e){for(var l={},u=0;u<o.length;u++)l[o[u]]=i[o[u]];console.log("\n===Action fired==="),console.log("-> Action:"),console.log(t),console.log("-> Changed parts: "),console.log(l),console.log("===================\n")}o.length&&(r.state=i,n(o))}},r}Object.defineProperty(e,"__esModule",{value:!0}),e.createStore=n;var i=r(2),o=a(i),l="RT_FILE_UPLOADER",u=function(t,e,r){return t(e,r)},d=function(t,e){var r=[];for(var a in e)e[a]!==t[a]&&r.push(a);return r},s=function(t,e){return e?t.state[e]:t.state},c=function(t,e,r){for(var a=e.toString()||"",n=0;n<r.length;n++)t.trigger(a+r[n])},E=function(t,e,r,a){var n=e.toString()||"";t.on(n+r,a)}},function(t,e,r){"use strict";function a(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e.default=t,e}function n(t,e){var r=(o.curryIt(t.getState.bind(t),E.MODE_DEPOT),o.curryIt(t.getState.bind(t),E.EDIT_DEPOT),o.curryIt(t.getState.bind(t),E.PLACEHOLDER_DEPOT),$("<div />").addClass("thumbnail-viewer"));return t.listen(E.FILE_DEPOT,function(){p(t,e,r)}),t.listen(E.MODE_DEPOT,function(){f(t,e,r)}),t.listen(E.EDIT_DEPOT,function(){g(t,e,r)}),t.listen(E.PLACEHOLDER_DEPOT,function(){_(t,e,r)}),p(t,e,r)}Object.defineProperty(e,"__esModule",{value:!0}),e.gen=n;var i=r(2),o=a(i),l=r(4),u=a(l),d=r(1),s=a(d),c=r(3),E=a(c),p=function(t,e,r){var a=e.thumbnailWidth,n=e.thumbnailHeight,i=o.curryIt(t.getState.bind(t),E.FILE_DEPOT),l=o.curryIt(t.getState.bind(t),E.MODE_DEPOT);r.empty();var u=$.map(i().order,function(e,o){var u=i().entities[e],d=(new FileReader,$("<div />").attr("data-ref","thumbnail").addClass("thumbnail").attr("data-key",o).css("width",a).css("height",n).on("touchstart mousedown",function(a){if(a.preventDefault(),l().mode===s.DISPLAY_MODE){var n=r.offset(),i=($(this).offset(),a.originalEvent.targetTouches),o=i?i[0].pageX:a.pageX,u=i?i[0].pageY:a.pageY;t.dispatch(s.startEdit({entityID:e,cursorX:o-n.left,cursorY:u-n.top}))}})),c=$("<div />").addClass("img");switch(u.status){case E.FILE_STATUS_LOADING:var p=$("<i />").addClass("fa fa-circle-o-notch fa-spin fa-2x fa-fw loading-ring");c.append(p);break;case E.FILE_STATUS_COMPLETE:c.css("background-image","url("+u.url+")");break;case E.FILE_STATUS_ERROR:$msg=$("<div />").addClass("msg").append($("<i />").addClass("fa fa-exclamation-triangle icon")).append($("<div />").addClass("text").text(u.errMsg)),c.append($msg)}var f=$("<div />").addClass("img-wrap").css("width",a).css("height",n).append(c),g=$("<i />").addClass("fa").addClass("fa-times").addClass("delete").on("touchstart mousedown",function(t){t.stopPropagation()}).click(function(r){r.stopPropagation(),t.dispatch(s.deleteFile(e))});return d.append(f).append(g),d});$.each(u,function(t,e){r.append(e)});var d=$.map(u,function(t){return t.position()});return t.dispatch(s.updateLayout(d)),r},f=function(t,e,r){var a=e.thumbnailWidth,n=e.thumbnailHeight,i=o.curryIt(t.getState.bind(t),E.MODE_DEPOT),l=o.curryIt(t.getState.bind(t),E.LAYOUT_DEPOT),d=o.curryIt(t.getState.bind(t),E.EDIT_DEPOT),c=o.curryIt(t.getState.bind(t),E.FILE_DEPOT),p=o.curryIt(t.getState.bind(t),E.PLACEHOLDER_DEPOT);i().mode===s.EDIT_MODE?r.on("touchend mouseup",function(e){i().mode===s.EDIT_MODE&&t.dispatch(s.endEdit(d().target,p().hoverTarget))}).on("touchmove mousemove",function(e){e.preventDefault();var r=$(this).offset(),i=e.originalEvent.targetTouches,o=i?i[0].pageX:e.pageX,E=i?i[0].pageY:e.pageY,p=o-r.left,f=E-r.top;t.dispatch(s.updateEdit({entityID:d().target,cursorX:p,cursorY:f})),$.each(l().thumbnailLayouts,function(e,r){var i={left:r.left,top:r.top,width:a,height:n},o={x:p,y:f};if(u.isCollided(i,o))return t.dispatch(s.updatePlaceholder(c().order[e])),!1})}):r.off("touchmove").off("mousemove").off("touchend").off("mouseup")},g=function(t,e,r){var a=o.curryIt(t.getState.bind(t),E.MODE_DEPOT),n=o.curryIt(t.getState.bind(t),E.EDIT_DEPOT),i=o.curryIt(t.getState.bind(t),E.FILE_DEPOT),l=o.curryIt(t.getState.bind(t),E.LAYOUT_DEPOT);return a().mode===s.EDIT_MODE&&$.each(i().order,function(t,e){e===n().target&&r.children("[data-ref=thumbnail]").eq(t).attr("date-ref","dragTarget").addClass("drag-target").css({position:"absolute",zIndex:"99",left:l().thumbnailLayouts[t].left+n().currentPos.x-n().startPos.x,top:l().thumbnailLayouts[t].top+n().currentPos.y-n().startPos.y-7})}),r},_=function(t,e,r){var a=e.thumbnailWidth,n=e.thumbnailHeight,i=o.curryIt(t.getState.bind(t),E.FILE_DEPOT),l=o.curryIt(t.getState.bind(t),E.EDIT_DEPOT),u=o.curryIt(t.getState.bind(t),E.PLACEHOLDER_DEPOT),d=u().hoverTarget,s=l().target;if(r.children("[data-ref=placeholder]").remove(),null!==d){var c=i().order.indexOf(d),p=i().order.indexOf(s),f=r.children("[data-ref=thumbnail]").eq(c),g=$("<div />").attr("data-ref","placeholder").addClass("placeholder").css({width:a,height:n});p>c?g.insertBefore(f):g.insertAfter(f)}return r}},function(t,e,r){"use strict";function a(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e.default=t,e}function n(t,e){var r=o.curryIt(t.getState.bind(t),s.GALLERY_FILTER_DEPOT),a=e.limit,n=$("<div />").addClass("hint-text").append($("<span />").text("選擇檔案")),i=$("<div />").addClass("hint-text").append($("<span />").addClass("separator").text("或")).append($("<span />").text("拖曳檔案至此")),l=$("<i />").addClass("upload-icon").addClass("fa").addClass("fa-upload"),d=$('<input type="file" accept="image/*;capture=camera"/>').addClass("add-local-input").attr("multiple","").change(function(r){var n=o.curryIt(t.getState.bind(t),s.FILE_DEPOT),i=$(this),l=i[0].files;t.dispatch(u.uploadStart(l,a,n().runningID,e.onUpload)),i.val("")}),E=$("<div />").addClass("rt-button").addClass("rt-button-mini").addClass("rt-button-default").text("本地檔案"),p=$("<label />").addClass("action").append(d).append(E),f=$("<button />").attr("type","button").addClass("action").addClass("rt-button").addClass("rt-button-mini").addClass("rt-button-default").text("露天圖庫").click(function(){t.dispatch(u.triggerGallery()),t.dispatch(u.fetchGalleryImage(r().categoryList[r().category].val,r().page,e.onFetchGallery))}),g=$("<div />").addClass("wrap").append(l).append(n).append(p).append(f).append(i),_=$("<div />").addClass("tool-bar").append(g);return t.listen(s.FILE_DEPOT,function(){c(t,e,_)}),c(t,e,_)}Object.defineProperty(e,"__esModule",{value:!0}),e.gen=n;var i=r(2),o=a(i),l=r(1),u=a(l),d=r(3),s=a(d),c=function(t,e,r){var a=(e.limit,o.curryIt(t.getState.bind(t),s.FILE_DEPOT));return a().order.length?r.removeClass("hint").css("height","auto"):r.addClass("hint"),r}},function(t,e,r){"use strict";function a(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r]);return e.default=t,e}var n=r(2),i=a(n),o=r(7),l=a(o),u=r(4),d=a(u),s=r(3),c=a(s),E=r(1),p=a(E),f=r(5),g=a(f),_=r(9),D=a(_),T=r(8),L=a(T),y=r(6),I=a(y);window.RT=window.RT||{};var O=RT.FileUploader={},v=function(t){var e=navigator.userAgent||navigator.vendor||window.opera;return $.extend({},t,{uiType:d.checkEnv(e),minHeight:t.minHeight||160,thumbnailWidth:t.thumbnailWidth||120,thumbnailHeight:t.thumbnailHeight||90,limit:t.limit||3,galleryFilterOpts:t.galleryFilterOpts instanceof Array?t.galleryFilterOpts:[]})},h=function(t){var e=function(t,e){var r={};return r[c.FILE_DEPOT]=c.fileDepot(t[c.FILE_DEPOT],e),r[c.LAYOUT_DEPOT]=c.layoutDepot(t[c.LAYOUT_DEPOT],e),r[c.MODE_DEPOT]=c.modeDepot(t[c.MODE_DEPOT],e),r[c.EDIT_DEPOT]=c.editDepot(t[c.EDIT_DEPOT],e),r[c.PLACEHOLDER_DEPOT]=c.placeholderDepot(t[c.PLACEHOLDER_DEPOT],e),r[c.GALLERY_STATUS_DEPOT]=c.galleryStatusDepot(t[c.GALLERY_STATUS_DEPOT],e),r[c.GALLERY_FILTER_DEPOT]=c.galleryFilterDepot(t[c.GALLERY_FILTER_DEPOT],e),r[c.GALLERY_IMAGE_DEPOT]=c.galleryImageDepot(t[c.GALLERY_IMAGE_DEPOT],e),r[c.GALLERY_SELECTION_DEPOT]=c.gallerySelectionDepot(t[c.GALLERY_SELECTION_DEPOT],e),r};return l.createStore(e,t.debug)},A=function(t,e){var r=g.gen(t,e),a=D.gen(t,e),n=L.gen(t,e),o=I.gen(t,e),l=i.curryIt(d.appendNode,r);return l(a),l(n),l(o),r};O.gen=function(t,e){e=v(e);var r=i.curryIt(d.appendNode,t),a=h(e);a.dispatch(p.setGalleryFilterOpts(e.galleryFilterOpts));var n=A(a,e);return r(n),{getFiles:function(){var t=i.curryIt(a.getState.bind(a),c.FILE_DEPOT);return $.map(t().order,function(e){var r=t().entities[e];return{id:e,url:r.url,status:r.status,progress:r.progress,errMsg:r.errMsg,userDefinedData:r.userDefinedData}})},setFiles:function(t){var r=i.curryIt(a.getState.bind(a),c.FILE_DEPOT);a.dispatch(p.addFile($.map(t,function(t){return{url:t.url,userDefinedData:t.userDefinedData}}),e.limit,r().runningID))}}},O.FILE_STATUS={COMPLETE:c.FILE_STATUS_COMPLETE,LOADING:c.FILE_STATUS_LOADING,ERROR:c.FILE_STATUS_ERROR,TIMEOUT:c.FILE_STATUS_TIMEOUT}}]);
+var rt_file_uploader =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/*!******************************!*\
+  !*** multi rt_file_uploader ***!
+  \******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(/*! /home/robinlu0705/rt_file_uploader/src/entry.js */1);
+
+
+/***/ },
+/* 1 */
+/*!**********************!*\
+  !*** ./src/entry.js ***!
+  \**********************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _FpUtils = __webpack_require__(/*! FpUtils */ 2);
+	
+	var FpUtils = _interopRequireWildcard(_FpUtils);
+	
+	var _StoreUtils = __webpack_require__(/*! StoreUtils */ 3);
+	
+	var StoreUtils = _interopRequireWildcard(_StoreUtils);
+	
+	var _Utils = __webpack_require__(/*! Utils */ 4);
+	
+	var Utils = _interopRequireWildcard(_Utils);
+	
+	var _Reducers = __webpack_require__(/*! Reducers */ 5);
+	
+	var Reducers = _interopRequireWildcard(_Reducers);
+	
+	var _Actions = __webpack_require__(/*! Actions */ 43);
+	
+	var Actions = _interopRequireWildcard(_Actions);
+	
+	var _App = __webpack_require__(/*! App */ 44);
+	
+	var App = _interopRequireWildcard(_App);
+	
+	var _ToolBar = __webpack_require__(/*! ToolBar */ 45);
+	
+	var ToolBar = _interopRequireWildcard(_ToolBar);
+	
+	var _ThumbnailViewer = __webpack_require__(/*! ThumbnailViewer */ 46);
+	
+	var ThumbnailViewer = _interopRequireWildcard(_ThumbnailViewer);
+	
+	var _Gallery = __webpack_require__(/*! Gallery */ 73);
+	
+	var Gallery = _interopRequireWildcard(_Gallery);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	window.RT = window.RT || {}; /* will add FileUploader to window.RT */
+	
+	var APP_NAMESPACE = RT.FileUploader = {};
+	
+	/* main functions */
+	function __seasonOpts__(opts) {
+	  return $.extend({}, opts, {
+	    minHeight: opts.minHeight || 160,
+	    thumbnailWidth: opts.thumbnailWidth || 120,
+	    thumbnailHeight: opts.thumbnailHeight || 90,
+	    limit: opts.limit || 3,
+	    galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : []
+	  });
+	};
+	
+	function __createStore__(opts) {
+	  /* create store with initial state */
+	  var combinedReducer = function combinedReducer(state, action) {
+	    var newState = {};
+	    newState[Reducers.FILE_DEPOT] = Reducers.fileDepot(state[Reducers.FILE_DEPOT], action);
+	    newState[Reducers.LAYOUT_DEPOT] = Reducers.layoutDepot(state[Reducers.LAYOUT_DEPOT], action);
+	    newState[Reducers.MODE_DEPOT] = Reducers.modeDepot(state[Reducers.MODE_DEPOT], action);
+	    newState[Reducers.EDIT_DEPOT] = Reducers.editDepot(state[Reducers.EDIT_DEPOT], action);
+	    newState[Reducers.PLACEHOLDER_DEPOT] = Reducers.placeholderDepot(state[Reducers.PLACEHOLDER_DEPOT], action);
+	    newState[Reducers.GALLERY_STATUS_DEPOT] = Reducers.galleryStatusDepot(state[Reducers.GALLERY_STATUS_DEPOT], action);
+	    newState[Reducers.GALLERY_FILTER_DEPOT] = Reducers.galleryFilterDepot(state[Reducers.GALLERY_FILTER_DEPOT], action);
+	    newState[Reducers.GALLERY_IMAGE_DEPOT] = Reducers.galleryImageDepot(state[Reducers.GALLERY_IMAGE_DEPOT], action);
+	    newState[Reducers.GALLERY_SELECTION_DEPOT] = Reducers.gallerySelectionDepot(state[Reducers.GALLERY_SELECTION_DEPOT], action);
+	
+	    return newState;
+	  };
+	
+	  return StoreUtils.createStore(combinedReducer, opts.debug);
+	};
+	
+	function __genUI__($store, opts) {
+	  /* create file loader ui */
+	  var $App = App.gen($store, opts);
+	  var $ToolBar = ToolBar.gen($store, opts);
+	  var $ThumbnailViewer = ThumbnailViewer.gen($store, opts);
+	  var $Gallery = Gallery.gen($store, opts);
+	
+	  var appendComponentToApp = FpUtils.curryIt(Utils.appendNode, $App);
+	
+	  appendComponentToApp($ToolBar);
+	  appendComponentToApp($ThumbnailViewer);
+	  appendComponentToApp($Gallery);
+	
+	  return $App;
+	};
+	
+	/* export to APP_NAMESPACE */
+	/**
+	 * @param {$elm} $container
+	 * @param {Object} opts
+	 * @param {number} opts.minHeight
+	 * @param {number} opts.thumbnailWidth
+	 * @param {number} opts.thumbnailHeight
+	 * @param {number} opts.limit
+	 */
+	APP_NAMESPACE.gen = function ($container, opts) {
+	  opts = __seasonOpts__(opts);
+	  var appendUIToContainer = FpUtils.curryIt(Utils.appendNode, $container);
+	  var $store = __createStore__(opts);
+	
+	  $store.dispatch(Actions.setGalleryFilterOpts(opts.galleryFilterOpts));
+	
+	  var $App = __genUI__($store, opts);
+	
+	  appendUIToContainer($App);
+	
+	  return {
+	    getFiles: function getFiles() {
+	      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	      return getFileDepot().order.map(function (id) {
+	        var entity = getFileDepot().entities[id];
+	        return {
+	          id: id,
+	          url: entity.url,
+	          status: entity.status,
+	          progress: entity.progress,
+	          errMsg: entity.errMsg,
+	          userDefinedData: entity.userDefinedData
+	        };
+	      });
+	    },
+	    setFiles: function setFiles(list) {
+	      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	      $store.dispatch(Actions.addFile(list.map(function (item) {
+	        return {
+	          url: item.url,
+	          userDefinedData: item.userDefinedData
+	        };
+	      }), opts.limit, getFileDepot().runningID));
+	    }
+	  };
+	};
+	
+	APP_NAMESPACE.FILE_STATUS = {
+	  COMPLETE: Reducers.FILE_STATUS_COMPLETE,
+	  LOADING: Reducers.FILE_STATUS_LOADING,
+	  ERROR: Reducers.FILE_STATUS_ERROR,
+	  TIMEOUT: Reducers.FILE_STATUS_TIMEOUT
+	};
+
+/***/ },
+/* 2 */
+/*!************************!*\
+  !*** ./src/FpUtils.js ***!
+  \************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.compose = compose;
+	exports.curryIt = curryIt;
+	/* functional programming utility functions */
+	
+	/**
+	 * @param {...function} f
+	 * @return {function}
+	 */
+	function compose(f) {
+	  var funcs = arguments;
+	  return function () {
+	    var args = arguments;
+	    for (var i = funcs.length; i-- > 0;) {
+	      args = [funcs[i].apply(this, args)];
+	    }
+	
+	    return args[0];
+	  };
+	};
+	
+	/**
+	 * @param {function} f
+	 * @param {*...} arg
+	 */
+	function curryIt(f, arg) {
+	  var curriedParams = Array.prototype.slice.call(arguments, 1);
+	  return function () {
+	    var params = Array.prototype.slice.call(arguments, 0);
+	    return f.apply(this, curriedParams.concat(params));
+	  };
+	};
+
+/***/ },
+/* 3 */
+/*!***************************!*\
+  !*** ./src/StoreUtils.js ***!
+  \***************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.createStore = createStore;
+	
+	var _FpUtils = __webpack_require__(/*! FpUtils */ 2);
+	
+	var FpUtils = _interopRequireWildcard(_FpUtils);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	/* constants */
+	var IDENTIFIER = 'RT_FILE_UPLOADER'; /* store utility functions */
+	
+	
+	function __calcNewState__(reducer, state, action) {
+	  return reducer(state, action);
+	};
+	
+	function __diffStates__(oldState, newState) {
+	  var ret = [];
+	  for (var key in newState) {
+	    if (newState[key] !== oldState[key]) {
+	      ret.push(key);
+	    }
+	  }
+	
+	  return ret;
+	}
+	
+	function __getStoreState__($store, statePart) {
+	  if (statePart) {
+	    return $store.state[statePart];
+	  } else {
+	    return $store.state;
+	  }
+	};
+	
+	function __fireStoreChange__($store, IDENTIFIER, stateParts) {
+	  var prefix = IDENTIFIER.toString() || '';
+	  for (var i = 0; i < stateParts.length; i++) {
+	    $store.trigger(prefix + stateParts[i]);
+	  }
+	};
+	
+	function __addStoreListener__($store, IDENTIFIER, statePart, handler) {
+	  var prefix = IDENTIFIER.toString() || '';
+	  $store.on(prefix + statePart, handler);
+	};
+	
+	/* exports */
+	function createStore(reducer, debug) {
+	  var $store = $('<div />');
+	  var reduce = FpUtils.curryIt(__calcNewState__, reducer);
+	  var fireChange = FpUtils.curryIt(__fireStoreChange__, $store, IDENTIFIER);
+	  var getState = FpUtils.curryIt(__getStoreState__, $store);
+	  var listen = FpUtils.curryIt(__addStoreListener__, $store, IDENTIFIER);
+	
+	  $store.state = reducer({}, {});
+	  $store.state.__DEBUG__ = {
+	    action: {},
+	    diff: []
+	  };
+	
+	  $store.getState = getState;
+	  $store.listen = listen;
+	  $store.dispatch = function (action) {
+	    if (typeof action === 'function') {
+	      action($store.dispatch);
+	    } else {
+	      var newState = reduce($store.state, action);
+	      var diff = __diffStates__($store.state, newState);
+	
+	      if (debug) {
+	        var changedParts = {};
+	
+	        for (var i = 0; i < diff.length; i++) {
+	          changedParts[diff[i]] = newState[diff[i]];
+	        }
+	
+	        console.log('\n===Action fired===');
+	        console.log('-> Action:');
+	        console.log(action);
+	        console.log('-> Changed parts: ');
+	        console.log(changedParts);
+	        console.log('===================\n');
+	      }
+	
+	      if (diff.length) {
+	        $store.state = newState;
+	        fireChange(diff);
+	      }
+	    }
+	  };
+	
+	  return $store;
+	};
+
+/***/ },
+/* 4 */
+/*!**********************!*\
+  !*** ./src/Utils.js ***!
+  \**********************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.appendNode = appendNode;
+	exports.isCollided = isCollided;
+	/* main utility functions */
+	
+	/* exports */
+	function appendNode($target, $source) {
+	  $target.append($source);
+	  return $target;
+	};
+	
+	function isCollided(_ref, _ref2) {
+	  var left = _ref.left,
+	      top = _ref.top,
+	      width = _ref.width,
+	      height = _ref.height;
+	  var x = _ref2.x,
+	      y = _ref2.y;
+	
+	  var boundaryLeft = left;
+	  var boundaryRight = left + width;
+	  var boundaryTop = top;
+	  var boundaryBottom = top + height;
+	
+	  if (x > boundaryLeft && x < boundaryRight && y > boundaryTop && y < boundaryBottom) {
+	    return true;
+	  } else {
+	    return false;
+	  }
+	};
+
+/***/ },
+/* 5 */
+/*!*************************!*\
+  !*** ./src/Reducers.js ***!
+  \*************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.GALLERY_SELECTION_DEPOT = exports.GALLERY_IMAGE_DEPOT = exports.GALLERY_FILTER_DEPOT = exports.GALLERY_STATUS_DEPOT = exports.PLACEHOLDER_DEPOT = exports.EDIT_DEPOT = exports.MODE_DEPOT = exports.LAYOUT_DEPOT = exports.FILE_DEPOT = exports.FILE_STATUS_TIMEOUT = exports.FILE_STATUS_ERROR = exports.FILE_STATUS_COMPLETE = exports.FILE_STATUS_LOADING = undefined;
+	
+	var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ 6);
+	
+	var _assign2 = _interopRequireDefault(_assign);
+	
+	exports.fileDepot = fileDepot;
+	exports.layoutDepot = layoutDepot;
+	exports.modeDepot = modeDepot;
+	exports.editDepot = editDepot;
+	exports.placeholderDepot = placeholderDepot;
+	exports.galleryStatusDepot = galleryStatusDepot;
+	exports.galleryFilterDepot = galleryFilterDepot;
+	exports.galleryImageDepot = galleryImageDepot;
+	exports.gallerySelectionDepot = gallerySelectionDepot;
+	
+	var _Actions = __webpack_require__(/*! Actions */ 43);
+	
+	var Actions = _interopRequireWildcard(_Actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/* common constants */
+	var FILE_STATUS_LOADING = exports.FILE_STATUS_LOADING = 'FILE_STATUS_LOADING'; /* reducers */
+	var FILE_STATUS_COMPLETE = exports.FILE_STATUS_COMPLETE = 'FILE_STATUS_COMPLETE';
+	var FILE_STATUS_ERROR = exports.FILE_STATUS_ERROR = 'FILE_STATUS_ERROR';
+	var FILE_STATUS_TIMEOUT = exports.FILE_STATUS_TIMEOUT = 'FILE_STATUS_TIMEOUT';
+	
+	/* state parts constants */
+	var FILE_DEPOT = exports.FILE_DEPOT = 'FILE_DEPOT';
+	var LAYOUT_DEPOT = exports.LAYOUT_DEPOT = 'LAYOUT_DEPOT';
+	var MODE_DEPOT = exports.MODE_DEPOT = 'MODE_DEPOT';
+	var EDIT_DEPOT = exports.EDIT_DEPOT = 'EDIT_DEPOT';
+	var PLACEHOLDER_DEPOT = exports.PLACEHOLDER_DEPOT = 'PLACEHOLDER_DEPOT';
+	var GALLERY_STATUS_DEPOT = exports.GALLERY_STATUS_DEPOT = 'GALLERY_STATUS_DEPOT';
+	var GALLERY_FILTER_DEPOT = exports.GALLERY_FILTER_DEPOT = 'GALLERY_FILTER_DEPOT';
+	var GALLERY_IMAGE_DEPOT = exports.GALLERY_IMAGE_DEPOT = 'GALLERY_IMAGE_DEPOT';
+	var GALLERY_SELECTION_DEPOT = exports.GALLERY_SELECTION_DEPOT = 'GALLERY_SELECTION_DEPOT';
+	
+	var fileDepotDefaultState = {
+	  entities: {},
+	  order: [],
+	  selections: [],
+	  runningID: 0
+	};
+	
+	function fileDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : fileDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.ADD_LOADING_FILE:
+	      {
+	        var IDList = action.payload.IDList;
+	        var runningID = action.payload.runningID;
+	        var limit = action.payload.limit;
+	        var newEntities = {};
+	        var newEntityOrder = [];
+	        var count = 0;
+	
+	        for (var i = 0; i < IDList.length && count < limit; i++) {
+	          var id = IDList[i];
+	          newEntities[id] = {
+	            url: '',
+	            status: FILE_STATUS_LOADING,
+	            progress: 0
+	          };
+	
+	          newEntityOrder.push(id);
+	          ++count;
+	        }
+	
+	        for (var _i = 0; _i < state.order.length && count < limit; _i++) {
+	          var _id = state.order[_i];
+	          newEntities[_id] = state.entities[_id];
+	          newEntityOrder.push(_id);
+	          ++count;
+	        }
+	
+	        return (0, _assign2.default)({}, state, {
+	          entities: newEntities,
+	          order: newEntityOrder,
+	          selections: [],
+	          runningID: runningID
+	        });
+	      }
+	
+	    case Actions.UPDATE_LOADING_FILE:
+	      {
+	        var list = action.payload;
+	        var needUpdate = false;
+	        var _IDList = list.map(function (item) {
+	          return item.id;
+	        });
+	
+	        for (var _i2 = 0; _i2 < state.order.length; _i2++) {
+	          var _id2 = state.order[_i2];
+	          if (_IDList.indexOf(_id2) !== -1) {
+	            needUpdate = true;
+	            break;
+	          }
+	        }
+	
+	        if (!needUpdate) {
+	          return state;
+	        } else {
+	          var _newEntities = $.extend({}, state.entities);
+	          var _newEntityOrder = state.order.slice(0);
+	
+	          for (var _i3 = 0; _i3 < _IDList.length; _i3++) {
+	            var _id3 = _IDList[_i3];
+	            var url = list[_i3].url;
+	            var status = list[_i3].status;
+	            var progress = list[_i3].progress;
+	            var errMsg = list[_i3].errMsg;
+	            var userDefinedData = list[_i3].userDefinedData;
+	            var entity = _newEntities[_id3];
+	            if (entity) {
+	              entity.url = url;
+	              entity.status = status;
+	              entity.progress = progress;
+	              entity.errMsg = errMsg;
+	              entity.userDefinedData = userDefinedData;
+	            }
+	          }
+	
+	          return (0, _assign2.default)({}, state, {
+	            entities: _newEntities,
+	            order: _newEntityOrder
+	          });
+	        }
+	      }
+	
+	    case Actions.ADD_FILE:
+	      {
+	        var _list = action.payload.list;
+	        var _runningID = action.payload.runningID;
+	        var _limit = action.payload.limit;
+	        var _newEntities2 = {};
+	        var _newEntityOrder2 = [];
+	        var _count = 0;
+	
+	        for (var _i4 = 0; _i4 < _list.length && _count < _limit; _i4++) {
+	          var _id4 = _list[_i4].id;
+	          var _url = _list[_i4].url;
+	          var _userDefinedData = _list[_i4].userDefinedData;
+	          _newEntities2[_id4] = {
+	            url: _url,
+	            status: FILE_STATUS_COMPLETE,
+	            progress: 100,
+	            errMsg: '',
+	            userDefinedData: _userDefinedData
+	          };
+	
+	          _newEntityOrder2.push(_id4);
+	          ++_count;
+	        }
+	
+	        for (var _i5 = 0; _i5 < state.order.length && _count < _limit; _i5++) {
+	          var _id5 = state.order[_i5];
+	          _newEntities2[_id5] = state.entities[_id5];
+	          _newEntityOrder2.push(_id5);
+	          ++_count;
+	        }
+	
+	        return (0, _assign2.default)({}, state, {
+	          entities: _newEntities2,
+	          order: _newEntityOrder2,
+	          selections: [],
+	          runningID: _runningID
+	        });
+	      }
+	
+	    case Actions.DELETE_FILE:
+	      {
+	        var _id6 = action.payload;
+	        var idx = state.order.indexOf(_id6);
+	
+	        if (idx === -1) {
+	          return state;
+	        } else {
+	          var _newEntities3 = (0, _assign2.default)({}, state.entities);
+	          var _newEntityOrder3 = state.order.slice(0);
+	
+	          delete _newEntities3[_id6];
+	          _newEntityOrder3.splice(idx, 1);
+	
+	          return (0, _assign2.default)({}, state, {
+	            entities: _newEntities3,
+	            order: _newEntityOrder3,
+	            selections: []
+	          });
+	        }
+	      }
+	
+	    case Actions.END_EDIT:
+	      {
+	        var editTarget = action.payload.editTarget;
+	        var hoverTarget = action.payload.hoverTarget;
+	        var editIdx = state.order.indexOf(editTarget);
+	        var hoverIdx = state.order.indexOf(hoverTarget);
+	        var order = state.order.slice(0, editIdx).concat(state.order.slice(editIdx + 1));
+	        order = order.slice(0, hoverIdx).concat([editTarget]).concat(order.slice(hoverIdx));
+	        return $.extend({}, state, {
+	          order: order
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	var layoutDepotDefaultState = {
+	  thumbnailLayouts: []
+	};
+	
+	function layoutDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : layoutDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.UPDATE_LAYOUT:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          thumbnailLayouts: action.payload
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	var modeDepotDefaultState = {
+	  mode: Actions.DISPLAY_MODE
+	};
+	
+	function modeDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : modeDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.START_EDIT:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          mode: Actions.EDIT_MODE
+	        });
+	      }
+	
+	    case Actions.END_EDIT:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          mode: Actions.DISPLAY_MODE
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	var editDepotDefaultState = {
+	  target: null,
+	  startPos: {
+	    x: 0,
+	    y: 0
+	  },
+	
+	  currentPos: {
+	    x: 0,
+	    y: 0
+	  }
+	};
+	
+	function editDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : editDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.START_EDIT:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          target: action.payload.entityID,
+	          startPos: {
+	            x: action.payload.cursorX,
+	            y: action.payload.cursorY
+	          },
+	
+	          currentPos: {
+	            x: action.payload.cursorX,
+	            y: action.payload.cursorY
+	          }
+	        });
+	      }
+	
+	    case Actions.UPDATE_EDIT:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          currentPos: {
+	            x: action.payload.cursorX,
+	            y: action.payload.cursorY
+	          }
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	var placeholderDepotDefaultState = {
+	  hoverTarget: null
+	};
+	
+	function placeholderDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : placeholderDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.START_EDIT:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          hoverTarget: action.payload.entityID
+	        });
+	      }
+	
+	    case Actions.UPDATE_PLACEHOLDER:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          hoverTarget: action.payload
+	        });
+	      }
+	
+	    case Actions.END_EDIT:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          hoverTarget: null
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	var galleryStatusDepotDefaultState = {
+	  isOpened: false
+	};
+	
+	function galleryStatusDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : galleryStatusDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.TRIGGER_GALLERY:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          isOpened: !state.isOpened
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	var galleryFilterDepotDefaultState = {
+	  page: 1,
+	  categoryList: [{ text: '--', val: '', totalPages: 1 }],
+	  category: 0,
+	  isFetching: false
+	};
+	
+	function galleryFilterDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : galleryFilterDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.SET_GALLERY_FILTER_OPTS:
+	      {
+	        var opts = action.payload.filter(function (opt) {
+	          return opt.hasOwnProperty('categoryVal');
+	        });
+	
+	        if (opts.length > 0) {
+	          return (0, _assign2.default)({}, state, {
+	            categoryList: opts.map(function (opt) {
+	              return {
+	                text: opt.categoryName || opt.categoryVal,
+	                val: opt.categoryVal,
+	                totalPages: opt.totalPages
+	              };
+	            }),
+	
+	            category: 0,
+	            page: 1
+	          });
+	        } else {
+	          return state;
+	        }
+	      }
+	
+	    case Actions.CHANGE_GALLERY_FILTER:
+	      {
+	        var category = action.payload.category;
+	        var page = action.payload.page;
+	
+	        return (0, _assign2.default)({}, state, {
+	          page: page,
+	          category: category
+	        });
+	      }
+	
+	    case Actions.REQUEST_GALLERY_IMAGE:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          isFetching: true
+	        });
+	      }
+	
+	    case Actions.RECEIVE_GALLERY_IMAGE:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          isFetching: false
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	var galleryImageDepotDefaultState = {
+	  list: [],
+	  isFetching: false
+	};
+	
+	function galleryImageDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : galleryImageDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.REQUEST_GALLERY_IMAGE:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          isFetching: true,
+	          list: []
+	        });
+	      }
+	
+	    case Actions.RECEIVE_GALLERY_IMAGE:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          isFetching: false,
+	          list: action.payload
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	var gallerySelectionDepotDefaultState = {
+	  list: []
+	};
+	
+	function gallerySelectionDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : gallerySelectionDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.CHANGE_GALLERY_SELECTION:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          list: action.payload
+	        });
+	      }
+	
+	    case Actions.REQUEST_GALLERY_IMAGE:
+	      {
+	        return (0, _assign2.default)({}, state, {
+	          list: []
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	};
+
+/***/ },
+/* 6 */
+/*!**************************************************!*\
+  !*** ./~/babel-runtime/core-js/object/assign.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/assign */ 7), __esModule: true };
+
+/***/ },
+/* 7 */
+/*!***************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/fn/object/assign.js ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(/*! ../../modules/es6.object.assign */ 8);
+	module.exports = __webpack_require__(/*! ../../modules/_core */ 11).Object.assign;
+
+/***/ },
+/* 8 */
+/*!************************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/es6.object.assign.js ***!
+  \************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 19.1.3.1 Object.assign(target, source)
+	var $export = __webpack_require__(/*! ./_export */ 9);
+	
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(/*! ./_object-assign */ 24)});
+
+/***/ },
+/* 9 */
+/*!**************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_export.js ***!
+  \**************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var global    = __webpack_require__(/*! ./_global */ 10)
+	  , core      = __webpack_require__(/*! ./_core */ 11)
+	  , ctx       = __webpack_require__(/*! ./_ctx */ 12)
+	  , hide      = __webpack_require__(/*! ./_hide */ 14)
+	  , PROTOTYPE = 'prototype';
+	
+	var $export = function(type, name, source){
+	  var IS_FORCED = type & $export.F
+	    , IS_GLOBAL = type & $export.G
+	    , IS_STATIC = type & $export.S
+	    , IS_PROTO  = type & $export.P
+	    , IS_BIND   = type & $export.B
+	    , IS_WRAP   = type & $export.W
+	    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
+	    , expProto  = exports[PROTOTYPE]
+	    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
+	    , key, own, out;
+	  if(IS_GLOBAL)source = name;
+	  for(key in source){
+	    // contains in native
+	    own = !IS_FORCED && target && target[key] !== undefined;
+	    if(own && key in exports)continue;
+	    // export native or passed
+	    out = own ? target[key] : source[key];
+	    // prevent global pollution for namespaces
+	    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+	    // bind timers to global for call from export context
+	    : IS_BIND && own ? ctx(out, global)
+	    // wrap global constructors for prevent change them in library
+	    : IS_WRAP && target[key] == out ? (function(C){
+	      var F = function(a, b, c){
+	        if(this instanceof C){
+	          switch(arguments.length){
+	            case 0: return new C;
+	            case 1: return new C(a);
+	            case 2: return new C(a, b);
+	          } return new C(a, b, c);
+	        } return C.apply(this, arguments);
+	      };
+	      F[PROTOTYPE] = C[PROTOTYPE];
+	      return F;
+	    // make static versions for prototype methods
+	    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+	    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+	    if(IS_PROTO){
+	      (exports.virtual || (exports.virtual = {}))[key] = out;
+	      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+	      if(type & $export.R && expProto && !expProto[key])hide(expProto, key, out);
+	    }
+	  }
+	};
+	// type bitmap
+	$export.F = 1;   // forced
+	$export.G = 2;   // global
+	$export.S = 4;   // static
+	$export.P = 8;   // proto
+	$export.B = 16;  // bind
+	$export.W = 32;  // wrap
+	$export.U = 64;  // safe
+	$export.R = 128; // real proto method for `library` 
+	module.exports = $export;
+
+/***/ },
+/* 10 */
+/*!**************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_global.js ***!
+  \**************************************************************/
+/***/ function(module, exports) {
+
+	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+	var global = module.exports = typeof window != 'undefined' && window.Math == Math
+	  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
+
+/***/ },
+/* 11 */
+/*!************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_core.js ***!
+  \************************************************************/
+/***/ function(module, exports) {
+
+	var core = module.exports = {version: '2.4.0'};
+	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
+
+/***/ },
+/* 12 */
+/*!***********************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_ctx.js ***!
+  \***********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// optional / simple context binding
+	var aFunction = __webpack_require__(/*! ./_a-function */ 13);
+	module.exports = function(fn, that, length){
+	  aFunction(fn);
+	  if(that === undefined)return fn;
+	  switch(length){
+	    case 1: return function(a){
+	      return fn.call(that, a);
+	    };
+	    case 2: return function(a, b){
+	      return fn.call(that, a, b);
+	    };
+	    case 3: return function(a, b, c){
+	      return fn.call(that, a, b, c);
+	    };
+	  }
+	  return function(/* ...args */){
+	    return fn.apply(that, arguments);
+	  };
+	};
+
+/***/ },
+/* 13 */
+/*!******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_a-function.js ***!
+  \******************************************************************/
+/***/ function(module, exports) {
+
+	module.exports = function(it){
+	  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
+	  return it;
+	};
+
+/***/ },
+/* 14 */
+/*!************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_hide.js ***!
+  \************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var dP         = __webpack_require__(/*! ./_object-dp */ 15)
+	  , createDesc = __webpack_require__(/*! ./_property-desc */ 23);
+	module.exports = __webpack_require__(/*! ./_descriptors */ 19) ? function(object, key, value){
+	  return dP.f(object, key, createDesc(1, value));
+	} : function(object, key, value){
+	  object[key] = value;
+	  return object;
+	};
+
+/***/ },
+/* 15 */
+/*!*****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-dp.js ***!
+  \*****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var anObject       = __webpack_require__(/*! ./_an-object */ 16)
+	  , IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 18)
+	  , toPrimitive    = __webpack_require__(/*! ./_to-primitive */ 22)
+	  , dP             = Object.defineProperty;
+	
+	exports.f = __webpack_require__(/*! ./_descriptors */ 19) ? Object.defineProperty : function defineProperty(O, P, Attributes){
+	  anObject(O);
+	  P = toPrimitive(P, true);
+	  anObject(Attributes);
+	  if(IE8_DOM_DEFINE)try {
+	    return dP(O, P, Attributes);
+	  } catch(e){ /* empty */ }
+	  if('get' in Attributes || 'set' in Attributes)throw TypeError('Accessors not supported!');
+	  if('value' in Attributes)O[P] = Attributes.value;
+	  return O;
+	};
+
+/***/ },
+/* 16 */
+/*!*****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_an-object.js ***!
+  \*****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(/*! ./_is-object */ 17);
+	module.exports = function(it){
+	  if(!isObject(it))throw TypeError(it + ' is not an object!');
+	  return it;
+	};
+
+/***/ },
+/* 17 */
+/*!*****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_is-object.js ***!
+  \*****************************************************************/
+/***/ function(module, exports) {
+
+	module.exports = function(it){
+	  return typeof it === 'object' ? it !== null : typeof it === 'function';
+	};
+
+/***/ },
+/* 18 */
+/*!**********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_ie8-dom-define.js ***!
+  \**********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = !__webpack_require__(/*! ./_descriptors */ 19) && !__webpack_require__(/*! ./_fails */ 20)(function(){
+	  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 21)('div'), 'a', {get: function(){ return 7; }}).a != 7;
+	});
+
+/***/ },
+/* 19 */
+/*!*******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_descriptors.js ***!
+  \*******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// Thank's IE8 for his funny defineProperty
+	module.exports = !__webpack_require__(/*! ./_fails */ 20)(function(){
+	  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+	});
+
+/***/ },
+/* 20 */
+/*!*************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_fails.js ***!
+  \*************************************************************/
+/***/ function(module, exports) {
+
+	module.exports = function(exec){
+	  try {
+	    return !!exec();
+	  } catch(e){
+	    return true;
+	  }
+	};
+
+/***/ },
+/* 21 */
+/*!******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_dom-create.js ***!
+  \******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(/*! ./_is-object */ 17)
+	  , document = __webpack_require__(/*! ./_global */ 10).document
+	  // in old IE typeof document.createElement is 'object'
+	  , is = isObject(document) && isObject(document.createElement);
+	module.exports = function(it){
+	  return is ? document.createElement(it) : {};
+	};
+
+/***/ },
+/* 22 */
+/*!********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_to-primitive.js ***!
+  \********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 7.1.1 ToPrimitive(input [, PreferredType])
+	var isObject = __webpack_require__(/*! ./_is-object */ 17);
+	// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+	// and the second argument - flag - preferred type is a string
+	module.exports = function(it, S){
+	  if(!isObject(it))return it;
+	  var fn, val;
+	  if(S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+	  if(typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it)))return val;
+	  if(!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+	  throw TypeError("Can't convert object to primitive value");
+	};
+
+/***/ },
+/* 23 */
+/*!*********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_property-desc.js ***!
+  \*********************************************************************/
+/***/ function(module, exports) {
+
+	module.exports = function(bitmap, value){
+	  return {
+	    enumerable  : !(bitmap & 1),
+	    configurable: !(bitmap & 2),
+	    writable    : !(bitmap & 4),
+	    value       : value
+	  };
+	};
+
+/***/ },
+/* 24 */
+/*!*********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-assign.js ***!
+  \*********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	// 19.1.2.1 Object.assign(target, source, ...)
+	var getKeys  = __webpack_require__(/*! ./_object-keys */ 25)
+	  , gOPS     = __webpack_require__(/*! ./_object-gops */ 40)
+	  , pIE      = __webpack_require__(/*! ./_object-pie */ 41)
+	  , toObject = __webpack_require__(/*! ./_to-object */ 42)
+	  , IObject  = __webpack_require__(/*! ./_iobject */ 29)
+	  , $assign  = Object.assign;
+	
+	// should work with symbols and should have deterministic property order (V8 bug)
+	module.exports = !$assign || __webpack_require__(/*! ./_fails */ 20)(function(){
+	  var A = {}
+	    , B = {}
+	    , S = Symbol()
+	    , K = 'abcdefghijklmnopqrst';
+	  A[S] = 7;
+	  K.split('').forEach(function(k){ B[k] = k; });
+	  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+	}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
+	  var T     = toObject(target)
+	    , aLen  = arguments.length
+	    , index = 1
+	    , getSymbols = gOPS.f
+	    , isEnum     = pIE.f;
+	  while(aLen > index){
+	    var S      = IObject(arguments[index++])
+	      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
+	      , length = keys.length
+	      , j      = 0
+	      , key;
+	    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
+	  } return T;
+	} : $assign;
+
+/***/ },
+/* 25 */
+/*!*******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-keys.js ***!
+  \*******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+	var $keys       = __webpack_require__(/*! ./_object-keys-internal */ 26)
+	  , enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 39);
+	
+	module.exports = Object.keys || function keys(O){
+	  return $keys(O, enumBugKeys);
+	};
+
+/***/ },
+/* 26 */
+/*!****************************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-keys-internal.js ***!
+  \****************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var has          = __webpack_require__(/*! ./_has */ 27)
+	  , toIObject    = __webpack_require__(/*! ./_to-iobject */ 28)
+	  , arrayIndexOf = __webpack_require__(/*! ./_array-includes */ 32)(false)
+	  , IE_PROTO     = __webpack_require__(/*! ./_shared-key */ 36)('IE_PROTO');
+	
+	module.exports = function(object, names){
+	  var O      = toIObject(object)
+	    , i      = 0
+	    , result = []
+	    , key;
+	  for(key in O)if(key != IE_PROTO)has(O, key) && result.push(key);
+	  // Don't enum bug & hidden keys
+	  while(names.length > i)if(has(O, key = names[i++])){
+	    ~arrayIndexOf(result, key) || result.push(key);
+	  }
+	  return result;
+	};
+
+/***/ },
+/* 27 */
+/*!***********************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_has.js ***!
+  \***********************************************************/
+/***/ function(module, exports) {
+
+	var hasOwnProperty = {}.hasOwnProperty;
+	module.exports = function(it, key){
+	  return hasOwnProperty.call(it, key);
+	};
+
+/***/ },
+/* 28 */
+/*!******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_to-iobject.js ***!
+  \******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// to indexed object, toObject with fallback for non-array-like ES3 strings
+	var IObject = __webpack_require__(/*! ./_iobject */ 29)
+	  , defined = __webpack_require__(/*! ./_defined */ 31);
+	module.exports = function(it){
+	  return IObject(defined(it));
+	};
+
+/***/ },
+/* 29 */
+/*!***************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_iobject.js ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// fallback for non-array-like ES3 and non-enumerable old V8 strings
+	var cof = __webpack_require__(/*! ./_cof */ 30);
+	module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
+	  return cof(it) == 'String' ? it.split('') : Object(it);
+	};
+
+/***/ },
+/* 30 */
+/*!***********************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_cof.js ***!
+  \***********************************************************/
+/***/ function(module, exports) {
+
+	var toString = {}.toString;
+	
+	module.exports = function(it){
+	  return toString.call(it).slice(8, -1);
+	};
+
+/***/ },
+/* 31 */
+/*!***************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_defined.js ***!
+  \***************************************************************/
+/***/ function(module, exports) {
+
+	// 7.2.1 RequireObjectCoercible(argument)
+	module.exports = function(it){
+	  if(it == undefined)throw TypeError("Can't call method on  " + it);
+	  return it;
+	};
+
+/***/ },
+/* 32 */
+/*!**********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_array-includes.js ***!
+  \**********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// false -> Array#indexOf
+	// true  -> Array#includes
+	var toIObject = __webpack_require__(/*! ./_to-iobject */ 28)
+	  , toLength  = __webpack_require__(/*! ./_to-length */ 33)
+	  , toIndex   = __webpack_require__(/*! ./_to-index */ 35);
+	module.exports = function(IS_INCLUDES){
+	  return function($this, el, fromIndex){
+	    var O      = toIObject($this)
+	      , length = toLength(O.length)
+	      , index  = toIndex(fromIndex, length)
+	      , value;
+	    // Array#includes uses SameValueZero equality algorithm
+	    if(IS_INCLUDES && el != el)while(length > index){
+	      value = O[index++];
+	      if(value != value)return true;
+	    // Array#toIndex ignores holes, Array#includes - not
+	    } else for(;length > index; index++)if(IS_INCLUDES || index in O){
+	      if(O[index] === el)return IS_INCLUDES || index || 0;
+	    } return !IS_INCLUDES && -1;
+	  };
+	};
+
+/***/ },
+/* 33 */
+/*!*****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_to-length.js ***!
+  \*****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 7.1.15 ToLength
+	var toInteger = __webpack_require__(/*! ./_to-integer */ 34)
+	  , min       = Math.min;
+	module.exports = function(it){
+	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+	};
+
+/***/ },
+/* 34 */
+/*!******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_to-integer.js ***!
+  \******************************************************************/
+/***/ function(module, exports) {
+
+	// 7.1.4 ToInteger
+	var ceil  = Math.ceil
+	  , floor = Math.floor;
+	module.exports = function(it){
+	  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+	};
+
+/***/ },
+/* 35 */
+/*!****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_to-index.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var toInteger = __webpack_require__(/*! ./_to-integer */ 34)
+	  , max       = Math.max
+	  , min       = Math.min;
+	module.exports = function(index, length){
+	  index = toInteger(index);
+	  return index < 0 ? max(index + length, 0) : min(index, length);
+	};
+
+/***/ },
+/* 36 */
+/*!******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_shared-key.js ***!
+  \******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var shared = __webpack_require__(/*! ./_shared */ 37)('keys')
+	  , uid    = __webpack_require__(/*! ./_uid */ 38);
+	module.exports = function(key){
+	  return shared[key] || (shared[key] = uid(key));
+	};
+
+/***/ },
+/* 37 */
+/*!**************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_shared.js ***!
+  \**************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var global = __webpack_require__(/*! ./_global */ 10)
+	  , SHARED = '__core-js_shared__'
+	  , store  = global[SHARED] || (global[SHARED] = {});
+	module.exports = function(key){
+	  return store[key] || (store[key] = {});
+	};
+
+/***/ },
+/* 38 */
+/*!***********************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_uid.js ***!
+  \***********************************************************/
+/***/ function(module, exports) {
+
+	var id = 0
+	  , px = Math.random();
+	module.exports = function(key){
+	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+	};
+
+/***/ },
+/* 39 */
+/*!*********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_enum-bug-keys.js ***!
+  \*********************************************************************/
+/***/ function(module, exports) {
+
+	// IE 8- don't enum bug keys
+	module.exports = (
+	  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+	).split(',');
+
+/***/ },
+/* 40 */
+/*!*******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-gops.js ***!
+  \*******************************************************************/
+/***/ function(module, exports) {
+
+	exports.f = Object.getOwnPropertySymbols;
+
+/***/ },
+/* 41 */
+/*!******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-pie.js ***!
+  \******************************************************************/
+/***/ function(module, exports) {
+
+	exports.f = {}.propertyIsEnumerable;
+
+/***/ },
+/* 42 */
+/*!*****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_to-object.js ***!
+  \*****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 7.1.13 ToObject(argument)
+	var defined = __webpack_require__(/*! ./_defined */ 31);
+	module.exports = function(it){
+	  return Object(defined(it));
+	};
+
+/***/ },
+/* 43 */
+/*!************************!*\
+  !*** ./src/Actions.js ***!
+  \************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.uploadStart = uploadStart;
+	exports.uploadFromGalleryStart = uploadFromGalleryStart;
+	exports.addFile = addFile;
+	exports.deleteFile = deleteFile;
+	exports.updateLayout = updateLayout;
+	exports.startEdit = startEdit;
+	exports.endEdit = endEdit;
+	exports.updateEdit = updateEdit;
+	exports.updatePlaceholder = updatePlaceholder;
+	exports.triggerGallery = triggerGallery;
+	exports.setGalleryFilterOpts = setGalleryFilterOpts;
+	exports.changeGalleryFilter = changeGalleryFilter;
+	exports.fetchGalleryImage = fetchGalleryImage;
+	exports.changeGallerySelection = changeGallerySelection;
+	/* actions */
+	
+	/* constants */
+	var DISPLAY_MODE = exports.DISPLAY_MODE = 'DISPLAY_MODE';
+	var EDIT_MODE = exports.EDIT_MODE = 'EDIT_MODE';
+	
+	/* action type constants */
+	var ADD_LOADING_FILE = exports.ADD_LOADING_FILE = 'ADD_LOADING_FILE';
+	var UPDATE_LOADING_FILE = exports.UPDATE_LOADING_FILE = 'UPDATE_LOADING_FILE';
+	var ADD_FILE = exports.ADD_FILE = 'ADD_FILE';
+	var DELETE_FILE = exports.DELETE_FILE = 'DELETE_FILE';
+	var START_EDIT = exports.START_EDIT = 'START_EDIT';
+	var UPDATE_EDIT = exports.UPDATE_EDIT = 'UPDATE_EDIT';
+	var END_EDIT = exports.END_EDIT = 'END_EDIT';
+	var UPDATE_PLACEHOLDER = exports.UPDATE_PLACEHOLDER = 'UPDATE_PLACEHOLDER';
+	var UPDATE_LAYOUT = exports.UPDATE_LAYOUT = 'UPDATE_LAYOUT';
+	var TRIGGER_GALLERY = exports.TRIGGER_GALLERY = 'TRIGGER_GALLERY';
+	var SET_GALLERY_FILTER_OPTS = exports.SET_GALLERY_FILTER_OPTS = 'SET_GALLERY_FILTER_OPTS';
+	var CHANGE_GALLERY_FILTER = exports.CHANGE_GALLERY_FILTER = 'CHANGE_GALLERY_FILTER';
+	var REQUEST_GALLERY_IMAGE = exports.REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
+	var RECEIVE_GALLERY_IMAGE = exports.RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
+	var CHANGE_GALLERY_SELECTION = exports.CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
+	
+	function uploadStart(fileList, limit, runningID, onUpload) {
+	  return function (dispatch) {
+	    var itemList = [];
+	    for (var i = 0; i < fileList.length && i < limit; i++) {
+	      itemList.push({
+	        id: runningID + 1 + i,
+	        file: fileList.item(i)
+	      });
+	    }
+	
+	    dispatch(addLoadingFile(itemList.map(function (item) {
+	      return item.id;
+	    }), runningID + itemList.length, limit));
+	
+	    if (typeof onUpload === 'function') {
+	      var update = function update(list) {
+	        dispatch(updateLoadingFile(list.map(function (item) {
+	          return {
+	            id: item.id,
+	            url: item.url,
+	            status: item.status,
+	            progress: item.progress,
+	            errMsg: item.errMsg,
+	            userDefinedData: item.userDefinedData
+	          };
+	        })));
+	      };
+	
+	      onUpload(itemList, update);
+	    }
+	  };
+	};
+	
+	function uploadFromGalleryStart(fileList, limit, runningID, onUploadFromGallery) {
+	  return function (dispatch) {
+	    var itemList = [];
+	    for (var i = 0; i < fileList.length && i < limit; i++) {
+	      itemList.push({
+	        id: runningID + 1 + i,
+	        url: fileList[i].url,
+	        userDefinedData: fileList[i].userDefinedData
+	      });
+	    }
+	
+	    dispatch(addLoadingFile(itemList.map(function (item) {
+	      return item.id;
+	    }), runningID + itemList.length, limit));
+	
+	    if (typeof onUploadFromGallery === 'function') {
+	      var update = function update(list) {
+	        dispatch(updateLoadingFile(list.map(function (item) {
+	          return {
+	            id: item.id,
+	            url: item.url,
+	            status: item.status,
+	            progress: item.progress,
+	            errMsg: item.errMsg,
+	            userDefinedData: item.userDefinedData
+	          };
+	        })));
+	      };
+	
+	      onUploadFromGallery(itemList, update);
+	    }
+	  };
+	};
+	
+	function addLoadingFile(IDList, runningID, limit) {
+	  return {
+	    type: ADD_LOADING_FILE,
+	    payload: {
+	      IDList: IDList,
+	      runningID: runningID,
+	      limit: limit
+	    }
+	  };
+	};
+	
+	function updateLoadingFile(list) {
+	  return {
+	    type: UPDATE_LOADING_FILE,
+	    payload: list
+	  };
+	};
+	
+	function addFile(list, limit, runningID) {
+	  list = list.slice(0, limit).map(function (item, idx) {
+	    return {
+	      id: runningID + 1 + idx,
+	      url: item.url,
+	      userDefinedData: item.userDefinedData
+	    };
+	  });
+	
+	  return {
+	    type: ADD_FILE,
+	    payload: {
+	      list: list,
+	      limit: limit,
+	      runningID: runningID + list.length
+	    }
+	  };
+	};
+	
+	function deleteFile(entityID) {
+	  return {
+	    type: DELETE_FILE,
+	    payload: entityID
+	  };
+	};
+	
+	function updateLayout(thumbnailLayouts) {
+	  return {
+	    type: UPDATE_LAYOUT,
+	    payload: thumbnailLayouts
+	  };
+	}
+	
+	function startEdit(_ref) {
+	  var entityID = _ref.entityID,
+	      cursorX = _ref.cursorX,
+	      cursorY = _ref.cursorY;
+	
+	  return {
+	    type: START_EDIT,
+	    payload: {
+	      entityID: entityID,
+	      cursorX: cursorX,
+	      cursorY: cursorY
+	    }
+	  };
+	};
+	
+	function endEdit(editTarget, hoverTarget) {
+	  return {
+	    type: END_EDIT,
+	    payload: {
+	      editTarget: editTarget,
+	      hoverTarget: hoverTarget
+	    }
+	  };
+	};
+	
+	function updateEdit(_ref2) {
+	  var entityID = _ref2.entityID,
+	      cursorX = _ref2.cursorX,
+	      cursorY = _ref2.cursorY;
+	
+	  return {
+	    type: UPDATE_EDIT,
+	    payload: {
+	      entityID: entityID,
+	      cursorX: cursorX,
+	      cursorY: cursorY
+	    }
+	  };
+	};
+	
+	function updatePlaceholder(idx) {
+	  return {
+	    type: UPDATE_PLACEHOLDER,
+	    payload: idx
+	  };
+	};
+	
+	function triggerGallery() {
+	  return {
+	    type: TRIGGER_GALLERY
+	  };
+	};
+	
+	function setGalleryFilterOpts(optList) {
+	  return {
+	    type: SET_GALLERY_FILTER_OPTS,
+	    payload: optList
+	  };
+	};
+	
+	function changeGalleryFilter(category, page) {
+	  return {
+	    type: CHANGE_GALLERY_FILTER,
+	    payload: {
+	      category: category,
+	      page: page
+	    }
+	  };
+	};
+	
+	function fetchGalleryImage(categoryVal, page, onFetchGallery) {
+	  return function (dispatch) {
+	    dispatch(requestGalleryImage());
+	    if (typeof onFetchGallery === 'function') {
+	      var update = function update(list) {
+	        dispatch(receiveGalleryImage(list.map(function (item) {
+	          return {
+	            url: item.url,
+	            userDefinedData: item.userDefinedData
+	          };
+	        })));
+	      };
+	
+	      onFetchGallery(categoryVal, Number(page), update);
+	    }
+	  };
+	};
+	
+	function requestGalleryImage() {
+	  return {
+	    type: REQUEST_GALLERY_IMAGE
+	  };
+	};
+	
+	function receiveGalleryImage(list) {
+	  return {
+	    type: RECEIVE_GALLERY_IMAGE,
+	    payload: list
+	  };
+	};
+	
+	function changeGallerySelection(list) {
+	  return {
+	    type: CHANGE_GALLERY_SELECTION,
+	    payload: list
+	  };
+	};
+
+/***/ },
+/* 44 */
+/*!********************!*\
+  !*** ./src/App.js ***!
+  \********************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.gen = gen;
+	
+	var _Actions = __webpack_require__(/*! Actions */ 43);
+	
+	var Actions = _interopRequireWildcard(_Actions);
+	
+	var _FpUtils = __webpack_require__(/*! FpUtils */ 2);
+	
+	var FpUtils = _interopRequireWildcard(_FpUtils);
+	
+	var _Reducers = __webpack_require__(/*! Reducers */ 5);
+	
+	var Reducers = _interopRequireWildcard(_Reducers);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	/* css prefix constants */
+	var IDENTIFIER = 'RT_FILE_UPLOADER';
+	
+	/* exports */
+	/* component - App */
+	function gen($store, opts) {
+	  var limit = opts.limit;
+	
+	  var $root = $('<div />').addClass(IDENTIFIER).css('minHeight', opts.minHeight).on('dragover', function (e) {
+	    e.preventDefault();
+	    $root.addClass('drag-over');
+	  }).on('dragleave', function (e) {
+	    e.preventDefault();
+	    $root.removeClass('drag-over');
+	  }).on('drop', function (e) {
+	    e.preventDefault();
+	    $root.removeClass('drag-over');
+	    var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	    var files = e.originalEvent.dataTransfer.files;
+	    $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.onUpload));
+	  });
+	
+	  return $root;
+	};
+
+/***/ },
+/* 45 */
+/*!************************!*\
+  !*** ./src/ToolBar.js ***!
+  \************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.gen = gen;
+	
+	var _FpUtils = __webpack_require__(/*! FpUtils */ 2);
+	
+	var FpUtils = _interopRequireWildcard(_FpUtils);
+	
+	var _Actions = __webpack_require__(/*! Actions */ 43);
+	
+	var Actions = _interopRequireWildcard(_Actions);
+	
+	var _Reducers = __webpack_require__(/*! Reducers */ 5);
+	
+	var Reducers = _interopRequireWildcard(_Reducers);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function __renderOnFileDepotChange__($store, opts, $root) {
+	  var limit = opts.limit;
+	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	
+	  if (!getFileDepot().order.length) {
+	    $root.addClass('hint');
+	  } else {
+	    $root.removeClass('hint').css('height', 'auto');
+	  }
+	
+	  return $root;
+	} /* component - ToolBar */
+	;
+	
+	/* exports */
+	function gen($store, opts) {
+	  var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+	
+	  var limit = opts.limit;
+	
+	  var $hintText1 = $('<div />').addClass('hint-text').append($('<span />').text('選擇檔案'));
+	
+	  var $hintText2 = $('<div />').addClass('hint-text').append($('<span />').addClass('separator').text('或')).append($('<span />').text('拖曳檔案至此'));
+	
+	  var $uploadIcon = $('<i />').addClass('upload-icon').addClass('fa').addClass('fa-upload');
+	
+	  var _$addLocalInput = $('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
+	  .addClass('add-local-input').attr('multiple', '').change(function (e) {
+	    var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	    var $this = $(e.currentTarget);
+	    var files = $this[0].files;
+	    $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.onUpload));
+	    $this.val('');
+	  });
+	
+	  var _$addLocalFakeButton = $('<div />').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('本地檔案');
+	
+	  var $addLocal = $('<label />').addClass('action').append(_$addLocalInput).append(_$addLocalFakeButton);
+	
+	  var $addRuten = $('<button />').attr('type', 'button').addClass('action').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('露天圖庫').click(function (e) {
+	    $store.dispatch(Actions.triggerGallery());
+	    $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
+	  });
+	
+	  var $wrap = $('<div />').addClass('wrap').append($uploadIcon).append($hintText1).append($addLocal).append($addRuten).append($hintText2);
+	
+	  var $root = $('<div />').addClass('tool-bar').append($wrap);
+	
+	  $store.listen(Reducers.FILE_DEPOT, function () {
+	    __renderOnFileDepotChange__($store, opts, $root);
+	  });
+	
+	  return __renderOnFileDepotChange__($store, opts, $root);
+	};
+
+/***/ },
+/* 46 */
+/*!********************************!*\
+  !*** ./src/ThumbnailViewer.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _slicedToArray2 = __webpack_require__(/*! babel-runtime/helpers/slicedToArray */ 47);
+	
+	var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+	
+	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 69);
+	
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
+	
+	exports.gen = gen;
+	
+	var _FpUtils = __webpack_require__(/*! FpUtils */ 2);
+	
+	var FpUtils = _interopRequireWildcard(_FpUtils);
+	
+	var _Utils = __webpack_require__(/*! Utils */ 4);
+	
+	var Utils = _interopRequireWildcard(_Utils);
+	
+	var _Actions = __webpack_require__(/*! Actions */ 43);
+	
+	var Actions = _interopRequireWildcard(_Actions);
+	
+	var _Reducers = __webpack_require__(/*! Reducers */ 5);
+	
+	var Reducers = _interopRequireWildcard(_Reducers);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/* component - ThumbnailViewer */
+	function __render__($store, opts, $root) {
+	  var thumbnailWidth = opts.thumbnailWidth;
+	  var thumbnailHeight = opts.thumbnailHeight;
+	
+	  /* get states */
+	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
+	  $root.empty();
+	
+	  var $thumbnails = getFileDepot().order.map(function (entityID, idx) {
+	    var file = getFileDepot().entities[entityID];
+	    var $elm = $('<div />').attr('data-ref', 'thumbnail').addClass('thumbnail').attr('data-key', idx).css('width', thumbnailWidth).css('height', thumbnailHeight).on('touchstart mousedown', function (e) {
+	      e.preventDefault();
+	      var $this = $(e.currentTarget);
+	      if (getModeDepot().mode === Actions.DISPLAY_MODE) {
+	        var rootOffset = $root.offset();
+	        var offset = $this.offset();
+	        var touchList = e.originalEvent.targetTouches;
+	        var pageX = touchList ? touchList[0].pageX : e.pageX;
+	        var pageY = touchList ? touchList[0].pageY : e.pageY;
+	
+	        $store.dispatch(Actions.startEdit({
+	          entityID: entityID,
+	          cursorX: pageX - rootOffset.left,
+	          cursorY: pageY - rootOffset.top
+	        }));
+	      }
+	    });
+	
+	    var $img = $('<div />').addClass('img');
+	
+	    switch (file.status) {
+	      case Reducers.FILE_STATUS_LOADING:
+	        {
+	          var $icon = $('<i />').addClass('fa fa-circle-o-notch fa-spin fa-2x fa-fw loading-ring');
+	
+	          $img.append($icon);
+	          break;
+	        }
+	
+	      case Reducers.FILE_STATUS_COMPLETE:
+	        {
+	          $img.css('background-image', 'url(' + file.url + ')');
+	          break;
+	        }
+	
+	      case Reducers.FILE_STATUS_ERROR:
+	        {
+	          $msg = $('<div />').addClass('msg').append($('<i />').addClass('fa fa-exclamation-triangle icon')).append($('<div />').addClass('text').text(file.errMsg));
+	
+	          $img.append($msg);
+	          break;
+	        }
+	    }
+	
+	    var $imgWrap = $('<div />').addClass('img-wrap').css('width', thumbnailWidth).css('height', thumbnailHeight).append($img);
+	
+	    var $delete = $('<i />').addClass('fa').addClass('fa-times').addClass('delete').on('touchstart mousedown', function (e) {
+	      e.stopPropagation();
+	    }).click(function (e) {
+	      e.stopPropagation();
+	      $store.dispatch(Actions.deleteFile(entityID));
+	    });
+	
+	    $elm.append($imgWrap).append($delete);
+	
+	    return $elm;
+	  });
+	
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+	
+	  try {
+	    for (var _iterator = (0, _getIterator3.default)($thumbnails), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var $thumbnail = _step.value;
+	
+	      $root.append($thumbnail);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+	
+	  var thumbnailLayouts = $thumbnails.map(function ($thumbnail) {
+	    return $thumbnail.position();
+	  });
+	
+	  $store.dispatch(Actions.updateLayout(thumbnailLayouts));
+	
+	  return $root;
+	};
+	
+	function __renderOnModeDepotChange__($store, opts, $root) {
+	  var thumbnailWidth = opts.thumbnailWidth;
+	  var thumbnailHeight = opts.thumbnailHeight;
+	  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
+	  var getLayoutDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.LAYOUT_DEPOT);
+	  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
+	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	  var getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
+	
+	  if (getModeDepot().mode === Actions.EDIT_MODE) {
+	    $root.on('touchend mouseup', function (e) {
+	      if (getModeDepot().mode === Actions.EDIT_MODE) {
+	        $store.dispatch(Actions.endEdit(getEditDepot().target, getPlaceholderDepot().hoverTarget));
+	      }
+	    }).on('touchmove mousemove', function (e) {
+	      e.preventDefault();
+	      var $this = $(e.currentTarget);
+	      var offset = $this.offset();
+	      var touchList = e.originalEvent.targetTouches;
+	      var pageX = touchList ? touchList[0].pageX : e.pageX;
+	      var pageY = touchList ? touchList[0].pageY : e.pageY;
+	      var cursorX = pageX - offset.left;
+	      var cursorY = pageY - offset.top;
+	
+	      $store.dispatch(Actions.updateEdit({
+	        entityID: getEditDepot().target,
+	        cursorX: cursorX,
+	        cursorY: cursorY
+	      }));
+	
+	      var _iteratorNormalCompletion2 = true;
+	      var _didIteratorError2 = false;
+	      var _iteratorError2 = undefined;
+	
+	      try {
+	        for (var _iterator2 = (0, _getIterator3.default)(getLayoutDepot().thumbnailLayouts.entries()), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	          var _step2$value = (0, _slicedToArray3.default)(_step2.value, 2),
+	              idx = _step2$value[0],
+	              layout = _step2$value[1];
+	
+	          var object = {
+	            left: layout.left,
+	            top: layout.top,
+	            width: thumbnailWidth,
+	            height: thumbnailHeight
+	          };
+	
+	          var pos = {
+	            x: cursorX,
+	            y: cursorY
+	          };
+	
+	          if (Utils.isCollided(object, pos)) {
+	            $store.dispatch(Actions.updatePlaceholder(getFileDepot().order[idx]));
+	            return false;
+	          }
+	        }
+	      } catch (err) {
+	        _didIteratorError2 = true;
+	        _iteratorError2 = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	            _iterator2.return();
+	          }
+	        } finally {
+	          if (_didIteratorError2) {
+	            throw _iteratorError2;
+	          }
+	        }
+	      }
+	    });
+	  } else {
+	    $root.off('touchmove').off('mousemove').off('touchend').off('mouseup');
+	  }
+	};
+	
+	function __renderOnEditDepotChange__($store, opts, $root) {
+	  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
+	  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
+	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	  var getLayoutDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.LAYOUT_DEPOT);
+	
+	  if (getModeDepot().mode === Actions.EDIT_MODE) {
+	    var _iteratorNormalCompletion3 = true;
+	    var _didIteratorError3 = false;
+	    var _iteratorError3 = undefined;
+	
+	    try {
+	      for (var _iterator3 = (0, _getIterator3.default)(getFileDepot().order.entries()), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	        var _step3$value = (0, _slicedToArray3.default)(_step3.value, 2),
+	            idx = _step3$value[0],
+	            entityID = _step3$value[1];
+	
+	        if (entityID === getEditDepot().target) {
+	          $root.children('[data-ref=thumbnail]').eq(idx).attr('date-ref', 'dragTarget').addClass('drag-target').css({
+	            position: 'absolute',
+	            zIndex: '99',
+	            left: getLayoutDepot().thumbnailLayouts[idx].left + getEditDepot().currentPos.x - getEditDepot().startPos.x,
+	            top: getLayoutDepot().thumbnailLayouts[idx].top + getEditDepot().currentPos.y - getEditDepot().startPos.y - 7
+	          });
+	        }
+	      }
+	    } catch (err) {
+	      _didIteratorError3 = true;
+	      _iteratorError3 = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+	          _iterator3.return();
+	        }
+	      } finally {
+	        if (_didIteratorError3) {
+	          throw _iteratorError3;
+	        }
+	      }
+	    }
+	  }
+	
+	  return $root;
+	};
+	
+	function __renderOnPlaceholderDepotChange__($store, opts, $root) {
+	  var thumbnailWidth = opts.thumbnailWidth;
+	  var thumbnailHeight = opts.thumbnailHeight;
+	
+	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
+	  var getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
+	
+	  var hoverTarget = getPlaceholderDepot().hoverTarget;
+	  var editTarget = getEditDepot().target;
+	
+	  $root.children('[data-ref=placeholder]').remove();
+	
+	  if (hoverTarget !== null) {
+	    var placeholderIdx = getFileDepot().order.indexOf(hoverTarget);
+	    var editIdx = getFileDepot().order.indexOf(editTarget);
+	
+	    var $placeholderTarget = $root.children('[data-ref=thumbnail]').eq(placeholderIdx);
+	    var $placeholder = $('<div />').attr('data-ref', 'placeholder').addClass('placeholder').css({
+	      width: thumbnailWidth,
+	      height: thumbnailHeight
+	    });
+	
+	    if (editIdx > placeholderIdx) {
+	      $placeholder.insertBefore($placeholderTarget);
+	    } else {
+	      $placeholder.insertAfter($placeholderTarget);
+	    }
+	  }
+	
+	  return $root;
+	};
+	
+	/* exports */
+	function gen($store, opts) {
+	  /* get states */
+	  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
+	  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
+	  var getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
+	
+	  var $root = $('<div />').addClass('thumbnail-viewer');
+	
+	  $store.listen(Reducers.FILE_DEPOT, function () {
+	    __render__($store, opts, $root);
+	  });
+	
+	  $store.listen(Reducers.MODE_DEPOT, function () {
+	    __renderOnModeDepotChange__($store, opts, $root);
+	  });
+	
+	  $store.listen(Reducers.EDIT_DEPOT, function () {
+	    __renderOnEditDepotChange__($store, opts, $root);
+	  });
+	
+	  $store.listen(Reducers.PLACEHOLDER_DEPOT, function () {
+	    __renderOnPlaceholderDepotChange__($store, opts, $root);
+	  });
+	
+	  return __render__($store, opts, $root);
+	};
+
+/***/ },
+/* 47 */
+/*!**************************************************!*\
+  !*** ./~/babel-runtime/helpers/slicedToArray.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	exports.__esModule = true;
+	
+	var _isIterable2 = __webpack_require__(/*! ../core-js/is-iterable */ 48);
+	
+	var _isIterable3 = _interopRequireDefault(_isIterable2);
+	
+	var _getIterator2 = __webpack_require__(/*! ../core-js/get-iterator */ 69);
+	
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  function sliceIterator(arr, i) {
+	    var _arr = [];
+	    var _n = true;
+	    var _d = false;
+	    var _e = undefined;
+	
+	    try {
+	      for (var _i = (0, _getIterator3.default)(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
+	        _arr.push(_s.value);
+	
+	        if (i && _arr.length === i) break;
+	      }
+	    } catch (err) {
+	      _d = true;
+	      _e = err;
+	    } finally {
+	      try {
+	        if (!_n && _i["return"]) _i["return"]();
+	      } finally {
+	        if (_d) throw _e;
+	      }
+	    }
+	
+	    return _arr;
+	  }
+	
+	  return function (arr, i) {
+	    if (Array.isArray(arr)) {
+	      return arr;
+	    } else if ((0, _isIterable3.default)(Object(arr))) {
+	      return sliceIterator(arr, i);
+	    } else {
+	      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+	    }
+	  };
+	}();
+
+/***/ },
+/* 48 */
+/*!************************************************!*\
+  !*** ./~/babel-runtime/core-js/is-iterable.js ***!
+  \************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/is-iterable */ 49), __esModule: true };
+
+/***/ },
+/* 49 */
+/*!*************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/fn/is-iterable.js ***!
+  \*************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(/*! ../modules/web.dom.iterable */ 50);
+	__webpack_require__(/*! ../modules/es6.string.iterator */ 65);
+	module.exports = __webpack_require__(/*! ../modules/core.is-iterable */ 67);
+
+/***/ },
+/* 50 */
+/*!***********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/web.dom.iterable.js ***!
+  \***********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(/*! ./es6.array.iterator */ 51);
+	var global        = __webpack_require__(/*! ./_global */ 10)
+	  , hide          = __webpack_require__(/*! ./_hide */ 14)
+	  , Iterators     = __webpack_require__(/*! ./_iterators */ 54)
+	  , TO_STRING_TAG = __webpack_require__(/*! ./_wks */ 63)('toStringTag');
+	
+	for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
+	  var NAME       = collections[i]
+	    , Collection = global[NAME]
+	    , proto      = Collection && Collection.prototype;
+	  if(proto && !proto[TO_STRING_TAG])hide(proto, TO_STRING_TAG, NAME);
+	  Iterators[NAME] = Iterators.Array;
+	}
+
+/***/ },
+/* 51 */
+/*!*************************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/es6.array.iterator.js ***!
+  \*************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var addToUnscopables = __webpack_require__(/*! ./_add-to-unscopables */ 52)
+	  , step             = __webpack_require__(/*! ./_iter-step */ 53)
+	  , Iterators        = __webpack_require__(/*! ./_iterators */ 54)
+	  , toIObject        = __webpack_require__(/*! ./_to-iobject */ 28);
+	
+	// 22.1.3.4 Array.prototype.entries()
+	// 22.1.3.13 Array.prototype.keys()
+	// 22.1.3.29 Array.prototype.values()
+	// 22.1.3.30 Array.prototype[@@iterator]()
+	module.exports = __webpack_require__(/*! ./_iter-define */ 55)(Array, 'Array', function(iterated, kind){
+	  this._t = toIObject(iterated); // target
+	  this._i = 0;                   // next index
+	  this._k = kind;                // kind
+	// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+	}, function(){
+	  var O     = this._t
+	    , kind  = this._k
+	    , index = this._i++;
+	  if(!O || index >= O.length){
+	    this._t = undefined;
+	    return step(1);
+	  }
+	  if(kind == 'keys'  )return step(0, index);
+	  if(kind == 'values')return step(0, O[index]);
+	  return step(0, [index, O[index]]);
+	}, 'values');
+	
+	// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+	Iterators.Arguments = Iterators.Array;
+	
+	addToUnscopables('keys');
+	addToUnscopables('values');
+	addToUnscopables('entries');
+
+/***/ },
+/* 52 */
+/*!**************************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_add-to-unscopables.js ***!
+  \**************************************************************************/
+/***/ function(module, exports) {
+
+	module.exports = function(){ /* empty */ };
+
+/***/ },
+/* 53 */
+/*!*****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_iter-step.js ***!
+  \*****************************************************************/
+/***/ function(module, exports) {
+
+	module.exports = function(done, value){
+	  return {value: value, done: !!done};
+	};
+
+/***/ },
+/* 54 */
+/*!*****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_iterators.js ***!
+  \*****************************************************************/
+/***/ function(module, exports) {
+
+	module.exports = {};
+
+/***/ },
+/* 55 */
+/*!*******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_iter-define.js ***!
+  \*******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var LIBRARY        = __webpack_require__(/*! ./_library */ 56)
+	  , $export        = __webpack_require__(/*! ./_export */ 9)
+	  , redefine       = __webpack_require__(/*! ./_redefine */ 57)
+	  , hide           = __webpack_require__(/*! ./_hide */ 14)
+	  , has            = __webpack_require__(/*! ./_has */ 27)
+	  , Iterators      = __webpack_require__(/*! ./_iterators */ 54)
+	  , $iterCreate    = __webpack_require__(/*! ./_iter-create */ 58)
+	  , setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 62)
+	  , getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 64)
+	  , ITERATOR       = __webpack_require__(/*! ./_wks */ 63)('iterator')
+	  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
+	  , FF_ITERATOR    = '@@iterator'
+	  , KEYS           = 'keys'
+	  , VALUES         = 'values';
+	
+	var returnThis = function(){ return this; };
+	
+	module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED){
+	  $iterCreate(Constructor, NAME, next);
+	  var getMethod = function(kind){
+	    if(!BUGGY && kind in proto)return proto[kind];
+	    switch(kind){
+	      case KEYS: return function keys(){ return new Constructor(this, kind); };
+	      case VALUES: return function values(){ return new Constructor(this, kind); };
+	    } return function entries(){ return new Constructor(this, kind); };
+	  };
+	  var TAG        = NAME + ' Iterator'
+	    , DEF_VALUES = DEFAULT == VALUES
+	    , VALUES_BUG = false
+	    , proto      = Base.prototype
+	    , $native    = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT]
+	    , $default   = $native || getMethod(DEFAULT)
+	    , $entries   = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined
+	    , $anyNative = NAME == 'Array' ? proto.entries || $native : $native
+	    , methods, key, IteratorPrototype;
+	  // Fix native
+	  if($anyNative){
+	    IteratorPrototype = getPrototypeOf($anyNative.call(new Base));
+	    if(IteratorPrototype !== Object.prototype){
+	      // Set @@toStringTag to native iterators
+	      setToStringTag(IteratorPrototype, TAG, true);
+	      // fix for some old engines
+	      if(!LIBRARY && !has(IteratorPrototype, ITERATOR))hide(IteratorPrototype, ITERATOR, returnThis);
+	    }
+	  }
+	  // fix Array#{values, @@iterator}.name in V8 / FF
+	  if(DEF_VALUES && $native && $native.name !== VALUES){
+	    VALUES_BUG = true;
+	    $default = function values(){ return $native.call(this); };
+	  }
+	  // Define iterator
+	  if((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])){
+	    hide(proto, ITERATOR, $default);
+	  }
+	  // Plug for library
+	  Iterators[NAME] = $default;
+	  Iterators[TAG]  = returnThis;
+	  if(DEFAULT){
+	    methods = {
+	      values:  DEF_VALUES ? $default : getMethod(VALUES),
+	      keys:    IS_SET     ? $default : getMethod(KEYS),
+	      entries: $entries
+	    };
+	    if(FORCED)for(key in methods){
+	      if(!(key in proto))redefine(proto, key, methods[key]);
+	    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+	  }
+	  return methods;
+	};
+
+/***/ },
+/* 56 */
+/*!***************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_library.js ***!
+  \***************************************************************/
+/***/ function(module, exports) {
+
+	module.exports = true;
+
+/***/ },
+/* 57 */
+/*!****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_redefine.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(/*! ./_hide */ 14);
+
+/***/ },
+/* 58 */
+/*!*******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_iter-create.js ***!
+  \*******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var create         = __webpack_require__(/*! ./_object-create */ 59)
+	  , descriptor     = __webpack_require__(/*! ./_property-desc */ 23)
+	  , setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 62)
+	  , IteratorPrototype = {};
+	
+	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+	__webpack_require__(/*! ./_hide */ 14)(IteratorPrototype, __webpack_require__(/*! ./_wks */ 63)('iterator'), function(){ return this; });
+	
+	module.exports = function(Constructor, NAME, next){
+	  Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
+	  setToStringTag(Constructor, NAME + ' Iterator');
+	};
+
+/***/ },
+/* 59 */
+/*!*********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-create.js ***!
+  \*********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+	var anObject    = __webpack_require__(/*! ./_an-object */ 16)
+	  , dPs         = __webpack_require__(/*! ./_object-dps */ 60)
+	  , enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 39)
+	  , IE_PROTO    = __webpack_require__(/*! ./_shared-key */ 36)('IE_PROTO')
+	  , Empty       = function(){ /* empty */ }
+	  , PROTOTYPE   = 'prototype';
+	
+	// Create object with fake `null` prototype: use iframe Object with cleared prototype
+	var createDict = function(){
+	  // Thrash, waste and sodomy: IE GC bug
+	  var iframe = __webpack_require__(/*! ./_dom-create */ 21)('iframe')
+	    , i      = enumBugKeys.length
+	    , lt     = '<'
+	    , gt     = '>'
+	    , iframeDocument;
+	  iframe.style.display = 'none';
+	  __webpack_require__(/*! ./_html */ 61).appendChild(iframe);
+	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+	  // createDict = iframe.contentWindow.Object;
+	  // html.removeChild(iframe);
+	  iframeDocument = iframe.contentWindow.document;
+	  iframeDocument.open();
+	  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+	  iframeDocument.close();
+	  createDict = iframeDocument.F;
+	  while(i--)delete createDict[PROTOTYPE][enumBugKeys[i]];
+	  return createDict();
+	};
+	
+	module.exports = Object.create || function create(O, Properties){
+	  var result;
+	  if(O !== null){
+	    Empty[PROTOTYPE] = anObject(O);
+	    result = new Empty;
+	    Empty[PROTOTYPE] = null;
+	    // add "__proto__" for Object.getPrototypeOf polyfill
+	    result[IE_PROTO] = O;
+	  } else result = createDict();
+	  return Properties === undefined ? result : dPs(result, Properties);
+	};
+
+
+/***/ },
+/* 60 */
+/*!******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-dps.js ***!
+  \******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var dP       = __webpack_require__(/*! ./_object-dp */ 15)
+	  , anObject = __webpack_require__(/*! ./_an-object */ 16)
+	  , getKeys  = __webpack_require__(/*! ./_object-keys */ 25);
+	
+	module.exports = __webpack_require__(/*! ./_descriptors */ 19) ? Object.defineProperties : function defineProperties(O, Properties){
+	  anObject(O);
+	  var keys   = getKeys(Properties)
+	    , length = keys.length
+	    , i = 0
+	    , P;
+	  while(length > i)dP.f(O, P = keys[i++], Properties[P]);
+	  return O;
+	};
+
+/***/ },
+/* 61 */
+/*!************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_html.js ***!
+  \************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(/*! ./_global */ 10).document && document.documentElement;
+
+/***/ },
+/* 62 */
+/*!*************************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_set-to-string-tag.js ***!
+  \*************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var def = __webpack_require__(/*! ./_object-dp */ 15).f
+	  , has = __webpack_require__(/*! ./_has */ 27)
+	  , TAG = __webpack_require__(/*! ./_wks */ 63)('toStringTag');
+	
+	module.exports = function(it, tag, stat){
+	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
+	};
+
+/***/ },
+/* 63 */
+/*!***********************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_wks.js ***!
+  \***********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var store      = __webpack_require__(/*! ./_shared */ 37)('wks')
+	  , uid        = __webpack_require__(/*! ./_uid */ 38)
+	  , Symbol     = __webpack_require__(/*! ./_global */ 10).Symbol
+	  , USE_SYMBOL = typeof Symbol == 'function';
+	
+	var $exports = module.exports = function(name){
+	  return store[name] || (store[name] =
+	    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+	};
+	
+	$exports.store = store;
+
+/***/ },
+/* 64 */
+/*!******************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_object-gpo.js ***!
+  \******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+	var has         = __webpack_require__(/*! ./_has */ 27)
+	  , toObject    = __webpack_require__(/*! ./_to-object */ 42)
+	  , IE_PROTO    = __webpack_require__(/*! ./_shared-key */ 36)('IE_PROTO')
+	  , ObjectProto = Object.prototype;
+	
+	module.exports = Object.getPrototypeOf || function(O){
+	  O = toObject(O);
+	  if(has(O, IE_PROTO))return O[IE_PROTO];
+	  if(typeof O.constructor == 'function' && O instanceof O.constructor){
+	    return O.constructor.prototype;
+	  } return O instanceof Object ? ObjectProto : null;
+	};
+
+/***/ },
+/* 65 */
+/*!**************************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/es6.string.iterator.js ***!
+  \**************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var $at  = __webpack_require__(/*! ./_string-at */ 66)(true);
+	
+	// 21.1.3.27 String.prototype[@@iterator]()
+	__webpack_require__(/*! ./_iter-define */ 55)(String, 'String', function(iterated){
+	  this._t = String(iterated); // target
+	  this._i = 0;                // next index
+	// 21.1.5.2.1 %StringIteratorPrototype%.next()
+	}, function(){
+	  var O     = this._t
+	    , index = this._i
+	    , point;
+	  if(index >= O.length)return {value: undefined, done: true};
+	  point = $at(O, index);
+	  this._i += point.length;
+	  return {value: point, done: false};
+	});
+
+/***/ },
+/* 66 */
+/*!*****************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_string-at.js ***!
+  \*****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var toInteger = __webpack_require__(/*! ./_to-integer */ 34)
+	  , defined   = __webpack_require__(/*! ./_defined */ 31);
+	// true  -> String#at
+	// false -> String#codePointAt
+	module.exports = function(TO_STRING){
+	  return function(that, pos){
+	    var s = String(defined(that))
+	      , i = toInteger(pos)
+	      , l = s.length
+	      , a, b;
+	    if(i < 0 || i >= l)return TO_STRING ? '' : undefined;
+	    a = s.charCodeAt(i);
+	    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+	      ? TO_STRING ? s.charAt(i) : a
+	      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+	  };
+	};
+
+/***/ },
+/* 67 */
+/*!***********************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/core.is-iterable.js ***!
+  \***********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var classof   = __webpack_require__(/*! ./_classof */ 68)
+	  , ITERATOR  = __webpack_require__(/*! ./_wks */ 63)('iterator')
+	  , Iterators = __webpack_require__(/*! ./_iterators */ 54);
+	module.exports = __webpack_require__(/*! ./_core */ 11).isIterable = function(it){
+	  var O = Object(it);
+	  return O[ITERATOR] !== undefined
+	    || '@@iterator' in O
+	    || Iterators.hasOwnProperty(classof(O));
+	};
+
+/***/ },
+/* 68 */
+/*!***************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/_classof.js ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// getting tag from 19.1.3.6 Object.prototype.toString()
+	var cof = __webpack_require__(/*! ./_cof */ 30)
+	  , TAG = __webpack_require__(/*! ./_wks */ 63)('toStringTag')
+	  // ES3 wrong here
+	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
+	
+	// fallback for IE11 Script Access Denied error
+	var tryGet = function(it, key){
+	  try {
+	    return it[key];
+	  } catch(e){ /* empty */ }
+	};
+	
+	module.exports = function(it){
+	  var O, T, B;
+	  return it === undefined ? 'Undefined' : it === null ? 'Null'
+	    // @@toStringTag case
+	    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+	    // builtinTag case
+	    : ARG ? cof(O)
+	    // ES3 arguments fallback
+	    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+	};
+
+/***/ },
+/* 69 */
+/*!*************************************************!*\
+  !*** ./~/babel-runtime/core-js/get-iterator.js ***!
+  \*************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/get-iterator */ 70), __esModule: true };
+
+/***/ },
+/* 70 */
+/*!**************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/fn/get-iterator.js ***!
+  \**************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(/*! ../modules/web.dom.iterable */ 50);
+	__webpack_require__(/*! ../modules/es6.string.iterator */ 65);
+	module.exports = __webpack_require__(/*! ../modules/core.get-iterator */ 71);
+
+/***/ },
+/* 71 */
+/*!************************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/core.get-iterator.js ***!
+  \************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var anObject = __webpack_require__(/*! ./_an-object */ 16)
+	  , get      = __webpack_require__(/*! ./core.get-iterator-method */ 72);
+	module.exports = __webpack_require__(/*! ./_core */ 11).getIterator = function(it){
+	  var iterFn = get(it);
+	  if(typeof iterFn != 'function')throw TypeError(it + ' is not iterable!');
+	  return anObject(iterFn.call(it));
+	};
+
+/***/ },
+/* 72 */
+/*!*******************************************************************************!*\
+  !*** ./~/babel-runtime/~/core-js/library/modules/core.get-iterator-method.js ***!
+  \*******************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var classof   = __webpack_require__(/*! ./_classof */ 68)
+	  , ITERATOR  = __webpack_require__(/*! ./_wks */ 63)('iterator')
+	  , Iterators = __webpack_require__(/*! ./_iterators */ 54);
+	module.exports = __webpack_require__(/*! ./_core */ 11).getIteratorMethod = function(it){
+	  if(it != undefined)return it[ITERATOR]
+	    || it['@@iterator']
+	    || Iterators[classof(it)];
+	};
+
+/***/ },
+/* 73 */
+/*!************************!*\
+  !*** ./src/Gallery.js ***!
+  \************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.gen = gen;
+	
+	var _FpUtils = __webpack_require__(/*! FpUtils */ 2);
+	
+	var FpUtils = _interopRequireWildcard(_FpUtils);
+	
+	var _Reducers = __webpack_require__(/*! Reducers */ 5);
+	
+	var Reducers = _interopRequireWildcard(_Reducers);
+	
+	var _Actions = __webpack_require__(/*! Actions */ 43);
+	
+	var Actions = _interopRequireWildcard(_Actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function __render__($store, opts, $root) {
+	  /* get states */
+	  var getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
+	  var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+	  var getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
+	  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	
+	  if (getGalleryStatusDepot().isOpened) {
+	    $root.addClass('is-opened');
+	  }
+	
+	  var $bg = $('<div />').addClass('overlay').click(function () {
+	    $store.dispatch(Actions.triggerGallery());
+	  });
+	
+	  var $dialogTitle = $('<div />').addClass('title').text('露天圖庫');
+	
+	  var $dialogContent = function () {
+	    var $root = $('<div />').addClass('content');
+	
+	    var $wrap = $('<div />').addClass('wrap');
+	
+	    var $toolBar = function () {
+	      var $root = $('<div />').addClass('tool-bar');
+	
+	      var $pagination = $('<select />').attr('data-ref', 'galleryPagination');;
+	
+	      for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
+	        var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+	
+	        $pagination.append($option);
+	      }
+	
+	      $pagination.val(getGalleryFilterDepot().page).change(function (e) {
+	        var $this = $(e.currentTarget);
+	        $store.dispatch(Actions.changeGalleryFilter(getGalleryFilterDepot().category, Number($this.val())));
+	        $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].val, Number($this.val()), opts.onFetchGallery));
+	      });
+	
+	      var $category = $('<select />').attr('data-ref', 'galleryCategory');
+	
+	      for (var _i = 0; _i < getGalleryFilterDepot().categoryList.length; _i++) {
+	        var categoryItem = getGalleryFilterDepot().categoryList[_i];
+	        var _$option = $('<option />').attr('value', categoryItem.val).text(categoryItem.text);
+	
+	        $category.append(_$option);
+	      }
+	
+	      $category.val(getGalleryFilterDepot().category).change(function (e) {
+	        var $this = $(e.currentTarget);
+	        $store.dispatch(Actions.changeGalleryFilter(Number($this.val()), 1));
+	        $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].val, 1, opts.onFetchGallery));
+	      });
+	
+	      return $root.append($category).append($pagination);
+	    }();
+	
+	    var $listView = function () {
+	      var $root = $('<div />').addClass('list-view').attr('data-ref', 'galleryListView');
+	
+	      for (var i = 0; i < getGalleryImageDepot().list.length; i++) {
+	        var url = getGalleryImageDepot().list[i].url;
+	        var $listItem = $('<div />').addClass('list-item');
+	
+	        var $img = $('<img />').attr('width', opts.thumbnailWidth).attr('height', opts.thumbnailHeight).attr('src', url);
+	
+	        $listItem.append($img);
+	        $root.append($listItem);
+	      }
+	
+	      return $root;
+	    }();
+	
+	    var $btnBar = function () {
+	      var $root = $('<div />').addClass('btn-bar');
+	
+	      var $ok = $('<button />').attr('type', 'button').addClass('rt-button rt-button-mini rt-button-submit').text('確定新增').click(function (e) {
+	        var list = [];
+	        var runningID = getFileDepot().runningID;
+	        var selectionList = getGallerySelectionDepot().list;
+	        var imageList = getGalleryImageDepot().list;
+	        if (selectionList.length) {
+	          for (var i = 0; i < selectionList.length; i++) {
+	            var selection = selectionList[i];
+	            list.push({
+	              url: imageList[selection].url,
+	              userDefinedData: imageList[selection].userDefinedData
+	            });
+	          }
+	
+	          $store.dispatch(Actions.uploadFromGalleryStart(list, opts.limit, runningID, opts.onUploadFromGallery));
+	          $store.dispatch(Actions.triggerGallery());
+	        }
+	      });
+	
+	      var $no = $('<a />').attr('href', '#').text('取消').click(function (e) {
+	        e.preventDefault();
+	        $store.dispatch(Actions.triggerGallery());
+	      });
+	
+	      return $root.append($ok).append($no);
+	    }();
+	
+	    $wrap.append($toolBar).append($listView).append($btnBar);
+	
+	    return $root.append($wrap);
+	  }();
+	
+	  var $dialog = $('<div />').addClass('dialog').append($dialogTitle).append($dialogContent);
+	
+	  $root.append($bg).append($dialog);
+	
+	  return $root;
+	} /* component - Gallery */
+	;
+	
+	function __renderOnGalleryStatusDepotChanged__($store, opts, $root) {
+	  /* get states */
+	  var getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
+	
+	  if (getGalleryStatusDepot().isOpened) {
+	    $root.addClass('is-opened');
+	  } else {
+	    $root.removeClass('is-opened');
+	  }
+	};
+	
+	function __renderOnGalleryFilterDepotChanged__($store, opts, $root) {
+	  /* get states */
+	  var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+	
+	  var $pagination = $root.find('[data-ref=galleryPagination]');
+	  var $category = $root.find('[data-ref=galleryCategory]');
+	
+	  $pagination.empty();
+	  for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
+	    var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+	
+	    $pagination.append($option);
+	  }
+	
+	  $pagination.val(getGalleryFilterDepot().page);
+	
+	  $category.empty();
+	  for (var _i2 = 0; _i2 < getGalleryFilterDepot().categoryList.length; _i2++) {
+	    var categoryItem = getGalleryFilterDepot().categoryList[_i2];
+	    var _$option2 = $('<option />').attr('value', _i2.toString()).text(categoryItem.text);
+	
+	    $category.append(_$option2);
+	  }
+	
+	  $category.val(getGalleryFilterDepot().category);
+	
+	  if (getGalleryFilterDepot().isFetching) {
+	    $pagination.prop('disabled', true);
+	    $category.prop('disabled', true);
+	  } else {
+	    $pagination.prop('disabled', false);
+	    $category.prop('disabled', false);
+	  }
+	};
+	
+	function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
+	  /* get states */
+	  var getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
+	  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+	
+	  var $listView = $root.find('[data-ref=galleryListView]');
+	
+	  $listView.empty();
+	
+	  if (getGalleryImageDepot().isFetching) {
+	    var $icon = $('<i />').addClass('fa fa-circle-o-notch fa-spin fa-2x fa-fw loading-ring');
+	    $listView.append($icon);
+	  } else {
+	    for (var i = 0; i < getGalleryImageDepot().list.length; i++) {
+	      var url = getGalleryImageDepot().list[i].url;
+	      var $listItem = $('<div />').addClass('list-item').click(function (e) {
+	        var $this = $(e.currentTarget);
+	        var selection = getGallerySelectionDepot().list.slice(0);
+	        var n = $this.index();
+	        var idx = selection.indexOf(n);
+	
+	        if (idx === -1) {
+	          selection.push(n);
+	          if (selection.length > opts.limit) {
+	            selection = selection.slice(selection.length - opts.limit);
+	          }
+	        } else {
+	          selection.splice(idx, 1);
+	        }
+	
+	        $store.dispatch(Actions.changeGallerySelection(selection));
+	      });
+	
+	      var $img = $('<img />').attr('width', opts.thumbnailWidth).attr('height', opts.thumbnailHeight).attr('src', url);
+	
+	      $listItem.append($img);
+	      $listView.append($listItem);
+	    }
+	  }
+	};
+	
+	function __renderOnGallerySelectionDepotChanged__($store, opts, $root) {
+	  /* get states */
+	  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
+	
+	  var $listView = $root.find('[data-ref=galleryListView]');
+	
+	  $listView.find('.is-selected').removeClass('is-selected');
+	
+	  for (var i = 0; i < getGallerySelectionDepot().list.length; i++) {
+	    var n = getGallerySelectionDepot().list[i];
+	    $listView.children().eq(n).addClass('is-selected');
+	  }
+	};
+	
+	/* exports */
+	function gen($store, opts) {
+	  var $root = $('<div />').addClass('gallery');
+	
+	  $store.listen(Reducers.GALLERY_STATUS_DEPOT, function () {
+	    __renderOnGalleryStatusDepotChanged__($store, opts, $root);
+	  });
+	
+	  $store.listen(Reducers.GALLERY_FILTER_DEPOT, function () {
+	    __renderOnGalleryFilterDepotChanged__($store, opts, $root);
+	  });
+	
+	  $store.listen(Reducers.GALLERY_IMAGE_DEPOT, function () {
+	    __renderOnGalleryImageDepotChanged__($store, opts, $root);
+	  });
+	
+	  $store.listen(Reducers.GALLERY_SELECTION_DEPOT, function () {
+	    __renderOnGallerySelectionDepotChanged__($store, opts, $root);
+	  });
+	
+	  return __render__($store, opts, $root);
+	};
+
+/***/ }
+/******/ ]);
+//# sourceMappingURL=rt_file_uploader.js.map

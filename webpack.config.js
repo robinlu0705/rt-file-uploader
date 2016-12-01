@@ -4,6 +4,8 @@ var webpack = require('webpack');
 var path = require('path');
 var srcPath = path.join(__dirname, 'src');
 
+var PROD = (process.env.NODE_ENV === 'production');
+
 module.exports = {  
   target: 'web',
   cache: true,
@@ -20,7 +22,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: PROD ? '[name].min.js' : '[name].js',
     library: 'rt_file_uploader'
   },
 
