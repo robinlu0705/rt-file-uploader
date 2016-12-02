@@ -4,7 +4,6 @@ import * as Actions from 'Actions';
 import * as Reducers from 'Reducers';
 
 function __renderOnFileDepotChange__($store, opts, $root) {
-  const limit = opts.limit;
   const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 
   if (!getFileDepot().order.length) {
@@ -17,7 +16,7 @@ function __renderOnFileDepotChange__($store, opts, $root) {
   }
 
   return $root;
-};
+}
 
 /* exports */
 export function gen($store, opts) {
@@ -58,7 +57,7 @@ export function gen($store, opts) {
       }));
 
       $this.val('');
-   });
+    });
 
   const _$addLocalFakeButton = $('<div />')
     .addClass('rt-button')
@@ -78,7 +77,7 @@ export function gen($store, opts) {
     .addClass('rt-button-mini')
     .addClass('rt-button-default')
     .text('露天圖庫')
-    .click(e => {
+    .click(() => {
       $store.dispatch(Actions.triggerGallery());
       $store.dispatch(Actions.fetchGalleryImage((getGalleryFilterDepot().categoryList)[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
     });
@@ -100,4 +99,4 @@ export function gen($store, opts) {
   });
 
   return __renderOnFileDepotChange__($store, opts, $root);
-};
+}

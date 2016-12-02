@@ -11,7 +11,7 @@ import * as Gallery from 'Gallery';
 
 
 window.RT = window.RT || {};
-const APP_NAMESPACE = RT.FileUploader = {};
+const APP_NAMESPACE = window.RT.FileUploader = {};
 
 /* main functions */
 function __seasonOpts__(opts) {
@@ -22,7 +22,7 @@ function __seasonOpts__(opts) {
     limit: opts.limit || 3,
     galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : []
   });
-};
+}
 
 function __createStore__(opts) {
   /* create store with initial state */
@@ -42,7 +42,7 @@ function __createStore__(opts) {
   };
 
   return StoreUtils.createStore(combinedReducer, opts.debug);
-};
+}
 
 function __genUI__($store, opts) {
   /* create file loader ui */
@@ -58,7 +58,7 @@ function __genUI__($store, opts) {
   appendComponentToApp($Gallery);
 
   return $App;
-};
+}
 
 /* export to APP_NAMESPACE */
 /**

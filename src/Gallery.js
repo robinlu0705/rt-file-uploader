@@ -37,7 +37,7 @@ function __render__($store, opts, $root) {
         .addClass('tool-bar');
 
       const $pagination = $('<select />')
-        .attr('data-ref', 'galleryPagination');;
+        .attr('data-ref', 'galleryPagination');
 
       for (let i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
         const $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
@@ -106,7 +106,7 @@ function __render__($store, opts, $root) {
         .attr('type', 'button')
         .addClass('rt-button rt-button-mini rt-button-submit')
         .text('確定新增')
-        .click(e => {
+        .click(() => {
           const list = [];
           const runningID = getFileDepot().runningID;
           const selectionList = getGallerySelectionDepot().list;
@@ -166,7 +166,7 @@ function __render__($store, opts, $root) {
     .append($dialog);
 
   return $root;
-};
+}
 
 function __renderOnGalleryStatusDepotChanged__($store, opts, $root) {
   /* get states */
@@ -177,7 +177,7 @@ function __renderOnGalleryStatusDepotChanged__($store, opts, $root) {
   } else {
     $root.removeClass('is-opened');
   }
-};
+}
 
 function __renderOnGalleryFilterDepotChanged__($store, opts, $root) {
   /* get states */
@@ -212,7 +212,7 @@ function __renderOnGalleryFilterDepotChanged__($store, opts, $root) {
     $pagination.prop('disabled', false);
     $category.prop('disabled', false);
   }
-};
+}
 
 function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
   /* get states */
@@ -259,7 +259,7 @@ function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
       $listView.append($listItem);
     }
   }
-};
+}
 
 function __renderOnGallerySelectionDepotChanged__($store, opts, $root) {
   /* get states */
@@ -273,7 +273,7 @@ function __renderOnGallerySelectionDepotChanged__($store, opts, $root) {
     const n = getGallerySelectionDepot().list[i];
     $listView.children().eq(n).addClass('is-selected');
   }
-};
+}
 
 /* exports */
 export function gen($store, opts) {
@@ -297,4 +297,4 @@ export function gen($store, opts) {
   });
 
   return __render__($store, opts, $root);
-};
+}

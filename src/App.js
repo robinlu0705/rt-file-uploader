@@ -8,9 +8,7 @@ const IDENTIFIER = 'RT_FILE_UPLOADER';
 
 /* exports */
 export function gen($store, opts) {
-  const limit = opts.limit
-  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-
+  const limit = opts.limit;
   const $root = $('<div />')
     .addClass(IDENTIFIER)
     .css('minHeight', opts.minHeight)
@@ -41,4 +39,4 @@ export function gen($store, opts) {
     });
 
   return $root;
-};
+}

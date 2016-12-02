@@ -29,7 +29,7 @@ export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileL
       itemList.push({
         id: runningID + 1 + i,
         file: uploadFileList.item(i)
-      })
+      });
     }
 
     /* delete overflowed items */
@@ -67,7 +67,7 @@ export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileL
       onUpload(itemList, update);
     }
   };
-};
+}
 
 export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, uploadFiles, limit, runningID, onUploadFromGallery, onDelete }) {
   return dispatch => {
@@ -113,7 +113,7 @@ export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, 
       onUploadFromGallery(itemList, update);
     }
   };
-};
+}
 
 function addLoadingFile(IDList, runningID, remainedIDs) {
   return {
@@ -124,14 +124,14 @@ function addLoadingFile(IDList, runningID, remainedIDs) {
       remainedIDs: remainedIDs
     }
   };
-};
+}
 
 function updateLoadingFile(list) {
   return {
     type: UPDATE_LOADING_FILE,
     payload: list
   };
-};
+}
 
 export function addFile(currentFileEntities, currentFileOrder, addList, limit, runningID, onDelete) {
   /* new added items */
@@ -167,7 +167,7 @@ export function addFile(currentFileEntities, currentFileOrder, addList, limit, r
       runningID: runningID + itemList.length
     }
   };
-};
+}
 
 export function deleteFile(currentFileEntities, entityIDs, onDelete) {
   if (typeof onDelete === 'function') {
@@ -190,7 +190,7 @@ export function deleteFile(currentFileEntities, entityIDs, onDelete) {
     type: DELETE_FILE,
     payload: entityIDs
   };
-};
+}
 
 export function updateLayout(thumbnailLayouts) {
   return {
@@ -208,7 +208,7 @@ export function startEdit({ entityID, cursorX, cursorY }) {
       cursorY: cursorY
     }
   };
-};
+}
 
 export function endEdit(editTarget, hoverTarget) {
   return {
@@ -218,7 +218,7 @@ export function endEdit(editTarget, hoverTarget) {
       hoverTarget: hoverTarget
     }
   };
-};
+}
 
 export function updateEdit({ entityID, cursorX, cursorY }) {
   return {
@@ -229,27 +229,27 @@ export function updateEdit({ entityID, cursorX, cursorY }) {
       cursorY: cursorY
     }
   };
-};
+}
 
 export function updatePlaceholder(idx) {
   return {
     type: UPDATE_PLACEHOLDER,
     payload: idx
   };
-};
+}
 
 export function triggerGallery() {
   return {
     type: TRIGGER_GALLERY
   };
-};
+}
 
 export function setGalleryFilterOpts(optList) {
   return {
     type: SET_GALLERY_FILTER_OPTS,
     payload: optList
   };
-};
+}
 
 export function changeGalleryFilter(category, page) {
   return {
@@ -258,8 +258,8 @@ export function changeGalleryFilter(category, page) {
       category: category,
       page: page
     }
-  }
-};
+  };
+}
 
 export function fetchGalleryImage(categoryVal, page, onFetchGallery) {
   return dispatch => {
@@ -275,24 +275,24 @@ export function fetchGalleryImage(categoryVal, page, onFetchGallery) {
       onFetchGallery(categoryVal, Number(page), update);
     }
   };
-};
+}
 
 function requestGalleryImage() {
   return {
     type: REQUEST_GALLERY_IMAGE
   };
-};
+}
 
 function receiveGalleryImage(list) {
   return {
     type: RECEIVE_GALLERY_IMAGE,
     payload: list
-  }
-};
+  };
+}
 
 export function changeGallerySelection(list) {
   return {
     type: CHANGE_GALLERY_SELECTION,
     payload: list
   };
-};
+}

@@ -1,4 +1,5 @@
 sftp-config.json
+npm-debug.log
 node_modules/
 example/*.js.map
 example/*.min.js

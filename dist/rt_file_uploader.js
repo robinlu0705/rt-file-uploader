@@ -100,7 +100,7 @@ var rt_file_uploader =
 	
 	window.RT = window.RT || {}; /* will add FileUploader to window.RT */
 	
-	var APP_NAMESPACE = RT.FileUploader = {};
+	var APP_NAMESPACE = window.RT.FileUploader = {};
 	
 	/* main functions */
 	function __seasonOpts__(opts) {
@@ -111,7 +111,7 @@ var rt_file_uploader =
 	    limit: opts.limit || 3,
 	    galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : []
 	  });
-	};
+	}
 	
 	function __createStore__(opts) {
 	  /* create store with initial state */
@@ -131,7 +131,7 @@ var rt_file_uploader =
 	  };
 	
 	  return StoreUtils.createStore(combinedReducer, opts.debug);
-	};
+	}
 	
 	function __genUI__($store, opts) {
 	  /* create file loader ui */
@@ -147,7 +147,7 @@ var rt_file_uploader =
 	  appendComponentToApp($Gallery);
 	
 	  return $App;
-	};
+	}
 	
 	/* export to APP_NAMESPACE */
 	/**
@@ -229,10 +229,10 @@ var rt_file_uploader =
 	/* functional programming utility functions */
 	
 	/**
-	 * @param {...function} f
+	 * @param {...function}
 	 * @return {function}
 	 */
-	function compose(f) {
+	function compose() {
 	  var funcs = arguments;
 	  return function () {
 	    var args = arguments;
@@ -242,19 +242,19 @@ var rt_file_uploader =
 	
 	    return args[0];
 	  };
-	};
+	}
 	
 	/**
 	 * @param {function} f
-	 * @param {*...} arg
+	 * @param {*...}
 	 */
-	function curryIt(f, arg) {
+	function curryIt(f) {
 	  var curriedParams = Array.prototype.slice.call(arguments, 1);
 	  return function () {
 	    var params = Array.prototype.slice.call(arguments, 0);
 	    return f.apply(this, curriedParams.concat(params));
 	  };
-	};
+	}
 
 /***/ },
 /* 3 */
@@ -282,7 +282,7 @@ var rt_file_uploader =
 	
 	function __calcNewState__(reducer, state, action) {
 	  return reducer(state, action);
-	};
+	}
 	
 	function __diffStates__(oldState, newState) {
 	  var ret = [];
@@ -301,19 +301,19 @@ var rt_file_uploader =
 	  } else {
 	    return $store.state;
 	  }
-	};
+	}
 	
 	function __fireStoreChange__($store, IDENTIFIER, stateParts) {
 	  var prefix = IDENTIFIER.toString() || '';
 	  for (var i = 0; i < stateParts.length; i++) {
 	    $store.trigger(prefix + stateParts[i]);
 	  }
-	};
+	}
 	
 	function __addStoreListener__($store, IDENTIFIER, statePart, handler) {
 	  var prefix = IDENTIFIER.toString() || '';
 	  $store.on(prefix + statePart, handler);
-	};
+	}
 	
 	/* exports */
 	function createStore(reducer, debug) {
@@ -361,7 +361,7 @@ var rt_file_uploader =
 	  };
 	
 	  return $store;
-	};
+	}
 
 /***/ },
 /* 4 */
@@ -383,7 +383,7 @@ var rt_file_uploader =
 	function appendNode($target, $source) {
 	  $target.append($source);
 	  return $target;
-	};
+	}
 	
 	function isCollided(_ref, _ref2) {
 	  var left = _ref.left,
@@ -403,7 +403,7 @@ var rt_file_uploader =
 	  } else {
 	    return false;
 	  }
-	};
+	}
 
 /***/ },
 /* 5 */
@@ -688,7 +688,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 	
 	var layoutDepotDefaultState = {
 	  thumbnailLayouts: []
@@ -709,7 +709,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 	
 	var modeDepotDefaultState = {
 	  mode: Actions.DISPLAY_MODE
@@ -737,7 +737,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 	
 	var editDepotDefaultState = {
 	  target: null,
@@ -786,7 +786,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 	
 	var placeholderDepotDefaultState = {
 	  hoverTarget: null
@@ -821,7 +821,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 	
 	var galleryStatusDepotDefaultState = {
 	  isOpened: false
@@ -842,7 +842,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 	
 	var galleryFilterDepotDefaultState = {
 	  page: 1,
@@ -908,7 +908,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 	
 	var galleryImageDepotDefaultState = {
 	  list: [],
@@ -939,7 +939,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 	
 	var gallerySelectionDepotDefaultState = {
 	  list: []
@@ -967,7 +967,7 @@ var rt_file_uploader =
 	    default:
 	      return state;
 	  }
-	};
+	}
 
 /***/ },
 /* 6 */
@@ -2168,7 +2168,7 @@ var rt_file_uploader =
 	      onUpload(itemList, update);
 	    }
 	  };
-	};
+	}
 	
 	function uploadFromGalleryStart(_ref2) {
 	  var currentFileEntities = _ref2.currentFileEntities,
@@ -2228,7 +2228,7 @@ var rt_file_uploader =
 	      onUploadFromGallery(itemList, update);
 	    }
 	  };
-	};
+	}
 	
 	function addLoadingFile(IDList, runningID, remainedIDs) {
 	  return {
@@ -2239,14 +2239,14 @@ var rt_file_uploader =
 	      remainedIDs: remainedIDs
 	    }
 	  };
-	};
+	}
 	
 	function updateLoadingFile(list) {
 	  return {
 	    type: UPDATE_LOADING_FILE,
 	    payload: list
 	  };
-	};
+	}
 	
 	function addFile(currentFileEntities, currentFileOrder, addList, limit, runningID, onDelete) {
 	  /* new added items */
@@ -2284,7 +2284,7 @@ var rt_file_uploader =
 	      runningID: runningID + itemList.length
 	    }
 	  };
-	};
+	}
 	
 	function deleteFile(currentFileEntities, entityIDs, onDelete) {
 	  if (typeof onDelete === 'function') {
@@ -2309,7 +2309,7 @@ var rt_file_uploader =
 	    type: DELETE_FILE,
 	    payload: entityIDs
 	  };
-	};
+	}
 	
 	function updateLayout(thumbnailLayouts) {
 	  return {
@@ -2331,7 +2331,7 @@ var rt_file_uploader =
 	      cursorY: cursorY
 	    }
 	  };
-	};
+	}
 	
 	function endEdit(editTarget, hoverTarget) {
 	  return {
@@ -2341,7 +2341,7 @@ var rt_file_uploader =
 	      hoverTarget: hoverTarget
 	    }
 	  };
-	};
+	}
 	
 	function updateEdit(_ref4) {
 	  var entityID = _ref4.entityID,
@@ -2356,27 +2356,27 @@ var rt_file_uploader =
 	      cursorY: cursorY
 	    }
 	  };
-	};
+	}
 	
 	function updatePlaceholder(idx) {
 	  return {
 	    type: UPDATE_PLACEHOLDER,
 	    payload: idx
 	  };
-	};
+	}
 	
 	function triggerGallery() {
 	  return {
 	    type: TRIGGER_GALLERY
 	  };
-	};
+	}
 	
 	function setGalleryFilterOpts(optList) {
 	  return {
 	    type: SET_GALLERY_FILTER_OPTS,
 	    payload: optList
 	  };
-	};
+	}
 	
 	function changeGalleryFilter(category, page) {
 	  return {
@@ -2386,7 +2386,7 @@ var rt_file_uploader =
 	      page: page
 	    }
 	  };
-	};
+	}
 	
 	function fetchGalleryImage(categoryVal, page, onFetchGallery) {
 	  return function (dispatch) {
@@ -2404,27 +2404,27 @@ var rt_file_uploader =
 	      onFetchGallery(categoryVal, Number(page), update);
 	    }
 	  };
-	};
+	}
 	
 	function requestGalleryImage() {
 	  return {
 	    type: REQUEST_GALLERY_IMAGE
 	  };
-	};
+	}
 	
 	function receiveGalleryImage(list) {
 	  return {
 	    type: RECEIVE_GALLERY_IMAGE,
 	    payload: list
 	  };
-	};
+	}
 	
 	function changeGallerySelection(list) {
 	  return {
 	    type: CHANGE_GALLERY_SELECTION,
 	    payload: list
 	  };
-	};
+	}
 
 /***/ },
 /* 66 */
@@ -2461,8 +2461,6 @@ var rt_file_uploader =
 	/* component - App */
 	function gen($store, opts) {
 	  var limit = opts.limit;
-	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-	
 	  var $root = $('<div />').addClass(IDENTIFIER).css('minHeight', opts.minHeight).on('dragover', function (e) {
 	    e.preventDefault();
 	    $root.addClass('drag-over');
@@ -2488,7 +2486,7 @@ var rt_file_uploader =
 	  });
 	
 	  return $root;
-	};
+	}
 
 /***/ },
 /* 67 */
@@ -2519,7 +2517,6 @@ var rt_file_uploader =
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function __renderOnFileDepotChange__($store, opts, $root) {
-	  var limit = opts.limit;
 	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 	
 	  if (!getFileDepot().order.length) {
@@ -2529,10 +2526,10 @@ var rt_file_uploader =
 	  }
 	
 	  return $root;
-	} /* component - ToolBar */
-	;
+	}
 	
 	/* exports */
+	/* component - ToolBar */
 	function gen($store, opts) {
 	  var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
 	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
@@ -2567,7 +2564,7 @@ var rt_file_uploader =
 	
 	  var $addLocal = $('<label />').addClass('action').append(_$addLocalInput).append(_$addLocalFakeButton);
 	
-	  var $addRuten = $('<button />').attr('type', 'button').addClass('action').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('露天圖庫').click(function (e) {
+	  var $addRuten = $('<button />').attr('type', 'button').addClass('action').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('露天圖庫').click(function () {
 	    $store.dispatch(Actions.triggerGallery());
 	    $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
 	  });
@@ -2581,7 +2578,7 @@ var rt_file_uploader =
 	  });
 	
 	  return __renderOnFileDepotChange__($store, opts, $root);
-	};
+	}
 
 /***/ },
 /* 68 */
@@ -2640,10 +2637,8 @@ var rt_file_uploader =
 	    var file = getFileDepot().entities[entityID];
 	    var $elm = $('<div />').attr('data-ref', 'thumbnail').addClass('thumbnail').attr('data-key', idx).css('width', thumbnailWidth).css('height', thumbnailHeight).on('touchstart mousedown', function (e) {
 	      e.preventDefault();
-	      var $this = $(e.currentTarget);
 	      if (getModeDepot().mode === Actions.DISPLAY_MODE) {
 	        var rootOffset = $root.offset();
-	        var offset = $this.offset();
 	        var touchList = e.originalEvent.targetTouches;
 	        var pageX = touchList ? touchList[0].pageX : e.pageX;
 	        var pageY = touchList ? touchList[0].pageY : e.pageY;
@@ -2728,7 +2723,7 @@ var rt_file_uploader =
 	  $store.dispatch(Actions.updateLayout(thumbnailLayouts));
 	
 	  return $root;
-	};
+	}
 	
 	function __renderOnModeDepotChange__($store, opts, $root) {
 	  var thumbnailWidth = opts.thumbnailWidth;
@@ -2740,7 +2735,7 @@ var rt_file_uploader =
 	  var getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
 	
 	  if (getModeDepot().mode === Actions.EDIT_MODE) {
-	    $root.on('touchend mouseup', function (e) {
+	    $root.on('touchend mouseup', function () {
 	      if (getModeDepot().mode === Actions.EDIT_MODE) {
 	        $store.dispatch(Actions.endEdit(getEditDepot().target, getPlaceholderDepot().hoverTarget));
 	      }
@@ -2805,7 +2800,7 @@ var rt_file_uploader =
 	  } else {
 	    $root.off('touchmove').off('mousemove').off('touchend').off('mouseup');
 	  }
-	};
+	}
 	
 	function __renderOnEditDepotChange__($store, opts, $root) {
 	  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
@@ -2850,7 +2845,7 @@ var rt_file_uploader =
 	  }
 	
 	  return $root;
-	};
+	}
 	
 	function __renderOnPlaceholderDepotChange__($store, opts, $root) {
 	  var thumbnailWidth = opts.thumbnailWidth;
@@ -2883,15 +2878,10 @@ var rt_file_uploader =
 	  }
 	
 	  return $root;
-	};
+	}
 	
 	/* exports */
 	function gen($store, opts) {
-	  /* get states */
-	  var getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
-	  var getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
-	  var getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
-	
 	  var $root = $('<div />').addClass('thumbnail-viewer');
 	
 	  $store.listen(Reducers.FILE_DEPOT, function () {
@@ -2911,7 +2901,7 @@ var rt_file_uploader =
 	  });
 	
 	  return __render__($store, opts, $root);
-	};
+	}
 
 /***/ },
 /* 69 */
@@ -3063,7 +3053,7 @@ var rt_file_uploader =
 	    var $toolBar = function () {
 	      var $root = $('<div />').addClass('tool-bar');
 	
-	      var $pagination = $('<select />').attr('data-ref', 'galleryPagination');;
+	      var $pagination = $('<select />').attr('data-ref', 'galleryPagination');
 	
 	      for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
 	        var $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
@@ -3114,7 +3104,7 @@ var rt_file_uploader =
 	    var $btnBar = function () {
 	      var $root = $('<div />').addClass('btn-bar');
 	
-	      var $ok = $('<button />').attr('type', 'button').addClass('rt-button rt-button-mini rt-button-submit').text('確定新增').click(function (e) {
+	      var $ok = $('<button />').attr('type', 'button').addClass('rt-button rt-button-mini rt-button-submit').text('確定新增').click(function () {
 	        var list = [];
 	        var runningID = getFileDepot().runningID;
 	        var selectionList = getGallerySelectionDepot().list;
@@ -3162,7 +3152,7 @@ var rt_file_uploader =
 	
 	  return $root;
 	} /* component - Gallery */
-	;
+	
 	
 	function __renderOnGalleryStatusDepotChanged__($store, opts, $root) {
 	  /* get states */
@@ -3173,7 +3163,7 @@ var rt_file_uploader =
 	  } else {
 	    $root.removeClass('is-opened');
 	  }
-	};
+	}
 	
 	function __renderOnGalleryFilterDepotChanged__($store, opts, $root) {
 	  /* get states */
@@ -3208,7 +3198,7 @@ var rt_file_uploader =
 	    $pagination.prop('disabled', false);
 	    $category.prop('disabled', false);
 	  }
-	};
+	}
 	
 	function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
 	  /* get states */
@@ -3249,7 +3239,7 @@ var rt_file_uploader =
 	      $listView.append($listItem);
 	    }
 	  }
-	};
+	}
 	
 	function __renderOnGallerySelectionDepotChanged__($store, opts, $root) {
 	  /* get states */
@@ -3263,7 +3253,7 @@ var rt_file_uploader =
 	    var n = getGallerySelectionDepot().list[i];
 	    $listView.children().eq(n).addClass('is-selected');
 	  }
-	};
+	}
 	
 	/* exports */
 	function gen($store, opts) {
@@ -3286,7 +3276,7 @@ var rt_file_uploader =
 	  });
 	
 	  return __render__($store, opts, $root);
-	};
+	}
 
 /***/ }
 /******/ ]);

@@ -23,10 +23,8 @@ function __render__($store, opts, $root) {
       .css('height', thumbnailHeight)
       .on('touchstart mousedown', e => {
         e.preventDefault();
-        const $this = $(e.currentTarget);
         if (getModeDepot().mode === Actions.DISPLAY_MODE) {
           const rootOffset = $root.offset();
-          const offset = $this.offset();
           const touchList = e.originalEvent.targetTouches;
           const pageX = touchList ? touchList[0].pageX : e.pageX;
           const pageY = touchList ? touchList[0].pageY : e.pageY;
@@ -101,7 +99,7 @@ function __render__($store, opts, $root) {
   $store.dispatch(Actions.updateLayout(thumbnailLayouts));
 
   return $root;
-};
+}
 
 function __renderOnModeDepotChange__($store, opts, $root) {
   const thumbnailWidth = opts.thumbnailWidth;
@@ -113,7 +111,7 @@ function __renderOnModeDepotChange__($store, opts, $root) {
   const getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
 
   if (getModeDepot().mode === Actions.EDIT_MODE) {
-    $root.on('touchend mouseup', e => {
+    $root.on('touchend mouseup', () => {
       if (getModeDepot().mode === Actions.EDIT_MODE) {
         $store.dispatch(Actions.endEdit(getEditDepot().target, getPlaceholderDepot().hoverTarget));
       }
@@ -160,7 +158,7 @@ function __renderOnModeDepotChange__($store, opts, $root) {
       .off('touchend')
       .off('mouseup');
   }
-};
+}
 
 function __renderOnEditDepotChange__($store, opts, $root) {
   const getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
@@ -187,7 +185,7 @@ function __renderOnEditDepotChange__($store, opts, $root) {
   }
 
   return $root;
-};
+}
 
 function __renderOnPlaceholderDepotChange__($store, opts, $root) {
   const thumbnailWidth = opts.thumbnailWidth;
@@ -223,15 +221,10 @@ function __renderOnPlaceholderDepotChange__($store, opts, $root) {
   }
 
   return $root;
-};
+}
 
 /* exports */
 export function gen($store, opts) {
-  /* get states */
-  const getModeDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.MODE_DEPOT);
-  const getEditDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.EDIT_DEPOT);
-  const getPlaceholderDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.PLACEHOLDER_DEPOT);
-
   const $root = $('<div />')
     .addClass('thumbnail-viewer');
 
@@ -244,7 +237,7 @@ export function gen($store, opts) {
   });
 
   $store.listen(Reducers.EDIT_DEPOT, () => {
-   __renderOnEditDepotChange__($store, opts, $root);
+    __renderOnEditDepotChange__($store, opts, $root);
   });
 
   $store.listen(Reducers.PLACEHOLDER_DEPOT, () => {
@@ -252,4 +245,4 @@ export function gen($store, opts) {
   });
 
   return __render__($store, opts, $root);
-};
+}

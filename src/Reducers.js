@@ -171,7 +171,7 @@ export function fileDepot(state = fileDepotDefaultState, action) {
     default:
       return state;
   }
-};
+}
 
 const layoutDepotDefaultState = {
   thumbnailLayouts: []
@@ -188,7 +188,7 @@ export function layoutDepot(state = layoutDepotDefaultState, action) {
     default:
       return state;
   }
-};
+}
 
 const modeDepotDefaultState = {
   mode: Actions.DISPLAY_MODE
@@ -211,7 +211,7 @@ export function modeDepot(state = modeDepotDefaultState, action) {
     default:
       return state;
   }
-};
+}
 
 const editDepotDefaultState = {
   target: null,
@@ -255,7 +255,7 @@ export function editDepot(state = editDepotDefaultState, action) {
     default:
       return state;
   }
-};
+}
 
 const placeholderDepotDefaultState = {
   hoverTarget: null
@@ -284,7 +284,7 @@ export function placeholderDepot(state = placeholderDepotDefaultState, action) {
     default:
       return state;
   }
-};
+}
 
 const galleryStatusDepotDefaultState = {
   isOpened: false
@@ -301,7 +301,7 @@ export function galleryStatusDepot(state = galleryStatusDepotDefaultState, actio
     default:
       return state;
   }
-};
+}
 
 const galleryFilterDepotDefaultState = {
   page: 1,
@@ -356,7 +356,7 @@ export function galleryFilterDepot(state = galleryFilterDepotDefaultState, actio
     default:
       return state;
   }
-};
+}
 
 const galleryImageDepotDefaultState = {
   list: [],
@@ -382,7 +382,7 @@ export function galleryImageDepot(state = galleryImageDepotDefaultState, action)
     default:
       return state;
   }
-};
+}
 
 const gallerySelectionDepotDefaultState = {
   list: []
@@ -405,4 +405,4 @@ export function gallerySelectionDepot(state = gallerySelectionDepotDefaultState,
     default:
       return state;
   }
-};
+}

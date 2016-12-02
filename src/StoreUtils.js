@@ -6,7 +6,7 @@ const IDENTIFIER = 'RT_FILE_UPLOADER';
 
 function __calcNewState__(reducer, state, action) {
   return reducer(state, action);
-};
+}
 
 function __diffStates__(oldState, newState) {
   const ret = [];
@@ -25,19 +25,19 @@ function __getStoreState__($store, statePart) {
   } else {
     return $store.state;
   }
-};
+}
 
 function __fireStoreChange__($store, IDENTIFIER, stateParts) {
   const prefix = IDENTIFIER.toString() || '';
   for (let i = 0; i < stateParts.length; i++) {
     $store.trigger(prefix + stateParts[i]);
   }
-};
+}
 
 function __addStoreListener__($store, IDENTIFIER, statePart, handler) {
   const prefix = IDENTIFIER.toString() || '';
   $store.on(prefix + statePart, handler);
-};
+}
 
 /* exports */
 export function createStore(reducer, debug) {
@@ -85,4 +85,4 @@ export function createStore(reducer, debug) {
   };
 
   return $store;
-};
+}
