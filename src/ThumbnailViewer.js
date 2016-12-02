@@ -57,7 +57,7 @@ function __render__($store, opts, $root) {
       }
 
       case Reducers.FILE_STATUS_ERROR: {
-        $msg = $('<div />')
+        const $msg = $('<div />')
             .addClass('msg')
             .append($('<i />').addClass('fa fa-exclamation-triangle icon'))
             .append($('<div />').addClass('text').text(file.errMsg));

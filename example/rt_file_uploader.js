@@ -2021,7 +2021,7 @@ var rt_file_uploader =
 	
 	      case Reducers.FILE_STATUS_ERROR:
 	        {
-	          $msg = $('<div />').addClass('msg').append($('<i />').addClass('fa fa-exclamation-triangle icon')).append($('<div />').addClass('text').text(file.errMsg));
+	          var $msg = $('<div />').addClass('msg').append($('<i />').addClass('fa fa-exclamation-triangle icon')).append($('<div />').addClass('text').text(file.errMsg));
 	
 	          $img.append($msg);
 	          break;
