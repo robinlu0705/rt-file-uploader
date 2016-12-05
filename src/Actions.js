@@ -21,17 +21,36 @@ export const REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
 export const RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
 export const CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
 
-export function uploadStart(fileList, limit, runningID, onUpload) {
+export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileList, limit, runningID, onUpload, onDelete }) {
   return function(dispatch) {
+    /* new added items */
     const itemList = [];
-    for (let i = 0; i < fileList.length && i < limit; i++) {
+    for (let i = 0; i < uploadFileList.length && i < limit; i++) {
       itemList.push({
         id: runningID + 1 + i,
-        file: fileList.item(i)
+        file: uploadFileList.item(i)
       })
     }
 
-    dispatch(addLoadingFile(itemList.map(item => item.id), runningID + itemList.length, limit));
+    /* delete overflowed items */
+    const overflow = itemList.length + currentFileOrder.length - limit;
+    const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+    if (overflow > 0 && typeof onDelete === 'function') {
+      const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+      onDelete(deleteIDs.map(id => {
+        const entity = currentFileEntities[id];
+        return {
+          id: id,
+          url: entity.url,
+          status: entity.status,
+          progress: entity.progress,
+          errMsg: entity.errMsg,
+          userDefinedData: entity.userDefinedData
+        };
+      }));
+    }
+
+    dispatch(addLoadingFile(itemList.map(item => item.id), runningID + itemList.length, remainedIDs));
 
     if (typeof onUpload === 'function') {
       const update = list => {
@@ -50,18 +69,34 @@ export function uploadStart(fileList, limit, runningID, onUpload) {
   };
 };
 
-export function uploadFromGalleryStart(fileList, limit, runningID, onUploadFromGallery) {
+export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, uploadFiles, limit, runningID, onUploadFromGallery, onDelete }) {
   return dispatch => {
-    const itemList = [];
-    for (let i = 0; i < fileList.length && i < limit; i++) {
-      itemList.push({
-        id: runningID + 1 + i,
-        url: fileList[i].url,
-        userDefinedData: fileList[i].userDefinedData
-      })
+    /* new added items */
+    const itemList = uploadFiles.slice(0, limit).map((file, idx) => ({
+      id: runningID + 1 + idx,
+      url: file.url,
+      userDefinedData: file.userDefinedData
+    }));
+
+    /* delete overflowed items */
+    const overflow = itemList.length + currentFileOrder.length - limit;
+    const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+    if (overflow > 0 && typeof onDelete === 'function') {
+      const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+      onDelete(deleteIDs.map(id => {
+        const entity = currentFileEntities[id];
+        return {
+          id: id,
+          url: entity.url,
+          status: entity.status,
+          progress: entity.progress,
+          errMsg: entity.errMsg,
+          userDefinedData: entity.userDefinedData
+        };
+      }));
     }
 
-    dispatch(addLoadingFile(itemList.map(item => item.id), runningID + itemList.length, limit));
+    dispatch(addLoadingFile(itemList.map(item => item.id), runningID + itemList.length, remainedIDs));
 
     if (typeof onUploadFromGallery === 'function') {
       const update = list => {
@@ -80,13 +115,13 @@ export function uploadFromGalleryStart(fileList, limit, runningID, onUploadFromG
   };
 };
 
-function addLoadingFile(IDList, runningID, limit) {
+function addLoadingFile(IDList, runningID, remainedIDs) {
   return {
     type: ADD_LOADING_FILE,
     payload: {
       IDList: IDList,
       runningID: runningID,
-      limit: limit
+      remainedIDs: remainedIDs
     }
   };
 };
@@ -98,27 +133,62 @@ function updateLoadingFile(list) {
   };
 };
 
-export function addFile(list, limit, runningID) {
-  list = list.slice(0, limit).map((item, idx) => ({
+export function addFile(currentFileEntities, currentFileOrder, addList, limit, runningID, onDelete) {
+  /* new added items */
+  const itemList = addList.slice(0, limit).map((item, idx) => ({
     id: runningID + 1 + idx,
     url: item.url,
     userDefinedData: item.userDefinedData
   }));
 
+  /* delete overflowed items */
+  const overflow = itemList.length + currentFileOrder.length - limit;
+  const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+  if (overflow > 0 && typeof onDelete === 'function') {
+    const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+    onDelete(deleteIDs.map(id => {
+      const entity = currentFileEntities[id];
+      return {
+        id: id,
+        url: entity.url,
+        status: entity.status,
+        progress: entity.progress,
+        errMsg: entity.errMsg,
+        userDefinedData: entity.userDefinedData
+      };
+    }));
+  }
+
   return {
     type: ADD_FILE,
     payload: {
-      list: list,
-      limit: limit,
-      runningID: runningID + list.length
+      list: itemList,
+      remainedIDs: remainedIDs,
+      runningID: runningID + itemList.length
     }
   };
 };
 
-export function deleteFile(entityID) {
+export function deleteFile(currentFileEntities, entityIDs, onDelete) {
+  if (typeof onDelete === 'function') {
+    const itemList = entityIDs.filter(entityID => currentFileEntities[entityID]).map(entityID => {
+      const entity = currentFileEntities[entityID];
+      return {
+        id: entityID,
+        url: entity.url,
+        status: entity.status,
+        progress: entity.progress,
+        errMsg: entity.errMsg,
+        userDefinedData: entity.userDefinedData
+      };
+    });
+
+    onDelete(itemList);
+  }
+
   return {
     type: DELETE_FILE,
-    payload: entityID
+    payload: entityIDs
   };
 };
 

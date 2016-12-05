@@ -121,6 +121,20 @@
             update(retList);
           }, 3000);
         },
+
+        /**
+         * @param {Object[]} itemList
+         * @param {Number} itemList[].id
+         * @param {Number} itemList[].url
+         * @param {String} itemList[].status
+         * @param {Number} itemList[].progress
+         * @param {String} itemList[].errMsg
+         * @param {File} itemList[].userDefinedData
+         */
+        onDelete: function(itemList) {
+          console.log('Files deleted:');
+          console.log(itemList);
+        }
       });
     });
   </script>

@@ -82,7 +82,7 @@ function __render__($store, opts, $root) {
       }) 
       .click(e => {
         e.stopPropagation();
-        $store.dispatch(Actions.deleteFile(entityID));
+        $store.dispatch(Actions.deleteFile(getFileDepot().entities, [ entityID ], opts.onDelete));
       });
 
     $elm

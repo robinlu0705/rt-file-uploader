@@ -22,6 +22,7 @@ function __renderOnFileDepotChange__($store, opts, $root) {
 /* exports */
 export function gen($store, opts) {
   const getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 
   const limit = opts.limit;
 
@@ -43,10 +44,19 @@ export function gen($store, opts) {
     .addClass('add-local-input')
     .attr('multiple', '')
     .change(e => {
-      const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
       const $this = $(e.currentTarget);
       const files = $this[0].files;
-      $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.onUpload));
+
+      $store.dispatch(Actions.uploadStart({
+        currentFileEntities: getFileDepot().entities,
+        currentFileOrder: getFileDepot().order,
+        uploadFileList: files,
+        limit: limit,
+        runningID: getFileDepot().runningID,
+        onUpload: opts.onUpload,
+        onDelete: opts.onDelete
+      }));
+
       $this.val('');
    });
 

@@ -30,12 +30,11 @@ export function fileDepot(state = fileDepotDefaultState, action) {
     case Actions.ADD_LOADING_FILE: {
       const IDList = action.payload.IDList;
       const runningID = action.payload.runningID;
-      const limit = action.payload.limit;
+      const remainedIDs = action.payload.remainedIDs;
       const newEntities = {};
       const newEntityOrder = [];
-      let count = 0;
 
-      for (let i = 0; i < IDList.length && count < limit; i++) {
+      for (let i = 0; i < IDList.length; i++) {
         const id = IDList[i];
         newEntities[id] = {
           url: '',
@@ -44,14 +43,11 @@ export function fileDepot(state = fileDepotDefaultState, action) {
         };
 
         newEntityOrder.push(id);
-        ++count;
       }
 
-      for (let i = 0; i < state.order.length && count < limit; i++) {
-        const id = state.order[i];
+      for (let id of remainedIDs) {
         newEntities[id] = state.entities[id];
         newEntityOrder.push(id);
-        ++count;
       }
 
       return Object.assign({}, state, {
@@ -108,12 +104,11 @@ export function fileDepot(state = fileDepotDefaultState, action) {
     case Actions.ADD_FILE: {
       const list = action.payload.list;
       const runningID = action.payload.runningID;
-      const limit = action.payload.limit;
+      const remainedIDs = action.payload.remainedIDs;
       const newEntities = {};
       const newEntityOrder = [];
-      let count = 0;
 
-      for (let i = 0; i < list.length && count < limit; i++) {
+      for (let i = 0; i < list.length; i++) {
         const id = list[i].id;
         const url = list[i].url;
         const userDefinedData = list[i].userDefinedData;
@@ -126,14 +121,11 @@ export function fileDepot(state = fileDepotDefaultState, action) {
         };
 
         newEntityOrder.push(id);
-        ++count;
       }
 
-      for (let i = 0; i < state.order.length && count < limit; i++) {
-        const id = state.order[i];
+      for (let id of remainedIDs) {
         newEntities[id] = state.entities[id];
         newEntityOrder.push(id);
-        ++count;
       }
 
       return Object.assign({}, state, {
@@ -145,24 +137,23 @@ export function fileDepot(state = fileDepotDefaultState, action) {
     }
 
     case Actions.DELETE_FILE: {
-      const id = action.payload;
-      const idx = state.order.indexOf(id);
+      const newEntities = Object.assign({}, state.entities);
+      const newEntityOrder = state.order.slice(0);
 
-      if (idx === -1) {
-        return state;
-      } else {
-        const newEntities = Object.assign({}, state.entities);
-        const newEntityOrder = state.order.slice(0);
+      for (let id of action.payload) {
+        const idx = newEntityOrder.indexOf(id);
 
-        delete newEntities[id];
-        newEntityOrder.splice(idx, 1);
-
-        return Object.assign({}, state, {
-          entities: newEntities,
-          order: newEntityOrder,
-          selections: []
-        });
+        if (idx !== -1) {
+          delete newEntities[id];
+          newEntityOrder.splice(idx, 1);
+        }
       }
+
+      return Object.assign({}, state, {
+        entities: newEntities,
+        order: newEntityOrder,
+        selections: []
+      });
     }
 
     case Actions.END_EDIT: {

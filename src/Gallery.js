@@ -111,6 +111,7 @@ function __render__($store, opts, $root) {
           const runningID = getFileDepot().runningID;
           const selectionList = getGallerySelectionDepot().list;
           const imageList = getGalleryImageDepot().list;
+
           if (selectionList.length) {
             for (let i = 0; i < selectionList.length; i++) {
               const selection = selectionList[i];
@@ -120,7 +121,16 @@ function __render__($store, opts, $root) {
               });
             }
 
-            $store.dispatch(Actions.uploadFromGalleryStart(list, opts.limit, runningID, opts.onUploadFromGallery));
+            $store.dispatch(Actions.uploadFromGalleryStart({
+              currentFileEntities: getFileDepot().entities,
+              currentFileOrder: getFileDepot().order,
+              uploadFiles: list,
+              limit: opts.limit,
+              runningID: runningID,
+              onUploadFromGallery: opts.onUploadFromGallery,
+              onDelete: opts.onDelete
+            }));
+
             $store.dispatch(Actions.triggerGallery());
           }
         });

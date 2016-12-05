@@ -178,6 +178,24 @@ var fileuploader = FileUploader.gen($('#uploader'), {
         }
         ```
 
+* `onDelete`: (Function) Called when files are dropped from module. This occurred when user click the delete button or pushes old files away by inserting new ones. When it is called, the function is passed 1 argument: 
+    * `itemList`: (Object[]) An array of objects with six properties same as `getFiles`, `id` (Number), `url` (String), `status` (String), `progress` (Number), `errMsg` (String) and `userDefinedData` (Object).
+
+        eg:
+
+        ```javascript
+        onDelete: function(itemList) {
+            $.post('http://your.delete.api/', {
+                var userDefinedData = item.userDefinedData;
+                if (userDefinedData && userDefinedData.fileName) {
+                  fileArray: $.map(itemList, function(item) {
+                      return item.userDefinedData.fileName;
+                  })
+                }
+            });
+        }
+        ```
+
 ## Static Methods & Constants
 
 * `gen`: See [Basic Usage](#basic-usage).
@@ -204,7 +222,7 @@ var fileuploader = FileUploader.gen($('#uploader'), {
     var FileUploader = window.RT.FileUploader;
     fileuploader = FileUploader.gen($('#uploader'), { /* options */ });
     
-    /* a default file list with 3 elements */
+    /* a default file array with 3 elements */
     var defaultFiles = $.map(Array.apply(window, { length: 3 }), function() {
         return {
             url: 'http://image.url',

@@ -64,10 +64,19 @@ function __genUI__($store, opts) {
 /**
  * @param {$elm} $container
  * @param {Object} opts
- * @param {number} opts.minHeight
- * @param {number} opts.thumbnailWidth
- * @param {number} opts.thumbnailHeight
- * @param {number} opts.limit
+ * @param {Number} opts.minHeight
+ * @param {Number} opts.thumbnailWidth
+ * @param {Number} opts.thumbnailHeight
+ * @param {Number} opts.limit
+ * @param {Object[]} opts.galleryFilterOpts
+ * @param {String} opts.galleryFilterOpts[].categoryName
+ * @param {String} opts.galleryFilterOpts[].categoryVal
+ * @param {Number} opts.galleryFilterOpts[].totalPages
+ * @param {Boolean} [opts.debug=false]
+ * @param {Function} opts.onUpload
+ * @param {Function} opte.onFetchGallery
+ * @param {Function} opts.onUploadFromGallery
+ * @param {Function} opts.onDelete
  */
 APP_NAMESPACE.gen = ($container, opts) => {
   opts = __seasonOpts__(opts);
@@ -98,10 +107,10 @@ APP_NAMESPACE.gen = ($container, opts) => {
 
     setFiles(list) {
       const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-      $store.dispatch(Actions.addFile(list.map(item => ({
+      $store.dispatch(Actions.addFile(getFileDepot().entities, getFileDepot().order, list.map(item => ({
         url: item.url,
         userDefinedData: item.userDefinedData
-      })), opts.limit, getFileDepot().runningID));
+      })), opts.limit, getFileDepot().runningID, opts.onDelete));
     }
   };
 };

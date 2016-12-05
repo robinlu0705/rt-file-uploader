@@ -9,6 +9,7 @@ const IDENTIFIER = 'RT_FILE_UPLOADER';
 /* exports */
 export function gen($store, opts) {
   const limit = opts.limit
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 
   const $root = $('<div />')
     .addClass(IDENTIFIER)
@@ -24,9 +25,19 @@ export function gen($store, opts) {
     .on('drop', e => {
       e.preventDefault();
       $root.removeClass('drag-over');
+
       const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
       const files = e.originalEvent.dataTransfer.files;
-      $store.dispatch(Actions.uploadStart(files, limit, getFileDepot().runningID, opts.onUpload));
+
+      $store.dispatch(Actions.uploadStart({
+        currentFileEntities: getFileDepot().entities,
+        currentFileOrder: getFileDepot().order,
+        uploadFileList: files,
+        limit: limit,
+        runningID: getFileDepot().runningID,
+        onUpload: opts.onUpload,
+        onDelete: opts.onDelete
+      }));
     });
 
   return $root;
