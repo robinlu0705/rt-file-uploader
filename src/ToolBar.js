@@ -1,4 +1,5 @@
 /* component - ToolBar */
+import $ from 'jQuery';
 import * as FpUtils from 'FpUtils';
 import * as Actions from 'Actions';
 import * as Reducers from 'Reducers';

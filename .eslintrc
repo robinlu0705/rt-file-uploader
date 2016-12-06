@@ -7,11 +7,6 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "globals": {
-    "$": false,
-    "jQuery": false,
-    "window": false
-  },
   "rules": {
     "indent": [
       "error",

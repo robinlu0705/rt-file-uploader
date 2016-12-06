@@ -1,4 +1,5 @@
 /* component - App */
+import $ from 'jQuery';
 import * as Actions from 'Actions';
 import * as FpUtils from 'FpUtils';
 import * as Reducers from 'Reducers';

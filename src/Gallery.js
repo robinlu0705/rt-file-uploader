@@ -1,4 +1,5 @@
 /* component - Gallery */
+import $ from 'jQuery';
 import * as FpUtils from 'FpUtils';
 import * as Reducers from 'Reducers';
 import * as Actions from 'Actions';

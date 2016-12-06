@@ -26,6 +26,10 @@ module.exports = {
     library: 'rt_file_uploader'
   },
 
+  externals: {
+    jQuery: 'jQuery'
+  },
+
   module: {
     loaders: [
       {

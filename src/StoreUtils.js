@@ -1,4 +1,5 @@
 /* store utility functions */
+import $ from 'jQuery';
 import * as FpUtils from 'FpUtils';
 
 /* constants */

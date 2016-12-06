@@ -74,7 +74,7 @@ export function fileDepot(state = fileDepotDefaultState, action) {
       if (!needUpdate) {
         return state;
       } else {
-        const newEntities = $.extend({}, state.entities);
+        const newEntities = Object.assign({}, state.entities);
         const newEntityOrder = state.order.slice(0);
 
         for (let i = 0; i < IDList.length; i++) {
@@ -163,7 +163,7 @@ export function fileDepot(state = fileDepotDefaultState, action) {
       const hoverIdx = state.order.indexOf(hoverTarget);
       let order = state.order.slice(0, editIdx).concat(state.order.slice(editIdx + 1));
       order = order.slice(0, hoverIdx).concat([ editTarget ]).concat(order.slice(hoverIdx));
-      return $.extend({}, state, {
+      return Object.assign({}, state, {
         order: order
       });
     }

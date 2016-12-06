@@ -15,7 +15,7 @@ const APP_NAMESPACE = window.RT.FileUploader = {};
 
 /* main functions */
 function __seasonOpts__(opts) {
-  return $.extend({}, opts, {
+  return Object.assign({}, opts, {
     minHeight: opts.minHeight || 160,
     thumbnailWidth: opts.thumbnailWidth || 120,
     thumbnailHeight: opts.thumbnailHeight || 90,

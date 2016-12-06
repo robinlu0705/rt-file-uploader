@@ -1,4 +1,5 @@
 /* component - ThumbnailViewer */
+import $ from 'jQuery';
 import * as FpUtils from 'FpUtils';
 import * as Utils from 'Utils';
 import * as Actions from 'Actions';
