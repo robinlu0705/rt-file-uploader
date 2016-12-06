@@ -11,13 +11,13 @@ module.exports = {
   cache: true,
   bail: true,
   entry: {
-    rt_file_uploader: [ path.join(srcPath, 'entry.js') ]
+    rt_file_uploader: [ path.join(srcPath, 'index.js') ]
   },
 
   resolve: {
     root: srcPath,
     extensions: ['', '.js'],
-    modulesDirectories: ['./node_modules', './']
+    modulesDirectories: ['node_modules', './']
   },
 
   output: {
@@ -27,7 +27,8 @@ module.exports = {
   },
 
   externals: {
-    jQuery: 'jQuery'
+    react: 'React',
+    'react-dom': 'ReactDOM'
   },
 
   module: {

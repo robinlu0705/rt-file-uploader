@@ -1,9 +1,5 @@
 /* actions */
 
-/* constants */
-export const DISPLAY_MODE = 'DISPLAY_MODE';
-export const EDIT_MODE = 'EDIT_MODE';
-
 /* action type constants */
 export const ADD_LOADING_FILE = 'ADD_LOADING_FILE';
 export const UPDATE_LOADING_FILE = 'UPDATE_LOADING_FILE';
@@ -14,7 +10,7 @@ export const UPDATE_EDIT = 'UPDATE_EDIT';
 export const END_EDIT = 'END_EDIT';
 export const UPDATE_PLACEHOLDER = 'UPDATE_PLACEHOLDER';
 export const UPDATE_LAYOUT = 'UPDATE_LAYOUT';
-export const TRIGGER_GALLERY = 'TRIGGER_GALLERY';
+export const TOGGLE_GALLERY = 'TOGGLE_GALLERY';
 export const SET_GALLERY_FILTER_OPTS = 'SET_GALLERY_FILTER_OPTS';
 export const CHANGE_GALLERY_FILTER = 'CHANGE_GALLERY_FILTER';
 export const REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
@@ -34,9 +30,9 @@ export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileL
 
     /* delete overflowed items */
     const overflow = itemList.length + currentFileOrder.length - limit;
-    const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+    const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
     if (overflow > 0 && typeof onDelete === 'function') {
-      const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+      const deleteIDs = currentFileOrder.slice(overflow);
       onDelete(deleteIDs.map(id => {
         const entity = currentFileEntities[id];
         return {
@@ -80,9 +76,9 @@ export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, 
 
     /* delete overflowed items */
     const overflow = itemList.length + currentFileOrder.length - limit;
-    const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+    const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
     if (overflow > 0 && typeof onDelete === 'function') {
-      const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+      const deleteIDs = currentFileOrder.slice(overflow);
       onDelete(deleteIDs.map(id => {
         const entity = currentFileEntities[id];
         return {
@@ -143,9 +139,9 @@ export function addFile(currentFileEntities, currentFileOrder, addList, limit, r
 
   /* delete overflowed items */
   const overflow = itemList.length + currentFileOrder.length - limit;
-  const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+  const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
   if (overflow > 0 && typeof onDelete === 'function') {
-    const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+    const deleteIDs = currentFileOrder.slice(overflow);
     onDelete(deleteIDs.map(id => {
       const entity = currentFileEntities[id];
       return {
@@ -238,9 +234,9 @@ export function updatePlaceholder(idx) {
   };
 }
 
-export function triggerGallery() {
+export function toggleGallery() {
   return {
-    type: TRIGGER_GALLERY
+    type: TOGGLE_GALLERY
   };
 }
 

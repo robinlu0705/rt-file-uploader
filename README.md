@@ -17,9 +17,10 @@ Supports drag-and-drop uploading, drag-and-drop reordering, 露天圖庫.
 <script src="https://your.fontawesome.cdn.js"></script>
 ```
 
-**include jQuery (require v1.7 or higher)**
+**include React (require v15 or higher)**
 ```html
-<script src="jquery-1.7.1.min.js"></script>
+<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
 ```
 
 ## Basic Usage
@@ -37,16 +38,25 @@ Supports drag-and-drop uploading, drag-and-drop reordering, 露天圖庫.
 **generate the file uploader**
 
 ```javascript
-var FileUploader = window.RT.FileUploader;
-var fileuploader = FileUploader.gen($('#uploader'), {
+const FileUploader = window.RT.FileUploader;
+const fileuploader = FileUploader.gen('uploader', {
     /* options */
     limit: 3,
     minHeight: 160,
     thumbnailWidth: 120,
     thumbnailHeight: 90,
     debug: false,
-    onUpload: function(itemList, update) {
+    onUpload(itemList, update) {
         /* file uploading handler */
+    },
+    onFetchGallery(categoryVal, page, update) {
+        /* gallery files fetching handler */
+    },
+    onUploadFromGallery(itemList, update) {
+        /* file uploading from gallery handler */
+    },
+    onDelete(itemList) {
+        /* deleting handler */
     }
 });
 ```
@@ -69,39 +79,49 @@ var fileuploader = FileUploader.gen($('#uploader'), {
         eg:
 
         ```javascript
-        onUpload: function(itemList, update) {
-            $.post('http://your.upload.api/', {
-                fileArray: $.map(itemList, function(item) {
-                    return item.file;
-                })
-            }).done(function(dataArray) {
+        onUpload(itemList, update) {
+            fetch('http://your.upload.api/', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify(itemList.map(item => item.file))
+            }).then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw new Error();
+                }
+            }).then(dataArray => {
                 /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
+                update(dataArray.map((data, idx) => ({
                     id: itemList[idx].id,
                     url: data.url,
                     status: FileUploader.FILE_STATUS.COMPLETE,
                     progress: 100,
                     errMsg: '',
                     userDefinedData: {
-                      /**
-                       * anything you need, the component stores it and pass it back to you on `getFiles`
-                       * e.g.
-                       * hash: data.hash
-                       */
+                        /**
+                         * anything you need, the component stores it and pass it back to you on `getFiles`
+                         * e.g.
+                         * hash: data.hash
+                         */
                     }
-                });
-            }).fail(function() {
+                }));
+            }).catch(error => {
                 /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
+                update(dataArray((data, idx) => ({
                     id: itemList[idx].id,
                     url: '',
                     status: FileUploader.FILE_STATUS.ERROR,
                     progress: 0,
                     errMsg: 'Error message will show on thumbnails',
                     userDefinedData: {
-                      /* anything you need, the component stores it and pass it back to you on `getFiles` */
+                        /* anything you need, the component stores it and pass it back to you on `getFiles` */
                     }
-                });
+                }));
             });
         }
         ```
@@ -114,22 +134,36 @@ var fileuploader = FileUploader.gen($('#uploader'), {
         eg:
 
         ```javascript
-        onFetchGallery: function(categoryVal, page, update) {
-            $.post('http://your.gallery.api/', {
-                class: categoryVal,
-                page: page
-            }).done(function(dataArray) {
+        onFetchGallery(categoryVal, page, update) {
+            fetch('http://your.gallery.api/', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    class: categoryVal,
+                    page: page
+                })
+            }).then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw new Error();
+                }
+            }).then(dataArray => {
                 /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
+                update(dataArray.map((data, idx) => ({
                     url: data.url,
                     userDefinedData: {
-                      /**
-                       * anything you need, the component stores it and pass it back to you on `onUploadFromGallery`
-                       * e.g.
-                       * fileName: data.fileName
-                       */
+                        /**
+                         * anything you need, the component stores it and pass it back to you on `onUploadFromGallery`
+                         * e.g.
+                         * fileName: data.fileName
+                         */
                     }
-                });
+                }));
             });
         }
         ```
@@ -141,39 +175,49 @@ var fileuploader = FileUploader.gen($('#uploader'), {
         eg:
 
         ```javascript
-        onUploadFromGallery: function(itemList, update) {
-            $.post('http://your.upload.from.gallery.api/', {
-                fileArray: $.map(itemList, function(item) {
-                    return item.userDefinedData.fileName;
-                })
-            }).done(function(dataArray) {
+        onUploadFromGallery(itemList, update) {
+            fetch('http://your.upload.from.gallery.api/', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify(itemList.map(item => item.userDefinedData.fileName))
+            }).then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw new Erros();
+                }
+            }).then(dataArray => {
                 /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
+                update(dataArray.map((data, idx) => ({
                     id: itemList[idx].id,
                     url: data.url,
                     status: FileUploader.FILE_STATUS.COMPLETE,
                     progress: 100,
                     errMsg: '',
                     userDefinedData: {
-                      /**
-                       * anything you need, the component stores it and pass it back to you on `getFiles`
-                       * e.g.
-                       * hash: data.hash
-                       */
+                        /**
+                         * anything you need, the component stores it and pass it back to you on `getFiles`
+                         * e.g.
+                         * hash: data.hash
+                         */
                     }
-                });
-            }).fail(function() {
+                }));
+            }).catch(error => {
                 /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
+                update(dataArray.map((data, idx) => ({
                     id: itemList[idx].id,
                     url: '',
                     status: FileUploader.FILE_STATUS.ERROR,
                     progress: 0,
                     errMsg: 'Error message will show on thumbnails',
                     userDefinedData: {
-                      /* anything you need, the component stores it and pass it back to you on `getFiles` */
+                        /* anything you need, the component stores it and pass it back to you on `getFiles` */
                     }
-                });
+                }));
             });
         }
         ```
@@ -184,14 +228,15 @@ var fileuploader = FileUploader.gen($('#uploader'), {
         eg:
 
         ```javascript
-        onDelete: function(itemList) {
-            $.post('http://your.delete.api/', {
-                var userDefinedData = item.userDefinedData;
-                if (userDefinedData && userDefinedData.fileName) {
-                  fileArray: $.map(itemList, function(item) {
-                      return item.userDefinedData.fileName;
-                  })
-                }
+        onDelete(itemList) {
+            fetch('http://your.delete.api/', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify(itemList.map(item => item.userDefinedData.fileName))
             });
         }
         ```
@@ -219,21 +264,19 @@ var fileuploader = FileUploader.gen($('#uploader'), {
     eg:
 
     ```javascript
-    var FileUploader = window.RT.FileUploader;
-    fileuploader = FileUploader.gen($('#uploader'), { /* options */ });
+    const FileUploader = window.RT.FileUploader;
+    const fileuploader = FileUploader.gen('uploader', { /* options */ });
     
     /* a default file array with 3 elements */
-    var defaultFiles = $.map(Array.apply(window, { length: 3 }), function() {
-        return {
-            url: 'http://image.url',
-            status: FileUploader.FILE_STATUS.COMPLETE,
-            progress: 0,
-            errMsg: '',
-            userDefinedData: {
-                /* anything you need */
-            }
-        };
-    });
+    const defaultFiles = Array.from({ length: 3 }).map(() => ({
+        url: 'http://image.url',
+        status: FileUploader.FILE_STATUS.COMPLETE,
+        progress: 0,
+        errMsg: '',
+        userDefinedData: {
+            /* anything you need */
+        }
+    }));
 
     fileuploader.setFiles(defaultFiles);
     ```

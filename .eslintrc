@@ -3,9 +3,22 @@
     "browser": true,
     "es6": true
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": [
+    "react"
+  ],
+  "settings": {
+    "react": {
+      "createClass": "createClass", // Regex for Component Factory to use, default to "createClass" 
+      "pragma": "React",  // Pragma to use, default to "React" 
+      "version": "15.0" // React version, default to the latest React stable release 
+    }
+  },
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
     "indent": [
