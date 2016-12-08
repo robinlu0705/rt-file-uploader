@@ -1119,17 +1119,6 @@ var rt_file_uploader =
 	        var newEntities = {};
 	        var newEntityOrder = [];
 	
-	        for (var i = 0; i < IDList.length; i++) {
-	          var id = IDList[i];
-	          newEntities[id] = {
-	            url: '',
-	            status: FILE_STATUS_LOADING,
-	            progress: 0
-	          };
-	
-	          newEntityOrder.push(id);
-	        }
-	
 	        var _iteratorNormalCompletion = true;
 	        var _didIteratorError = false;
 	        var _iteratorError = undefined;
@@ -1154,6 +1143,17 @@ var rt_file_uploader =
 	              throw _iteratorError;
 	            }
 	          }
+	        }
+	
+	        for (var i = 0; i < IDList.length; i++) {
+	          var id = IDList[i];
+	          newEntities[id] = {
+	            url: '',
+	            status: FILE_STATUS_LOADING,
+	            progress: 0
+	          };
+	
+	          newEntityOrder.push(id);
 	        }
 	
 	        return (0, _assign2.default)({}, state, {
@@ -1218,21 +1218,6 @@ var rt_file_uploader =
 	        var _newEntities2 = {};
 	        var _newEntityOrder2 = [];
 	
-	        for (var _i3 = 0; _i3 < _list.length; _i3++) {
-	          var _id4 = _list[_i3].id;
-	          var _url = _list[_i3].url;
-	          var _userDefinedData = _list[_i3].userDefinedData;
-	          _newEntities2[_id4] = {
-	            url: _url,
-	            status: FILE_STATUS_COMPLETE,
-	            progress: 100,
-	            errMsg: '',
-	            userDefinedData: _userDefinedData
-	          };
-	
-	          _newEntityOrder2.push(_id4);
-	        }
-	
 	        var _iteratorNormalCompletion2 = true;
 	        var _didIteratorError2 = false;
 	        var _iteratorError2 = undefined;
@@ -1257,6 +1242,21 @@ var rt_file_uploader =
 	              throw _iteratorError2;
 	            }
 	          }
+	        }
+	
+	        for (var _i3 = 0; _i3 < _list.length; _i3++) {
+	          var _id4 = _list[_i3].id;
+	          var _url = _list[_i3].url;
+	          var _userDefinedData = _list[_i3].userDefinedData;
+	          _newEntities2[_id4] = {
+	            url: _url,
+	            status: FILE_STATUS_COMPLETE,
+	            progress: 100,
+	            errMsg: '',
+	            userDefinedData: _userDefinedData
+	          };
+	
+	          _newEntityOrder2.push(_id4);
 	        }
 	
 	        return (0, _assign2.default)({}, state, {
@@ -2152,9 +2152,9 @@ var rt_file_uploader =
 	
 	    /* delete overflowed items */
 	    var overflow = itemList.length + currentFileOrder.length - limit;
-	    var remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+	    var remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
 	    if (overflow > 0 && typeof onDelete === 'function') {
-	      var deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+	      var deleteIDs = currentFileOrder.slice(0, overflow);
 	      onDelete(deleteIDs.map(function (id) {
 	        var entity = currentFileEntities[id];
 	        return {
@@ -2212,9 +2212,9 @@ var rt_file_uploader =
 	
 	    /* delete overflowed items */
 	    var overflow = itemList.length + currentFileOrder.length - limit;
-	    var remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+	    var remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
 	    if (overflow > 0 && typeof onDelete === 'function') {
-	      var deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+	      var deleteIDs = currentFileOrder.slice(0, overflow);
 	      onDelete(deleteIDs.map(function (id) {
 	        var entity = currentFileEntities[id];
 	        return {
@@ -2281,9 +2281,9 @@ var rt_file_uploader =
 	
 	  /* delete overflowed items */
 	  var overflow = itemList.length + currentFileOrder.length - limit;
-	  var remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+	  var remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
 	  if (overflow > 0 && typeof onDelete === 'function') {
-	    var deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+	    var deleteIDs = currentFileOrder.slice(0, overflow);
 	    onDelete(deleteIDs.map(function (id) {
 	      var entity = currentFileEntities[id];
 	      return {

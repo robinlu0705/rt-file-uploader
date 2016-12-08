@@ -34,6 +34,11 @@ export function fileDepot(state = fileDepotDefaultState, action) {
       const newEntities = {};
       const newEntityOrder = [];
 
+      for (let id of remainedIDs) {
+        newEntities[id] = state.entities[id];
+        newEntityOrder.push(id);
+      }
+
       for (let i = 0; i < IDList.length; i++) {
         const id = IDList[i];
         newEntities[id] = {
@@ -42,11 +47,6 @@ export function fileDepot(state = fileDepotDefaultState, action) {
           progress: 0
         };
 
-        newEntityOrder.push(id);
-      }
-
-      for (let id of remainedIDs) {
-        newEntities[id] = state.entities[id];
         newEntityOrder.push(id);
       }
 
@@ -108,6 +108,11 @@ export function fileDepot(state = fileDepotDefaultState, action) {
       const newEntities = {};
       const newEntityOrder = [];
 
+      for (let id of remainedIDs) {
+        newEntities[id] = state.entities[id];
+        newEntityOrder.push(id);
+      }
+
       for (let i = 0; i < list.length; i++) {
         const id = list[i].id;
         const url = list[i].url;
@@ -120,11 +125,6 @@ export function fileDepot(state = fileDepotDefaultState, action) {
           userDefinedData: userDefinedData
         };
 
-        newEntityOrder.push(id);
-      }
-
-      for (let id of remainedIDs) {
-        newEntities[id] = state.entities[id];
         newEntityOrder.push(id);
       }
 

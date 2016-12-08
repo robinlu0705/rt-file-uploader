@@ -34,9 +34,9 @@ export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileL
 
     /* delete overflowed items */
     const overflow = itemList.length + currentFileOrder.length - limit;
-    const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+    const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
     if (overflow > 0 && typeof onDelete === 'function') {
-      const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+      const deleteIDs = currentFileOrder.slice(0, overflow);
       onDelete(deleteIDs.map(id => {
         const entity = currentFileEntities[id];
         return {
@@ -80,9 +80,9 @@ export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, 
 
     /* delete overflowed items */
     const overflow = itemList.length + currentFileOrder.length - limit;
-    const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+    const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
     if (overflow > 0 && typeof onDelete === 'function') {
-      const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+      const deleteIDs = currentFileOrder.slice(0, overflow);
       onDelete(deleteIDs.map(id => {
         const entity = currentFileEntities[id];
         return {
@@ -143,9 +143,9 @@ export function addFile(currentFileEntities, currentFileOrder, addList, limit, r
 
   /* delete overflowed items */
   const overflow = itemList.length + currentFileOrder.length - limit;
-  const remainedIDs = currentFileOrder.slice(0, currentFileOrder.length - overflow);
+  const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
   if (overflow > 0 && typeof onDelete === 'function') {
-    const deleteIDs = currentFileOrder.slice(currentFileOrder.length - overflow);
+    const deleteIDs = currentFileOrder.slice(0, overflow);
     onDelete(deleteIDs.map(id => {
       const entity = currentFileEntities[id];
       return {
