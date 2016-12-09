@@ -3115,7 +3115,7 @@ var rt_file_uploader =
 	
 	      for (var _i = 0; _i < getGalleryFilterDepot().categoryList.length; _i++) {
 	        var categoryItem = getGalleryFilterDepot().categoryList[_i];
-	        var _$option = (0, _jQuery2.default)('<option />').attr('value', categoryItem.val).text(categoryItem.text);
+	        var _$option = (0, _jQuery2.default)('<option />').attr('value', _i).text(categoryItem.text);
 	
 	        $category.append(_$option);
 	      }

@@ -59,7 +59,7 @@ function __render__($store, opts, $root) {
 
       for (let i = 0; i < getGalleryFilterDepot().categoryList.length; i++) {
         const categoryItem = getGalleryFilterDepot().categoryList[i];
-        const $option = $('<option />').attr('value', categoryItem.val).text(categoryItem.text);
+        const $option = $('<option />').attr('value', i).text(categoryItem.text);
 
         $category.append($option);
       }
