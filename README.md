@@ -40,24 +40,24 @@ Supports drag-and-drop uploading, drag-and-drop reordering, 露天圖庫.
 ```javascript
 const FileUploader = window.RT.FileUploader;
 const fileuploader = FileUploader.gen('uploader', {
-    /* options */
-    limit: 3,
-    minHeight: 160,
-    thumbnailWidth: 120,
-    thumbnailHeight: 90,
-    debug: false,
-    onUpload(itemList, update) {
-        /* file uploading handler */
-    },
-    onFetchGallery(categoryVal, page, update) {
-        /* gallery files fetching handler */
-    },
-    onUploadFromGallery(itemList, update) {
-        /* file uploading from gallery handler */
-    },
-    onDelete(itemList) {
-        /* deleting handler */
-    }
+  /* options */
+  limit: 3,
+  minHeight: 160,
+  thumbnailWidth: 120,
+  thumbnailHeight: 90,
+  debug: false,
+  onUpload(itemList, update) {
+    /* file uploading handler */
+  },
+  onFetchGallery(categoryVal, page, update) {
+    /* gallery files fetching handler */
+  },
+  onUploadFromGallery(itemList, update) {
+    /* file uploading from gallery handler */
+  },
+  onDelete(itemList) {
+    /* deleting handler */
+  }
 });
 ```
 
@@ -80,49 +80,49 @@ const fileuploader = FileUploader.gen('uploader', {
 
         ```javascript
         onUpload(itemList, update) {
-            fetch('http://your.upload.api/', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
+          fetch('http://your.upload.api/', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
 
-                body: JSON.stringify(itemList.map(item => item.file))
-            }).then(response => {
-                if (response.status >= 200 && response.status < 300) {
-                    return response.json();
-                } else {
-                    throw new Error();
-                }
-            }).then(dataArray => {
-                /* invoke update with an array of objects with the properties: */
-                update(dataArray.map((data, idx) => ({
-                    id: itemList[idx].id,
-                    url: data.url,
-                    status: FileUploader.FILE_STATUS.COMPLETE,
-                    progress: 100,
-                    errMsg: '',
-                    userDefinedData: {
-                        /**
-                         * anything you need, the component stores it and pass it back to you on `getFiles`
-                         * e.g.
-                         * hash: data.hash
-                         */
-                    }
-                }));
-            }).catch(error => {
-                /* invoke update with an array of objects with the properties: */
-                update(dataArray((data, idx) => ({
-                    id: itemList[idx].id,
-                    url: '',
-                    status: FileUploader.FILE_STATUS.ERROR,
-                    progress: 0,
-                    errMsg: 'Error message will show on thumbnails',
-                    userDefinedData: {
-                        /* anything you need, the component stores it and pass it back to you on `getFiles` */
-                    }
-                }));
-            });
+            body: JSON.stringify(itemList.map(item => item.file))
+          }).then(response => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw new Error();
+            }
+          }).then(dataArray => {
+            /* invoke update with an array of objects with the properties: */
+            update(dataArray.map((data, idx) => ({
+              id: itemList[idx].id,
+              url: data.url,
+              status: FileUploader.FILE_STATUS.COMPLETE,
+              progress: 100,
+              errMsg: '',
+              userDefinedData: {
+                /**
+                 * anything you need, the component stores it and pass it back to you on `getFiles`
+                 * e.g.
+                 * hash: data.hash
+                 */
+              }
+            }));
+          }).catch(error => {
+            /* invoke update with an array of objects with the properties: */
+            update(dataArray((data, idx) => ({
+              id: itemList[idx].id,
+              url: '',
+              status: FileUploader.FILE_STATUS.ERROR,
+              progress: 0,
+              errMsg: 'Error message will show on thumbnails',
+              userDefinedData: {
+                /* anything you need, the component stores it and pass it back to you on `getFiles` */
+              }
+            }));
+          });
         }
         ```
 
@@ -135,36 +135,36 @@ const fileuploader = FileUploader.gen('uploader', {
 
         ```javascript
         onFetchGallery(categoryVal, page, update) {
-            fetch('http://your.gallery.api/', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
+          fetch('http://your.gallery.api/', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
 
-                body: JSON.stringify({
-                    class: categoryVal,
-                    page: page
-                })
-            }).then(response => {
-                if (response.status >= 200 && response.status < 300) {
-                    return response.json();
-                } else {
-                    throw new Error();
-                }
-            }).then(dataArray => {
-                /* invoke update with an array of objects with the properties: */
-                update(dataArray.map((data, idx) => ({
-                    url: data.url,
-                    userDefinedData: {
-                        /**
-                         * anything you need, the component stores it and pass it back to you on `onUploadFromGallery`
-                         * e.g.
-                         * fileName: data.fileName
-                         */
-                    }
-                }));
-            });
+            body: JSON.stringify({
+              class: categoryVal,
+              page: page
+            })
+          }).then(response => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw new Error();
+            }
+          }).then(dataArray => {
+            /* invoke update with an array of objects with the properties: */
+            update(dataArray.map((data, idx) => ({
+              url: data.url,
+              userDefinedData: {
+                /**
+                 * anything you need, the component stores it and pass it back to you on `onUploadFromGallery`
+                 * e.g.
+                 * fileName: data.fileName
+                 */
+              }
+            }));
+          });
         }
         ```
 
@@ -176,49 +176,49 @@ const fileuploader = FileUploader.gen('uploader', {
 
         ```javascript
         onUploadFromGallery(itemList, update) {
-            fetch('http://your.upload.from.gallery.api/', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
+          fetch('http://your.upload.from.gallery.api/', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
 
-                body: JSON.stringify(itemList.map(item => item.userDefinedData.fileName))
-            }).then(response => {
-                if (response.status >= 200 && response.status < 300) {
-                    return response.json();
-                } else {
-                    throw new Erros();
-                }
-            }).then(dataArray => {
-                /* invoke update with an array of objects with the properties: */
-                update(dataArray.map((data, idx) => ({
-                    id: itemList[idx].id,
-                    url: data.url,
-                    status: FileUploader.FILE_STATUS.COMPLETE,
-                    progress: 100,
-                    errMsg: '',
-                    userDefinedData: {
-                        /**
-                         * anything you need, the component stores it and pass it back to you on `getFiles`
-                         * e.g.
-                         * hash: data.hash
-                         */
-                    }
-                }));
-            }).catch(error => {
-                /* invoke update with an array of objects with the properties: */
-                update(dataArray.map((data, idx) => ({
-                    id: itemList[idx].id,
-                    url: '',
-                    status: FileUploader.FILE_STATUS.ERROR,
-                    progress: 0,
-                    errMsg: 'Error message will show on thumbnails',
-                    userDefinedData: {
-                        /* anything you need, the component stores it and pass it back to you on `getFiles` */
-                    }
-                }));
-            });
+            body: JSON.stringify(itemList.map(item => item.userDefinedData.fileName))
+          }).then(response => {
+            if (response.status >= 200 && response.status < 300) {
+              return response.json();
+            } else {
+              throw new Erros();
+            }
+          }).then(dataArray => {
+            /* invoke update with an array of objects with the properties: */
+            update(dataArray.map((data, idx) => ({
+              id: itemList[idx].id,
+              url: data.url,
+              status: FileUploader.FILE_STATUS.COMPLETE,
+              progress: 100,
+              errMsg: '',
+              userDefinedData: {
+                /**
+                 * anything you need, the component stores it and pass it back to you on `getFiles`
+                 * e.g.
+                 * hash: data.hash
+                 */
+              }
+            }));
+          }).catch(error => {
+            /* invoke update with an array of objects with the properties: */
+            update(dataArray.map((data, idx) => ({
+              id: itemList[idx].id,
+              url: '',
+              status: FileUploader.FILE_STATUS.ERROR,
+              progress: 0,
+              errMsg: 'Error message will show on thumbnails',
+              userDefinedData: {
+                /* anything you need, the component stores it and pass it back to you on `getFiles` */
+              }
+            }));
+          });
         }
         ```
 
@@ -229,15 +229,15 @@ const fileuploader = FileUploader.gen('uploader', {
 
         ```javascript
         onDelete(itemList) {
-            fetch('http://your.delete.api/', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
+          fetch('http://your.delete.api/', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
 
-                body: JSON.stringify(itemList.map(item => item.userDefinedData.fileName))
-            });
+            body: JSON.stringify(itemList.map(item => item.userDefinedData.fileName))
+          });
         }
         ```
 
@@ -269,13 +269,13 @@ const fileuploader = FileUploader.gen('uploader', {
     
     /* a default file array with 3 elements */
     const defaultFiles = Array.from({ length: 3 }).map(() => ({
-        url: 'http://image.url',
-        status: FileUploader.FILE_STATUS.COMPLETE,
-        progress: 0,
-        errMsg: '',
-        userDefinedData: {
-            /* anything you need */
-        }
+      url: 'http://image.url',
+      status: FileUploader.FILE_STATUS.COMPLETE,
+      progress: 0,
+      errMsg: '',
+      userDefinedData: {
+        /* anything you need */
+      }
     }));
 
     fileuploader.setFiles(defaultFiles);
