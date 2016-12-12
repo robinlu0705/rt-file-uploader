@@ -39,15 +39,24 @@ Supports drag-and-drop uploading, drag-and-drop reordering, 露天圖庫.
 ```javascript
 var FileUploader = window.RT.FileUploader;
 var fileuploader = FileUploader.gen($('#uploader'), {
-    /* options */
-    limit: 3,
-    minHeight: 160,
-    thumbnailWidth: 120,
-    thumbnailHeight: 90,
-    debug: false,
-    onUpload: function(itemList, update) {
-        /* file uploading handler */
-    }
+  /* options */
+  limit: 3,
+  minHeight: 160,
+  thumbnailWidth: 120,
+  thumbnailHeight: 90,
+  debug: false,
+  onUpload: function(itemList, update) {
+    /* file uploading handler */
+  },
+  onFetchGallery: function(categoryVal, page, update) {
+    /* gallery files fetching handler */
+  },
+  onUploadFromGallery: function(itemList, update) {
+    /* file uploading from gallery handler */
+  },
+  onDelete: function(itemList) {
+    /* deleting handler */
+  }
 });
 ```
 
@@ -70,39 +79,43 @@ var fileuploader = FileUploader.gen($('#uploader'), {
 
         ```javascript
         onUpload: function(itemList, update) {
-            $.post('http://your.upload.api/', {
-                fileArray: $.map(itemList, function(item) {
-                    return item.file;
-                })
-            }).done(function(dataArray) {
-                /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
-                    id: itemList[idx].id,
-                    url: data.url,
-                    status: FileUploader.FILE_STATUS.COMPLETE,
-                    progress: 100,
-                    errMsg: '',
-                    userDefinedData: {
-                      /**
-                       * anything you need, the component stores it and pass it back to you on `getFiles`
-                       * e.g.
-                       * hash: data.hash
-                       */
-                    }
-                });
-            }).fail(function() {
-                /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
-                    id: itemList[idx].id,
-                    url: '',
-                    status: FileUploader.FILE_STATUS.ERROR,
-                    progress: 0,
-                    errMsg: 'Error message will show on thumbnails',
-                    userDefinedData: {
-                      /* anything you need, the component stores it and pass it back to you on `getFiles` */
-                    }
-                });
+          $.post('http://your.upload.api/', {
+            fileArray: $.map(itemList, function(item) {
+              return item.file;
+            })
+          }).done(function(dataArray) {
+            /* invoke update with an array of objects with the properties: */
+            update($.map(dataArray, function(data, idx) {
+              return {
+                id: itemList[idx].id,
+                url: data.url,
+                status: FileUploader.FILE_STATUS.COMPLETE,
+                progress: 100,
+                errMsg: '',
+                userDefinedData: {
+                  /**
+                   * anything you need, the component stores it and pass it back to you on `getFiles`
+                   * e.g.
+                   * hash: data.hash
+                   */
+                }
+              };
             });
+          }).fail(function() {
+            /* invoke update with an array of objects with the properties: */
+            update($.map(dataArray, function(data, idx) {
+              return {
+                id: itemList[idx].id,
+                url: '',
+                status: FileUploader.FILE_STATUS.ERROR,
+                progress: 0,
+                errMsg: 'Error message will show on thumbnails',
+                userDefinedData: {
+                  /* anything you need, the component stores it and pass it back to you on `getFiles` */
+                }
+              };
+            });
+          });
         }
         ```
 
@@ -115,22 +128,24 @@ var fileuploader = FileUploader.gen($('#uploader'), {
 
         ```javascript
         onFetchGallery: function(categoryVal, page, update) {
-            $.post('http://your.gallery.api/', {
-                class: categoryVal,
-                page: page
-            }).done(function(dataArray) {
-                /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
-                    url: data.url,
-                    userDefinedData: {
-                      /**
-                       * anything you need, the component stores it and pass it back to you on `onUploadFromGallery`
-                       * e.g.
-                       * fileName: data.fileName
-                       */
-                    }
-                });
+          $.post('http://your.gallery.api/', {
+            class: categoryVal,
+            page: page
+          }).done(function(dataArray) {
+            /* invoke update with an array of objects with the properties: */
+            update($.map(dataArray, function(data, idx) {
+              return {
+                url: data.url,
+                userDefinedData: {
+                  /**
+                   * anything you need, the component stores it and pass it back to you on `onUploadFromGallery`
+                   * e.g.
+                   * fileName: data.fileName
+                   */
+                }
+              };
             });
+          });
         }
         ```
 
@@ -142,39 +157,43 @@ var fileuploader = FileUploader.gen($('#uploader'), {
 
         ```javascript
         onUploadFromGallery: function(itemList, update) {
-            $.post('http://your.upload.from.gallery.api/', {
-                fileArray: $.map(itemList, function(item) {
-                    return item.userDefinedData.fileName;
-                })
-            }).done(function(dataArray) {
-                /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
-                    id: itemList[idx].id,
-                    url: data.url,
-                    status: FileUploader.FILE_STATUS.COMPLETE,
-                    progress: 100,
-                    errMsg: '',
-                    userDefinedData: {
-                      /**
-                       * anything you need, the component stores it and pass it back to you on `getFiles`
-                       * e.g.
-                       * hash: data.hash
-                       */
-                    }
-                });
-            }).fail(function() {
-                /* invoke update with an array of objects with the properties: */
-                update($.map(dataArray, function(data, idx) {
-                    id: itemList[idx].id,
-                    url: '',
-                    status: FileUploader.FILE_STATUS.ERROR,
-                    progress: 0,
-                    errMsg: 'Error message will show on thumbnails',
-                    userDefinedData: {
-                      /* anything you need, the component stores it and pass it back to you on `getFiles` */
-                    }
-                });
+          $.post('http://your.upload.from.gallery.api/', {
+            fileArray: $.map(itemList, function(item) {
+              return item.userDefinedData.fileName;
+            })
+          }).done(function(dataArray) {
+            /* invoke update with an array of objects with the properties: */
+            update($.map(dataArray, function(data, idx) {
+              return {
+                id: itemList[idx].id,
+                url: data.url,
+                status: FileUploader.FILE_STATUS.COMPLETE,
+                progress: 100,
+                errMsg: '',
+                userDefinedData: {
+                  /**
+                   * anything you need, the component stores it and pass it back to you on `getFiles`
+                   * e.g.
+                   * hash: data.hash
+                   */
+                }
+              };
             });
+          }).fail(function() {
+            /* invoke update with an array of objects with the properties: */
+            update($.map(dataArray, function(data, idx) {
+              return {
+                id: itemList[idx].id,
+                url: '',
+                status: FileUploader.FILE_STATUS.ERROR,
+                progress: 0,
+                errMsg: 'Error message will show on thumbnails',
+                userDefinedData: {
+                  /* anything you need, the component stores it and pass it back to you on `getFiles` */
+                }
+              };
+            });
+          });
         }
         ```
 
@@ -185,14 +204,14 @@ var fileuploader = FileUploader.gen($('#uploader'), {
 
         ```javascript
         onDelete: function(itemList) {
-            $.post('http://your.delete.api/', {
-                var userDefinedData = item.userDefinedData;
-                if (userDefinedData && userDefinedData.fileName) {
-                  fileArray: $.map(itemList, function(item) {
-                      return item.userDefinedData.fileName;
-                  })
-                }
-            });
+          $.post('http://your.delete.api/', {
+            var userDefinedData = item.userDefinedData;
+            if (userDefinedData && userDefinedData.fileName) {
+              fileArray: $.map(itemList, function(item) {
+                return item.userDefinedData.fileName;
+              })
+            }
+          });
         }
         ```
 
@@ -224,15 +243,15 @@ var fileuploader = FileUploader.gen($('#uploader'), {
     
     /* a default file array with 3 elements */
     var defaultFiles = $.map(Array.apply(window, { length: 3 }), function() {
-        return {
-            url: 'http://image.url',
-            status: FileUploader.FILE_STATUS.COMPLETE,
-            progress: 0,
-            errMsg: '',
-            userDefinedData: {
-                /* anything you need */
-            }
-        };
+      return {
+        url: 'http://image.url',
+        status: FileUploader.FILE_STATUS.COMPLETE,
+        progress: 0,
+        errMsg: '',
+        userDefinedData: {
+          /* anything you need */
+        }
+      };
     });
 
     fileuploader.setFiles(defaultFiles);
