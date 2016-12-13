@@ -12,7 +12,7 @@
     "build-dev": "webpack -d --config webpack.config.js",
     "postbuild-dev": "cp src/rt_file_uploader.less dist/ && cp dist/* example",
     "lint": "eslint --ext .js ./src",
-    "publish": "npm run build-prod && npm run build-dev",
+    "publish": "npm run lint && npm run build-prod && npm run build-dev",
     "test": ""
   },
   "repository": {
