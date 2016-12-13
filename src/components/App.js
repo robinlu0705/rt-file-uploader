@@ -38,8 +38,7 @@ export default class App extends React.PureComponent {
           onFileDrop({
             fileList: e.dataTransfer.files,
             limit: opts.limit,
-            onUpload: opts.onUpload,
-            onDelete: opts.onDelete
+            onUpload: opts.onUpload
           });
 
           this.setState({
@@ -72,5 +71,7 @@ App.propTypes = {
     onFetchGallery: React.PropTypes.func,
     onUploadFromGallery: React.PropTypes.func,
     onDelete: React.PropTypes.func
-  })
+  }),
+
+  onFileDrop: React.PropTypes.func.isRequired
 };

@@ -17,7 +17,7 @@ export const REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
 export const RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
 export const CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
 
-export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileList, limit, runningID, onUpload, onDelete }) {
+export function uploadStart({ uploadFileList, limit, onUpload, runningID }) {
   return function(dispatch) {
     /* new added items */
     const itemList = [];
@@ -28,25 +28,7 @@ export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileL
       });
     }
 
-    /* delete overflowed items */
-    const overflow = itemList.length + currentFileOrder.length - limit;
-    const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
-    if (overflow > 0 && typeof onDelete === 'function') {
-      const deleteIDs = currentFileOrder.slice(overflow);
-      onDelete(deleteIDs.map(id => {
-        const entity = currentFileEntities[id];
-        return {
-          id: id,
-          url: entity.url,
-          status: entity.status,
-          progress: entity.progress,
-          errMsg: entity.errMsg,
-          userDefinedData: entity.userDefinedData
-        };
-      }));
-    }
-
-    dispatch(addLoadingFile(itemList.map(item => item.id), runningID + itemList.length, remainedIDs));
+    dispatch(addLoadingFile(itemList.map(item => item.id), limit, runningID + itemList.length));
 
     if (typeof onUpload === 'function') {
       const update = list => {
@@ -65,7 +47,7 @@ export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileL
   };
 }
 
-export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, uploadFiles, limit, runningID, onUploadFromGallery, onDelete }) {
+export function uploadFromGalleryStart({ uploadFiles, limit, runningID, onUploadFromGallery }) {
   return dispatch => {
     /* new added items */
     const itemList = uploadFiles.slice(0, limit).map((file, idx) => ({
@@ -74,25 +56,7 @@ export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, 
       userDefinedData: file.userDefinedData
     }));
 
-    /* delete overflowed items */
-    const overflow = itemList.length + currentFileOrder.length - limit;
-    const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
-    if (overflow > 0 && typeof onDelete === 'function') {
-      const deleteIDs = currentFileOrder.slice(overflow);
-      onDelete(deleteIDs.map(id => {
-        const entity = currentFileEntities[id];
-        return {
-          id: id,
-          url: entity.url,
-          status: entity.status,
-          progress: entity.progress,
-          errMsg: entity.errMsg,
-          userDefinedData: entity.userDefinedData
-        };
-      }));
-    }
-
-    dispatch(addLoadingFile(itemList.map(item => item.id), runningID + itemList.length, remainedIDs));
+    dispatch(addLoadingFile(itemList.map(item => item.id), limit, runningID + itemList.length));
 
     if (typeof onUploadFromGallery === 'function') {
       const update = list => {
@@ -111,13 +75,13 @@ export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, 
   };
 }
 
-function addLoadingFile(IDList, runningID, remainedIDs) {
+function addLoadingFile(IDList, limit, newRunningID) {
   return {
     type: ADD_LOADING_FILE,
     payload: {
       IDList: IDList,
-      runningID: runningID,
-      remainedIDs: remainedIDs
+      limit: limit,
+      newRunningID: newRunningID
     }
   };
 }
@@ -129,7 +93,7 @@ function updateLoadingFile(list) {
   };
 }
 
-export function addFile(currentFileEntities, currentFileOrder, addList, limit, runningID, onDelete) {
+export function addFile(addList, limit, runningID) {
   /* new added items */
   const itemList = addList.slice(0, limit).map((item, idx) => ({
     id: runningID + 1 + idx,
@@ -137,30 +101,12 @@ export function addFile(currentFileEntities, currentFileOrder, addList, limit, r
     userDefinedData: item.userDefinedData
   }));
 
-  /* delete overflowed items */
-  const overflow = itemList.length + currentFileOrder.length - limit;
-  const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
-  if (overflow > 0 && typeof onDelete === 'function') {
-    const deleteIDs = currentFileOrder.slice(overflow);
-    onDelete(deleteIDs.map(id => {
-      const entity = currentFileEntities[id];
-      return {
-        id: id,
-        url: entity.url,
-        status: entity.status,
-        progress: entity.progress,
-        errMsg: entity.errMsg,
-        userDefinedData: entity.userDefinedData
-      };
-    }));
-  }
-
   return {
     type: ADD_FILE,
     payload: {
       list: itemList,
-      remainedIDs: remainedIDs,
-      runningID: runningID + itemList.length
+      limit: limit,
+      newRunningID: runningID + itemList.length
     }
   };
 }

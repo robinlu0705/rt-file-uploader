@@ -4,11 +4,15 @@ import * as actions from 'actions';
 
 function mapStateToProps(state) {
   return {
-    _galleryFilterDepot: state.galleryFilterDepot,
-    _galleryImageDepot: state.galleryImageDepot,
-    _gallerySelectionDepot: state.gallerySelectionDepot,
-    _galleryStatusDepot: state.galleryStatusDepot,
-    _fileDepot: state.fileDepot
+    categoryOpts: state.galleryFilterDepot.categoryList,
+    currentCategory: state.galleryFilterDepot.category,
+    currentPage: state.galleryFilterDepot.page,
+    items: state.galleryImageDepot.list,
+    selection: state.gallerySelectionDepot.list,
+    isFetching: state.galleryImageDepot.isFetching,
+    isOpened: state.galleryStatusDepot.isOpened,
+    _gallerySelection: state.gallerySelectionDepot.list,
+    _fileDepotRunningID: state.fileDepot.runningID
   };
 }
 
@@ -34,31 +38,22 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
-  const { _galleryFilterDepot, _galleryImageDepot, _gallerySelectionDepot, _galleryStatusDepot, _fileDepot } = stateProps;
+  const { _gallerySelection, _fileDepotRunningID, items } = stateProps;
   const { dispatch } = dispatchProps;
-  return Object.assign({}, dispatchProps, ownProps, {
-    categoryOpts: _galleryFilterDepot.categoryList,
-    currentCategory: _galleryFilterDepot.category,
-    currentPage: _galleryFilterDepot.page,
-    items: _galleryImageDepot.list,
-    selection: _gallerySelectionDepot.list,
-    isFetching: _galleryImageDepot.isFetching,
-    isOpened: _galleryStatusDepot.isOpened,
-    onUpload({ limit, onUploadFromGallery, onDelete }) {
-      const selection = _gallerySelectionDepot.list;
+
+  return Object.assign({}, stateProps, dispatchProps, ownProps, {
+    onUpload({ limit, onUploadFromGallery }) {
+      const selection = _gallerySelection;
       if (selection.length) {
         dispatch(actions.uploadFromGalleryStart({
-          currentFileEntities: _fileDepot.entities,
-          currentFileOrder: _fileDepot.order,
           uploadFiles: selection.map(i => ({
-            url: _galleryImageDepot.list[i].url,
-            userDefinedData: _galleryImageDepot.list[i].userDefinedData
+            url: items[i].url,
+            userDefinedData: items[i].userDefinedData
           })),
 
-          runningID: _fileDepot.runningID,
+          runningID: _fileDepotRunningID,
           limit: limit,
-          onUploadFromGallery: onUploadFromGallery,
-          onDelete: onDelete
+          onUploadFromGallery: onUploadFromGallery
         }));
       }
     }

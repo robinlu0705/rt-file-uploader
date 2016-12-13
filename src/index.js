@@ -7,6 +7,7 @@ import reducer from 'reducers';
 import * as CONSTANTS from 'constants';
 import AppContainer from 'components/AppContainer';
 import * as actions from 'actions';
+import watch from 'redux-watch';
 
 function __seasonOpts__(opts) {
   return Object.assign({}, opts, {
@@ -16,6 +17,19 @@ function __seasonOpts__(opts) {
     limit: opts.limit || 3,
     galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : []
   });
+}
+
+function __findDeletedFileEntities__(newFileEntities, oldFileEntities) {
+  const ret = {};
+  for (let id in oldFileEntities) {
+    if (oldFileEntities.hasOwnProperty(id)) {
+      if (!(newFileEntities.hasOwnProperty(id))) {
+        ret[id] = oldFileEntities[id];
+      }
+    }
+  }
+
+  return ret;
 }
 
 window.RT = window.RT || {};
@@ -30,6 +44,33 @@ APP_NAMESPACE.gen = (id, opts) => {
   )(createStore);
 
   const store = finalCreateStore(reducer);
+  const fileDepotWatcher = watch(store.getState, 'fileDepot.entities');
+
+  store.subscribe(fileDepotWatcher((newVal, oldVal) => {
+    const onDelete = opts.onDelete;
+    if (typeof onDelete === 'function') {
+      const deletedFileEntities = __findDeletedFileEntities__(newVal, oldVal);
+      const deletedFileArray = [];
+
+      for (let id in deletedFileEntities) {
+        if (deletedFileEntities.hasOwnProperty(id)) {
+          const entity = deletedFileEntities[id];
+          deletedFileArray.push({
+            id: id,
+            url: entity.url,
+            status: entity.status,
+            progress: entity.progress,
+            errMsg: entity.errMsg,
+            userDefinedData: entity.userDefinedData
+          });
+        }
+      }
+
+      if (deletedFileArray.length > 0) {
+        onDelete(deletedFileArray);
+      }
+    }
+  }));
 
   store.dispatch(actions.setGalleryFilterOpts(opts.galleryFilterOpts));
 
@@ -43,8 +84,8 @@ APP_NAMESPACE.gen = (id, opts) => {
 
   return {
     getFiles() {
-      return store.fileDepot.order.map(id => {
-        const entity = store.fileDepot.entities[id];
+      return store.getState().fileDepot.order.map(id => {
+        const entity = store.getState().fileDepot.entities[id];
         return {
           id: id,
           url: entity.url,
@@ -57,10 +98,10 @@ APP_NAMESPACE.gen = (id, opts) => {
     },
 
     setFiles(list) {
-      store.dispatch(actions.addFile(store.fileDepot.entities, store.fileDepot.order, list.map(item => ({
+      store.dispatch(actions.addFile(list.map(item => ({
         url: item.url,
         userDefinedData: item.userDefinedData
-      })), opts.limit, store.fileDepot.runningID, opts.onDelete));
+      })), opts.limit, store.getState().fileDepot.runningID));
     }
   };
 };

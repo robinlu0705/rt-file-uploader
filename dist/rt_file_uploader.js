@@ -96,6 +96,10 @@ var rt_file_uploader =
 	
 	var actions = _interopRequireWildcard(_actions);
 	
+	var _reduxWatch = __webpack_require__(/*! redux-watch */ 175);
+	
+	var _reduxWatch2 = _interopRequireDefault(_reduxWatch);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -110,6 +114,19 @@ var rt_file_uploader =
 	  });
 	}
 	
+	function __findDeletedFileEntities__(newFileEntities, oldFileEntities) {
+	  var ret = {};
+	  for (var id in oldFileEntities) {
+	    if (oldFileEntities.hasOwnProperty(id)) {
+	      if (!newFileEntities.hasOwnProperty(id)) {
+	        ret[id] = oldFileEntities[id];
+	      }
+	    }
+	  }
+	
+	  return ret;
+	}
+	
 	window.RT = window.RT || {};
 	var APP_NAMESPACE = window.RT.FileUploader = {};
 	
@@ -121,6 +138,33 @@ var rt_file_uploader =
 	  })(_redux.createStore);
 	
 	  var store = finalCreateStore(_reducers2.default);
+	  var fileDepotWatcher = (0, _reduxWatch2.default)(store.getState, 'fileDepot.entities');
+	
+	  store.subscribe(fileDepotWatcher(function (newVal, oldVal) {
+	    var onDelete = opts.onDelete;
+	    if (typeof onDelete === 'function') {
+	      var deletedFileEntities = __findDeletedFileEntities__(newVal, oldVal);
+	      var deletedFileArray = [];
+	
+	      for (var _id in deletedFileEntities) {
+	        if (deletedFileEntities.hasOwnProperty(_id)) {
+	          var entity = deletedFileEntities[_id];
+	          deletedFileArray.push({
+	            id: _id,
+	            url: entity.url,
+	            status: entity.status,
+	            progress: entity.progress,
+	            errMsg: entity.errMsg,
+	            userDefinedData: entity.userDefinedData
+	          });
+	        }
+	      }
+	
+	      if (deletedFileArray.length > 0) {
+	        onDelete(deletedFileArray);
+	      }
+	    }
+	  }));
 	
 	  store.dispatch(actions.setGalleryFilterOpts(opts.galleryFilterOpts));
 	
@@ -132,8 +176,8 @@ var rt_file_uploader =
 	
 	  return {
 	    getFiles: function getFiles() {
-	      return store.fileDepot.order.map(function (id) {
-	        var entity = store.fileDepot.entities[id];
+	      return store.getState().fileDepot.order.map(function (id) {
+	        var entity = store.getState().fileDepot.entities[id];
 	        return {
 	          id: id,
 	          url: entity.url,
@@ -145,12 +189,12 @@ var rt_file_uploader =
 	      });
 	    },
 	    setFiles: function setFiles(list) {
-	      store.dispatch(actions.addFile(store.fileDepot.entities, store.fileDepot.order, list.map(function (item) {
+	      store.dispatch(actions.addFile(list.map(function (item) {
 	        return {
 	          url: item.url,
 	          userDefinedData: item.userDefinedData
 	        };
-	      }), opts.limit, store.fileDepot.runningID, opts.onDelete));
+	      }), opts.limit, store.getState().fileDepot.runningID));
 	    }
 	  };
 	};
@@ -3290,10 +3334,12 @@ var rt_file_uploader =
 	
 	  var actionHandlers = (_actionHandlers = {}, (0, _defineProperty3.default)(_actionHandlers, actions.ADD_LOADING_FILE, function () {
 	    var IDList = action.payload.IDList;
-	    var runningID = action.payload.runningID;
-	    var remainedIDs = action.payload.remainedIDs;
+	    var limit = action.payload.limit;
+	    var newRunningID = action.payload.newRunningID;
 	    var newEntities = {};
 	    var newEntityOrder = [];
+	    var overflow = IDList.length + state.order.length - limit;
+	    var remainedIDs = state.order.slice(0 + overflow, state.order.length);
 	
 	    var _iteratorNormalCompletion = true;
 	    var _didIteratorError = false;
@@ -3301,10 +3347,10 @@ var rt_file_uploader =
 	
 	    try {
 	      for (var _iterator = (0, _getIterator3.default)(remainedIDs), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	        var _id = _step.value;
+	        var id = _step.value;
 	
-	        newEntities[_id] = state.entities[_id];
-	        newEntityOrder.push(_id);
+	        newEntities[id] = state.entities[id];
+	        newEntityOrder.push(id);
 	      }
 	    } catch (err) {
 	      _didIteratorError = true;
@@ -3321,22 +3367,42 @@ var rt_file_uploader =
 	      }
 	    }
 	
-	    for (var i = 0; i < IDList.length; i++) {
-	      var id = IDList[i];
-	      newEntities[id] = {
-	        url: '',
-	        status: CONSTANTS.FILE_STATUS_LOADING,
-	        progress: 0
-	      };
+	    var _iteratorNormalCompletion2 = true;
+	    var _didIteratorError2 = false;
+	    var _iteratorError2 = undefined;
 	
-	      newEntityOrder.push(id);
+	    try {
+	      for (var _iterator2 = (0, _getIterator3.default)(IDList), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	        var _id = _step2.value;
+	
+	        newEntities[_id] = {
+	          url: '',
+	          status: CONSTANTS.FILE_STATUS_LOADING,
+	          progress: 0
+	        };
+	
+	        newEntityOrder.push(_id);
+	      }
+	    } catch (err) {
+	      _didIteratorError2 = true;
+	      _iteratorError2 = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	          _iterator2.return();
+	        }
+	      } finally {
+	        if (_didIteratorError2) {
+	          throw _iteratorError2;
+	        }
+	      }
 	    }
 	
 	    return (0, _assign2.default)({}, state, {
 	      entities: newEntities,
 	      order: newEntityOrder,
 	      selections: [],
-	      runningID: runningID
+	      runningID: newRunningID
 	    });
 	  }), (0, _defineProperty3.default)(_actionHandlers, actions.UPDATE_LOADING_FILE, function () {
 	    var list = action.payload;
@@ -3383,33 +3449,35 @@ var rt_file_uploader =
 	    }
 	  }), (0, _defineProperty3.default)(_actionHandlers, actions.ADD_FILE, function () {
 	    var list = action.payload.list;
-	    var runningID = action.payload.runningID;
-	    var remainedIDs = action.payload.remainedIDs;
+	    var newRunningID = action.payload.newRunningID;
+	    var limit = action.payload.limit;
 	    var newEntities = {};
 	    var newEntityOrder = [];
+	    var overflow = list.length + state.order.length - limit;
+	    var remainedIDs = state.order.slice(0 + overflow, state.order.length);
 	
-	    var _iteratorNormalCompletion2 = true;
-	    var _didIteratorError2 = false;
-	    var _iteratorError2 = undefined;
+	    var _iteratorNormalCompletion3 = true;
+	    var _didIteratorError3 = false;
+	    var _iteratorError3 = undefined;
 	
 	    try {
-	      for (var _iterator2 = (0, _getIterator3.default)(remainedIDs), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	        var _id3 = _step2.value;
+	      for (var _iterator3 = (0, _getIterator3.default)(remainedIDs), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	        var _id3 = _step3.value;
 	
 	        newEntities[_id3] = state.entities[_id3];
 	        newEntityOrder.push(_id3);
 	      }
 	    } catch (err) {
-	      _didIteratorError2 = true;
-	      _iteratorError2 = err;
+	      _didIteratorError3 = true;
+	      _iteratorError3 = err;
 	    } finally {
 	      try {
-	        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	          _iterator2.return();
+	        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+	          _iterator3.return();
 	        }
 	      } finally {
-	        if (_didIteratorError2) {
-	          throw _iteratorError2;
+	        if (_didIteratorError3) {
+	          throw _iteratorError3;
 	        }
 	      }
 	    }
@@ -3433,19 +3501,19 @@ var rt_file_uploader =
 	      entities: newEntities,
 	      order: newEntityOrder,
 	      selections: [],
-	      runningID: runningID
+	      runningID: newRunningID
 	    });
 	  }), (0, _defineProperty3.default)(_actionHandlers, actions.DELETE_FILE, function () {
 	    var newEntities = (0, _assign2.default)({}, state.entities);
 	    var newEntityOrder = state.order.slice(0);
 	
-	    var _iteratorNormalCompletion3 = true;
-	    var _didIteratorError3 = false;
-	    var _iteratorError3 = undefined;
+	    var _iteratorNormalCompletion4 = true;
+	    var _didIteratorError4 = false;
+	    var _iteratorError4 = undefined;
 	
 	    try {
-	      for (var _iterator3 = (0, _getIterator3.default)(action.payload), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	        var id = _step3.value;
+	      for (var _iterator4 = (0, _getIterator3.default)(action.payload), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	        var id = _step4.value;
 	
 	        var idx = newEntityOrder.indexOf(id);
 	
@@ -3455,16 +3523,16 @@ var rt_file_uploader =
 	        }
 	      }
 	    } catch (err) {
-	      _didIteratorError3 = true;
-	      _iteratorError3 = err;
+	      _didIteratorError4 = true;
+	      _iteratorError4 = err;
 	    } finally {
 	      try {
-	        if (!_iteratorNormalCompletion3 && _iterator3.return) {
-	          _iterator3.return();
+	        if (!_iteratorNormalCompletion4 && _iterator4.return) {
+	          _iterator4.return();
 	        }
 	      } finally {
-	        if (_didIteratorError3) {
-	          throw _iteratorError3;
+	        if (_didIteratorError4) {
+	          throw _iteratorError4;
 	        }
 	      }
 	    }
@@ -4080,13 +4148,10 @@ var rt_file_uploader =
 	var CHANGE_GALLERY_SELECTION = exports.CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
 	
 	function uploadStart(_ref) {
-	  var currentFileEntities = _ref.currentFileEntities,
-	      currentFileOrder = _ref.currentFileOrder,
-	      uploadFileList = _ref.uploadFileList,
+	  var uploadFileList = _ref.uploadFileList,
 	      limit = _ref.limit,
-	      runningID = _ref.runningID,
 	      onUpload = _ref.onUpload,
-	      onDelete = _ref.onDelete;
+	      runningID = _ref.runningID;
 	
 	  return function (dispatch) {
 	    /* new added items */
@@ -4098,27 +4163,9 @@ var rt_file_uploader =
 	      });
 	    }
 	
-	    /* delete overflowed items */
-	    var overflow = itemList.length + currentFileOrder.length - limit;
-	    var remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
-	    if (overflow > 0 && typeof onDelete === 'function') {
-	      var deleteIDs = currentFileOrder.slice(overflow);
-	      onDelete(deleteIDs.map(function (id) {
-	        var entity = currentFileEntities[id];
-	        return {
-	          id: id,
-	          url: entity.url,
-	          status: entity.status,
-	          progress: entity.progress,
-	          errMsg: entity.errMsg,
-	          userDefinedData: entity.userDefinedData
-	        };
-	      }));
-	    }
-	
 	    dispatch(addLoadingFile(itemList.map(function (item) {
 	      return item.id;
-	    }), runningID + itemList.length, remainedIDs));
+	    }), limit, runningID + itemList.length));
 	
 	    if (typeof onUpload === 'function') {
 	      var update = function update(list) {
@@ -4140,13 +4187,10 @@ var rt_file_uploader =
 	}
 	
 	function uploadFromGalleryStart(_ref2) {
-	  var currentFileEntities = _ref2.currentFileEntities,
-	      currentFileOrder = _ref2.currentFileOrder,
-	      uploadFiles = _ref2.uploadFiles,
+	  var uploadFiles = _ref2.uploadFiles,
 	      limit = _ref2.limit,
 	      runningID = _ref2.runningID,
-	      onUploadFromGallery = _ref2.onUploadFromGallery,
-	      onDelete = _ref2.onDelete;
+	      onUploadFromGallery = _ref2.onUploadFromGallery;
 	
 	  return function (dispatch) {
 	    /* new added items */
@@ -4158,27 +4202,9 @@ var rt_file_uploader =
 	      };
 	    });
 	
-	    /* delete overflowed items */
-	    var overflow = itemList.length + currentFileOrder.length - limit;
-	    var remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
-	    if (overflow > 0 && typeof onDelete === 'function') {
-	      var deleteIDs = currentFileOrder.slice(overflow);
-	      onDelete(deleteIDs.map(function (id) {
-	        var entity = currentFileEntities[id];
-	        return {
-	          id: id,
-	          url: entity.url,
-	          status: entity.status,
-	          progress: entity.progress,
-	          errMsg: entity.errMsg,
-	          userDefinedData: entity.userDefinedData
-	        };
-	      }));
-	    }
-	
 	    dispatch(addLoadingFile(itemList.map(function (item) {
 	      return item.id;
-	    }), runningID + itemList.length, remainedIDs));
+	    }), limit, runningID + itemList.length));
 	
 	    if (typeof onUploadFromGallery === 'function') {
 	      var update = function update(list) {
@@ -4199,13 +4225,13 @@ var rt_file_uploader =
 	  };
 	}
 	
-	function addLoadingFile(IDList, runningID, remainedIDs) {
+	function addLoadingFile(IDList, limit, newRunningID) {
 	  return {
 	    type: ADD_LOADING_FILE,
 	    payload: {
 	      IDList: IDList,
-	      runningID: runningID,
-	      remainedIDs: remainedIDs
+	      limit: limit,
+	      newRunningID: newRunningID
 	    }
 	  };
 	}
@@ -4217,7 +4243,7 @@ var rt_file_uploader =
 	  };
 	}
 	
-	function addFile(currentFileEntities, currentFileOrder, addList, limit, runningID, onDelete) {
+	function addFile(addList, limit, runningID) {
 	  /* new added items */
 	  var itemList = addList.slice(0, limit).map(function (item, idx) {
 	    return {
@@ -4227,30 +4253,12 @@ var rt_file_uploader =
 	    };
 	  });
 	
-	  /* delete overflowed items */
-	  var overflow = itemList.length + currentFileOrder.length - limit;
-	  var remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
-	  if (overflow > 0 && typeof onDelete === 'function') {
-	    var deleteIDs = currentFileOrder.slice(overflow);
-	    onDelete(deleteIDs.map(function (id) {
-	      var entity = currentFileEntities[id];
-	      return {
-	        id: id,
-	        url: entity.url,
-	        status: entity.status,
-	        progress: entity.progress,
-	        errMsg: entity.errMsg,
-	        userDefinedData: entity.userDefinedData
-	      };
-	    }));
-	  }
-	
 	  return {
 	    type: ADD_FILE,
 	    payload: {
 	      list: itemList,
-	      remainedIDs: remainedIDs,
-	      runningID: runningID + itemList.length
+	      limit: limit,
+	      newRunningID: runningID + itemList.length
 	    }
 	  };
 	}
@@ -4948,12 +4956,12 @@ var rt_file_uploader =
 	
 	function mapStateToProps(state) {
 	  return {
-	    _fileDepot: state.fileDepot
+	    _fileDepotRunningID: state.fileDepot.runningID
 	  };
 	}
 	
 	function mergeProps(stateProps, dispatchProps, ownProps) {
-	  var _fileDepot = stateProps._fileDepot;
+	  var _fileDepotRunningID = stateProps._fileDepotRunningID;
 	  var dispatch = dispatchProps.dispatch;
 	
 	
@@ -4961,17 +4969,13 @@ var rt_file_uploader =
 	    onFileDrop: function onFileDrop(_ref) {
 	      var fileList = _ref.fileList,
 	          limit = _ref.limit,
-	          onUpload = _ref.onUpload,
-	          onDelete = _ref.onDelete;
+	          onUpload = _ref.onUpload;
 	
 	      dispatch(actions.uploadStart({
-	        currentFileEntities: _fileDepot.entities,
-	        currentFileOrder: _fileDepot.order,
 	        uploadFileList: fileList,
 	        limit: limit,
-	        runningID: _fileDepot.runningID,
 	        onUpload: onUpload,
-	        onDelete: onDelete
+	        runningID: _fileDepotRunningID
 	      }));
 	    }
 	  });
@@ -5079,8 +5083,7 @@ var rt_file_uploader =
 	            onFileDrop({
 	              fileList: e.dataTransfer.files,
 	              limit: opts.limit,
-	              onUpload: opts.onUpload,
-	              onDelete: opts.onDelete
+	              onUpload: opts.onUpload
 	            });
 	
 	            _this2.setState({
@@ -5117,7 +5120,9 @@ var rt_file_uploader =
 	    onFetchGallery: _react2.default.PropTypes.func,
 	    onUploadFromGallery: _react2.default.PropTypes.func,
 	    onDelete: _react2.default.PropTypes.func
-	  })
+	  }),
+	
+	  onFileDrop: _react2.default.PropTypes.func.isRequired
 	};
 
 /***/ },
@@ -6983,11 +6988,15 @@ var rt_file_uploader =
 	
 	function mapStateToProps(state) {
 	  return {
-	    _galleryFilterDepot: state.galleryFilterDepot,
-	    _galleryImageDepot: state.galleryImageDepot,
-	    _gallerySelectionDepot: state.gallerySelectionDepot,
-	    _galleryStatusDepot: state.galleryStatusDepot,
-	    _fileDepot: state.fileDepot
+	    categoryOpts: state.galleryFilterDepot.categoryList,
+	    currentCategory: state.galleryFilterDepot.category,
+	    currentPage: state.galleryFilterDepot.page,
+	    items: state.galleryImageDepot.list,
+	    selection: state.gallerySelectionDepot.list,
+	    isFetching: state.galleryImageDepot.isFetching,
+	    isOpened: state.galleryStatusDepot.isOpened,
+	    _gallerySelection: state.gallerySelectionDepot.list,
+	    _fileDepotRunningID: state.fileDepot.runningID
 	  };
 	}
 	
@@ -7017,42 +7026,30 @@ var rt_file_uploader =
 	}
 	
 	function mergeProps(stateProps, dispatchProps, ownProps) {
-	  var _galleryFilterDepot = stateProps._galleryFilterDepot,
-	      _galleryImageDepot = stateProps._galleryImageDepot,
-	      _gallerySelectionDepot = stateProps._gallerySelectionDepot,
-	      _galleryStatusDepot = stateProps._galleryStatusDepot,
-	      _fileDepot = stateProps._fileDepot;
+	  var _gallerySelection = stateProps._gallerySelection,
+	      _fileDepotRunningID = stateProps._fileDepotRunningID,
+	      items = stateProps.items;
 	  var dispatch = dispatchProps.dispatch;
 	
-	  return (0, _assign2.default)({}, dispatchProps, ownProps, {
-	    categoryOpts: _galleryFilterDepot.categoryList,
-	    currentCategory: _galleryFilterDepot.category,
-	    currentPage: _galleryFilterDepot.page,
-	    items: _galleryImageDepot.list,
-	    selection: _gallerySelectionDepot.list,
-	    isFetching: _galleryImageDepot.isFetching,
-	    isOpened: _galleryStatusDepot.isOpened,
+	
+	  return (0, _assign2.default)({}, stateProps, dispatchProps, ownProps, {
 	    onUpload: function onUpload(_ref3) {
 	      var limit = _ref3.limit,
-	          onUploadFromGallery = _ref3.onUploadFromGallery,
-	          onDelete = _ref3.onDelete;
+	          onUploadFromGallery = _ref3.onUploadFromGallery;
 	
-	      var selection = _gallerySelectionDepot.list;
+	      var selection = _gallerySelection;
 	      if (selection.length) {
 	        dispatch(actions.uploadFromGalleryStart({
-	          currentFileEntities: _fileDepot.entities,
-	          currentFileOrder: _fileDepot.order,
 	          uploadFiles: selection.map(function (i) {
 	            return {
-	              url: _galleryImageDepot.list[i].url,
-	              userDefinedData: _galleryImageDepot.list[i].userDefinedData
+	              url: items[i].url,
+	              userDefinedData: items[i].userDefinedData
 	            };
 	          }),
 	
-	          runningID: _fileDepot.runningID,
+	          runningID: _fileDepotRunningID,
 	          limit: limit,
-	          onUploadFromGallery: onUploadFromGallery,
-	          onDelete: onDelete
+	          onUploadFromGallery: onUploadFromGallery
 	        }));
 	      }
 	    }
@@ -7217,8 +7214,7 @@ var rt_file_uploader =
 	                onClick: function onClick() {
 	                  onUpload({
 	                    limit: opts.limit,
-	                    onUploadFromGallery: opts.onUploadFromGallery,
-	                    onDelete: opts.onDelete
+	                    onUploadFromGallery: opts.onUploadFromGallery
 	                  });
 	
 	                  onToggle();
@@ -7262,6 +7258,325 @@ var rt_file_uploader =
 	  onSelectionChange: _react2.default.PropTypes.func.isRequired,
 	  onUpload: _react2.default.PropTypes.func.isRequired
 	};
+
+/***/ },
+/* 175 */
+/*!********************************!*\
+  !*** ./~/redux-watch/index.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict'
+	var getValue = __webpack_require__(/*! object-path */ 176).get
+	
+	function defaultCompare (a, b) {
+	  return a === b
+	}
+	
+	function watch (getState, objectPath, compare) {
+	  compare = compare || defaultCompare
+	  var currentValue = getValue(getState(), objectPath)
+	  return function w (fn) {
+	    return function () {
+	      var newValue = getValue(getState(), objectPath)
+	      if (!compare(currentValue, newValue)) {
+	        var oldValue = currentValue
+	        currentValue = newValue
+	        fn(newValue, oldValue, objectPath)
+	      }
+	    }
+	  }
+	}
+	
+	module.exports = watch
+
+
+/***/ },
+/* 176 */
+/*!**********************************************!*\
+  !*** ./~/redux-watch/~/object-path/index.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory){
+	  'use strict';
+	
+	  /*istanbul ignore next:cant test*/
+	  if (typeof module === 'object' && typeof module.exports === 'object') {
+	    module.exports = factory();
+	  } else if (true) {
+	    // AMD. Register as an anonymous module.
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	  } else {
+	    // Browser globals
+	    root.objectPath = factory();
+	  }
+	})(this, function(){
+	  'use strict';
+	
+	  var
+	    toStr = Object.prototype.toString,
+	    _hasOwnProperty = Object.prototype.hasOwnProperty;
+	
+	  function isEmpty(value){
+	    if (!value) {
+	      return true;
+	    }
+	    if (isArray(value) && value.length === 0) {
+	        return true;
+	    } else if (!isString(value)) {
+	        for (var i in value) {
+	            if (_hasOwnProperty.call(value, i)) {
+	                return false;
+	            }
+	        }
+	        return true;
+	    }
+	    return false;
+	  }
+	
+	  function toString(type){
+	    return toStr.call(type);
+	  }
+	
+	  function isNumber(value){
+	    return typeof value === 'number' || toString(value) === "[object Number]";
+	  }
+	
+	  function isString(obj){
+	    return typeof obj === 'string' || toString(obj) === "[object String]";
+	  }
+	
+	  function isObject(obj){
+	    return typeof obj === 'object' && toString(obj) === "[object Object]";
+	  }
+	
+	  function isArray(obj){
+	    return typeof obj === 'object' && typeof obj.length === 'number' && toString(obj) === '[object Array]';
+	  }
+	
+	  function isBoolean(obj){
+	    return typeof obj === 'boolean' || toString(obj) === '[object Boolean]';
+	  }
+	
+	  function getKey(key){
+	    var intKey = parseInt(key);
+	    if (intKey.toString() === key) {
+	      return intKey;
+	    }
+	    return key;
+	  }
+	
+	  function set(obj, path, value, doNotReplace){
+	    if (isNumber(path)) {
+	      path = [path];
+	    }
+	    if (isEmpty(path)) {
+	      return obj;
+	    }
+	    if (isString(path)) {
+	      return set(obj, path.split('.').map(getKey), value, doNotReplace);
+	    }
+	    var currentPath = path[0];
+	
+	    if (path.length === 1) {
+	      var oldVal = obj[currentPath];
+	      if (oldVal === void 0 || !doNotReplace) {
+	        obj[currentPath] = value;
+	      }
+	      return oldVal;
+	    }
+	
+	    if (obj[currentPath] === void 0) {
+	      //check if we assume an array
+	      if(isNumber(path[1])) {
+	        obj[currentPath] = [];
+	      } else {
+	        obj[currentPath] = {};
+	      }
+	    }
+	
+	    return set(obj[currentPath], path.slice(1), value, doNotReplace);
+	  }
+	
+	  function del(obj, path) {
+	    if (isNumber(path)) {
+	      path = [path];
+	    }
+	
+	    if (isEmpty(obj)) {
+	      return void 0;
+	    }
+	
+	    if (isEmpty(path)) {
+	      return obj;
+	    }
+	    if(isString(path)) {
+	      return del(obj, path.split('.'));
+	    }
+	
+	    var currentPath = getKey(path[0]);
+	    var oldVal = obj[currentPath];
+	
+	    if(path.length === 1) {
+	      if (oldVal !== void 0) {
+	        if (isArray(obj)) {
+	          obj.splice(currentPath, 1);
+	        } else {
+	          delete obj[currentPath];
+	        }
+	      }
+	    } else {
+	      if (obj[currentPath] !== void 0) {
+	        return del(obj[currentPath], path.slice(1));
+	      }
+	    }
+	
+	    return obj;
+	  }
+	
+	  var objectPath = function(obj) {
+	    return Object.keys(objectPath).reduce(function(proxy, prop) {
+	      if (typeof objectPath[prop] === 'function') {
+	        proxy[prop] = objectPath[prop].bind(objectPath, obj);
+	      }
+	
+	      return proxy;
+	    }, {});
+	  };
+	
+	  objectPath.has = function (obj, path) {
+	    if (isEmpty(obj)) {
+	      return false;
+	    }
+	
+	    if (isNumber(path)) {
+	      path = [path];
+	    } else if (isString(path)) {
+	      path = path.split('.');
+	    }
+	
+	    if (isEmpty(path) || path.length === 0) {
+	      return false;
+	    }
+	
+	    for (var i = 0; i < path.length; i++) {
+	      var j = path[i];
+	      if ((isObject(obj) || isArray(obj)) && _hasOwnProperty.call(obj, j)) {
+	        obj = obj[j];
+	      } else {
+	        return false;
+	      }
+	    }
+	
+	    return true;
+	  };
+	
+	  objectPath.ensureExists = function (obj, path, value){
+	    return set(obj, path, value, true);
+	  };
+	
+	  objectPath.set = function (obj, path, value, doNotReplace){
+	    return set(obj, path, value, doNotReplace);
+	  };
+	
+	  objectPath.insert = function (obj, path, value, at){
+	    var arr = objectPath.get(obj, path);
+	    at = ~~at;
+	    if (!isArray(arr)) {
+	      arr = [];
+	      objectPath.set(obj, path, arr);
+	    }
+	    arr.splice(at, 0, value);
+	  };
+	
+	  objectPath.empty = function(obj, path) {
+	    if (isEmpty(path)) {
+	      return obj;
+	    }
+	    if (isEmpty(obj)) {
+	      return void 0;
+	    }
+	
+	    var value, i;
+	    if (!(value = objectPath.get(obj, path))) {
+	      return obj;
+	    }
+	
+	    if (isString(value)) {
+	      return objectPath.set(obj, path, '');
+	    } else if (isBoolean(value)) {
+	      return objectPath.set(obj, path, false);
+	    } else if (isNumber(value)) {
+	      return objectPath.set(obj, path, 0);
+	    } else if (isArray(value)) {
+	      value.length = 0;
+	    } else if (isObject(value)) {
+	      for (i in value) {
+	        if (_hasOwnProperty.call(value, i)) {
+	          delete value[i];
+	        }
+	      }
+	    } else {
+	      return objectPath.set(obj, path, null);
+	    }
+	  };
+	
+	  objectPath.push = function (obj, path /*, values */){
+	    var arr = objectPath.get(obj, path);
+	    if (!isArray(arr)) {
+	      arr = [];
+	      objectPath.set(obj, path, arr);
+	    }
+	
+	    arr.push.apply(arr, Array.prototype.slice.call(arguments, 2));
+	  };
+	
+	  objectPath.coalesce = function (obj, paths, defaultValue) {
+	    var value;
+	
+	    for (var i = 0, len = paths.length; i < len; i++) {
+	      if ((value = objectPath.get(obj, paths[i])) !== void 0) {
+	        return value;
+	      }
+	    }
+	
+	    return defaultValue;
+	  };
+	
+	  objectPath.get = function (obj, path, defaultValue){
+	    if (isNumber(path)) {
+	      path = [path];
+	    }
+	    if (isEmpty(path)) {
+	      return obj;
+	    }
+	    if (isEmpty(obj)) {
+	      return defaultValue;
+	    }
+	    if (isString(path)) {
+	      return objectPath.get(obj, path.split('.'), defaultValue);
+	    }
+	
+	    var currentPath = getKey(path[0]);
+	
+	    if (path.length === 1) {
+	      if (obj[currentPath] === void 0) {
+	        return defaultValue;
+	      }
+	      return obj[currentPath];
+	    }
+	
+	    return objectPath.get(obj[currentPath], path.slice(1), defaultValue);
+	  };
+	
+	  objectPath.del = function(obj, path) {
+	    return del(obj, path);
+	  };
+	
+	  return objectPath;
+	});
+
 
 /***/ }
 /******/ ]);

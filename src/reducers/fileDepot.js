@@ -12,18 +12,19 @@ export default (state = defaultState, action) => {
   const actionHandlers = {
     [actions.ADD_LOADING_FILE]() {
       const IDList = action.payload.IDList;
-      const runningID = action.payload.runningID;
-      const remainedIDs = action.payload.remainedIDs;
+      const limit = action.payload.limit;
+      const newRunningID = action.payload.newRunningID;
       const newEntities = {};
       const newEntityOrder = [];
+      const overflow = IDList.length + state.order.length - limit;
+      const remainedIDs = state.order.slice(0 + overflow, state.order.length);
 
       for (let id of remainedIDs) {
         newEntities[id] = state.entities[id];
         newEntityOrder.push(id);
       }
 
-      for (let i = 0; i < IDList.length; i++) {
-        const id = IDList[i];
+      for (let id of IDList) {
         newEntities[id] = {
           url: '',
           status: CONSTANTS.FILE_STATUS_LOADING,
@@ -37,7 +38,7 @@ export default (state = defaultState, action) => {
         entities: newEntities,
         order: newEntityOrder,
         selections: [],
-        runningID: runningID
+        runningID: newRunningID
       });
     },
 
@@ -86,10 +87,12 @@ export default (state = defaultState, action) => {
 
     [actions.ADD_FILE]() {
       const list = action.payload.list;
-      const runningID = action.payload.runningID;
-      const remainedIDs = action.payload.remainedIDs;
+      const newRunningID = action.payload.newRunningID;
+      const limit = action.payload.limit;
       const newEntities = {};
       const newEntityOrder = [];
+      const overflow = list.length + state.order.length - limit;
+      const remainedIDs = state.order.slice(0 + overflow, state.order.length);
 
       for (let id of remainedIDs) {
         newEntities[id] = state.entities[id];
@@ -115,7 +118,7 @@ export default (state = defaultState, action) => {
         entities: newEntities,
         order: newEntityOrder,
         selections: [],
-        runningID: runningID
+        runningID: newRunningID
       });
     },
 

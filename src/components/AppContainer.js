@@ -4,24 +4,21 @@ import * as actions from 'actions';
 
 function mapStateToProps(state) {
   return {
-    _fileDepot: state.fileDepot
+    _fileDepotRunningID: state.fileDepot.runningID
   };
 }
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
-  const { _fileDepot } = stateProps;
+  const { _fileDepotRunningID } = stateProps;
   const { dispatch } = dispatchProps;
 
   return Object.assign({}, dispatchProps, ownProps, {
-    onFileDrop({ fileList, limit, onUpload, onDelete }) {
+    onFileDrop({ fileList, limit, onUpload }) {
       dispatch(actions.uploadStart({
-        currentFileEntities: _fileDepot.entities,
-        currentFileOrder: _fileDepot.order,
         uploadFileList: fileList,
         limit: limit,
-        runningID: _fileDepot.runningID,
         onUpload: onUpload,
-        onDelete: onDelete
+        runningID: _fileDepotRunningID
       }));
     }
   });

@@ -83,8 +83,7 @@ export default function Gallery({ categoryOpts, currentCategory, currentPage, it
                 onClick={() => {
                   onUpload({
                     limit: opts.limit,
-                    onUploadFromGallery: opts.onUploadFromGallery,
-                    onDelete: opts.onDelete
+                    onUploadFromGallery: opts.onUploadFromGallery
                   });
 
                   onToggle();
