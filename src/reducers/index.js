@@ -8,6 +8,7 @@ import galleryStatusDepot from 'galleryStatusDepot';
 import galleryFilterDepot from 'galleryFilterDepot';
 import galleryImageDepot from 'galleryImageDepot';
 import gallerySelectionDepot from 'gallerySelectionDepot';
+import globalErrorDepot from 'globalErrorDepot';
 
 export default combineReducers({
   fileDepot,
@@ -18,5 +19,6 @@ export default combineReducers({
   galleryStatusDepot,
   galleryFilterDepot,
   galleryImageDepot,
-  gallerySelectionDepot
+  gallerySelectionDepot,
+  globalErrorDepot
 });

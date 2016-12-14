@@ -1,7 +1,10 @@
 @import "ui-button.less";
-@theme: #849098;
+@import "ui-error-bubble.less";
+@theme: #81888d;
+@error: #F15959;
 // declare rt-button
 .ui-button-mixin();
+.ui-error-bubble-mixin();
 
 @-moz-keyframes fade-in {
     from {opacity: 0;}
@@ -62,6 +65,17 @@
         display: inline-block;
         line-height: 2;
       }
+
+      .limit-hint-text {
+        display: block;
+        line-height: 3;
+      }
+
+      .global-error {
+        display: block;
+        color: @error;
+        line-height: 3;
+      }
     }
 
     .wrap {
@@ -93,6 +107,29 @@
         margin-right: 15px;
         color: gray;
         font-weight: normal;
+      }
+    }
+
+    .limit-hint-text {
+      display: inline-block;
+      margin-left: 10px;
+      margin-right: 10px;
+      color: @theme;
+      font-size: 13px;
+
+      &.is-hidden {
+        display: none;
+      }
+    }
+
+    .global-error {
+      display: inline-block;
+      margin-left: 10px;
+      margin-right: 10px;
+      font-size: 13px;
+
+      &.is-hidden {
+        display: none;
       }
     }
 
@@ -149,7 +186,7 @@
       -khtml-user-select: none;    /* Konqueror */
       -moz-user-select: none;      /* Firefox */
       -ms-user-select: none;       /* Internet Explorer/Edge */
-      user-select: none;
+      user-select: none;           
 
       &.is-editing {
         animation: none;
@@ -254,6 +291,20 @@
         font-weight: 600;
         letter-spacing: 1px;
         border-bottom: 1px solid #cfcfcf;
+
+        .title-text {
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .limit-hint {
+          display: inline-block;
+          vertical-align: middle;
+          margin-left: 10px;
+          color: @theme;
+          font-size: 13px;
+          font-weight: normal;
+        }
       }
 
       .content {

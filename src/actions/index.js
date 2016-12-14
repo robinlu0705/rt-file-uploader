@@ -1,4 +1,5 @@
 /* actions */
+import * as CONSTANTS from 'constants';
 
 /* action type constants */
 export const ADD_LOADING_FILE = 'ADD_LOADING_FILE';
@@ -16,6 +17,7 @@ export const CHANGE_GALLERY_FILTER = 'CHANGE_GALLERY_FILTER';
 export const REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
 export const RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
 export const CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
+export const SET_GLOBAL_ERROR = 'SET_GLOBAL_ERROR';
 
 export function uploadStart({ uploadFileList, limit, onUpload, runningID }) {
   return function(dispatch) {
@@ -236,5 +238,47 @@ export function changeGallerySelection(list) {
   return {
     type: CHANGE_GALLERY_SELECTION,
     payload: list
+  };
+}
+
+function _setGlobalError(errType, limit, timerToken) {
+  const ret = {
+    type: SET_GLOBAL_ERROR,
+    payload: {
+      limit: limit,
+      timerToken: timerToken
+    }
+  };
+
+  switch (errType) {
+    case CONSTANTS.GLOBAL_ERROR_OVERSELECT: {
+      ret.payload.errType = CONSTANTS.GLOBAL_ERROR_OVERSELECT;
+      break;
+    }
+
+    case CONSTANTS.GLOBAL_ERROR_OVERFLOW: {
+      ret.payload.errType = CONSTANTS.GLOBAL_ERROR_OVERFLOW;
+      break;
+    }
+
+    default:
+      ret.payload.errType = CONSTANTS.GLOBAL_ERROR_NONE;
+  }
+
+  return ret;
+}
+
+export function setGlobalError(errType, limit, timerToken) {
+  return dispatch => {
+    let token;
+
+    if (errType !== CONSTANTS.GLOBAL_ERROR_NONE) {
+      clearTimeout(timerToken);
+      token = setTimeout(() => {
+        dispatch(_setGlobalError(CONSTANTS.GLOBAL_ERROR_NONE));
+      }, 6000);
+    }
+
+    dispatch(_setGlobalError(errType, limit, token));
   };
 }

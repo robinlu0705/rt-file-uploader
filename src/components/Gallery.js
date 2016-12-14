@@ -1,12 +1,16 @@
 /* component - Gallery */
 import React from 'react';
 
-export default function Gallery({ categoryOpts, currentCategory, currentPage, items, selection, opts, isOpened, isFetching, onToggle, onFilterChange, onImageFetch, onSelectionChange, onUpload }) {
+export default function Gallery({ categoryOpts, currentCategory, currentPage, items, selection, fileCount, opts, isOpened, isFetching, onToggle, onFilterChange, onImageFetch, onSelectionChange, onUpload }) {
+  const selectionLimit = opts.limit - fileCount;
   return (
     <div className={`gallery ${isOpened ? 'is-opened' : ''}`}>
       <div className="overlay" onClick={onToggle}></div>
       <div className="dialog">
-        <div className="title">露天圖庫</div>
+        <div className="title">
+          <div className="title-text">露天圖庫</div>
+          <div className="limit-hint">{` - 尚可選擇 ${selectionLimit - selection.length}`}</div>
+        </div>
         <div className="content">
           <div className="wrap">
             <div className="tool-bar">
@@ -61,7 +65,7 @@ export default function Gallery({ categoryOpts, currentCategory, currentPage, it
                           let newSelection = selection.slice(0);
                           if (idxInSelection === -1) {
                             newSelection.push(i);
-                            if (newSelection.length > opts.limit) {
+                            if (newSelection.length > selectionLimit) {
                               newSelection = newSelection.slice(newSelection.length - opts.limit);
                             }
                           } else {
@@ -114,6 +118,7 @@ Gallery.propTypes = {
   })).isRequired,
 
   selection: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+  fileCount: React.PropTypes.number.isRequired,
   opts: React.PropTypes.object.isRequired /* see App.js */,
   isOpened: React.PropTypes.bool.isRequired,
   isFetching: React.PropTypes.bool.isRequired,

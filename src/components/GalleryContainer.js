@@ -9,6 +9,7 @@ function mapStateToProps(state) {
     currentPage: state.galleryFilterDepot.page,
     items: state.galleryImageDepot.list,
     selection: state.gallerySelectionDepot.list,
+    fileCount: state.fileDepot.order.length,
     isFetching: state.galleryImageDepot.isFetching,
     isOpened: state.galleryStatusDepot.isOpened,
     _gallerySelection: state.gallerySelectionDepot.list,
