@@ -1,5 +1,5 @@
 @import "ui-button.less";
-@theme: #849098;
+@theme: #81888d;
 // declare rt-button
 .ui-button-mixin();
 
@@ -62,6 +62,11 @@
         display: inline-block;
         line-height: 2;
       }
+
+      .limit-hint-text {
+        display: block;
+        line-height: 3;
+      }
     }
 
     .wrap {
@@ -94,6 +99,14 @@
         color: gray;
         font-weight: normal;
       }
+    }
+
+    .limit-hint-text {
+      display: inline-block;
+      margin-left: 10px;
+      margin-right: 10px;
+      color: @theme;
+      font-size: 13px;
     }
 
     .rt-button + .rt-button {

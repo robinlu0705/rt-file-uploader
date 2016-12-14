@@ -2573,6 +2573,8 @@ var rt_file_uploader =
 	
 	  var $hintText2 = (0, _jQuery2.default)('<div />').addClass('hint-text').append((0, _jQuery2.default)('<span />').addClass('separator').text('或')).append((0, _jQuery2.default)('<span />').text('拖曳檔案至此'));
 	
+	  var $limitHintText = (0, _jQuery2.default)('<div />').addClass('limit-hint-text').text('\u6700\u591A\u53EF\u4E0A\u50B3 ' + opts.limit + ' \u500B\u6A94\u6848');
+	
 	  var $uploadIcon = (0, _jQuery2.default)('<i />').addClass('upload-icon').addClass('fa').addClass('fa-upload');
 	
 	  var _$addLocalInput = (0, _jQuery2.default)('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
@@ -2602,7 +2604,7 @@ var rt_file_uploader =
 	    $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
 	  });
 	
-	  var $wrap = (0, _jQuery2.default)('<div />').addClass('wrap').append($uploadIcon).append($hintText1).append($addLocal).append($addRuten).append($hintText2);
+	  var $wrap = (0, _jQuery2.default)('<div />').addClass('wrap').append($uploadIcon).append($hintText1).append($addLocal).append($addRuten).append($hintText2).append($limitHintText);
 	
 	  var $root = (0, _jQuery2.default)('<div />').addClass('tool-bar').append($wrap);
 	

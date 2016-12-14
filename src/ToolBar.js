@@ -35,6 +35,10 @@ export function gen($store, opts) {
     .append($('<span />').addClass('separator').text('或'))
     .append($('<span />').text('拖曳檔案至此'));
 
+  const $limitHintText = $('<div />')
+    .addClass('limit-hint-text')
+    .text(`最多可上傳 ${opts.limit} 個檔案`);
+
   const $uploadIcon = $('<i />')
     .addClass('upload-icon')
     .addClass('fa')
@@ -89,7 +93,8 @@ export function gen($store, opts) {
     .append($hintText1)
     .append($addLocal)
     .append($addRuten)
-    .append($hintText2);
+    .append($hintText2)
+    .append($limitHintText);
 
   const $root = $('<div />')
     .addClass('tool-bar')
