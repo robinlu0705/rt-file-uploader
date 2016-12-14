@@ -37,6 +37,7 @@ function __createStore__(opts) {
     newState[Reducers.GALLERY_FILTER_DEPOT] = Reducers.galleryFilterDepot(state[Reducers.GALLERY_FILTER_DEPOT], action);
     newState[Reducers.GALLERY_IMAGE_DEPOT] = Reducers.galleryImageDepot(state[Reducers.GALLERY_IMAGE_DEPOT], action);
     newState[Reducers.GALLERY_SELECTION_DEPOT] = Reducers.gallerySelectionDepot(state[Reducers.GALLERY_SELECTION_DEPOT], action);
+    newState[Reducers.GLOBAL_ERROR_DEPOT] = Reducers.globalErrorDepot(state[Reducers.GLOBAL_ERROR_DEPOT], action);
 
     return newState;
   };

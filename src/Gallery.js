@@ -114,23 +114,30 @@ function __render__($store, opts, $root) {
           const imageList = getGalleryImageDepot().list;
 
           if (selectionList.length) {
-            for (let i = 0; i < selectionList.length; i++) {
-              const selection = selectionList[i];
-              list.push({
-                url: imageList[selection].url,
-                userDefinedData: imageList[selection].userDefinedData
-              });
-            }
+            if (selectionList.length > opts.limit) {
+              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+            } else if (selectionList.length + getFileDepot().order.length > opts.limit) {
+              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+            } else {
+              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+              for (let i = 0; i < selectionList.length; i++) {
+                const selection = selectionList[i];
+                list.push({
+                  url: imageList[selection].url,
+                  userDefinedData: imageList[selection].userDefinedData
+                });
+              }
 
-            $store.dispatch(Actions.uploadFromGalleryStart({
-              currentFileEntities: getFileDepot().entities,
-              currentFileOrder: getFileDepot().order,
-              uploadFiles: list,
-              limit: opts.limit,
-              runningID: runningID,
-              onUploadFromGallery: opts.onUploadFromGallery,
-              onDelete: opts.onDelete
-            }));
+              $store.dispatch(Actions.uploadFromGalleryStart({
+                currentFileEntities: getFileDepot().entities,
+                currentFileOrder: getFileDepot().order,
+                uploadFiles: list,
+                limit: opts.limit,
+                runningID: runningID,
+                onUploadFromGallery: opts.onUploadFromGallery,
+                onDelete: opts.onDelete
+              }));
+            }
 
             $store.dispatch(Actions.triggerGallery());
           }

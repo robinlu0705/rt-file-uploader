@@ -17,6 +17,7 @@ export const GALLERY_STATUS_DEPOT = 'GALLERY_STATUS_DEPOT';
 export const GALLERY_FILTER_DEPOT = 'GALLERY_FILTER_DEPOT';
 export const GALLERY_IMAGE_DEPOT = 'GALLERY_IMAGE_DEPOT';
 export const GALLERY_SELECTION_DEPOT = 'GALLERY_SELECTION_DEPOT';
+export const GLOBAL_ERROR_DEPOT = 'GLOBAL_ERROR_DEPOT';
 
 const fileDepotDefaultState = {
   entities: {},
@@ -399,6 +400,37 @@ export function gallerySelectionDepot(state = gallerySelectionDepotDefaultState,
     case Actions.REQUEST_GALLERY_IMAGE: {
       return Object.assign({}, state, {
         list: []
+      });
+    }
+
+    default:
+      return state;
+  }
+}
+
+const globalErrorDepotDefaultState = {
+  msg: ''
+};
+
+export function globalErrorDepot(state = globalErrorDepotDefaultState, action) {
+  switch (action.type) {
+    case Actions.SET_GLOBAL_ERROR: {
+      let msg = '';
+
+      switch (action.payload.errType) {
+        case Actions.GLOBAL_ERROR_OVERFLOW: {
+          msg = '檔案已達限定上傳數，若要繼續上傳，請先刪除檔案';
+          break;
+        }
+
+        case Actions.GLOBAL_ERROR_OVERSELECT: {
+          msg = `最多僅可上傳 ${action.payload.limit} 個檔案`;
+          break;
+        }
+      }
+
+      return Object.assign({}, state, {
+        msg: msg
       });
     }
 

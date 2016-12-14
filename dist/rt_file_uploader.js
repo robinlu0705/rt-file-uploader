@@ -132,6 +132,7 @@ var rt_file_uploader =
 	    newState[Reducers.GALLERY_FILTER_DEPOT] = Reducers.galleryFilterDepot(state[Reducers.GALLERY_FILTER_DEPOT], action);
 	    newState[Reducers.GALLERY_IMAGE_DEPOT] = Reducers.galleryImageDepot(state[Reducers.GALLERY_IMAGE_DEPOT], action);
 	    newState[Reducers.GALLERY_SELECTION_DEPOT] = Reducers.gallerySelectionDepot(state[Reducers.GALLERY_SELECTION_DEPOT], action);
+	    newState[Reducers.GLOBAL_ERROR_DEPOT] = Reducers.globalErrorDepot(state[Reducers.GLOBAL_ERROR_DEPOT], action);
 	
 	    return newState;
 	  };
@@ -1054,7 +1055,7 @@ var rt_file_uploader =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.GALLERY_SELECTION_DEPOT = exports.GALLERY_IMAGE_DEPOT = exports.GALLERY_FILTER_DEPOT = exports.GALLERY_STATUS_DEPOT = exports.PLACEHOLDER_DEPOT = exports.EDIT_DEPOT = exports.MODE_DEPOT = exports.LAYOUT_DEPOT = exports.FILE_DEPOT = exports.FILE_STATUS_TIMEOUT = exports.FILE_STATUS_ERROR = exports.FILE_STATUS_COMPLETE = exports.FILE_STATUS_LOADING = undefined;
+	exports.GLOBAL_ERROR_DEPOT = exports.GALLERY_SELECTION_DEPOT = exports.GALLERY_IMAGE_DEPOT = exports.GALLERY_FILTER_DEPOT = exports.GALLERY_STATUS_DEPOT = exports.PLACEHOLDER_DEPOT = exports.EDIT_DEPOT = exports.MODE_DEPOT = exports.LAYOUT_DEPOT = exports.FILE_DEPOT = exports.FILE_STATUS_TIMEOUT = exports.FILE_STATUS_ERROR = exports.FILE_STATUS_COMPLETE = exports.FILE_STATUS_LOADING = undefined;
 	
 	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 44);
 	
@@ -1073,6 +1074,7 @@ var rt_file_uploader =
 	exports.galleryFilterDepot = galleryFilterDepot;
 	exports.galleryImageDepot = galleryImageDepot;
 	exports.gallerySelectionDepot = gallerySelectionDepot;
+	exports.globalErrorDepot = globalErrorDepot;
 	
 	var _Actions = __webpack_require__(/*! Actions */ 66);
 	
@@ -1098,6 +1100,7 @@ var rt_file_uploader =
 	var GALLERY_FILTER_DEPOT = exports.GALLERY_FILTER_DEPOT = 'GALLERY_FILTER_DEPOT';
 	var GALLERY_IMAGE_DEPOT = exports.GALLERY_IMAGE_DEPOT = 'GALLERY_IMAGE_DEPOT';
 	var GALLERY_SELECTION_DEPOT = exports.GALLERY_SELECTION_DEPOT = 'GALLERY_SELECTION_DEPOT';
+	var GLOBAL_ERROR_DEPOT = exports.GLOBAL_ERROR_DEPOT = 'GLOBAL_ERROR_DEPOT';
 	
 	var fileDepotDefaultState = {
 	  entities: {},
@@ -1598,6 +1601,43 @@ var rt_file_uploader =
 	      {
 	        return (0, _assign2.default)({}, state, {
 	          list: []
+	        });
+	      }
+	
+	    default:
+	      return state;
+	  }
+	}
+	
+	var globalErrorDepotDefaultState = {
+	  msg: ''
+	};
+	
+	function globalErrorDepot() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : globalErrorDepotDefaultState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.SET_GLOBAL_ERROR:
+	      {
+	        var msg = '';
+	
+	        switch (action.payload.errType) {
+	          case Actions.GLOBAL_ERROR_OVERFLOW:
+	            {
+	              msg = '檔案已達限定上傳數，若要繼續上傳，請先刪除檔案';
+	              break;
+	            }
+	
+	          case Actions.GLOBAL_ERROR_OVERSELECT:
+	            {
+	              msg = '\u6700\u591A\u50C5\u53EF\u4E0A\u50B3 ' + action.payload.limit + ' \u500B\u6A94\u6848';
+	              break;
+	            }
+	        }
+	
+	        return (0, _assign2.default)({}, state, {
+	          msg: msg
 	        });
 	      }
 	
@@ -2108,11 +2148,15 @@ var rt_file_uploader =
 	exports.changeGalleryFilter = changeGalleryFilter;
 	exports.fetchGalleryImage = fetchGalleryImage;
 	exports.changeGallerySelection = changeGallerySelection;
+	exports.setGlobalError = setGlobalError;
 	/* actions */
 	
 	/* constants */
 	var DISPLAY_MODE = exports.DISPLAY_MODE = 'DISPLAY_MODE';
 	var EDIT_MODE = exports.EDIT_MODE = 'EDIT_MODE';
+	var GLOBAL_ERROR_NONE = exports.GLOBAL_ERROR_NONE = 'GLOBAL_ERROR_NONE';
+	var GLOBAL_ERROR_OVERFLOW = exports.GLOBAL_ERROR_OVERFLOW = 'GLOBAL_ERROR_OVERFLOW';
+	var GLOBAL_ERROR_OVERSELECT = exports.GLOBAL_ERROR_OVERSELECT = 'GLOBAL_ERROR_OVERSELECT';
 	
 	/* action type constants */
 	var ADD_LOADING_FILE = exports.ADD_LOADING_FILE = 'ADD_LOADING_FILE';
@@ -2130,6 +2174,7 @@ var rt_file_uploader =
 	var REQUEST_GALLERY_IMAGE = exports.REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
 	var RECEIVE_GALLERY_IMAGE = exports.RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
 	var CHANGE_GALLERY_SELECTION = exports.CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
+	var SET_GLOBAL_ERROR = exports.SET_GLOBAL_ERROR = 'SET_GLOBAL_ERROR';
 	
 	function uploadStart(_ref) {
 	  var currentFileEntities = _ref.currentFileEntities,
@@ -2446,6 +2491,45 @@ var rt_file_uploader =
 	    payload: list
 	  };
 	}
+	
+	function _setGlobalError(errType, limit) {
+	  var ret = {
+	    type: SET_GLOBAL_ERROR,
+	    payload: {
+	      limit: limit
+	    }
+	  };
+	
+	  switch (errType) {
+	    case GLOBAL_ERROR_OVERSELECT:
+	      {
+	        ret.payload.errType = GLOBAL_ERROR_OVERSELECT;
+	        break;
+	      }
+	
+	    case GLOBAL_ERROR_OVERFLOW:
+	      {
+	        ret.payload.errType = GLOBAL_ERROR_OVERFLOW;
+	        break;
+	      }
+	
+	    default:
+	      ret.payload.errType = GLOBAL_ERROR_NONE;
+	  }
+	
+	  return ret;
+	}
+	
+	function setGlobalError(errType, limit) {
+	  return function (dispatch) {
+	    dispatch(_setGlobalError(errType, limit));
+	    if (errType !== GLOBAL_ERROR_NONE) {
+	      setTimeout(function () {
+	        dispatch(_setGlobalError(GLOBAL_ERROR_NONE));
+	      }, 6000);
+	    }
+	  };
+	}
 
 /***/ },
 /* 67 */
@@ -2501,15 +2585,22 @@ var rt_file_uploader =
 	    var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 	    var files = e.originalEvent.dataTransfer.files;
 	
-	    $store.dispatch(Actions.uploadStart({
-	      currentFileEntities: getFileDepot().entities,
-	      currentFileOrder: getFileDepot().order,
-	      uploadFileList: files,
-	      limit: limit,
-	      runningID: getFileDepot().runningID,
-	      onUpload: opts.onUpload,
-	      onDelete: opts.onDelete
-	    }));
+	    if (files.length > opts.limit) {
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+	    } else if (files.length + getFileDepot().order.length > opts.limit) {
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+	    } else {
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+	      $store.dispatch(Actions.uploadStart({
+	        currentFileEntities: getFileDepot().entities,
+	        currentFileOrder: getFileDepot().order,
+	        uploadFileList: files,
+	        limit: limit,
+	        runningID: getFileDepot().runningID,
+	        onUpload: opts.onUpload,
+	        onDelete: opts.onDelete
+	      }));
+	    }
 	  });
 	
 	  return $root;
@@ -2555,17 +2646,37 @@ var rt_file_uploader =
 	
 	  if (!getFileDepot().order.length) {
 	    $root.addClass('hint');
+	
+	    $root.find('[data-ref=globalError]').removeClass('rt-error-bubble');
 	  } else {
 	    $root.removeClass('hint').css('height', 'auto');
+	
+	    $root.find('[data-ref=globalError]').addClass('rt-error-bubble');
 	  }
 	
 	  return $root;
+	}
+	
+	function __renderOnGlobalErrorDepotChange__($store, opts, $root) {
+	  var getGlobalErrorDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GLOBAL_ERROR_DEPOT);
+	  var msg = getGlobalErrorDepot().msg;
+	
+	  if (msg) {
+	    $root.find('[data-ref=limitHint]').addClass('is-hidden');
+	
+	    $root.find('[data-ref=globalError]').text(msg).removeClass('is-hidden');
+	  } else {
+	    $root.find('[data-ref=limitHint]').removeClass('is-hidden');
+	
+	    $root.find('[data-ref=globalError]').text('').addClass('is-hidden');
+	  }
 	}
 	
 	/* exports */
 	function gen($store, opts) {
 	  var getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
 	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	  var getGlobalErrorDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GLOBAL_ERROR_DEPOT);
 	
 	  var limit = opts.limit;
 	
@@ -2573,7 +2684,9 @@ var rt_file_uploader =
 	
 	  var $hintText2 = (0, _jQuery2.default)('<div />').addClass('hint-text').append((0, _jQuery2.default)('<span />').addClass('separator').text('或')).append((0, _jQuery2.default)('<span />').text('拖曳檔案至此'));
 	
-	  var $limitHintText = (0, _jQuery2.default)('<div />').addClass('limit-hint-text').text('\u6700\u591A\u53EF\u4E0A\u50B3 ' + opts.limit + ' \u500B\u6A94\u6848');
+	  var $limitHintText = (0, _jQuery2.default)('<div />').attr('data-ref', 'limitHint').addClass('limit-hint-text').text('\u6700\u591A\u53EF\u4E0A\u50B3 ' + opts.limit + ' \u500B\u6A94\u6848');
+	
+	  var $globalError = (0, _jQuery2.default)('<label />').attr('data-ref', 'globalError').addClass('global-error is-hidden').text(getGlobalErrorDepot().msg);
 	
 	  var $uploadIcon = (0, _jQuery2.default)('<i />').addClass('upload-icon').addClass('fa').addClass('fa-upload');
 	
@@ -2582,15 +2695,22 @@ var rt_file_uploader =
 	    var $this = (0, _jQuery2.default)(e.currentTarget);
 	    var files = $this[0].files;
 	
-	    $store.dispatch(Actions.uploadStart({
-	      currentFileEntities: getFileDepot().entities,
-	      currentFileOrder: getFileDepot().order,
-	      uploadFileList: files,
-	      limit: limit,
-	      runningID: getFileDepot().runningID,
-	      onUpload: opts.onUpload,
-	      onDelete: opts.onDelete
-	    }));
+	    if (files.length > opts.limit) {
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+	    } else if (files.length + getFileDepot().order.length > opts.limit) {
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+	    } else {
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+	      $store.dispatch(Actions.uploadStart({
+	        currentFileEntities: getFileDepot().entities,
+	        currentFileOrder: getFileDepot().order,
+	        uploadFileList: files,
+	        limit: limit,
+	        runningID: getFileDepot().runningID,
+	        onUpload: opts.onUpload,
+	        onDelete: opts.onDelete
+	      }));
+	    }
 	
 	    $this.val('');
 	  });
@@ -2604,12 +2724,16 @@ var rt_file_uploader =
 	    $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
 	  });
 	
-	  var $wrap = (0, _jQuery2.default)('<div />').addClass('wrap').append($uploadIcon).append($hintText1).append($addLocal).append($addRuten).append($hintText2).append($limitHintText);
+	  var $wrap = (0, _jQuery2.default)('<div />').addClass('wrap').append($uploadIcon).append($hintText1).append($addLocal).append($addRuten).append($hintText2).append($limitHintText).append($globalError);
 	
 	  var $root = (0, _jQuery2.default)('<div />').addClass('tool-bar').append($wrap);
 	
 	  $store.listen(Reducers.FILE_DEPOT, function () {
 	    __renderOnFileDepotChange__($store, opts, $root);
+	  });
+	
+	  $store.listen(Reducers.GLOBAL_ERROR_DEPOT, function () {
+	    __renderOnGlobalErrorDepotChange__($store, opts, $root);
 	  });
 	
 	  return __renderOnFileDepotChange__($store, opts, $root);
@@ -3157,23 +3281,30 @@ var rt_file_uploader =
 	        var imageList = getGalleryImageDepot().list;
 	
 	        if (selectionList.length) {
-	          for (var i = 0; i < selectionList.length; i++) {
-	            var selection = selectionList[i];
-	            list.push({
-	              url: imageList[selection].url,
-	              userDefinedData: imageList[selection].userDefinedData
-	            });
-	          }
+	          if (selectionList.length > opts.limit) {
+	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+	          } else if (selectionList.length + getFileDepot().order.length > opts.limit) {
+	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+	          } else {
+	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+	            for (var i = 0; i < selectionList.length; i++) {
+	              var selection = selectionList[i];
+	              list.push({
+	                url: imageList[selection].url,
+	                userDefinedData: imageList[selection].userDefinedData
+	              });
+	            }
 	
-	          $store.dispatch(Actions.uploadFromGalleryStart({
-	            currentFileEntities: getFileDepot().entities,
-	            currentFileOrder: getFileDepot().order,
-	            uploadFiles: list,
-	            limit: opts.limit,
-	            runningID: runningID,
-	            onUploadFromGallery: opts.onUploadFromGallery,
-	            onDelete: opts.onDelete
-	          }));
+	            $store.dispatch(Actions.uploadFromGalleryStart({
+	              currentFileEntities: getFileDepot().entities,
+	              currentFileOrder: getFileDepot().order,
+	              uploadFiles: list,
+	              limit: opts.limit,
+	              runningID: runningID,
+	              onUploadFromGallery: opts.onUploadFromGallery,
+	              onDelete: opts.onDelete
+	            }));
+	          }
 	
 	          $store.dispatch(Actions.triggerGallery());
 	        }

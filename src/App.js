@@ -28,15 +28,22 @@ export function gen($store, opts) {
       const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
       const files = e.originalEvent.dataTransfer.files;
 
-      $store.dispatch(Actions.uploadStart({
-        currentFileEntities: getFileDepot().entities,
-        currentFileOrder: getFileDepot().order,
-        uploadFileList: files,
-        limit: limit,
-        runningID: getFileDepot().runningID,
-        onUpload: opts.onUpload,
-        onDelete: opts.onDelete
-      }));
+      if (files.length > opts.limit) {
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+      } else if (files.length + getFileDepot().order.length > opts.limit) {
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+      } else {
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+        $store.dispatch(Actions.uploadStart({
+          currentFileEntities: getFileDepot().entities,
+          currentFileOrder: getFileDepot().order,
+          uploadFileList: files,
+          limit: limit,
+          runningID: getFileDepot().runningID,
+          onUpload: opts.onUpload,
+          onDelete: opts.onDelete
+        }));
+      }
     });
 
   return $root;

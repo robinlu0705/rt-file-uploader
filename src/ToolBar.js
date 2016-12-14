@@ -10,19 +10,47 @@ function __renderOnFileDepotChange__($store, opts, $root) {
   if (!getFileDepot().order.length) {
     $root
       .addClass('hint');
+
+    $root.find('[data-ref=globalError]')
+      .removeClass('rt-error-bubble');
   } else {
     $root
       .removeClass('hint')
       .css('height', 'auto');
+
+    $root.find('[data-ref=globalError]')
+      .addClass('rt-error-bubble');
   }
 
   return $root;
+}
+
+function __renderOnGlobalErrorDepotChange__($store, opts, $root) {
+  const getGlobalErrorDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GLOBAL_ERROR_DEPOT);
+  const msg = getGlobalErrorDepot().msg;
+
+  if (msg) {
+    $root.find('[data-ref=limitHint]')
+      .addClass('is-hidden');
+
+    $root.find('[data-ref=globalError]')
+      .text(msg)
+      .removeClass('is-hidden');
+  } else {
+    $root.find('[data-ref=limitHint]')
+      .removeClass('is-hidden');
+
+    $root.find('[data-ref=globalError]')
+      .text('')
+      .addClass('is-hidden');
+  }
 }
 
 /* exports */
 export function gen($store, opts) {
   const getGalleryFilterDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_FILTER_DEPOT);
   const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+  const getGlobalErrorDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GLOBAL_ERROR_DEPOT);
 
   const limit = opts.limit;
 
@@ -36,8 +64,14 @@ export function gen($store, opts) {
     .append($('<span />').text('拖曳檔案至此'));
 
   const $limitHintText = $('<div />')
+    .attr('data-ref', 'limitHint')
     .addClass('limit-hint-text')
     .text(`最多可上傳 ${opts.limit} 個檔案`);
+
+  const $globalError = $('<label />')
+    .attr('data-ref', 'globalError')
+    .addClass('global-error is-hidden')
+    .text(getGlobalErrorDepot().msg);
 
   const $uploadIcon = $('<i />')
     .addClass('upload-icon')
@@ -51,15 +85,22 @@ export function gen($store, opts) {
       const $this = $(e.currentTarget);
       const files = $this[0].files;
 
-      $store.dispatch(Actions.uploadStart({
-        currentFileEntities: getFileDepot().entities,
-        currentFileOrder: getFileDepot().order,
-        uploadFileList: files,
-        limit: limit,
-        runningID: getFileDepot().runningID,
-        onUpload: opts.onUpload,
-        onDelete: opts.onDelete
-      }));
+      if (files.length > opts.limit) {
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+      } else if (files.length + getFileDepot().order.length > opts.limit) {
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+      } else {
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+        $store.dispatch(Actions.uploadStart({
+          currentFileEntities: getFileDepot().entities,
+          currentFileOrder: getFileDepot().order,
+          uploadFileList: files,
+          limit: limit,
+          runningID: getFileDepot().runningID,
+          onUpload: opts.onUpload,
+          onDelete: opts.onDelete
+        }));
+      }
 
       $this.val('');
     });
@@ -94,7 +135,8 @@ export function gen($store, opts) {
     .append($addLocal)
     .append($addRuten)
     .append($hintText2)
-    .append($limitHintText);
+    .append($limitHintText)
+    .append($globalError);
 
   const $root = $('<div />')
     .addClass('tool-bar')
@@ -102,6 +144,10 @@ export function gen($store, opts) {
 
   $store.listen(Reducers.FILE_DEPOT, () => {
     __renderOnFileDepotChange__($store, opts, $root);
+  });
+
+  $store.listen(Reducers.GLOBAL_ERROR_DEPOT, () => {
+    __renderOnGlobalErrorDepotChange__($store, opts, $root);
   });
 
   return __renderOnFileDepotChange__($store, opts, $root);

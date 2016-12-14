@@ -3,6 +3,9 @@
 /* constants */
 export const DISPLAY_MODE = 'DISPLAY_MODE';
 export const EDIT_MODE = 'EDIT_MODE';
+export const GLOBAL_ERROR_NONE = 'GLOBAL_ERROR_NONE';
+export const GLOBAL_ERROR_OVERFLOW = 'GLOBAL_ERROR_OVERFLOW';
+export const GLOBAL_ERROR_OVERSELECT = 'GLOBAL_ERROR_OVERSELECT';
 
 /* action type constants */
 export const ADD_LOADING_FILE = 'ADD_LOADING_FILE';
@@ -20,6 +23,7 @@ export const CHANGE_GALLERY_FILTER = 'CHANGE_GALLERY_FILTER';
 export const REQUEST_GALLERY_IMAGE = 'REQUEST_GALLERY_IMAGE';
 export const RECEIVE_GALLERY_IMAGE = 'RECEIVE_GALLERY_IMAGE';
 export const CHANGE_GALLERY_SELECTION = 'CHANGE_GALLERY_SELECTION';
+export const SET_GLOBAL_ERROR = 'SET_GLOBAL_ERROR';
 
 export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileList, limit, runningID, onUpload, onDelete }) {
   return function(dispatch) {
@@ -294,5 +298,42 @@ export function changeGallerySelection(list) {
   return {
     type: CHANGE_GALLERY_SELECTION,
     payload: list
+  };
+}
+
+function _setGlobalError(errType, limit) {
+  const ret = {
+    type: SET_GLOBAL_ERROR,
+    payload: {
+      limit: limit
+    }
+  };
+
+  switch (errType) {
+    case GLOBAL_ERROR_OVERSELECT: {
+      ret.payload.errType = GLOBAL_ERROR_OVERSELECT;
+      break;
+    }
+
+    case GLOBAL_ERROR_OVERFLOW: {
+      ret.payload.errType = GLOBAL_ERROR_OVERFLOW;
+      break;
+    }
+
+    default:
+      ret.payload.errType = GLOBAL_ERROR_NONE;
+  }
+
+  return ret;
+}
+
+export function setGlobalError(errType, limit) {
+  return dispatch => {
+    dispatch(_setGlobalError(errType, limit));
+    if (errType !== GLOBAL_ERROR_NONE) {
+      setTimeout(() => {
+        dispatch(_setGlobalError(GLOBAL_ERROR_NONE));
+      }, 6000);
+    }
   };
 }

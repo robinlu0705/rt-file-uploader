@@ -1,7 +1,10 @@
 @import "ui-button.less";
+@import "ui-error-bubble.less";
 @theme: #81888d;
+@error: #F15959;
 // declare rt-button
 .ui-button-mixin();
+.ui-error-bubble-mixin();
 
 @-moz-keyframes fade-in {
     from {opacity: 0;}
@@ -67,6 +70,12 @@
         display: block;
         line-height: 3;
       }
+
+      .global-error {
+        display: block;
+        color: @error;
+        line-height: 3;
+      }
     }
 
     .wrap {
@@ -107,6 +116,21 @@
       margin-right: 10px;
       color: @theme;
       font-size: 13px;
+
+      &.is-hidden {
+        display: none;
+      }
+    }
+
+    .global-error {
+      display: inline-block;
+      margin-left: 10px;
+      margin-right: 10px;
+      font-size: 13px;
+
+      &.is-hidden {
+        display: none;
+      }
     }
 
     .rt-button + .rt-button {
