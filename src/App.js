@@ -26,14 +26,15 @@ export function gen($store, opts) {
       $root.removeClass('drag-over');
 
       const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+      const getGlobalErrorDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GLOBAL_ERROR_DEPOT);
       const files = e.originalEvent.dataTransfer.files;
 
       if (files.length > opts.limit) {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
       } else if (files.length + getFileDepot().order.length > opts.limit) {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
       } else {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE), opts.limit, getGlobalErrorDepot().timerToken);
         $store.dispatch(Actions.uploadStart({
           currentFileEntities: getFileDepot().entities,
           currentFileOrder: getFileDepot().order,

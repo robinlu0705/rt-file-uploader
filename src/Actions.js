@@ -301,11 +301,12 @@ export function changeGallerySelection(list) {
   };
 }
 
-function _setGlobalError(errType, limit) {
+function _setGlobalError(errType, limit, timerToken) {
   const ret = {
     type: SET_GLOBAL_ERROR,
     payload: {
-      limit: limit
+      limit: limit,
+      timerToken: timerToken
     }
   };
 
@@ -327,13 +328,17 @@ function _setGlobalError(errType, limit) {
   return ret;
 }
 
-export function setGlobalError(errType, limit) {
+export function setGlobalError(errType, limit, timerToken) {
   return dispatch => {
-    dispatch(_setGlobalError(errType, limit));
+    let token;
+
     if (errType !== GLOBAL_ERROR_NONE) {
-      setTimeout(() => {
+      clearTimeout(timerToken);
+      token = setTimeout(() => {
         dispatch(_setGlobalError(GLOBAL_ERROR_NONE));
       }, 6000);
     }
+
+    dispatch(_setGlobalError(errType, limit, token));
   };
 }

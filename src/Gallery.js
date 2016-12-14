@@ -15,6 +15,7 @@ function __render__($store, opts, $root) {
   const getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
   const getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
   const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+  const getGlobalErrorDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GLOBAL_ERROR_DEPOT);
 
   if (getGalleryStatusDepot().isOpened) {
     $root.addClass('is-opened');
@@ -125,11 +126,11 @@ function __render__($store, opts, $root) {
 
           if (selectionList.length) {
             if (selectionList.length > opts.limit) {
-              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
             } else if (selectionList.length + getFileDepot().order.length > opts.limit) {
-              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
             } else {
-              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+              $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE, opts.limit, getGlobalErrorDepot().timerToken));
               for (let i = 0; i < selectionList.length; i++) {
                 const selection = selectionList[i];
                 list.push({

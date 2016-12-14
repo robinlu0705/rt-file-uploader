@@ -409,7 +409,8 @@ export function gallerySelectionDepot(state = gallerySelectionDepotDefaultState,
 }
 
 const globalErrorDepotDefaultState = {
-  msg: ''
+  msg: '',
+  timerToken: null
 };
 
 export function globalErrorDepot(state = globalErrorDepotDefaultState, action) {
@@ -430,7 +431,8 @@ export function globalErrorDepot(state = globalErrorDepotDefaultState, action) {
       }
 
       return Object.assign({}, state, {
-        msg: msg
+        msg: msg,
+        timerToken: action.payload.timerToken
       });
     }
 

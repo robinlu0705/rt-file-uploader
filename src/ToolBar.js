@@ -120,11 +120,11 @@ export function gen($store, opts) {
       const files = $this[0].files;
 
       if (files.length > opts.limit) {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
       } else if (files.length + getFileDepot().order.length > opts.limit) {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
       } else {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE, opts.limit, getGlobalErrorDepot().timerToken));
         $store.dispatch(Actions.uploadStart({
           currentFileEntities: getFileDepot().entities,
           currentFileOrder: getFileDepot().order,

@@ -1610,7 +1610,8 @@ var rt_file_uploader =
 	}
 	
 	var globalErrorDepotDefaultState = {
-	  msg: ''
+	  msg: '',
+	  timerToken: null
 	};
 	
 	function globalErrorDepot() {
@@ -1637,7 +1638,8 @@ var rt_file_uploader =
 	        }
 	
 	        return (0, _assign2.default)({}, state, {
-	          msg: msg
+	          msg: msg,
+	          timerToken: action.payload.timerToken
 	        });
 	      }
 	
@@ -2492,11 +2494,12 @@ var rt_file_uploader =
 	  };
 	}
 	
-	function _setGlobalError(errType, limit) {
+	function _setGlobalError(errType, limit, timerToken) {
 	  var ret = {
 	    type: SET_GLOBAL_ERROR,
 	    payload: {
-	      limit: limit
+	      limit: limit,
+	      timerToken: timerToken
 	    }
 	  };
 	
@@ -2520,14 +2523,18 @@ var rt_file_uploader =
 	  return ret;
 	}
 	
-	function setGlobalError(errType, limit) {
+	function setGlobalError(errType, limit, timerToken) {
 	  return function (dispatch) {
-	    dispatch(_setGlobalError(errType, limit));
+	    var token = void 0;
+	
 	    if (errType !== GLOBAL_ERROR_NONE) {
-	      setTimeout(function () {
+	      clearTimeout(timerToken);
+	      token = setTimeout(function () {
 	        dispatch(_setGlobalError(GLOBAL_ERROR_NONE));
 	      }, 6000);
 	    }
+	
+	    dispatch(_setGlobalError(errType, limit, token));
 	  };
 	}
 
@@ -2583,14 +2590,15 @@ var rt_file_uploader =
 	    $root.removeClass('drag-over');
 	
 	    var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	    var getGlobalErrorDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GLOBAL_ERROR_DEPOT);
 	    var files = e.originalEvent.dataTransfer.files;
 	
 	    if (files.length > opts.limit) {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
 	    } else if (files.length + getFileDepot().order.length > opts.limit) {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
 	    } else {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE), opts.limit, getGlobalErrorDepot().timerToken);
 	      $store.dispatch(Actions.uploadStart({
 	        currentFileEntities: getFileDepot().entities,
 	        currentFileOrder: getFileDepot().order,
@@ -2719,11 +2727,11 @@ var rt_file_uploader =
 	    var files = $this[0].files;
 	
 	    if (files.length > opts.limit) {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
 	    } else if (files.length + getFileDepot().order.length > opts.limit) {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
 	    } else {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE, opts.limit, getGlobalErrorDepot().timerToken));
 	      $store.dispatch(Actions.uploadStart({
 	        currentFileEntities: getFileDepot().entities,
 	        currentFileOrder: getFileDepot().order,
@@ -3231,6 +3239,7 @@ var rt_file_uploader =
 	  var getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
 	  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
 	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	  var getGlobalErrorDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GLOBAL_ERROR_DEPOT);
 	
 	  if (getGalleryStatusDepot().isOpened) {
 	    $root.addClass('is-opened');
@@ -3311,11 +3320,11 @@ var rt_file_uploader =
 	
 	        if (selectionList.length) {
 	          if (selectionList.length > opts.limit) {
-	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit));
+	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
 	          } else if (selectionList.length + getFileDepot().order.length > opts.limit) {
-	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW));
+	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
 	          } else {
-	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE));
+	            $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE, opts.limit, getGlobalErrorDepot().timerToken));
 	            for (var i = 0; i < selectionList.length; i++) {
 	              var selection = selectionList[i];
 	              list.push({
