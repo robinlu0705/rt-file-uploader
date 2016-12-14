@@ -2641,17 +2641,40 @@ var rt_file_uploader =
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* component - ToolBar */
+	function __limitHintDefaultTextGen__(limit) {
+	  return '\u6700\u591A\u53EF\u4E0A\u50B3 ' + limit + ' \u500B\u6A94\u6848';
+	}
+	
 	function __renderOnFileDepotChange__($store, opts, $root) {
 	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	  var fileLength = getFileDepot().order.length;
 	
-	  if (!getFileDepot().order.length) {
+	  if (opts.limit - fileLength > 0) {
+	    $root.find('[data-ref=addLocalInput]').prop('disabled', false);
+	
+	    $root.find('[data-ref=addLocalFakeButton]').removeClass('rt-button-disabled');
+	
+	    $root.find('[data-ref=addRutenButton]').prop('disabled', false).removeClass('rt-button-disabled');
+	  } else {
+	    $root.find('[data-ref=addLocalInput]').prop('disabled', true);
+	
+	    $root.find('[data-ref=addLocalFakeButton]').addClass('rt-button-disabled');
+	
+	    $root.find('[data-ref=addRutenButton]').prop('disabled', true).addClass('rt-button-disabled');
+	  }
+	
+	  if (!fileLength) {
 	    $root.addClass('hint');
 	
 	    $root.find('[data-ref=globalError]').removeClass('rt-error-bubble');
+	
+	    $root.find('[data-ref=limitHint]').text(__limitHintDefaultTextGen__(opts.limit));
 	  } else {
 	    $root.removeClass('hint').css('height', 'auto');
 	
 	    $root.find('[data-ref=globalError]').addClass('rt-error-bubble');
+	
+	    $root.find('[data-ref=limitHint]').text('\u5C1A\u53EF\u4E0A\u50B3 ' + (opts.limit - fileLength) + ' \u500B\u6A94\u6848');
 	  }
 	
 	  return $root;
@@ -2684,14 +2707,14 @@ var rt_file_uploader =
 	
 	  var $hintText2 = (0, _jQuery2.default)('<div />').addClass('hint-text').append((0, _jQuery2.default)('<span />').addClass('separator').text('或')).append((0, _jQuery2.default)('<span />').text('拖曳檔案至此'));
 	
-	  var $limitHintText = (0, _jQuery2.default)('<div />').attr('data-ref', 'limitHint').addClass('limit-hint-text').text('\u6700\u591A\u53EF\u4E0A\u50B3 ' + opts.limit + ' \u500B\u6A94\u6848');
+	  var $limitHintText = (0, _jQuery2.default)('<div />').attr('data-ref', 'limitHint').addClass('limit-hint-text').text(__limitHintDefaultTextGen__(opts.limit));
 	
 	  var $globalError = (0, _jQuery2.default)('<label />').attr('data-ref', 'globalError').addClass('global-error is-hidden').text(getGlobalErrorDepot().msg);
 	
 	  var $uploadIcon = (0, _jQuery2.default)('<i />').addClass('upload-icon').addClass('fa').addClass('fa-upload');
 	
 	  var _$addLocalInput = (0, _jQuery2.default)('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
-	  .addClass('add-local-input').attr('multiple', '').change(function (e) {
+	  .attr('data-ref', 'addLocalInput').addClass('add-local-input').attr('multiple', '').change(function (e) {
 	    var $this = (0, _jQuery2.default)(e.currentTarget);
 	    var files = $this[0].files;
 	
@@ -2715,11 +2738,11 @@ var rt_file_uploader =
 	    $this.val('');
 	  });
 	
-	  var _$addLocalFakeButton = (0, _jQuery2.default)('<div />').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('本地檔案');
+	  var _$addLocalFakeButton = (0, _jQuery2.default)('<div />').attr('data-ref', 'addLocalFakeButton').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('本地檔案');
 	
 	  var $addLocal = (0, _jQuery2.default)('<label />').addClass('action').append(_$addLocalInput).append(_$addLocalFakeButton);
 	
-	  var $addRuten = (0, _jQuery2.default)('<button />').attr('type', 'button').addClass('action').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('露天圖庫').click(function () {
+	  var $addRuten = (0, _jQuery2.default)('<button />').attr('data-ref', 'addRutenButton').attr('type', 'button').addClass('action').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('露天圖庫').click(function () {
 	    $store.dispatch(Actions.triggerGallery());
 	    $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
 	  });

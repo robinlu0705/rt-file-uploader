@@ -4,15 +4,45 @@ import * as FpUtils from 'FpUtils';
 import * as Actions from 'Actions';
 import * as Reducers from 'Reducers';
 
+function __limitHintDefaultTextGen__(limit) {
+  return `最多可上傳 ${limit} 個檔案`;
+}
+
 function __renderOnFileDepotChange__($store, opts, $root) {
   const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+  const fileLength = getFileDepot().order.length;
 
-  if (!getFileDepot().order.length) {
+  if (opts.limit - fileLength > 0) {
+    $root.find('[data-ref=addLocalInput]')
+      .prop('disabled', false);
+
+    $root.find('[data-ref=addLocalFakeButton]')
+      .removeClass('rt-button-disabled');
+
+    $root.find('[data-ref=addRutenButton]')
+      .prop('disabled', false)
+      .removeClass('rt-button-disabled');
+  } else {
+    $root.find('[data-ref=addLocalInput]')
+      .prop('disabled', true);
+
+    $root.find('[data-ref=addLocalFakeButton]')
+      .addClass('rt-button-disabled');
+
+    $root.find('[data-ref=addRutenButton]')
+      .prop('disabled', true)
+      .addClass('rt-button-disabled');
+  }
+
+  if (!fileLength) {
     $root
       .addClass('hint');
 
     $root.find('[data-ref=globalError]')
       .removeClass('rt-error-bubble');
+
+    $root.find('[data-ref=limitHint]')
+      .text(__limitHintDefaultTextGen__(opts.limit));
   } else {
     $root
       .removeClass('hint')
@@ -20,6 +50,9 @@ function __renderOnFileDepotChange__($store, opts, $root) {
 
     $root.find('[data-ref=globalError]')
       .addClass('rt-error-bubble');
+
+    $root.find('[data-ref=limitHint]')
+      .text(`尚可上傳 ${opts.limit - fileLength} 個檔案`);
   }
 
   return $root;
@@ -66,7 +99,7 @@ export function gen($store, opts) {
   const $limitHintText = $('<div />')
     .attr('data-ref', 'limitHint')
     .addClass('limit-hint-text')
-    .text(`最多可上傳 ${opts.limit} 個檔案`);
+    .text(__limitHintDefaultTextGen__(opts.limit));
 
   const $globalError = $('<label />')
     .attr('data-ref', 'globalError')
@@ -79,6 +112,7 @@ export function gen($store, opts) {
     .addClass('fa-upload');
 
   const _$addLocalInput = $('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
+    .attr('data-ref', 'addLocalInput')
     .addClass('add-local-input')
     .attr('multiple', '')
     .change(e => {
@@ -106,6 +140,7 @@ export function gen($store, opts) {
     });
 
   const _$addLocalFakeButton = $('<div />')
+    .attr('data-ref', 'addLocalFakeButton')
     .addClass('rt-button')
     .addClass('rt-button-mini')
     .addClass('rt-button-default')
@@ -117,6 +152,7 @@ export function gen($store, opts) {
     .append(_$addLocalFakeButton);
 
   const $addRuten = $('<button />')
+    .attr('data-ref', 'addRutenButton')
     .attr('type', 'button')
     .addClass('action')
     .addClass('rt-button')
