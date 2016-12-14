@@ -3220,6 +3220,10 @@ var rt_file_uploader =
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* component - Gallery */
+	function __limitHintTextGen__(limit) {
+	  return ' - \u5C1A\u53EF\u9078\u64C7 ' + limit;
+	}
+	
 	function __render__($store, opts, $root) {
 	  /* get states */
 	  var getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
@@ -3236,7 +3240,9 @@ var rt_file_uploader =
 	    $store.dispatch(Actions.triggerGallery());
 	  });
 	
-	  var $dialogTitle = (0, _jQuery2.default)('<div />').addClass('title').text('露天圖庫');
+	  var $limitHint = (0, _jQuery2.default)('<div />').attr('data-ref', 'limitHint').addClass('limit-hint').text(__limitHintTextGen__(opts.limit - getFileDepot().order.length - getGallerySelectionDepot().list.length));
+	
+	  var $dialogTitle = (0, _jQuery2.default)('<div />').addClass('title').append((0, _jQuery2.default)('<div />').addClass('title-text').text('露天圖庫')).append($limitHint);
 	
 	  var $dialogContent = function () {
 	    var $root = (0, _jQuery2.default)('<div />').addClass('content');
@@ -3401,6 +3407,7 @@ var rt_file_uploader =
 	
 	function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
 	  /* get states */
+	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 	  var getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
 	  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
 	
@@ -3419,11 +3426,12 @@ var rt_file_uploader =
 	        var selection = getGallerySelectionDepot().list.slice(0);
 	        var n = $this.index();
 	        var idx = selection.indexOf(n);
+	        var limit = opts.limit - getFileDepot().order.length;
 	
 	        if (idx === -1) {
 	          selection.push(n);
-	          if (selection.length > opts.limit) {
-	            selection = selection.slice(selection.length - opts.limit);
+	          if (selection.length > limit) {
+	            selection = selection.slice(selection.length - limit);
 	          }
 	        } else {
 	          selection.splice(idx, 1);
@@ -3442,6 +3450,7 @@ var rt_file_uploader =
 	
 	function __renderOnGallerySelectionDepotChanged__($store, opts, $root) {
 	  /* get states */
+	  var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 	  var getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
 	
 	  var $listView = $root.find('[data-ref=galleryListView]');
@@ -3452,6 +3461,8 @@ var rt_file_uploader =
 	    var n = getGallerySelectionDepot().list[i];
 	    $listView.children().eq(n).addClass('is-selected');
 	  }
+	
+	  $root.find('[data-ref=limitHint]').text(__limitHintTextGen__(opts.limit - getFileDepot().order.length - getGallerySelectionDepot().list.length));
 	}
 	
 	/* exports */

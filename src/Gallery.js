@@ -4,6 +4,10 @@ import * as FpUtils from 'FpUtils';
 import * as Reducers from 'Reducers';
 import * as Actions from 'Actions';
 
+function __limitHintTextGen__(limit) {
+  return ` - 尚可選擇 ${limit}`;
+}
+
 function __render__($store, opts, $root) {
   /* get states */
   const getGalleryStatusDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_STATUS_DEPOT);
@@ -22,9 +26,15 @@ function __render__($store, opts, $root) {
       $store.dispatch(Actions.triggerGallery());
     });
 
+  const $limitHint = $('<div />')
+    .attr('data-ref', 'limitHint')
+    .addClass('limit-hint')
+    .text(__limitHintTextGen__(opts.limit - getFileDepot().order.length - getGallerySelectionDepot().list.length));
+
   const $dialogTitle = $('<div />')
     .addClass('title')
-    .text('露天圖庫');
+    .append($('<div />').addClass('title-text').text('露天圖庫'))
+    .append($limitHint);
 
   const $dialogContent = (() => {
     const $root = $('<div />')
@@ -224,6 +234,7 @@ function __renderOnGalleryFilterDepotChanged__($store, opts, $root) {
 
 function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
   /* get states */
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
   const getGalleryImageDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_IMAGE_DEPOT);
   const getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
 
@@ -245,11 +256,12 @@ function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
           let selection = getGallerySelectionDepot().list.slice(0);
           const n = $this.index();
           const idx = selection.indexOf(n);
+          const limit = opts.limit - getFileDepot().order.length;
 
           if (idx === -1) {
             selection.push(n);
-            if (selection.length > opts.limit) {
-              selection = selection.slice(selection.length - opts.limit);
+            if (selection.length > limit) {
+              selection = selection.slice(selection.length - limit);
             }
           } else {
             selection.splice(idx, 1);
@@ -271,6 +283,7 @@ function __renderOnGalleryImageDepotChanged__($store, opts, $root) {
 
 function __renderOnGallerySelectionDepotChanged__($store, opts, $root) {
   /* get states */
+  const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
   const getGallerySelectionDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.GALLERY_SELECTION_DEPOT);
 
   const $listView = $root.find('[data-ref=galleryListView]');
@@ -281,6 +294,9 @@ function __renderOnGallerySelectionDepotChanged__($store, opts, $root) {
     const n = getGallerySelectionDepot().list[i];
     $listView.children().eq(n).addClass('is-selected');
   }
+
+  $root.find('[data-ref=limitHint]')
+    .text(__limitHintTextGen__(opts.limit - getFileDepot().order.length - getGallerySelectionDepot().list.length));
 }
 
 /* exports */
