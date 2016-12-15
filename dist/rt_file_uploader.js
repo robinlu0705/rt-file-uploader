@@ -80,19 +80,19 @@ var rt_file_uploader =
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reducers = __webpack_require__(/*! reducers */ 83);
+	var _reducers = __webpack_require__(/*! ./src/reducers */ 83);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
-	var _AppContainer = __webpack_require__(/*! components/AppContainer */ 122);
+	var _AppContainer = __webpack_require__(/*! ./src/components/AppContainer */ 122);
 	
 	var _AppContainer2 = _interopRequireDefault(_AppContainer);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -3232,43 +3232,43 @@ var rt_file_uploader =
 	
 	var _redux = __webpack_require__(/*! redux */ 49);
 	
-	var _fileDepot = __webpack_require__(/*! fileDepot */ 84);
+	var _fileDepot = __webpack_require__(/*! ./src/reducers/fileDepot */ 84);
 	
 	var _fileDepot2 = _interopRequireDefault(_fileDepot);
 	
-	var _layoutDepot = __webpack_require__(/*! layoutDepot */ 113);
+	var _layoutDepot = __webpack_require__(/*! ./src/reducers/layoutDepot */ 113);
 	
 	var _layoutDepot2 = _interopRequireDefault(_layoutDepot);
 	
-	var _modeDepot = __webpack_require__(/*! modeDepot */ 114);
+	var _modeDepot = __webpack_require__(/*! ./src/reducers/modeDepot */ 114);
 	
 	var _modeDepot2 = _interopRequireDefault(_modeDepot);
 	
-	var _editDepot = __webpack_require__(/*! editDepot */ 115);
+	var _editDepot = __webpack_require__(/*! ./src/reducers/editDepot */ 115);
 	
 	var _editDepot2 = _interopRequireDefault(_editDepot);
 	
-	var _placeholderDepot = __webpack_require__(/*! placeholderDepot */ 116);
+	var _placeholderDepot = __webpack_require__(/*! ./src/reducers/placeholderDepot */ 116);
 	
 	var _placeholderDepot2 = _interopRequireDefault(_placeholderDepot);
 	
-	var _galleryStatusDepot = __webpack_require__(/*! galleryStatusDepot */ 117);
+	var _galleryStatusDepot = __webpack_require__(/*! ./src/reducers/galleryStatusDepot */ 117);
 	
 	var _galleryStatusDepot2 = _interopRequireDefault(_galleryStatusDepot);
 	
-	var _galleryFilterDepot = __webpack_require__(/*! galleryFilterDepot */ 118);
+	var _galleryFilterDepot = __webpack_require__(/*! ./src/reducers/galleryFilterDepot */ 118);
 	
 	var _galleryFilterDepot2 = _interopRequireDefault(_galleryFilterDepot);
 	
-	var _galleryImageDepot = __webpack_require__(/*! galleryImageDepot */ 119);
+	var _galleryImageDepot = __webpack_require__(/*! ./src/reducers/galleryImageDepot */ 119);
 	
 	var _galleryImageDepot2 = _interopRequireDefault(_galleryImageDepot);
 	
-	var _gallerySelectionDepot = __webpack_require__(/*! gallerySelectionDepot */ 120);
+	var _gallerySelectionDepot = __webpack_require__(/*! ./src/reducers/gallerySelectionDepot */ 120);
 	
 	var _gallerySelectionDepot2 = _interopRequireDefault(_gallerySelectionDepot);
 	
-	var _globalErrorDepot = __webpack_require__(/*! globalErrorDepot */ 121);
+	var _globalErrorDepot = __webpack_require__(/*! ./src/reducers/globalErrorDepot */ 121);
 	
 	var _globalErrorDepot2 = _interopRequireDefault(_globalErrorDepot);
 	
@@ -3312,11 +3312,11 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -4136,7 +4136,7 @@ var rt_file_uploader =
 	exports.changeGallerySelection = changeGallerySelection;
 	exports.setGlobalError = setGlobalError;
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -4505,7 +4505,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4555,11 +4555,11 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -4615,7 +4615,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4692,7 +4692,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4752,7 +4752,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4802,7 +4802,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4890,7 +4890,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4949,7 +4949,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -5005,11 +5005,11 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -5075,15 +5075,15 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _App = __webpack_require__(/*! App */ 123);
+	var _App = __webpack_require__(/*! ./src/components/App */ 123);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -5168,15 +5168,15 @@ var rt_file_uploader =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ToolBarContainer = __webpack_require__(/*! ToolBarContainer */ 157);
+	var _ToolBarContainer = __webpack_require__(/*! ./src/components/ToolBarContainer */ 157);
 	
 	var _ToolBarContainer2 = _interopRequireDefault(_ToolBarContainer);
 	
-	var _ThumbnailViewerContainer = __webpack_require__(/*! ThumbnailViewerContainer */ 159);
+	var _ThumbnailViewerContainer = __webpack_require__(/*! ./src/components/ThumbnailViewerContainer */ 159);
 	
 	var _ThumbnailViewerContainer2 = _interopRequireDefault(_ThumbnailViewerContainer);
 	
-	var _GalleryContainer = __webpack_require__(/*! GalleryContainer */ 174);
+	var _GalleryContainer = __webpack_require__(/*! ./src/components/GalleryContainer */ 174);
 	
 	var _GalleryContainer2 = _interopRequireDefault(_GalleryContainer);
 	
@@ -6109,15 +6109,15 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _ToolBar = __webpack_require__(/*! ToolBar */ 158);
+	var _ToolBar = __webpack_require__(/*! ./src/components/ToolBar */ 158);
 	
 	var _ToolBar2 = _interopRequireDefault(_ToolBar);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -6331,19 +6331,19 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
-	var _ThumbnailViewer = __webpack_require__(/*! ThumbnailViewer */ 164);
+	var _ThumbnailViewer = __webpack_require__(/*! ./src/components/ThumbnailViewer */ 164);
 	
 	var _ThumbnailViewer2 = _interopRequireDefault(_ThumbnailViewer);
 	
-	var _utils = __webpack_require__(/*! utils */ 173);
+	var _utils = __webpack_require__(/*! ./src/utils */ 173);
 	
 	var utils = _interopRequireWildcard(_utils);
 	
@@ -6610,7 +6610,7 @@ var rt_file_uploader =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _constants = __webpack_require__(/*! constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 112);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -7155,11 +7155,11 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _Gallery = __webpack_require__(/*! Gallery */ 175);
+	var _Gallery = __webpack_require__(/*! ./src/components/Gallery */ 175);
 	
 	var _Gallery2 = _interopRequireDefault(_Gallery);
 	
-	var _actions = __webpack_require__(/*! actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 111);
 	
 	var actions = _interopRequireWildcard(_actions);
 	

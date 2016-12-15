@@ -1,6 +1,6 @@
 /* component - ThumbnailViewer */
 import React from 'react';
-import * as CONSTANTS from 'constants';
+import * as CONSTANTS from '/src/constants';
 
 function ThumbnailContent({ status, url, errMsg }) {
   switch (status) {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import App from 'App';
-import * as actions from 'actions';
-import * as CONSTANTS from 'constants';
+import App from '/src/components/App';
+import * as actions from '/src/actions';
+import * as CONSTANTS from '/src/constants';
 
 function mapStateToProps(state) {
   return {

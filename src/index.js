@@ -3,10 +3,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import reducer from 'reducers';
-import * as CONSTANTS from 'constants';
-import AppContainer from 'components/AppContainer';
-import * as actions from 'actions';
+import reducer from '/src/reducers';
+import * as CONSTANTS from '/src/constants';
+import AppContainer from '/src/components/AppContainer';
+import * as actions from '/src/actions';
 import watch from 'redux-watch';
 
 function __seasonOpts__(opts) {

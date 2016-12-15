@@ -1,4 +1,4 @@
-import * as actions from 'actions';
+import * as actions from '/src/actions';
 
 const defaultState = {
   isOpened: false

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import * as actions from 'actions';
-import * as CONSTANTS from 'constants';
-import ThumbnailViewer from 'ThumbnailViewer';
-import * as utils from 'utils';
+import * as actions from '/src/actions';
+import * as CONSTANTS from '/src/constants';
+import ThumbnailViewer from '/src/components/ThumbnailViewer';
+import * as utils from '/src/utils';
 
 function mapStateToProps(state) {
   return {

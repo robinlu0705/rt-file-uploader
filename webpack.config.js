@@ -14,12 +14,6 @@ module.exports = {
     rt_file_uploader: [ path.join(srcPath, 'index.js') ]
   },
 
-  resolve: {
-    root: srcPath,
-    extensions: ['', '.js'],
-    modulesDirectories: ['node_modules', './']
-  },
-
   output: {
     path: path.join(__dirname, 'dist'),
     filename: PROD ? '[name].min.js' : '[name].js',

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Gallery from 'Gallery';
-import * as actions from 'actions';
+import Gallery from '/src/components/Gallery';
+import * as actions from '/src/actions';
 
 function mapStateToProps(state) {
   return {

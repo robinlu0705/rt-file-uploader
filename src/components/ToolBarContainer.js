@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import ToolBar from 'ToolBar';
-import * as actions from 'actions';
-import * as CONSTANTS from 'constants';
+import ToolBar from '/src/components/ToolBar';
+import * as actions from '/src/actions';
+import * as CONSTANTS from '/src/constants';
 
 function mapStateToProps(state) {
   return {

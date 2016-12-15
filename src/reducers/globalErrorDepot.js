@@ -1,5 +1,5 @@
-import * as actions from 'actions';
-import * as CONSTANTS from 'constants';
+import * as actions from '/src/actions';
+import * as CONSTANTS from '/src/constants';
 
 const defaultState = {
   msg: '',

@@ -1,5 +1,5 @@
 /* actions */
-import * as CONSTANTS from 'constants';
+import * as CONSTANTS from '/src/constants';
 
 /* action type constants */
 export const ADD_LOADING_FILE = 'ADD_LOADING_FILE';

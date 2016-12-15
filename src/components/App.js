@@ -1,8 +1,8 @@
 /* component - App */
 import React from 'react';
-import ToolBarContainer from 'ToolBarContainer';
-import ThumbnailViewerContainer from 'ThumbnailViewerContainer';
-import GalleryContainer from 'GalleryContainer';
+import ToolBarContainer from '/src/components/ToolBarContainer';
+import ThumbnailViewerContainer from '/src/components/ThumbnailViewerContainer';
+import GalleryContainer from '/src/components/GalleryContainer';
 
 /* css prefix constants */
 const IDENTIFIER = 'RT_FILE_UPLOADER';

@@ -5,6 +5,7 @@
   ],
 
   plugins: [
-    [ 'transform-runtime' ]
+    [ 'transform-runtime' ],
+    [ 'babel-root-slash-import' ]
   ]
 }
