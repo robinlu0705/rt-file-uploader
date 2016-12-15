@@ -1626,7 +1626,7 @@ var rt_file_uploader =
 	        switch (action.payload.errType) {
 	          case Actions.GLOBAL_ERROR_OVERFLOW:
 	            {
-	              msg = '檔案已達限定上傳數，若要繼續上傳，請先刪除檔案';
+	              msg = '\u6700\u591A\u50C5\u53EF\u4E0A\u50B3 ' + action.payload.limit + ' \u500B\u6A94\u6848';
 	              break;
 	            }
 	

@@ -420,7 +420,7 @@ export function globalErrorDepot(state = globalErrorDepotDefaultState, action) {
 
       switch (action.payload.errType) {
         case Actions.GLOBAL_ERROR_OVERFLOW: {
-          msg = '檔案已達限定上傳數，若要繼續上傳，請先刪除檔案';
+          msg = `最多僅可上傳 ${action.payload.limit} 個檔案`;
           break;
         }
 
