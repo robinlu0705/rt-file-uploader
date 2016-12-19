@@ -133,7 +133,8 @@ function __renderOnModeDepotChange__($store, opts, $root) {
         cursorY: cursorY
       }));
 
-      for (let [ idx, layout ] of getLayoutDepot().thumbnailLayouts.entries()) {
+      for (let idx = 0; idx < getLayoutDepot().thumbnailLayouts.length; idx++) {
+        const layout = getLayoutDepot().thumbnailLayouts[idx];
         const object = {
           left: layout.left,
           top: layout.top,
@@ -168,7 +169,8 @@ function __renderOnEditDepotChange__($store, opts, $root) {
   const getLayoutDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.LAYOUT_DEPOT);
 
   if (getModeDepot().mode === Actions.EDIT_MODE) {
-    for (let [ idx, entityID ] of getFileDepot().order.entries()) {
+    for (let idx = 0; idx < getFileDepot().order.length; idx++) {
+      const entityID = getFileDepot().order[idx];
       if (entityID === getEditDepot().target) {
         $root
           .children('[data-ref=thumbnail]')

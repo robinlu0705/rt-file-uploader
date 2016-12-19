@@ -119,24 +119,26 @@ export function gen($store, opts) {
       const $this = $(e.currentTarget);
       const files = $this[0].files;
 
-      if (files.length > opts.limit) {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
-      } else if (files.length + getFileDepot().order.length > opts.limit) {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
-      } else {
-        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE, opts.limit, getGlobalErrorDepot().timerToken));
-        $store.dispatch(Actions.uploadStart({
-          currentFileEntities: getFileDepot().entities,
-          currentFileOrder: getFileDepot().order,
-          uploadFileList: files,
-          limit: limit,
-          runningID: getFileDepot().runningID,
-          onUpload: opts.onUpload,
-          onDelete: opts.onDelete
-        }));
-      }
+      if (files.length) {
+        if (files.length > opts.limit) {
+          $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
+        } else if (files.length + getFileDepot().order.length > opts.limit) {
+          $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
+        } else {
+          $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE, opts.limit, getGlobalErrorDepot().timerToken));
+          $store.dispatch(Actions.uploadStart({
+            currentFileEntities: getFileDepot().entities,
+            currentFileOrder: getFileDepot().order,
+            uploadFileList: files,
+            limit: limit,
+            runningID: getFileDepot().runningID,
+            onUpload: opts.onUpload,
+            onDelete: opts.onDelete
+          }));
+        }
 
-      $this.val('');
+        $this.val('');
+      }
     });
 
   const _$addLocalFakeButton = $('<div />')

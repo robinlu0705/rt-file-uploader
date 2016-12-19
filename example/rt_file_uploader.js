@@ -96,7 +96,7 @@ var rt_file_uploader =
 	
 	var ThumbnailViewer = _interopRequireWildcard(_ThumbnailViewer);
 	
-	var _Gallery = __webpack_require__(/*! Gallery */ 74);
+	var _Gallery = __webpack_require__(/*! Gallery */ 70);
 	
 	var Gallery = _interopRequireWildcard(_Gallery);
 	
@@ -2726,24 +2726,26 @@ var rt_file_uploader =
 	    var $this = (0, _jQuery2.default)(e.currentTarget);
 	    var files = $this[0].files;
 	
-	    if (files.length > opts.limit) {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
-	    } else if (files.length + getFileDepot().order.length > opts.limit) {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
-	    } else {
-	      $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE, opts.limit, getGlobalErrorDepot().timerToken));
-	      $store.dispatch(Actions.uploadStart({
-	        currentFileEntities: getFileDepot().entities,
-	        currentFileOrder: getFileDepot().order,
-	        uploadFileList: files,
-	        limit: limit,
-	        runningID: getFileDepot().runningID,
-	        onUpload: opts.onUpload,
-	        onDelete: opts.onDelete
-	      }));
-	    }
+	    if (files.length) {
+	      if (files.length > opts.limit) {
+	        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERSELECT, opts.limit, getGlobalErrorDepot().timerToken));
+	      } else if (files.length + getFileDepot().order.length > opts.limit) {
+	        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_OVERFLOW, opts.limit, getGlobalErrorDepot().timerToken));
+	      } else {
+	        $store.dispatch(Actions.setGlobalError(Actions.GLOBAL_ERROR_NONE, opts.limit, getGlobalErrorDepot().timerToken));
+	        $store.dispatch(Actions.uploadStart({
+	          currentFileEntities: getFileDepot().entities,
+	          currentFileOrder: getFileDepot().order,
+	          uploadFileList: files,
+	          limit: limit,
+	          runningID: getFileDepot().runningID,
+	          onUpload: opts.onUpload,
+	          onDelete: opts.onDelete
+	        }));
+	      }
 	
-	    $this.val('');
+	      $this.val('');
+	    }
 	  });
 	
 	  var _$addLocalFakeButton = (0, _jQuery2.default)('<div />').attr('data-ref', 'addLocalFakeButton').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('本地檔案');
@@ -2782,10 +2784,6 @@ var rt_file_uploader =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _slicedToArray2 = __webpack_require__(/*! babel-runtime/helpers/slicedToArray */ 70);
-	
-	var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 	
 	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 44);
 	
@@ -2949,45 +2947,23 @@ var rt_file_uploader =
 	        cursorY: cursorY
 	      }));
 	
-	      var _iteratorNormalCompletion2 = true;
-	      var _didIteratorError2 = false;
-	      var _iteratorError2 = undefined;
+	      for (var idx = 0; idx < getLayoutDepot().thumbnailLayouts.length; idx++) {
+	        var layout = getLayoutDepot().thumbnailLayouts[idx];
+	        var object = {
+	          left: layout.left,
+	          top: layout.top,
+	          width: thumbnailWidth,
+	          height: thumbnailHeight
+	        };
 	
-	      try {
-	        for (var _iterator2 = (0, _getIterator3.default)(getLayoutDepot().thumbnailLayouts.entries()), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	          var _step2$value = (0, _slicedToArray3.default)(_step2.value, 2),
-	              idx = _step2$value[0],
-	              layout = _step2$value[1];
+	        var pos = {
+	          x: cursorX,
+	          y: cursorY
+	        };
 	
-	          var object = {
-	            left: layout.left,
-	            top: layout.top,
-	            width: thumbnailWidth,
-	            height: thumbnailHeight
-	          };
-	
-	          var pos = {
-	            x: cursorX,
-	            y: cursorY
-	          };
-	
-	          if (Utils.isCollided(object, pos)) {
-	            $store.dispatch(Actions.updatePlaceholder(getFileDepot().order[idx]));
-	            return false;
-	          }
-	        }
-	      } catch (err) {
-	        _didIteratorError2 = true;
-	        _iteratorError2 = err;
-	      } finally {
-	        try {
-	          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	            _iterator2.return();
-	          }
-	        } finally {
-	          if (_didIteratorError2) {
-	            throw _iteratorError2;
-	          }
+	        if (Utils.isCollided(object, pos)) {
+	          $store.dispatch(Actions.updatePlaceholder(getFileDepot().order[idx]));
+	          return false;
 	        }
 	      }
 	    });
@@ -3003,37 +2979,15 @@ var rt_file_uploader =
 	  var getLayoutDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.LAYOUT_DEPOT);
 	
 	  if (getModeDepot().mode === Actions.EDIT_MODE) {
-	    var _iteratorNormalCompletion3 = true;
-	    var _didIteratorError3 = false;
-	    var _iteratorError3 = undefined;
-	
-	    try {
-	      for (var _iterator3 = (0, _getIterator3.default)(getFileDepot().order.entries()), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	        var _step3$value = (0, _slicedToArray3.default)(_step3.value, 2),
-	            idx = _step3$value[0],
-	            entityID = _step3$value[1];
-	
-	        if (entityID === getEditDepot().target) {
-	          $root.children('[data-ref=thumbnail]').eq(idx).attr('date-ref', 'dragTarget').addClass('drag-target').css({
-	            position: 'absolute',
-	            zIndex: '99',
-	            left: getLayoutDepot().thumbnailLayouts[idx].left + getEditDepot().currentPos.x - getEditDepot().startPos.x,
-	            top: getLayoutDepot().thumbnailLayouts[idx].top + getEditDepot().currentPos.y - getEditDepot().startPos.y - 7
-	          });
-	        }
-	      }
-	    } catch (err) {
-	      _didIteratorError3 = true;
-	      _iteratorError3 = err;
-	    } finally {
-	      try {
-	        if (!_iteratorNormalCompletion3 && _iterator3.return) {
-	          _iterator3.return();
-	        }
-	      } finally {
-	        if (_didIteratorError3) {
-	          throw _iteratorError3;
-	        }
+	    for (var idx = 0; idx < getFileDepot().order.length; idx++) {
+	      var entityID = getFileDepot().order[idx];
+	      if (entityID === getEditDepot().target) {
+	        $root.children('[data-ref=thumbnail]').eq(idx).attr('date-ref', 'dragTarget').addClass('drag-target').css({
+	          position: 'absolute',
+	          zIndex: '99',
+	          left: getLayoutDepot().thumbnailLayouts[idx].left + getEditDepot().currentPos.x - getEditDepot().startPos.x,
+	          top: getLayoutDepot().thumbnailLayouts[idx].top + getEditDepot().currentPos.y - getEditDepot().startPos.y - 7
+	        });
 	      }
 	    }
 	  }
@@ -3099,102 +3053,6 @@ var rt_file_uploader =
 
 /***/ },
 /* 70 */
-/*!**************************************************!*\
-  !*** ./~/babel-runtime/helpers/slicedToArray.js ***!
-  \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _isIterable2 = __webpack_require__(/*! ../core-js/is-iterable */ 71);
-	
-	var _isIterable3 = _interopRequireDefault(_isIterable2);
-	
-	var _getIterator2 = __webpack_require__(/*! ../core-js/get-iterator */ 44);
-	
-	var _getIterator3 = _interopRequireDefault(_getIterator2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  function sliceIterator(arr, i) {
-	    var _arr = [];
-	    var _n = true;
-	    var _d = false;
-	    var _e = undefined;
-	
-	    try {
-	      for (var _i = (0, _getIterator3.default)(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
-	        _arr.push(_s.value);
-	
-	        if (i && _arr.length === i) break;
-	      }
-	    } catch (err) {
-	      _d = true;
-	      _e = err;
-	    } finally {
-	      try {
-	        if (!_n && _i["return"]) _i["return"]();
-	      } finally {
-	        if (_d) throw _e;
-	      }
-	    }
-	
-	    return _arr;
-	  }
-	
-	  return function (arr, i) {
-	    if (Array.isArray(arr)) {
-	      return arr;
-	    } else if ((0, _isIterable3.default)(Object(arr))) {
-	      return sliceIterator(arr, i);
-	    } else {
-	      throw new TypeError("Invalid attempt to destructure non-iterable instance");
-	    }
-	  };
-	}();
-
-/***/ },
-/* 71 */
-/*!************************************************!*\
-  !*** ./~/babel-runtime/core-js/is-iterable.js ***!
-  \************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/is-iterable */ 72), __esModule: true };
-
-/***/ },
-/* 72 */
-/*!*************************************************************!*\
-  !*** ./~/babel-runtime/~/core-js/library/fn/is-iterable.js ***!
-  \*************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(/*! ../modules/web.dom.iterable */ 46);
-	__webpack_require__(/*! ../modules/es6.string.iterator */ 61);
-	module.exports = __webpack_require__(/*! ../modules/core.is-iterable */ 73);
-
-/***/ },
-/* 73 */
-/*!***********************************************************************!*\
-  !*** ./~/babel-runtime/~/core-js/library/modules/core.is-iterable.js ***!
-  \***********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var classof   = __webpack_require__(/*! ./_classof */ 65)
-	  , ITERATOR  = __webpack_require__(/*! ./_wks */ 59)('iterator')
-	  , Iterators = __webpack_require__(/*! ./_iterators */ 50);
-	module.exports = __webpack_require__(/*! ./_core */ 7).isIterable = function(it){
-	  var O = Object(it);
-	  return O[ITERATOR] !== undefined
-	    || '@@iterator' in O
-	    || Iterators.hasOwnProperty(classof(O));
-	};
-
-/***/ },
-/* 74 */
 /*!************************!*\
   !*** ./src/Gallery.js ***!
   \************************/
