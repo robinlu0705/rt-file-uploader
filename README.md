@@ -38,7 +38,7 @@ Supports drag-and-drop uploading, drag-and-drop reordering, 露天圖庫.
 
 ```javascript
 var FileUploader = window.RT.FileUploader;
-var fileuploader = FileUploader.gen($('#uploader'), {
+var fileUploader = FileUploader.gen($('#uploader'), {
   /* options */
   limit: 3,
   minHeight: 160,
@@ -233,13 +233,14 @@ var fileuploader = FileUploader.gen($('#uploader'), {
     * `progress`: (Number) From 0 to 100.
     * `errMsg`: (String)
     * `userDefinedDate`: The data you set while invoking `update` or `setFiles`.
+
 * `setFiles`: Explicitly set the file data.
 
     eg:
 
     ```javascript
     var FileUploader = window.RT.FileUploader;
-    fileuploader = FileUploader.gen($('#uploader'), { /* options */ });
+    fileUploader = FileUploader.gen($('#uploader'), { /* options */ });
     
     /* a default file array with 3 elements */
     var defaultFiles = $.map(Array.apply(window, { length: 3 }), function() {
@@ -254,5 +255,21 @@ var fileuploader = FileUploader.gen($('#uploader'), {
       };
     });
 
-    fileuploader.setFiles(defaultFiles);
+    fileUploader.setFiles(defaultFiles);
+    ```
+
+* `deleteFiles`: Delete files for the given IDs.
+
+    eg:
+
+    ```javascript
+    var FileUploader = window.RT.FileUploader;
+    fileUploader = FileUploader.gen($('#uploader'), { /* options */ });
+
+    var allFileIDs = $.map(fileUploader.getFiles(), function(file) {
+      return file.id;
+    });
+
+    /* delete all files */
+    fileUploader.deleteFiles(allfileIDs);
     ```

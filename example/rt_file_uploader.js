@@ -208,6 +208,10 @@ var rt_file_uploader =
 	          userDefinedData: item.userDefinedData
 	        };
 	      }), opts.limit, getFileDepot().runningID, opts.onDelete));
+	    },
+	    deleteFiles: function deleteFiles(IDs) {
+	      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+	      $store.dispatch(Actions.deleteFile(getFileDepot().entities, IDs, opts.onDelete));
 	    }
 	  };
 	};

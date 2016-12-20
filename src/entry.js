@@ -112,6 +112,11 @@ APP_NAMESPACE.gen = ($container, opts) => {
         url: item.url,
         userDefinedData: item.userDefinedData
       })), opts.limit, getFileDepot().runningID, opts.onDelete));
+    },
+
+    deleteFiles(IDs) {
+      const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
+      $store.dispatch(Actions.deleteFile(getFileDepot().entities, IDs, opts.onDelete));
     }
   };
 };
