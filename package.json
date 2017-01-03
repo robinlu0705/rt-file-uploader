@@ -1,6 +1,6 @@
 {
   "name": "rt_file_uploader",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "description": "An UI component for file(image) uploading.",
   "main": "rt_file_uploader.js",
   "directories": {
