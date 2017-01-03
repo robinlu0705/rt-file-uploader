@@ -108,15 +108,31 @@ APP_NAMESPACE.gen = ($container, opts) => {
 
     setFiles(list) {
       const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-      $store.dispatch(Actions.addFile(getFileDepot().entities, getFileDepot().order, list.map(item => ({
+      $store.dispatch(Actions.setFile(getFileDepot().entities, getFileDepot().order, list.map(item => ({
         url: item.url,
-        userDefinedData: item.userDefinedData
+        userDefinedData: item.userDefinedData,
+        status: item.status,
+        progress: item.progress,
+        errMsg: item.errMsg
       })), opts.limit, getFileDepot().runningID, opts.onDelete));
+
+      return this.getFiles();
     },
 
     deleteFiles(IDs) {
       const getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
       $store.dispatch(Actions.deleteFile(getFileDepot().entities, IDs, opts.onDelete));
+    },
+
+    updateFiles(list) {
+      $store.dispatch(Actions.updateFile(list.map(item => ({
+        id: item.id,
+        url: item.url,
+        userDefinedData: item.userDefinedData,
+        status: item.status,
+        progress: item.progress,
+        errMsg: item.errMsg
+      }))));
     }
   };
 };

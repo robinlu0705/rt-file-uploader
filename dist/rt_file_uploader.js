@@ -202,16 +202,33 @@ var rt_file_uploader =
 	    },
 	    setFiles: function setFiles(list) {
 	      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
-	      $store.dispatch(Actions.addFile(getFileDepot().entities, getFileDepot().order, list.map(function (item) {
+	      $store.dispatch(Actions.setFile(getFileDepot().entities, getFileDepot().order, list.map(function (item) {
 	        return {
 	          url: item.url,
-	          userDefinedData: item.userDefinedData
+	          userDefinedData: item.userDefinedData,
+	          status: item.status,
+	          progress: item.progress,
+	          errMsg: item.errMsg
 	        };
 	      }), opts.limit, getFileDepot().runningID, opts.onDelete));
+	
+	      return this.getFiles();
 	    },
 	    deleteFiles: function deleteFiles(IDs) {
 	      var getFileDepot = FpUtils.curryIt($store.getState.bind($store), Reducers.FILE_DEPOT);
 	      $store.dispatch(Actions.deleteFile(getFileDepot().entities, IDs, opts.onDelete));
+	    },
+	    updateFiles: function updateFiles(list) {
+	      $store.dispatch(Actions.updateFile(list.map(function (item) {
+	        return {
+	          id: item.id,
+	          url: item.url,
+	          userDefinedData: item.userDefinedData,
+	          status: item.status,
+	          progress: item.progress,
+	          errMsg: item.errMsg
+	        };
+	      })));
 	    }
 	  };
 	};
@@ -1171,7 +1188,7 @@ var rt_file_uploader =
 	        });
 	      }
 	
-	    case Actions.UPDATE_LOADING_FILE:
+	    case Actions.UPDATE_FILE:
 	      {
 	        var list = action.payload;
 	        var needUpdate = false;
@@ -1217,53 +1234,24 @@ var rt_file_uploader =
 	        }
 	      }
 	
-	    case Actions.ADD_FILE:
+	    case Actions.SET_FILE:
 	      {
 	        var _list = action.payload.list;
 	        var _runningID = action.payload.runningID;
-	        var _remainedIDs = action.payload.remainedIDs;
 	        var _newEntities2 = {};
 	        var _newEntityOrder2 = [];
 	
-	        var _iteratorNormalCompletion2 = true;
-	        var _didIteratorError2 = false;
-	        var _iteratorError2 = undefined;
-	
-	        try {
-	          for (var _iterator2 = (0, _getIterator3.default)(_remainedIDs), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	            var _id5 = _step2.value;
-	
-	            _newEntities2[_id5] = state.entities[_id5];
-	            _newEntityOrder2.push(_id5);
-	          }
-	        } catch (err) {
-	          _didIteratorError2 = true;
-	          _iteratorError2 = err;
-	        } finally {
-	          try {
-	            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	              _iterator2.return();
-	            }
-	          } finally {
-	            if (_didIteratorError2) {
-	              throw _iteratorError2;
-	            }
-	          }
-	        }
-	
 	        for (var _i3 = 0; _i3 < _list.length; _i3++) {
-	          var _id4 = _list[_i3].id;
-	          var _url = _list[_i3].url;
-	          var _userDefinedData = _list[_i3].userDefinedData;
-	          _newEntities2[_id4] = {
-	            url: _url,
-	            status: FILE_STATUS_COMPLETE,
-	            progress: 100,
-	            errMsg: '',
-	            userDefinedData: _userDefinedData
+	          var item = _list[_i3];
+	          _newEntities2[item.id] = {
+	            url: item.url,
+	            status: item.status,
+	            progress: item.progress,
+	            errMsg: item.errMsg,
+	            userDefinedData: item.userDefinedData
 	          };
 	
-	          _newEntityOrder2.push(_id4);
+	          _newEntityOrder2.push(item.id);
 	        }
 	
 	        return (0, _assign2.default)({}, state, {
@@ -1279,32 +1267,32 @@ var rt_file_uploader =
 	        var _newEntities3 = (0, _assign2.default)({}, state.entities);
 	        var _newEntityOrder3 = state.order.slice(0);
 	
-	        var _iteratorNormalCompletion3 = true;
-	        var _didIteratorError3 = false;
-	        var _iteratorError3 = undefined;
+	        var _iteratorNormalCompletion2 = true;
+	        var _didIteratorError2 = false;
+	        var _iteratorError2 = undefined;
 	
 	        try {
-	          for (var _iterator3 = (0, _getIterator3.default)(action.payload), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	            var _id6 = _step3.value;
+	          for (var _iterator2 = (0, _getIterator3.default)(action.payload), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	            var _id4 = _step2.value;
 	
-	            var idx = _newEntityOrder3.indexOf(_id6);
+	            var idx = _newEntityOrder3.indexOf(_id4);
 	
 	            if (idx !== -1) {
-	              delete _newEntities3[_id6];
+	              delete _newEntities3[_id4];
 	              _newEntityOrder3.splice(idx, 1);
 	            }
 	          }
 	        } catch (err) {
-	          _didIteratorError3 = true;
-	          _iteratorError3 = err;
+	          _didIteratorError2 = true;
+	          _iteratorError2 = err;
 	        } finally {
 	          try {
-	            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-	              _iterator3.return();
+	            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	              _iterator2.return();
 	            }
 	          } finally {
-	            if (_didIteratorError3) {
-	              throw _iteratorError3;
+	            if (_didIteratorError2) {
+	              throw _iteratorError2;
 	            }
 	          }
 	        }
@@ -2142,7 +2130,8 @@ var rt_file_uploader =
 	});
 	exports.uploadStart = uploadStart;
 	exports.uploadFromGalleryStart = uploadFromGalleryStart;
-	exports.addFile = addFile;
+	exports.updateFile = updateFile;
+	exports.setFile = setFile;
 	exports.deleteFile = deleteFile;
 	exports.updateLayout = updateLayout;
 	exports.startEdit = startEdit;
@@ -2166,8 +2155,8 @@ var rt_file_uploader =
 	
 	/* action type constants */
 	var ADD_LOADING_FILE = exports.ADD_LOADING_FILE = 'ADD_LOADING_FILE';
-	var UPDATE_LOADING_FILE = exports.UPDATE_LOADING_FILE = 'UPDATE_LOADING_FILE';
-	var ADD_FILE = exports.ADD_FILE = 'ADD_FILE';
+	var UPDATE_FILE = exports.UPDATE_FILE = 'UPDATE_FILE';
+	var SET_FILE = exports.SET_FILE = 'SET_FILE';
 	var DELETE_FILE = exports.DELETE_FILE = 'DELETE_FILE';
 	var START_EDIT = exports.START_EDIT = 'START_EDIT';
 	var UPDATE_EDIT = exports.UPDATE_EDIT = 'UPDATE_EDIT';
@@ -2225,7 +2214,7 @@ var rt_file_uploader =
 	
 	    if (typeof onUpload === 'function') {
 	      var update = function update(list) {
-	        dispatch(updateLoadingFile(list.map(function (item) {
+	        dispatch(updateFile(list.map(function (item) {
 	          return {
 	            id: item.id,
 	            url: item.url,
@@ -2285,7 +2274,7 @@ var rt_file_uploader =
 	
 	    if (typeof onUploadFromGallery === 'function') {
 	      var update = function update(list) {
-	        dispatch(updateLoadingFile(list.map(function (item) {
+	        dispatch(updateFile(list.map(function (item) {
 	          return {
 	            id: item.id,
 	            url: item.url,
@@ -2313,28 +2302,29 @@ var rt_file_uploader =
 	  };
 	}
 	
-	function updateLoadingFile(list) {
+	function updateFile(list) {
 	  return {
-	    type: UPDATE_LOADING_FILE,
+	    type: UPDATE_FILE,
 	    payload: list
 	  };
 	}
 	
-	function addFile(currentFileEntities, currentFileOrder, addList, limit, runningID, onDelete) {
+	function setFile(currentFileEntities, currentFileOrder, setList, limit, runningID, onDelete) {
 	  /* new added items */
-	  var itemList = addList.slice(0, limit).map(function (item, idx) {
+	  var itemList = setList.slice(0, limit).map(function (item, idx) {
 	    return {
 	      id: runningID + 1 + idx,
 	      url: item.url,
+	      status: item.status,
+	      progress: item.progress,
+	      errMsg: item.errMsg,
 	      userDefinedData: item.userDefinedData
 	    };
 	  });
 	
-	  /* delete overflowed items */
-	  var overflow = itemList.length + currentFileOrder.length - limit;
-	  var remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
-	  if (overflow > 0 && typeof onDelete === 'function') {
-	    var deleteIDs = currentFileOrder.slice(0, overflow);
+	  /* delete existed items */
+	  if (typeof onDelete === 'function') {
+	    var deleteIDs = currentFileOrder.slice(0);
 	    onDelete(deleteIDs.map(function (id) {
 	      var entity = currentFileEntities[id];
 	      return {
@@ -2349,10 +2339,9 @@ var rt_file_uploader =
 	  }
 	
 	  return {
-	    type: ADD_FILE,
+	    type: SET_FILE,
 	    payload: {
 	      list: itemList,
-	      remainedIDs: remainedIDs,
 	      runningID: runningID + itemList.length
 	    }
 	  };

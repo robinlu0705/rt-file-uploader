@@ -59,7 +59,7 @@ export function fileDepot(state = fileDepotDefaultState, action) {
       });
     }
 
-    case Actions.UPDATE_LOADING_FILE: {
+    case Actions.UPDATE_FILE: {
       const list = action.payload;
       let needUpdate = false;
       const IDList = list.map(item => item.id);
@@ -102,31 +102,23 @@ export function fileDepot(state = fileDepotDefaultState, action) {
       }
     }
 
-    case Actions.ADD_FILE: {
+    case Actions.SET_FILE: {
       const list = action.payload.list;
       const runningID = action.payload.runningID;
-      const remainedIDs = action.payload.remainedIDs;
       const newEntities = {};
       const newEntityOrder = [];
 
-      for (let id of remainedIDs) {
-        newEntities[id] = state.entities[id];
-        newEntityOrder.push(id);
-      }
-
       for (let i = 0; i < list.length; i++) {
-        const id = list[i].id;
-        const url = list[i].url;
-        const userDefinedData = list[i].userDefinedData;
-        newEntities[id] = {
-          url: url,
-          status: FILE_STATUS_COMPLETE,
-          progress: 100,
-          errMsg: '',
-          userDefinedData: userDefinedData
+        const item = list[i];
+        newEntities[item.id] = {
+          url: item.url,
+          status: item.status,
+          progress: item.progress,
+          errMsg: item.errMsg,
+          userDefinedData: item.userDefinedData
         };
 
-        newEntityOrder.push(id);
+        newEntityOrder.push(item.id);
       }
 
       return Object.assign({}, state, {

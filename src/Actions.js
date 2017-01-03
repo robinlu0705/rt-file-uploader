@@ -9,8 +9,8 @@ export const GLOBAL_ERROR_OVERSELECT = 'GLOBAL_ERROR_OVERSELECT';
 
 /* action type constants */
 export const ADD_LOADING_FILE = 'ADD_LOADING_FILE';
-export const UPDATE_LOADING_FILE = 'UPDATE_LOADING_FILE';
-export const ADD_FILE = 'ADD_FILE';
+export const UPDATE_FILE = 'UPDATE_FILE';
+export const SET_FILE = 'SET_FILE';
 export const DELETE_FILE = 'DELETE_FILE';
 export const START_EDIT = 'START_EDIT';
 export const UPDATE_EDIT = 'UPDATE_EDIT';
@@ -58,7 +58,7 @@ export function uploadStart({ currentFileEntities, currentFileOrder, uploadFileL
 
     if (typeof onUpload === 'function') {
       const update = list => {
-        dispatch(updateLoadingFile(list.map(item => ({
+        dispatch(updateFile(list.map(item => ({
           id: item.id,
           url: item.url,
           status: item.status,
@@ -104,7 +104,7 @@ export function uploadFromGalleryStart({ currentFileEntities, currentFileOrder, 
 
     if (typeof onUploadFromGallery === 'function') {
       const update = list => {
-        dispatch(updateLoadingFile(list.map(item => ({
+        dispatch(updateFile(list.map(item => ({
           id: item.id,
           url: item.url,
           status: item.status,
@@ -130,26 +130,27 @@ function addLoadingFile(IDList, runningID, remainedIDs) {
   };
 }
 
-function updateLoadingFile(list) {
+export function updateFile(list) {
   return {
-    type: UPDATE_LOADING_FILE,
+    type: UPDATE_FILE,
     payload: list
   };
 }
 
-export function addFile(currentFileEntities, currentFileOrder, addList, limit, runningID, onDelete) {
+export function setFile(currentFileEntities, currentFileOrder, setList, limit, runningID, onDelete) {
   /* new added items */
-  const itemList = addList.slice(0, limit).map((item, idx) => ({
+  const itemList = setList.slice(0, limit).map((item, idx) => ({
     id: runningID + 1 + idx,
     url: item.url,
+    status: item.status,
+    progress: item.progress,
+    errMsg: item.errMsg,
     userDefinedData: item.userDefinedData
   }));
 
-  /* delete overflowed items */
-  const overflow = itemList.length + currentFileOrder.length - limit;
-  const remainedIDs = currentFileOrder.slice(0 + overflow, currentFileOrder.length);
-  if (overflow > 0 && typeof onDelete === 'function') {
-    const deleteIDs = currentFileOrder.slice(0, overflow);
+  /* delete existed items */
+  if (typeof onDelete === 'function') {
+    const deleteIDs = currentFileOrder.slice(0);
     onDelete(deleteIDs.map(id => {
       const entity = currentFileEntities[id];
       return {
@@ -164,10 +165,9 @@ export function addFile(currentFileEntities, currentFileOrder, addList, limit, r
   }
 
   return {
-    type: ADD_FILE,
+    type: SET_FILE,
     payload: {
       list: itemList,
-      remainedIDs: remainedIDs,
       runningID: runningID + itemList.length
     }
   };

@@ -234,7 +234,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
     * `errMsg`: (String)
     * `userDefinedDate`: The data you set while invoking `update` or `setFiles`.
 
-* `setFiles`: Explicitly set the file data.
+* `setFiles`: Explicitly sets the file data. Return an array of objects, each object contains all the attributes you set and an additional `id`.
 
     eg:
 
@@ -247,7 +247,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
       return {
         url: 'http://image.url',
         status: FileUploader.FILE_STATUS.COMPLETE,
-        progress: 0,
+        progress: 100,
         errMsg: '',
         userDefinedData: {
           /* anything you need */
@@ -256,6 +256,42 @@ var fileUploader = FileUploader.gen($('#uploader'), {
     });
 
     fileUploader.setFiles(defaultFiles);
+    ```
+
+* `updateFiles`: Explicitly update the file data.
+
+    eg:
+
+    ```javascript
+    var FileUploader = window.RT.FileUploader;
+    fileUploader = FileUploader.gen($('#uploader'), { /* options */ });
+    
+    /* a default file array with 3 elements */
+    var defaultFiles = $.map(Array.apply(window, { length: 3 }), function() {
+      return {
+        url: 'http://image.url',
+        status: FileUploader.FILE_STATUS.LOADING,
+        progress: 0,
+        errMsg: '',
+        userDefinedData: {
+          /* anything you need */
+        }
+      };
+    });
+
+    var pushedFiles = fileUploader.setFiles(defaultFiles);
+
+    /* update the status and progress of the second file */
+    fileUploader.updateFiles($.map(pushedFiles.slice(1, 2), function(elm) {
+      return {
+        id: elm.id,
+        url: elm.url,
+        status: FileUploader.FILE_STATUS.COMPLETE,
+        progress: 100,
+        errMsg: elm.errMsg,
+        userDefinedData: elm.userDefinedData
+      };
+    }));
     ```
 
 * `deleteFiles`: Delete files for the given IDs.
