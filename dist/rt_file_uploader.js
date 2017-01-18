@@ -115,7 +115,8 @@ var rt_file_uploader =
 	    thumbnailWidth: opts.thumbnailWidth || 120,
 	    thumbnailHeight: opts.thumbnailHeight || 90,
 	    limit: opts.limit || 3,
-	    galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : []
+	    galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : [],
+	    accept: opts.accept || ''
 	  });
 	}
 	
@@ -2714,7 +2715,7 @@ var rt_file_uploader =
 	
 	  var $uploadIcon = (0, _jQuery2.default)('<i />').addClass('upload-icon').addClass('fa').addClass('fa-upload');
 	
-	  var _$addLocalInput = (0, _jQuery2.default)('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
+	  var _$addLocalInput = (0, _jQuery2.default)('<input type="file" accept="' + opts.accept + '" capture />') // hack for ie8, since .attr('type', 'file') act oddly
 	  .attr('data-ref', 'addLocalInput').addClass('add-local-input').attr('multiple', '').change(function (e) {
 	    var $this = (0, _jQuery2.default)(e.currentTarget);
 	    var files = $this[0].files;

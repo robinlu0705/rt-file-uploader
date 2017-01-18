@@ -41,6 +41,7 @@ var FileUploader = window.RT.FileUploader;
 var fileUploader = FileUploader.gen($('#uploader'), {
   /* options */
   limit: 3,
+  accept: '.jpeg, .jpg, .png',
   minHeight: 160,
   thumbnailWidth: 120,
   thumbnailHeight: 90,
@@ -63,6 +64,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
 ### Options
 
 * `limit`: (Number) How many files uploader can take. **Default**: 3
+* `accept`: (String) Filter string for file picker. **Default**: '' [reference](http://www.w3schools.com/tags/att_input_accept.asp)
 * `minHeight`: (Number) Minimum height of uploader in pixels. **Default**: 160
 * `thumbnailWidth`: (Number) Thumbnail width in pixels. **Default**: 120
 * `thumbnailHeight`: (Number) Thumbnail height in pixels. **Default**: 90

@@ -20,7 +20,8 @@ function __seasonOpts__(opts) {
     thumbnailWidth: opts.thumbnailWidth || 120,
     thumbnailHeight: opts.thumbnailHeight || 90,
     limit: opts.limit || 3,
-    galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : []
+    galleryFilterOpts: opts.galleryFilterOpts instanceof Array ? opts.galleryFilterOpts : [],
+    accept: opts.accept || ''
   });
 }
 

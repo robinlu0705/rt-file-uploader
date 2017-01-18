@@ -111,7 +111,7 @@ export function gen($store, opts) {
     .addClass('fa')
     .addClass('fa-upload');
 
-  const _$addLocalInput = $('<input type="file" accept="image/*;capture=camera"/>') // hack for ie8, since .attr('type', 'file') act oddly
+  const _$addLocalInput = $(`<input type="file" accept="${opts.accept}" capture />`) // hack for ie8, since .attr('type', 'file') act oddly
     .attr('data-ref', 'addLocalInput')
     .addClass('add-local-input')
     .attr('multiple', '')
