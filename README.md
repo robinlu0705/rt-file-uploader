@@ -311,3 +311,5 @@ var fileUploader = FileUploader.gen($('#uploader'), {
     /* delete all files */
     fileUploader.deleteFiles(allfileIDs);
     ```
+## Development
+Please refer to [DEVELOPMENT.md.](DEVELOPMENT.md)
