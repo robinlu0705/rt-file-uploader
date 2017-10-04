@@ -5,7 +5,7 @@ import * as Actions from 'Actions';
 import * as Reducers from 'Reducers';
 
 function __limitHintDefaultTextGen__(limit) {
-  return `最多可上傳 ${limit} 個檔案`;
+  return `Can still upload ${limit} ${limit === 1 ? 'file' : 'files'}`;
 }
 
 function __renderOnFileDepotChange__($store, opts, $root) {
@@ -19,7 +19,7 @@ function __renderOnFileDepotChange__($store, opts, $root) {
     $root.find('[data-ref=addLocalFakeButton]')
       .removeClass('rt-button-disabled');
 
-    $root.find('[data-ref=addRutenButton]')
+    $root.find('[data-ref=addOnlineButton]')
       .prop('disabled', false)
       .removeClass('rt-button-disabled');
   } else {
@@ -29,7 +29,7 @@ function __renderOnFileDepotChange__($store, opts, $root) {
     $root.find('[data-ref=addLocalFakeButton]')
       .addClass('rt-button-disabled');
 
-    $root.find('[data-ref=addRutenButton]')
+    $root.find('[data-ref=addOnlineButton]')
       .prop('disabled', true)
       .addClass('rt-button-disabled');
   }
@@ -51,8 +51,10 @@ function __renderOnFileDepotChange__($store, opts, $root) {
     $root.find('[data-ref=globalError]')
       .addClass('rt-error-bubble');
 
+    const remains = opts.limit - fileLength;
+
     $root.find('[data-ref=limitHint]')
-      .text(`尚可上傳 ${opts.limit - fileLength} 個檔案`);
+      .text(`Can still upload ${remains} ${remains === 1 ? 'file' : 'files'}`);
   }
 
   return $root;
@@ -89,12 +91,12 @@ export function gen($store, opts) {
 
   const $hintText1 = $('<div />')
     .addClass('hint-text')
-    .append($('<span />').text('選擇檔案'));
+    .append($('<span />').text('Choose files from'));
 
   const $hintText2 = $('<div />')
     .addClass('hint-text')
-    .append($('<span />').addClass('separator').text('或'))
-    .append($('<span />').text('拖曳檔案至此'));
+    .append($('<span />').addClass('separator').text('or'))
+    .append($('<span />').text('DRAG THEM HERE'));
 
   const $limitHintText = $('<div />')
     .attr('data-ref', 'limitHint')
@@ -146,21 +148,21 @@ export function gen($store, opts) {
     .addClass('rt-button')
     .addClass('rt-button-mini')
     .addClass('rt-button-default')
-    .text('本地檔案');
+    .text('LOCAL');
 
   const $addLocal = $('<label />')
     .addClass('action')
     .append(_$addLocalInput)
     .append(_$addLocalFakeButton);
 
-  const $addRuten = $('<button />')
-    .attr('data-ref', 'addRutenButton')
+  const $addOnline = $('<button />')
+    .attr('data-ref', 'addOnlineButton')
     .attr('type', 'button')
     .addClass('action')
     .addClass('rt-button')
     .addClass('rt-button-mini')
     .addClass('rt-button-default')
-    .text('露天圖庫')
+    .text('ONLINE IMAGES')
     .click(() => {
       $store.dispatch(Actions.triggerGallery());
       $store.dispatch(Actions.fetchGalleryImage((getGalleryFilterDepot().categoryList)[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
@@ -171,7 +173,8 @@ export function gen($store, opts) {
     .append($uploadIcon)
     .append($hintText1)
     .append($addLocal)
-    .append($addRuten)
+    .append($('<span />').text('/').css({ margin: '0px 5px' }))
+    .append($addOnline)
     .append($hintText2)
     .append($limitHintText)
     .append($globalError);

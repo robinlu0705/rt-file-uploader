@@ -46,17 +46,17 @@ var rt_file_uploader =
 /*!******************************!*\
   !*** multi rt_file_uploader ***!
   \******************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! /home/robinlu0705/rt_file_uploader/src/entry.js */1);
+	module.exports = __webpack_require__(/*! /Users/robinlu/Code/gcp/rt_file_uploader/src/entry.js */1);
 
 
-/***/ },
+/***/ }),
 /* 1 */
 /*!**********************!*\
   !*** ./src/entry.js ***!
   \**********************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -241,43 +241,43 @@ var rt_file_uploader =
 	  TIMEOUT: Reducers.FILE_STATUS_TIMEOUT
 	};
 
-/***/ },
+/***/ }),
 /* 2 */
 /*!**************************************************!*\
   !*** ./~/babel-runtime/core-js/object/assign.js ***!
   \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/assign */ 3), __esModule: true };
 
-/***/ },
+/***/ }),
 /* 3 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/object/assign.js ***!
   \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ../../modules/es6.object.assign */ 4);
 	module.exports = __webpack_require__(/*! ../../modules/_core */ 7).Object.assign;
 
-/***/ },
+/***/ }),
 /* 4 */
 /*!************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.object.assign.js ***!
   \************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(/*! ./_export */ 5);
 	
 	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(/*! ./_object-assign */ 20)});
 
-/***/ },
+/***/ }),
 /* 5 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_export.js ***!
   \**************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var global    = __webpack_require__(/*! ./_global */ 6)
 	  , core      = __webpack_require__(/*! ./_core */ 7)
@@ -341,34 +341,34 @@ var rt_file_uploader =
 	$export.R = 128; // real proto method for `library` 
 	module.exports = $export;
 
-/***/ },
+/***/ }),
 /* 6 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_global.js ***!
   \**************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 	var global = module.exports = typeof window != 'undefined' && window.Math == Math
 	  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
 	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
 
-/***/ },
+/***/ }),
 /* 7 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_core.js ***!
   \************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var core = module.exports = {version: '2.4.0'};
 	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
-/***/ },
+/***/ }),
 /* 8 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_ctx.js ***!
   \***********************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// optional / simple context binding
 	var aFunction = __webpack_require__(/*! ./_a-function */ 9);
@@ -391,24 +391,24 @@ var rt_file_uploader =
 	  };
 	};
 
-/***/ },
+/***/ }),
 /* 9 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_a-function.js ***!
   \******************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(it){
 	  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
 	  return it;
 	};
 
-/***/ },
+/***/ }),
 /* 10 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_hide.js ***!
   \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var dP         = __webpack_require__(/*! ./_object-dp */ 11)
 	  , createDesc = __webpack_require__(/*! ./_property-desc */ 19);
@@ -419,12 +419,12 @@ var rt_file_uploader =
 	  return object;
 	};
 
-/***/ },
+/***/ }),
 /* 11 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-dp.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var anObject       = __webpack_require__(/*! ./_an-object */ 12)
 	  , IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 14)
@@ -443,12 +443,12 @@ var rt_file_uploader =
 	  return O;
 	};
 
-/***/ },
+/***/ }),
 /* 12 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_an-object.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(/*! ./_is-object */ 13);
 	module.exports = function(it){
@@ -456,46 +456,46 @@ var rt_file_uploader =
 	  return it;
 	};
 
-/***/ },
+/***/ }),
 /* 13 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_is-object.js ***!
   \*****************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(it){
 	  return typeof it === 'object' ? it !== null : typeof it === 'function';
 	};
 
-/***/ },
+/***/ }),
 /* 14 */
 /*!**********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_ie8-dom-define.js ***!
   \**********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = !__webpack_require__(/*! ./_descriptors */ 15) && !__webpack_require__(/*! ./_fails */ 16)(function(){
 	  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 17)('div'), 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
-/***/ },
+/***/ }),
 /* 15 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_descriptors.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// Thank's IE8 for his funny defineProperty
 	module.exports = !__webpack_require__(/*! ./_fails */ 16)(function(){
 	  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
-/***/ },
+/***/ }),
 /* 16 */
 /*!*************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_fails.js ***!
   \*************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(exec){
 	  try {
@@ -505,12 +505,12 @@ var rt_file_uploader =
 	  }
 	};
 
-/***/ },
+/***/ }),
 /* 17 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_dom-create.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(/*! ./_is-object */ 13)
 	  , document = __webpack_require__(/*! ./_global */ 6).document
@@ -520,12 +520,12 @@ var rt_file_uploader =
 	  return is ? document.createElement(it) : {};
 	};
 
-/***/ },
+/***/ }),
 /* 18 */
 /*!********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-primitive.js ***!
   \********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.1 ToPrimitive(input [, PreferredType])
 	var isObject = __webpack_require__(/*! ./_is-object */ 13);
@@ -540,12 +540,12 @@ var rt_file_uploader =
 	  throw TypeError("Can't convert object to primitive value");
 	};
 
-/***/ },
+/***/ }),
 /* 19 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_property-desc.js ***!
   \*********************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(bitmap, value){
 	  return {
@@ -556,12 +556,12 @@ var rt_file_uploader =
 	  };
 	};
 
-/***/ },
+/***/ }),
 /* 20 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-assign.js ***!
   \*********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	// 19.1.2.1 Object.assign(target, source, ...)
@@ -597,12 +597,12 @@ var rt_file_uploader =
 	  } return T;
 	} : $assign;
 
-/***/ },
+/***/ }),
 /* 21 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-keys.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
 	var $keys       = __webpack_require__(/*! ./_object-keys-internal */ 22)
@@ -612,12 +612,12 @@ var rt_file_uploader =
 	  return $keys(O, enumBugKeys);
 	};
 
-/***/ },
+/***/ }),
 /* 22 */
 /*!****************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-keys-internal.js ***!
   \****************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var has          = __webpack_require__(/*! ./_has */ 23)
 	  , toIObject    = __webpack_require__(/*! ./_to-iobject */ 24)
@@ -637,24 +637,24 @@ var rt_file_uploader =
 	  return result;
 	};
 
-/***/ },
+/***/ }),
 /* 23 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_has.js ***!
   \***********************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var hasOwnProperty = {}.hasOwnProperty;
 	module.exports = function(it, key){
 	  return hasOwnProperty.call(it, key);
 	};
 
-/***/ },
+/***/ }),
 /* 24 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-iobject.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// to indexed object, toObject with fallback for non-array-like ES3 strings
 	var IObject = __webpack_require__(/*! ./_iobject */ 25)
@@ -663,12 +663,12 @@ var rt_file_uploader =
 	  return IObject(defined(it));
 	};
 
-/***/ },
+/***/ }),
 /* 25 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iobject.js ***!
   \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// fallback for non-array-like ES3 and non-enumerable old V8 strings
 	var cof = __webpack_require__(/*! ./_cof */ 26);
@@ -676,12 +676,12 @@ var rt_file_uploader =
 	  return cof(it) == 'String' ? it.split('') : Object(it);
 	};
 
-/***/ },
+/***/ }),
 /* 26 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_cof.js ***!
   \***********************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var toString = {}.toString;
 	
@@ -689,12 +689,12 @@ var rt_file_uploader =
 	  return toString.call(it).slice(8, -1);
 	};
 
-/***/ },
+/***/ }),
 /* 27 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_defined.js ***!
   \***************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// 7.2.1 RequireObjectCoercible(argument)
 	module.exports = function(it){
@@ -702,12 +702,12 @@ var rt_file_uploader =
 	  return it;
 	};
 
-/***/ },
+/***/ }),
 /* 28 */
 /*!**********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_array-includes.js ***!
   \**********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// false -> Array#indexOf
 	// true  -> Array#includes
@@ -731,12 +731,12 @@ var rt_file_uploader =
 	  };
 	};
 
-/***/ },
+/***/ }),
 /* 29 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-length.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.15 ToLength
 	var toInteger = __webpack_require__(/*! ./_to-integer */ 30)
@@ -745,12 +745,12 @@ var rt_file_uploader =
 	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 	};
 
-/***/ },
+/***/ }),
 /* 30 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-integer.js ***!
   \******************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// 7.1.4 ToInteger
 	var ceil  = Math.ceil
@@ -759,12 +759,12 @@ var rt_file_uploader =
 	  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 	};
 
-/***/ },
+/***/ }),
 /* 31 */
 /*!****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-index.js ***!
   \****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var toInteger = __webpack_require__(/*! ./_to-integer */ 30)
 	  , max       = Math.max
@@ -774,12 +774,12 @@ var rt_file_uploader =
 	  return index < 0 ? max(index + length, 0) : min(index, length);
 	};
 
-/***/ },
+/***/ }),
 /* 32 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_shared-key.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var shared = __webpack_require__(/*! ./_shared */ 33)('keys')
 	  , uid    = __webpack_require__(/*! ./_uid */ 34);
@@ -787,12 +787,12 @@ var rt_file_uploader =
 	  return shared[key] || (shared[key] = uid(key));
 	};
 
-/***/ },
+/***/ }),
 /* 33 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_shared.js ***!
   \**************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var global = __webpack_require__(/*! ./_global */ 6)
 	  , SHARED = '__core-js_shared__'
@@ -801,12 +801,12 @@ var rt_file_uploader =
 	  return store[key] || (store[key] = {});
 	};
 
-/***/ },
+/***/ }),
 /* 34 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_uid.js ***!
   \***********************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var id = 0
 	  , px = Math.random();
@@ -814,42 +814,42 @@ var rt_file_uploader =
 	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 	};
 
-/***/ },
+/***/ }),
 /* 35 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_enum-bug-keys.js ***!
   \*********************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// IE 8- don't enum bug keys
 	module.exports = (
 	  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
 	).split(',');
 
-/***/ },
+/***/ }),
 /* 36 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-gops.js ***!
   \*******************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	exports.f = Object.getOwnPropertySymbols;
 
-/***/ },
+/***/ }),
 /* 37 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-pie.js ***!
   \******************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	exports.f = {}.propertyIsEnumerable;
 
-/***/ },
+/***/ }),
 /* 38 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-object.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.13 ToObject(argument)
 	var defined = __webpack_require__(/*! ./_defined */ 27);
@@ -857,12 +857,12 @@ var rt_file_uploader =
 	  return Object(defined(it));
 	};
 
-/***/ },
+/***/ }),
 /* 39 */
 /*!************************!*\
   !*** ./src/FpUtils.js ***!
   \************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -901,12 +901,12 @@ var rt_file_uploader =
 	  };
 	}
 
-/***/ },
+/***/ }),
 /* 40 */
 /*!***************************!*\
   !*** ./src/StoreUtils.js ***!
   \***************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1014,21 +1014,21 @@ var rt_file_uploader =
 	  return $store;
 	}
 
-/***/ },
+/***/ }),
 /* 41 */
 /*!*************************!*\
   !*** external "jQuery" ***!
   \*************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = jQuery;
 
-/***/ },
+/***/ }),
 /* 42 */
 /*!**********************!*\
   !*** ./src/Utils.js ***!
   \**********************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -1065,12 +1065,12 @@ var rt_file_uploader =
 	  }
 	}
 
-/***/ },
+/***/ }),
 /* 43 */
 /*!*************************!*\
   !*** ./src/Reducers.js ***!
   \*************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1641,32 +1641,32 @@ var rt_file_uploader =
 	  }
 	}
 
-/***/ },
+/***/ }),
 /* 44 */
 /*!*************************************************!*\
   !*** ./~/babel-runtime/core-js/get-iterator.js ***!
   \*************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/get-iterator */ 45), __esModule: true };
 
-/***/ },
+/***/ }),
 /* 45 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/get-iterator.js ***!
   \**************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ../modules/web.dom.iterable */ 46);
 	__webpack_require__(/*! ../modules/es6.string.iterator */ 61);
 	module.exports = __webpack_require__(/*! ../modules/core.get-iterator */ 63);
 
-/***/ },
+/***/ }),
 /* 46 */
 /*!***********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/web.dom.iterable.js ***!
   \***********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ./es6.array.iterator */ 47);
 	var global        = __webpack_require__(/*! ./_global */ 6)
@@ -1682,12 +1682,12 @@ var rt_file_uploader =
 	  Iterators[NAME] = Iterators.Array;
 	}
 
-/***/ },
+/***/ }),
 /* 47 */
 /*!*************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.array.iterator.js ***!
   \*************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var addToUnscopables = __webpack_require__(/*! ./_add-to-unscopables */ 48)
@@ -1724,41 +1724,41 @@ var rt_file_uploader =
 	addToUnscopables('values');
 	addToUnscopables('entries');
 
-/***/ },
+/***/ }),
 /* 48 */
 /*!**************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_add-to-unscopables.js ***!
   \**************************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(){ /* empty */ };
 
-/***/ },
+/***/ }),
 /* 49 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iter-step.js ***!
   \*****************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(done, value){
 	  return {value: value, done: !!done};
 	};
 
-/***/ },
+/***/ }),
 /* 50 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iterators.js ***!
   \*****************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = {};
 
-/***/ },
+/***/ }),
 /* 51 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iter-define.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var LIBRARY        = __webpack_require__(/*! ./_library */ 52)
@@ -1831,30 +1831,30 @@ var rt_file_uploader =
 	  return methods;
 	};
 
-/***/ },
+/***/ }),
 /* 52 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_library.js ***!
   \***************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = true;
 
-/***/ },
+/***/ }),
 /* 53 */
 /*!****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_redefine.js ***!
   \****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(/*! ./_hide */ 10);
 
-/***/ },
+/***/ }),
 /* 54 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iter-create.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var create         = __webpack_require__(/*! ./_object-create */ 55)
@@ -1870,12 +1870,12 @@ var rt_file_uploader =
 	  setToStringTag(Constructor, NAME + ' Iterator');
 	};
 
-/***/ },
+/***/ }),
 /* 55 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-create.js ***!
   \*********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 	var anObject    = __webpack_require__(/*! ./_an-object */ 12)
@@ -1920,12 +1920,12 @@ var rt_file_uploader =
 	};
 
 
-/***/ },
+/***/ }),
 /* 56 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-dps.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var dP       = __webpack_require__(/*! ./_object-dp */ 11)
 	  , anObject = __webpack_require__(/*! ./_an-object */ 12)
@@ -1941,21 +1941,21 @@ var rt_file_uploader =
 	  return O;
 	};
 
-/***/ },
+/***/ }),
 /* 57 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_html.js ***!
   \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(/*! ./_global */ 6).document && document.documentElement;
 
-/***/ },
+/***/ }),
 /* 58 */
 /*!*************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_set-to-string-tag.js ***!
   \*************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var def = __webpack_require__(/*! ./_object-dp */ 11).f
 	  , has = __webpack_require__(/*! ./_has */ 23)
@@ -1965,12 +1965,12 @@ var rt_file_uploader =
 	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
 	};
 
-/***/ },
+/***/ }),
 /* 59 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_wks.js ***!
   \***********************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var store      = __webpack_require__(/*! ./_shared */ 33)('wks')
 	  , uid        = __webpack_require__(/*! ./_uid */ 34)
@@ -1984,12 +1984,12 @@ var rt_file_uploader =
 	
 	$exports.store = store;
 
-/***/ },
+/***/ }),
 /* 60 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-gpo.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 	var has         = __webpack_require__(/*! ./_has */ 23)
@@ -2005,12 +2005,12 @@ var rt_file_uploader =
 	  } return O instanceof Object ? ObjectProto : null;
 	};
 
-/***/ },
+/***/ }),
 /* 61 */
 /*!**************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.string.iterator.js ***!
   \**************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var $at  = __webpack_require__(/*! ./_string-at */ 62)(true);
@@ -2030,12 +2030,12 @@ var rt_file_uploader =
 	  return {value: point, done: false};
 	});
 
-/***/ },
+/***/ }),
 /* 62 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_string-at.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var toInteger = __webpack_require__(/*! ./_to-integer */ 30)
 	  , defined   = __webpack_require__(/*! ./_defined */ 27);
@@ -2055,12 +2055,12 @@ var rt_file_uploader =
 	  };
 	};
 
-/***/ },
+/***/ }),
 /* 63 */
 /*!************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/core.get-iterator.js ***!
   \************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var anObject = __webpack_require__(/*! ./_an-object */ 12)
 	  , get      = __webpack_require__(/*! ./core.get-iterator-method */ 64);
@@ -2070,12 +2070,12 @@ var rt_file_uploader =
 	  return anObject(iterFn.call(it));
 	};
 
-/***/ },
+/***/ }),
 /* 64 */
 /*!*******************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/core.get-iterator-method.js ***!
   \*******************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var classof   = __webpack_require__(/*! ./_classof */ 65)
 	  , ITERATOR  = __webpack_require__(/*! ./_wks */ 59)('iterator')
@@ -2086,12 +2086,12 @@ var rt_file_uploader =
 	    || Iterators[classof(it)];
 	};
 
-/***/ },
+/***/ }),
 /* 65 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_classof.js ***!
   \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// getting tag from 19.1.3.6 Object.prototype.toString()
 	var cof = __webpack_require__(/*! ./_cof */ 26)
@@ -2117,12 +2117,12 @@ var rt_file_uploader =
 	    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
 	};
 
-/***/ },
+/***/ }),
 /* 66 */
 /*!************************!*\
   !*** ./src/Actions.js ***!
   \************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -2532,12 +2532,12 @@ var rt_file_uploader =
 	  };
 	}
 
-/***/ },
+/***/ }),
 /* 67 */
 /*!********************!*\
   !*** ./src/App.js ***!
   \********************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -2608,12 +2608,12 @@ var rt_file_uploader =
 	  return $root;
 	}
 
-/***/ },
+/***/ }),
 /* 68 */
 /*!************************!*\
   !*** ./src/ToolBar.js ***!
   \************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -2644,7 +2644,7 @@ var rt_file_uploader =
 	
 	/* component - ToolBar */
 	function __limitHintDefaultTextGen__(limit) {
-	  return '\u6700\u591A\u53EF\u4E0A\u50B3 ' + limit + ' \u500B\u6A94\u6848';
+	  return 'Can still upload ' + limit + ' ' + (limit === 1 ? 'file' : 'files');
 	}
 	
 	function __renderOnFileDepotChange__($store, opts, $root) {
@@ -2656,13 +2656,13 @@ var rt_file_uploader =
 	
 	    $root.find('[data-ref=addLocalFakeButton]').removeClass('rt-button-disabled');
 	
-	    $root.find('[data-ref=addRutenButton]').prop('disabled', false).removeClass('rt-button-disabled');
+	    $root.find('[data-ref=addOnlineButton]').prop('disabled', false).removeClass('rt-button-disabled');
 	  } else {
 	    $root.find('[data-ref=addLocalInput]').prop('disabled', true);
 	
 	    $root.find('[data-ref=addLocalFakeButton]').addClass('rt-button-disabled');
 	
-	    $root.find('[data-ref=addRutenButton]').prop('disabled', true).addClass('rt-button-disabled');
+	    $root.find('[data-ref=addOnlineButton]').prop('disabled', true).addClass('rt-button-disabled');
 	  }
 	
 	  if (!fileLength) {
@@ -2676,7 +2676,9 @@ var rt_file_uploader =
 	
 	    $root.find('[data-ref=globalError]').addClass('rt-error-bubble');
 	
-	    $root.find('[data-ref=limitHint]').text('\u5C1A\u53EF\u4E0A\u50B3 ' + (opts.limit - fileLength) + ' \u500B\u6A94\u6848');
+	    var remains = opts.limit - fileLength;
+	
+	    $root.find('[data-ref=limitHint]').text('Can still upload ' + remains + ' ' + (remains === 1 ? 'file' : 'files'));
 	  }
 	
 	  return $root;
@@ -2705,9 +2707,9 @@ var rt_file_uploader =
 	
 	  var limit = opts.limit;
 	
-	  var $hintText1 = (0, _jQuery2.default)('<div />').addClass('hint-text').append((0, _jQuery2.default)('<span />').text('選擇檔案'));
+	  var $hintText1 = (0, _jQuery2.default)('<div />').addClass('hint-text').append((0, _jQuery2.default)('<span />').text('Choose files from'));
 	
-	  var $hintText2 = (0, _jQuery2.default)('<div />').addClass('hint-text').append((0, _jQuery2.default)('<span />').addClass('separator').text('或')).append((0, _jQuery2.default)('<span />').text('拖曳檔案至此'));
+	  var $hintText2 = (0, _jQuery2.default)('<div />').addClass('hint-text').append((0, _jQuery2.default)('<span />').addClass('separator').text('or')).append((0, _jQuery2.default)('<span />').text('DRAG THEM HERE'));
 	
 	  var $limitHintText = (0, _jQuery2.default)('<div />').attr('data-ref', 'limitHint').addClass('limit-hint-text').text(__limitHintDefaultTextGen__(opts.limit));
 	
@@ -2742,16 +2744,16 @@ var rt_file_uploader =
 	    }
 	  });
 	
-	  var _$addLocalFakeButton = (0, _jQuery2.default)('<div />').attr('data-ref', 'addLocalFakeButton').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('本地檔案');
+	  var _$addLocalFakeButton = (0, _jQuery2.default)('<div />').attr('data-ref', 'addLocalFakeButton').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('LOCAL');
 	
 	  var $addLocal = (0, _jQuery2.default)('<label />').addClass('action').append(_$addLocalInput).append(_$addLocalFakeButton);
 	
-	  var $addRuten = (0, _jQuery2.default)('<button />').attr('data-ref', 'addRutenButton').attr('type', 'button').addClass('action').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('露天圖庫').click(function () {
+	  var $addOnline = (0, _jQuery2.default)('<button />').attr('data-ref', 'addOnlineButton').attr('type', 'button').addClass('action').addClass('rt-button').addClass('rt-button-mini').addClass('rt-button-default').text('ONLINE IMAGES').click(function () {
 	    $store.dispatch(Actions.triggerGallery());
 	    $store.dispatch(Actions.fetchGalleryImage(getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].val, getGalleryFilterDepot().page, opts.onFetchGallery));
 	  });
 	
-	  var $wrap = (0, _jQuery2.default)('<div />').addClass('wrap').append($uploadIcon).append($hintText1).append($addLocal).append($addRuten).append($hintText2).append($limitHintText).append($globalError);
+	  var $wrap = (0, _jQuery2.default)('<div />').addClass('wrap').append($uploadIcon).append($hintText1).append($addLocal).append((0, _jQuery2.default)('<span />').text('/').css({ margin: '0px 5px' })).append($addOnline).append($hintText2).append($limitHintText).append($globalError);
 	
 	  var $root = (0, _jQuery2.default)('<div />').addClass('tool-bar').append($wrap);
 	
@@ -2766,12 +2768,12 @@ var rt_file_uploader =
 	  return __renderOnFileDepotChange__($store, opts, $root);
 	}
 
-/***/ },
+/***/ }),
 /* 69 */
 /*!********************************!*\
   !*** ./src/ThumbnailViewer.js ***!
   \********************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3045,12 +3047,12 @@ var rt_file_uploader =
 	  return __render__($store, opts, $root);
 	}
 
-/***/ },
+/***/ }),
 /* 70 */
 /*!************************!*\
   !*** ./src/Gallery.js ***!
   \************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3081,7 +3083,7 @@ var rt_file_uploader =
 	
 	/* component - Gallery */
 	function __limitHintTextGen__(limit) {
-	  return ' - \u5C1A\u53EF\u9078\u64C7 ' + limit;
+	  return ' - Can still choose ' + limit;
 	}
 	
 	function __render__($store, opts, $root) {
@@ -3103,7 +3105,7 @@ var rt_file_uploader =
 	
 	  var $limitHint = (0, _jQuery2.default)('<div />').attr('data-ref', 'limitHint').addClass('limit-hint').text(__limitHintTextGen__(opts.limit - getFileDepot().order.length - getGallerySelectionDepot().list.length));
 	
-	  var $dialogTitle = (0, _jQuery2.default)('<div />').addClass('title').append((0, _jQuery2.default)('<div />').addClass('title-text').text('露天圖庫')).append($limitHint);
+	  var $dialogTitle = (0, _jQuery2.default)('<div />').addClass('title').append((0, _jQuery2.default)('<div />').addClass('title-text').text('Online Images')).append($limitHint);
 	
 	  var $dialogContent = function () {
 	    var $root = (0, _jQuery2.default)('<div />').addClass('content');
@@ -3116,7 +3118,7 @@ var rt_file_uploader =
 	      var $pagination = (0, _jQuery2.default)('<select />').attr('data-ref', 'galleryPagination');
 	
 	      for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
-	        var $option = (0, _jQuery2.default)('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+	        var $option = (0, _jQuery2.default)('<option />').attr('value', i).text(i.toString());
 	
 	        $pagination.append($option);
 	      }
@@ -3164,7 +3166,7 @@ var rt_file_uploader =
 	    var $btnBar = function () {
 	      var $root = (0, _jQuery2.default)('<div />').addClass('btn-bar');
 	
-	      var $ok = (0, _jQuery2.default)('<button />').attr('type', 'button').addClass('rt-button rt-button-mini rt-button-submit').text('確定新增').click(function () {
+	      var $ok = (0, _jQuery2.default)('<button />').attr('type', 'button').addClass('rt-button rt-button-mini rt-button-submit').text('CONFIRM').click(function () {
 	        var list = [];
 	        var runningID = getFileDepot().runningID;
 	        var selectionList = getGallerySelectionDepot().list;
@@ -3200,7 +3202,7 @@ var rt_file_uploader =
 	        }
 	      });
 	
-	      var $no = (0, _jQuery2.default)('<a />').attr('href', '#').text('取消').click(function (e) {
+	      var $no = (0, _jQuery2.default)('<a />').attr('href', '#').text('CANCEL').click(function (e) {
 	        e.preventDefault();
 	        $store.dispatch(Actions.triggerGallery());
 	      });
@@ -3240,7 +3242,7 @@ var rt_file_uploader =
 	
 	  $pagination.empty();
 	  for (var i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
-	    var $option = (0, _jQuery2.default)('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+	    var $option = (0, _jQuery2.default)('<option />').attr('value', i).text(i.toString());
 	
 	    $pagination.append($option);
 	  }
@@ -3349,6 +3351,6 @@ var rt_file_uploader =
 	  return __render__($store, opts, $root);
 	}
 
-/***/ }
+/***/ })
 /******/ ]);
 //# sourceMappingURL=rt_file_uploader.js.map

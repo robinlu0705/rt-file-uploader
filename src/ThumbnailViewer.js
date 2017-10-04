@@ -78,7 +78,7 @@ function __render__($store, opts, $root) {
       .addClass('delete')
       .on('touchstart mousedown', e => {
         e.stopPropagation();
-      }) 
+      })
       .click(e => {
         e.stopPropagation();
         $store.dispatch(Actions.deleteFile(getFileDepot().entities, [ entityID ], opts.onDelete));

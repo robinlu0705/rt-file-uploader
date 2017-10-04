@@ -5,7 +5,7 @@ import * as Reducers from 'Reducers';
 import * as Actions from 'Actions';
 
 function __limitHintTextGen__(limit) {
-  return ` - 尚可選擇 ${limit}`;
+  return ` - Can still choose ${limit}`;
 }
 
 function __render__($store, opts, $root) {
@@ -34,7 +34,7 @@ function __render__($store, opts, $root) {
 
   const $dialogTitle = $('<div />')
     .addClass('title')
-    .append($('<div />').addClass('title-text').text('露天圖庫'))
+    .append($('<div />').addClass('title-text').text('Online Images'))
     .append($limitHint);
 
   const $dialogContent = (() => {
@@ -52,7 +52,7 @@ function __render__($store, opts, $root) {
         .attr('data-ref', 'galleryPagination');
 
       for (let i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
-        const $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+        const $option = $('<option />').attr('value', i).text(i.toString());
 
         $pagination.append($option);
       }
@@ -117,7 +117,7 @@ function __render__($store, opts, $root) {
       const $ok = $('<button />')
         .attr('type', 'button')
         .addClass('rt-button rt-button-mini rt-button-submit')
-        .text('確定新增')
+        .text('CONFIRM')
         .click(() => {
           const list = [];
           const runningID = getFileDepot().runningID;
@@ -156,7 +156,7 @@ function __render__($store, opts, $root) {
 
       var $no = $('<a />')
         .attr('href', '#')
-        .text('取消')
+        .text('CANCEL')
         .click(e => {
           e.preventDefault();
           $store.dispatch(Actions.triggerGallery());
@@ -207,7 +207,7 @@ function __renderOnGalleryFilterDepotChanged__($store, opts, $root) {
 
   $pagination.empty();
   for (let i = 1; i <= getGalleryFilterDepot().categoryList[getGalleryFilterDepot().category].totalPages; i++) {
-    const $option = $('<option />').attr('value', i).text('第 ' + i.toString() + ' 頁');
+    const $option = $('<option />').attr('value', i).text(i.toString());
 
     $pagination.append($option);
   }
