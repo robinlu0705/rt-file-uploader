@@ -1,8 +1,8 @@
-# Ruten File Uploader
+# RT File Uploader
 
-An UI component for file(image) uploading.
+An UI plugin for file(image) uploading.
 
-Supports drag-and-drop uploading, drag-and-drop reordering, 露天圖庫.
+Supports drag-and-drop uploading, drag-and-drop reordering, uploading from online images.
 
 ## Dependencies
 
@@ -73,7 +73,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
     * `categoryVal`: (String) This value will be used in `onFetchGallery`.
     * `totalPages`: (Number) Total pages of the category.
 * `debug`: (Boolean) If true, module will output some debug information. **Default**: false
-* `onUpload`: (Function) Called when user inserts some files through DnD/FilePicker. When it is called, the function is passed 2 arguments: 
+* `onUpload`: (Function) Called when user inserts some files through DnD/FilePicker. When it is called, the function is passed 2 arguments:
     * `itemList`: (Object[]) An array of objects with two properties, `id` (Number) and `file` (File).
     * `update`: (Function) Invoke `update` when you need to update thumbnails.
 
@@ -121,7 +121,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
         }
         ```
 
-* `onFetchGallery`: (Function) Called when Gallery box is up or category/page changed. When it is called, the function is passed 3 arguments: 
+* `onFetchGallery`: (Function) Called when Gallery box is up or category/page changed. When it is called, the function is passed 3 arguments:
     * `categoryVal`: (String)
     * `page`: (Number)
     * `update`: (Function) Invoke `update` to update the images showed in Gallery box.
@@ -151,7 +151,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
         }
         ```
 
-* `onUploadFromGallery`: (Function) Called when user inserts some files through Gallery. When it is called, the function is passed 2 arguments: 
+* `onUploadFromGallery`: (Function) Called when user inserts some files through Gallery. When it is called, the function is passed 2 arguments:
     * `itemList`: (Object[]) An array of objects with three properties, `id` (Number), `url` (String) and `userDefinedData` (Object).
     * `update`: (Function) Invoke `update` when you need to update thumbnails.
 
@@ -199,7 +199,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
         }
         ```
 
-* `onDelete`: (Function) Called when files are dropped from module. This occurred when user click the delete button or pushes old files away by inserting new ones. When it is called, the function is passed 1 argument: 
+* `onDelete`: (Function) Called when files are dropped from module. This occurred when user click the delete button or pushes old files away by inserting new ones. When it is called, the function is passed 1 argument:
     * `itemList`: (Object[]) An array of objects with six properties same as `getFiles`, `id` (Number), `url` (String), `status` (String), `progress` (Number), `errMsg` (String) and `userDefinedData` (Object).
 
         eg:
@@ -243,7 +243,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
     ```javascript
     var FileUploader = window.RT.FileUploader;
     fileUploader = FileUploader.gen($('#uploader'), { /* options */ });
-    
+
     /* a default file array with 3 elements */
     var defaultFiles = $.map(Array.apply(window, { length: 3 }), function() {
       return {
@@ -267,7 +267,7 @@ var fileUploader = FileUploader.gen($('#uploader'), {
     ```javascript
     var FileUploader = window.RT.FileUploader;
     fileUploader = FileUploader.gen($('#uploader'), { /* options */ });
-    
+
     /* a default file array with 3 elements */
     var defaultFiles = $.map(Array.apply(window, { length: 3 }), function() {
       return {
