@@ -7162,7 +7162,7 @@ var rt_file_uploader =
 	        _react2.default.createElement(
 	          'span',
 	          null,
-	          'DRAG IT HERE'
+	          'DRAG THEM HERE'
 	        )
 	      ),
 	      _react2.default.createElement(

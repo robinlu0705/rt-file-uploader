@@ -34,7 +34,7 @@ export default function ToolBar({ opts, showHint, fileCount, errMsg, onLocalFile
       >
         ONLINE IMAGES
       </button>
-      <div className="hint-text"><span className="separator">or</span><span>DRAG IT HERE</span></div>
+      <div className="hint-text"><span className="separator">or</span><span>DRAG THEM HERE</span></div>
       <div className={`limit-hint-text ${errMsg ? 'is-hidden' : ''}`}>{`Can still upload ${remains} ${remains === 1 ? 'files' : 'files'}`}</div>
       <label className={`global-error ${errMsg ? '' : 'is-hidden'} ${showHint ? '' : 'rt-error-bubble'}`}>{errMsg}</label>
     </div>
