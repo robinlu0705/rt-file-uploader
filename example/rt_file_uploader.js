@@ -8269,7 +8269,7 @@ var rt_file_uploader =
 	                        if (idxInSelection === -1) {
 	                          newSelection.push(i);
 	                          if (newSelection.length > selectionLimit) {
-	                            newSelection = newSelection.slice(newSelection.length - opts.limit);
+	                            newSelection = newSelection.slice(newSelection.length - selectionLimit);
 	                          }
 	                        } else {
 	                          newSelection.splice(idxInSelection, 1);
