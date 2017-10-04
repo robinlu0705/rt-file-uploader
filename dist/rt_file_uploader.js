@@ -46,17 +46,17 @@ var rt_file_uploader =
 /*!******************************!*\
   !*** multi rt_file_uploader ***!
   \******************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! /home/robinlu0705/rt_file_uploader/src/index.js */1);
+	module.exports = __webpack_require__(/*! /Users/robinlu/Code/gcp/rt_file_uploader/src/index.js */1);
 
 
-/***/ },
+/***/ }),
 /* 1 */
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -74,29 +74,29 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _redux = __webpack_require__(/*! redux */ 49);
+	var _redux = __webpack_require__(/*! redux */ 57);
 	
-	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 82);
+	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 90);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reducers = __webpack_require__(/*! ./src/reducers */ 83);
+	var _reducers = __webpack_require__(/*! ./src/reducers */ 91);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
-	var _AppContainer = __webpack_require__(/*! ./src/components/AppContainer */ 122);
+	var _AppContainer = __webpack_require__(/*! ./src/components/AppContainer */ 130);
 	
 	var _AppContainer2 = _interopRequireDefault(_AppContainer);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _reduxWatch = __webpack_require__(/*! redux-watch */ 176);
+	var _reduxWatch = __webpack_require__(/*! redux-watch */ 184);
 	
 	var _reduxWatch2 = _interopRequireDefault(_reduxWatch);
 	
@@ -206,43 +206,43 @@ var rt_file_uploader =
 	  TIMEOUT: CONSTANTS.FILE_STATUS_TIMEOUT
 	};
 
-/***/ },
+/***/ }),
 /* 2 */
 /*!**************************************************!*\
   !*** ./~/babel-runtime/core-js/object/assign.js ***!
   \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/assign */ 3), __esModule: true };
 
-/***/ },
+/***/ }),
 /* 3 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/object/assign.js ***!
   \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ../../modules/es6.object.assign */ 4);
 	module.exports = __webpack_require__(/*! ../../modules/_core */ 7).Object.assign;
 
-/***/ },
+/***/ }),
 /* 4 */
 /*!************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.object.assign.js ***!
   \************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(/*! ./_export */ 5);
 	
 	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(/*! ./_object-assign */ 20)});
 
-/***/ },
+/***/ }),
 /* 5 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_export.js ***!
   \**************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var global    = __webpack_require__(/*! ./_global */ 6)
 	  , core      = __webpack_require__(/*! ./_core */ 7)
@@ -306,34 +306,34 @@ var rt_file_uploader =
 	$export.R = 128; // real proto method for `library` 
 	module.exports = $export;
 
-/***/ },
+/***/ }),
 /* 6 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_global.js ***!
   \**************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 	var global = module.exports = typeof window != 'undefined' && window.Math == Math
 	  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
 	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
 
-/***/ },
+/***/ }),
 /* 7 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_core.js ***!
   \************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var core = module.exports = {version: '2.4.0'};
 	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
-/***/ },
+/***/ }),
 /* 8 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_ctx.js ***!
   \***********************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// optional / simple context binding
 	var aFunction = __webpack_require__(/*! ./_a-function */ 9);
@@ -356,24 +356,24 @@ var rt_file_uploader =
 	  };
 	};
 
-/***/ },
+/***/ }),
 /* 9 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_a-function.js ***!
   \******************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(it){
 	  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
 	  return it;
 	};
 
-/***/ },
+/***/ }),
 /* 10 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_hide.js ***!
   \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var dP         = __webpack_require__(/*! ./_object-dp */ 11)
 	  , createDesc = __webpack_require__(/*! ./_property-desc */ 19);
@@ -384,12 +384,12 @@ var rt_file_uploader =
 	  return object;
 	};
 
-/***/ },
+/***/ }),
 /* 11 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-dp.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var anObject       = __webpack_require__(/*! ./_an-object */ 12)
 	  , IE8_DOM_DEFINE = __webpack_require__(/*! ./_ie8-dom-define */ 14)
@@ -408,12 +408,12 @@ var rt_file_uploader =
 	  return O;
 	};
 
-/***/ },
+/***/ }),
 /* 12 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_an-object.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(/*! ./_is-object */ 13);
 	module.exports = function(it){
@@ -421,46 +421,46 @@ var rt_file_uploader =
 	  return it;
 	};
 
-/***/ },
+/***/ }),
 /* 13 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_is-object.js ***!
   \*****************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(it){
 	  return typeof it === 'object' ? it !== null : typeof it === 'function';
 	};
 
-/***/ },
+/***/ }),
 /* 14 */
 /*!**********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_ie8-dom-define.js ***!
   \**********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = !__webpack_require__(/*! ./_descriptors */ 15) && !__webpack_require__(/*! ./_fails */ 16)(function(){
 	  return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ 17)('div'), 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
-/***/ },
+/***/ }),
 /* 15 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_descriptors.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// Thank's IE8 for his funny defineProperty
 	module.exports = !__webpack_require__(/*! ./_fails */ 16)(function(){
 	  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
-/***/ },
+/***/ }),
 /* 16 */
 /*!*************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_fails.js ***!
   \*************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(exec){
 	  try {
@@ -470,12 +470,12 @@ var rt_file_uploader =
 	  }
 	};
 
-/***/ },
+/***/ }),
 /* 17 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_dom-create.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(/*! ./_is-object */ 13)
 	  , document = __webpack_require__(/*! ./_global */ 6).document
@@ -485,12 +485,12 @@ var rt_file_uploader =
 	  return is ? document.createElement(it) : {};
 	};
 
-/***/ },
+/***/ }),
 /* 18 */
 /*!********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-primitive.js ***!
   \********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.1 ToPrimitive(input [, PreferredType])
 	var isObject = __webpack_require__(/*! ./_is-object */ 13);
@@ -505,12 +505,12 @@ var rt_file_uploader =
 	  throw TypeError("Can't convert object to primitive value");
 	};
 
-/***/ },
+/***/ }),
 /* 19 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_property-desc.js ***!
   \*********************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(bitmap, value){
 	  return {
@@ -521,12 +521,12 @@ var rt_file_uploader =
 	  };
 	};
 
-/***/ },
+/***/ }),
 /* 20 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-assign.js ***!
   \*********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	// 19.1.2.1 Object.assign(target, source, ...)
@@ -562,12 +562,12 @@ var rt_file_uploader =
 	  } return T;
 	} : $assign;
 
-/***/ },
+/***/ }),
 /* 21 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-keys.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
 	var $keys       = __webpack_require__(/*! ./_object-keys-internal */ 22)
@@ -577,12 +577,12 @@ var rt_file_uploader =
 	  return $keys(O, enumBugKeys);
 	};
 
-/***/ },
+/***/ }),
 /* 22 */
 /*!****************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-keys-internal.js ***!
   \****************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var has          = __webpack_require__(/*! ./_has */ 23)
 	  , toIObject    = __webpack_require__(/*! ./_to-iobject */ 24)
@@ -602,24 +602,24 @@ var rt_file_uploader =
 	  return result;
 	};
 
-/***/ },
+/***/ }),
 /* 23 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_has.js ***!
   \***********************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var hasOwnProperty = {}.hasOwnProperty;
 	module.exports = function(it, key){
 	  return hasOwnProperty.call(it, key);
 	};
 
-/***/ },
+/***/ }),
 /* 24 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-iobject.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// to indexed object, toObject with fallback for non-array-like ES3 strings
 	var IObject = __webpack_require__(/*! ./_iobject */ 25)
@@ -628,12 +628,12 @@ var rt_file_uploader =
 	  return IObject(defined(it));
 	};
 
-/***/ },
+/***/ }),
 /* 25 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iobject.js ***!
   \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// fallback for non-array-like ES3 and non-enumerable old V8 strings
 	var cof = __webpack_require__(/*! ./_cof */ 26);
@@ -641,12 +641,12 @@ var rt_file_uploader =
 	  return cof(it) == 'String' ? it.split('') : Object(it);
 	};
 
-/***/ },
+/***/ }),
 /* 26 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_cof.js ***!
   \***********************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var toString = {}.toString;
 	
@@ -654,12 +654,12 @@ var rt_file_uploader =
 	  return toString.call(it).slice(8, -1);
 	};
 
-/***/ },
+/***/ }),
 /* 27 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_defined.js ***!
   \***************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// 7.2.1 RequireObjectCoercible(argument)
 	module.exports = function(it){
@@ -667,12 +667,12 @@ var rt_file_uploader =
 	  return it;
 	};
 
-/***/ },
+/***/ }),
 /* 28 */
 /*!**********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_array-includes.js ***!
   \**********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// false -> Array#indexOf
 	// true  -> Array#includes
@@ -696,12 +696,12 @@ var rt_file_uploader =
 	  };
 	};
 
-/***/ },
+/***/ }),
 /* 29 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-length.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.15 ToLength
 	var toInteger = __webpack_require__(/*! ./_to-integer */ 30)
@@ -710,12 +710,12 @@ var rt_file_uploader =
 	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 	};
 
-/***/ },
+/***/ }),
 /* 30 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-integer.js ***!
   \******************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// 7.1.4 ToInteger
 	var ceil  = Math.ceil
@@ -724,12 +724,12 @@ var rt_file_uploader =
 	  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 	};
 
-/***/ },
+/***/ }),
 /* 31 */
 /*!****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-index.js ***!
   \****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var toInteger = __webpack_require__(/*! ./_to-integer */ 30)
 	  , max       = Math.max
@@ -739,12 +739,12 @@ var rt_file_uploader =
 	  return index < 0 ? max(index + length, 0) : min(index, length);
 	};
 
-/***/ },
+/***/ }),
 /* 32 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_shared-key.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var shared = __webpack_require__(/*! ./_shared */ 33)('keys')
 	  , uid    = __webpack_require__(/*! ./_uid */ 34);
@@ -752,12 +752,12 @@ var rt_file_uploader =
 	  return shared[key] || (shared[key] = uid(key));
 	};
 
-/***/ },
+/***/ }),
 /* 33 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_shared.js ***!
   \**************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var global = __webpack_require__(/*! ./_global */ 6)
 	  , SHARED = '__core-js_shared__'
@@ -766,12 +766,12 @@ var rt_file_uploader =
 	  return store[key] || (store[key] = {});
 	};
 
-/***/ },
+/***/ }),
 /* 34 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_uid.js ***!
   \***********************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var id = 0
 	  , px = Math.random();
@@ -779,42 +779,42 @@ var rt_file_uploader =
 	  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 	};
 
-/***/ },
+/***/ }),
 /* 35 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_enum-bug-keys.js ***!
   \*********************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// IE 8- don't enum bug keys
 	module.exports = (
 	  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
 	).split(',');
 
-/***/ },
+/***/ }),
 /* 36 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-gops.js ***!
   \*******************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	exports.f = Object.getOwnPropertySymbols;
 
-/***/ },
+/***/ }),
 /* 37 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-pie.js ***!
   \******************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	exports.f = {}.propertyIsEnumerable;
 
-/***/ },
+/***/ }),
 /* 38 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_to-object.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 7.1.13 ToObject(argument)
 	var defined = __webpack_require__(/*! ./_defined */ 27);
@@ -822,30 +822,30 @@ var rt_file_uploader =
 	  return Object(defined(it));
 	};
 
-/***/ },
+/***/ }),
 /* 39 */
 /*!***************************!*\
   !*** external "ReactDOM" ***!
   \***************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = ReactDOM;
 
-/***/ },
+/***/ }),
 /* 40 */
 /*!************************!*\
   !*** external "React" ***!
   \************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = React;
 
-/***/ },
+/***/ }),
 /* 41 */
 /*!************************************!*\
   !*** ./~/react-redux/lib/index.js ***!
   \************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -856,7 +856,7 @@ var rt_file_uploader =
 	
 	var _Provider2 = _interopRequireDefault(_Provider);
 	
-	var _connect = __webpack_require__(/*! ./components/connect */ 46);
+	var _connect = __webpack_require__(/*! ./components/connect */ 54);
 	
 	var _connect2 = _interopRequireDefault(_connect);
 	
@@ -865,12 +865,12 @@ var rt_file_uploader =
 	exports.Provider = _Provider2["default"];
 	exports.connect = _connect2["default"];
 
-/***/ },
+/***/ }),
 /* 42 */
 /*!**************************************************!*\
   !*** ./~/react-redux/lib/components/Provider.js ***!
   \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
@@ -879,11 +879,15 @@ var rt_file_uploader =
 	
 	var _react = __webpack_require__(/*! react */ 40);
 	
-	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 44);
+	var _propTypes = __webpack_require__(/*! prop-types */ 44);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 52);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _warning = __webpack_require__(/*! ../utils/warning */ 45);
+	var _warning = __webpack_require__(/*! ../utils/warning */ 53);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -945,19 +949,19 @@ var rt_file_uploader =
 	
 	Provider.propTypes = {
 	  store: _storeShape2["default"].isRequired,
-	  children: _react.PropTypes.element.isRequired
+	  children: _propTypes2["default"].element.isRequired
 	};
 	Provider.childContextTypes = {
 	  store: _storeShape2["default"].isRequired
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 43)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
 
-/***/ },
+/***/ }),
 /* 43 */
 /*!**********************************************************!*\
   !*** (webpack)/~/node-libs-browser/~/process/browser.js ***!
   \**********************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// shim for using process in browser
 	var process = module.exports = {};
@@ -1129,6 +1133,10 @@ var rt_file_uploader =
 	process.removeListener = noop;
 	process.removeAllListeners = noop;
 	process.emit = noop;
+	process.prependListener = noop;
+	process.prependOnceListener = noop;
+	
+	process.listeners = function (name) { return [] }
 	
 	process.binding = function (name) {
 	    throw new Error('process.binding is not supported');
@@ -1141,31 +1149,905 @@ var rt_file_uploader =
 	process.umask = function() { return 0; };
 
 
-/***/ },
+/***/ }),
 /* 44 */
+/*!*********************************************!*\
+  !*** ./~/react-redux/~/prop-types/index.js ***!
+  \*********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+	    Symbol.for &&
+	    Symbol.for('react.element')) ||
+	    0xeac7;
+	
+	  var isValidElement = function(object) {
+	    return typeof object === 'object' &&
+	      object !== null &&
+	      object.$$typeof === REACT_ELEMENT_TYPE;
+	  };
+	
+	  // By explicitly using `prop-types` you are opting into new development behavior.
+	  // http://fb.me/prop-types-in-prod
+	  var throwOnDirectAccess = true;
+	  module.exports = __webpack_require__(/*! ./factoryWithTypeCheckers */ 45)(isValidElement, throwOnDirectAccess);
+	} else {
+	  // By explicitly using `prop-types` you are opting into new production behavior.
+	  // http://fb.me/prop-types-in-prod
+	  module.exports = __webpack_require__(/*! ./factoryWithThrowingShims */ 51)();
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
+
+/***/ }),
+/* 45 */
+/*!***************************************************************!*\
+  !*** ./~/react-redux/~/prop-types/factoryWithTypeCheckers.js ***!
+  \***************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	'use strict';
+	
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 46);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 47);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 48);
+	
+	var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ 49);
+	var checkPropTypes = __webpack_require__(/*! ./checkPropTypes */ 50);
+	
+	module.exports = function(isValidElement, throwOnDirectAccess) {
+	  /* global Symbol */
+	  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+	  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+	
+	  /**
+	   * Returns the iterator method function contained on the iterable object.
+	   *
+	   * Be sure to invoke the function with the iterable as context:
+	   *
+	   *     var iteratorFn = getIteratorFn(myIterable);
+	   *     if (iteratorFn) {
+	   *       var iterator = iteratorFn.call(myIterable);
+	   *       ...
+	   *     }
+	   *
+	   * @param {?object} maybeIterable
+	   * @return {?function}
+	   */
+	  function getIteratorFn(maybeIterable) {
+	    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+	    if (typeof iteratorFn === 'function') {
+	      return iteratorFn;
+	    }
+	  }
+	
+	  /**
+	   * Collection of methods that allow declaration and validation of props that are
+	   * supplied to React components. Example usage:
+	   *
+	   *   var Props = require('ReactPropTypes');
+	   *   var MyArticle = React.createClass({
+	   *     propTypes: {
+	   *       // An optional string prop named "description".
+	   *       description: Props.string,
+	   *
+	   *       // A required enum prop named "category".
+	   *       category: Props.oneOf(['News','Photos']).isRequired,
+	   *
+	   *       // A prop named "dialog" that requires an instance of Dialog.
+	   *       dialog: Props.instanceOf(Dialog).isRequired
+	   *     },
+	   *     render: function() { ... }
+	   *   });
+	   *
+	   * A more formal specification of how these methods are used:
+	   *
+	   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+	   *   decl := ReactPropTypes.{type}(.isRequired)?
+	   *
+	   * Each and every declaration produces a function with the same signature. This
+	   * allows the creation of custom validation functions. For example:
+	   *
+	   *  var MyLink = React.createClass({
+	   *    propTypes: {
+	   *      // An optional string or URI prop named "href".
+	   *      href: function(props, propName, componentName) {
+	   *        var propValue = props[propName];
+	   *        if (propValue != null && typeof propValue !== 'string' &&
+	   *            !(propValue instanceof URI)) {
+	   *          return new Error(
+	   *            'Expected a string or an URI for ' + propName + ' in ' +
+	   *            componentName
+	   *          );
+	   *        }
+	   *      }
+	   *    },
+	   *    render: function() {...}
+	   *  });
+	   *
+	   * @internal
+	   */
+	
+	  var ANONYMOUS = '<<anonymous>>';
+	
+	  // Important!
+	  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+	  var ReactPropTypes = {
+	    array: createPrimitiveTypeChecker('array'),
+	    bool: createPrimitiveTypeChecker('boolean'),
+	    func: createPrimitiveTypeChecker('function'),
+	    number: createPrimitiveTypeChecker('number'),
+	    object: createPrimitiveTypeChecker('object'),
+	    string: createPrimitiveTypeChecker('string'),
+	    symbol: createPrimitiveTypeChecker('symbol'),
+	
+	    any: createAnyTypeChecker(),
+	    arrayOf: createArrayOfTypeChecker,
+	    element: createElementTypeChecker(),
+	    instanceOf: createInstanceTypeChecker,
+	    node: createNodeChecker(),
+	    objectOf: createObjectOfTypeChecker,
+	    oneOf: createEnumTypeChecker,
+	    oneOfType: createUnionTypeChecker,
+	    shape: createShapeTypeChecker
+	  };
+	
+	  /**
+	   * inlined Object.is polyfill to avoid requiring consumers ship their own
+	   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+	   */
+	  /*eslint-disable no-self-compare*/
+	  function is(x, y) {
+	    // SameValue algorithm
+	    if (x === y) {
+	      // Steps 1-5, 7-10
+	      // Steps 6.b-6.e: +0 != -0
+	      return x !== 0 || 1 / x === 1 / y;
+	    } else {
+	      // Step 6.a: NaN == NaN
+	      return x !== x && y !== y;
+	    }
+	  }
+	  /*eslint-enable no-self-compare*/
+	
+	  /**
+	   * We use an Error-like object for backward compatibility as people may call
+	   * PropTypes directly and inspect their output. However, we don't use real
+	   * Errors anymore. We don't inspect their stack anyway, and creating them
+	   * is prohibitively expensive if they are created too often, such as what
+	   * happens in oneOfType() for any type before the one that matched.
+	   */
+	  function PropTypeError(message) {
+	    this.message = message;
+	    this.stack = '';
+	  }
+	  // Make `instanceof Error` still work for returned errors.
+	  PropTypeError.prototype = Error.prototype;
+	
+	  function createChainableTypeChecker(validate) {
+	    if (process.env.NODE_ENV !== 'production') {
+	      var manualPropTypeCallCache = {};
+	      var manualPropTypeWarningCount = 0;
+	    }
+	    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+	      componentName = componentName || ANONYMOUS;
+	      propFullName = propFullName || propName;
+	
+	      if (secret !== ReactPropTypesSecret) {
+	        if (throwOnDirectAccess) {
+	          // New behavior only for users of `prop-types` package
+	          invariant(
+	            false,
+	            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+	            'Use `PropTypes.checkPropTypes()` to call them. ' +
+	            'Read more at http://fb.me/use-check-prop-types'
+	          );
+	        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
+	          // Old behavior for people using React.PropTypes
+	          var cacheKey = componentName + ':' + propName;
+	          if (
+	            !manualPropTypeCallCache[cacheKey] &&
+	            // Avoid spamming the console because they are often not actionable except for lib authors
+	            manualPropTypeWarningCount < 3
+	          ) {
+	            warning(
+	              false,
+	              'You are manually calling a React.PropTypes validation ' +
+	              'function for the `%s` prop on `%s`. This is deprecated ' +
+	              'and will throw in the standalone `prop-types` package. ' +
+	              'You may be seeing this warning due to a third-party PropTypes ' +
+	              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
+	              propFullName,
+	              componentName
+	            );
+	            manualPropTypeCallCache[cacheKey] = true;
+	            manualPropTypeWarningCount++;
+	          }
+	        }
+	      }
+	      if (props[propName] == null) {
+	        if (isRequired) {
+	          if (props[propName] === null) {
+	            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+	          }
+	          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+	        }
+	        return null;
+	      } else {
+	        return validate(props, propName, componentName, location, propFullName);
+	      }
+	    }
+	
+	    var chainedCheckType = checkType.bind(null, false);
+	    chainedCheckType.isRequired = checkType.bind(null, true);
+	
+	    return chainedCheckType;
+	  }
+	
+	  function createPrimitiveTypeChecker(expectedType) {
+	    function validate(props, propName, componentName, location, propFullName, secret) {
+	      var propValue = props[propName];
+	      var propType = getPropType(propValue);
+	      if (propType !== expectedType) {
+	        // `propValue` being instance of, say, date/regexp, pass the 'object'
+	        // check, but we can offer a more precise error message here rather than
+	        // 'of type `object`'.
+	        var preciseType = getPreciseType(propValue);
+	
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createAnyTypeChecker() {
+	    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
+	  }
+	
+	  function createArrayOfTypeChecker(typeChecker) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      if (typeof typeChecker !== 'function') {
+	        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+	      }
+	      var propValue = props[propName];
+	      if (!Array.isArray(propValue)) {
+	        var propType = getPropType(propValue);
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+	      }
+	      for (var i = 0; i < propValue.length; i++) {
+	        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
+	        if (error instanceof Error) {
+	          return error;
+	        }
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createElementTypeChecker() {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      var propValue = props[propName];
+	      if (!isValidElement(propValue)) {
+	        var propType = getPropType(propValue);
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createInstanceTypeChecker(expectedClass) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      if (!(props[propName] instanceof expectedClass)) {
+	        var expectedClassName = expectedClass.name || ANONYMOUS;
+	        var actualClassName = getClassName(props[propName]);
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createEnumTypeChecker(expectedValues) {
+	    if (!Array.isArray(expectedValues)) {
+	      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+	      return emptyFunction.thatReturnsNull;
+	    }
+	
+	    function validate(props, propName, componentName, location, propFullName) {
+	      var propValue = props[propName];
+	      for (var i = 0; i < expectedValues.length; i++) {
+	        if (is(propValue, expectedValues[i])) {
+	          return null;
+	        }
+	      }
+	
+	      var valuesString = JSON.stringify(expectedValues);
+	      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createObjectOfTypeChecker(typeChecker) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      if (typeof typeChecker !== 'function') {
+	        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+	      }
+	      var propValue = props[propName];
+	      var propType = getPropType(propValue);
+	      if (propType !== 'object') {
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+	      }
+	      for (var key in propValue) {
+	        if (propValue.hasOwnProperty(key)) {
+	          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+	          if (error instanceof Error) {
+	            return error;
+	          }
+	        }
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createUnionTypeChecker(arrayOfTypeCheckers) {
+	    if (!Array.isArray(arrayOfTypeCheckers)) {
+	      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+	      return emptyFunction.thatReturnsNull;
+	    }
+	
+	    function validate(props, propName, componentName, location, propFullName) {
+	      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+	        var checker = arrayOfTypeCheckers[i];
+	        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
+	          return null;
+	        }
+	      }
+	
+	      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createNodeChecker() {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      if (!isNode(props[propName])) {
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createShapeTypeChecker(shapeTypes) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      var propValue = props[propName];
+	      var propType = getPropType(propValue);
+	      if (propType !== 'object') {
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+	      }
+	      for (var key in shapeTypes) {
+	        var checker = shapeTypes[key];
+	        if (!checker) {
+	          continue;
+	        }
+	        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+	        if (error) {
+	          return error;
+	        }
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function isNode(propValue) {
+	    switch (typeof propValue) {
+	      case 'number':
+	      case 'string':
+	      case 'undefined':
+	        return true;
+	      case 'boolean':
+	        return !propValue;
+	      case 'object':
+	        if (Array.isArray(propValue)) {
+	          return propValue.every(isNode);
+	        }
+	        if (propValue === null || isValidElement(propValue)) {
+	          return true;
+	        }
+	
+	        var iteratorFn = getIteratorFn(propValue);
+	        if (iteratorFn) {
+	          var iterator = iteratorFn.call(propValue);
+	          var step;
+	          if (iteratorFn !== propValue.entries) {
+	            while (!(step = iterator.next()).done) {
+	              if (!isNode(step.value)) {
+	                return false;
+	              }
+	            }
+	          } else {
+	            // Iterator will provide entry [k,v] tuples rather than values.
+	            while (!(step = iterator.next()).done) {
+	              var entry = step.value;
+	              if (entry) {
+	                if (!isNode(entry[1])) {
+	                  return false;
+	                }
+	              }
+	            }
+	          }
+	        } else {
+	          return false;
+	        }
+	
+	        return true;
+	      default:
+	        return false;
+	    }
+	  }
+	
+	  function isSymbol(propType, propValue) {
+	    // Native Symbol.
+	    if (propType === 'symbol') {
+	      return true;
+	    }
+	
+	    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+	    if (propValue['@@toStringTag'] === 'Symbol') {
+	      return true;
+	    }
+	
+	    // Fallback for non-spec compliant Symbols which are polyfilled.
+	    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+	      return true;
+	    }
+	
+	    return false;
+	  }
+	
+	  // Equivalent of `typeof` but with special handling for array and regexp.
+	  function getPropType(propValue) {
+	    var propType = typeof propValue;
+	    if (Array.isArray(propValue)) {
+	      return 'array';
+	    }
+	    if (propValue instanceof RegExp) {
+	      // Old webkits (at least until Android 4.0) return 'function' rather than
+	      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+	      // passes PropTypes.object.
+	      return 'object';
+	    }
+	    if (isSymbol(propType, propValue)) {
+	      return 'symbol';
+	    }
+	    return propType;
+	  }
+	
+	  // This handles more types than `getPropType`. Only used for error messages.
+	  // See `createPrimitiveTypeChecker`.
+	  function getPreciseType(propValue) {
+	    var propType = getPropType(propValue);
+	    if (propType === 'object') {
+	      if (propValue instanceof Date) {
+	        return 'date';
+	      } else if (propValue instanceof RegExp) {
+	        return 'regexp';
+	      }
+	    }
+	    return propType;
+	  }
+	
+	  // Returns class name of the object, if any.
+	  function getClassName(propValue) {
+	    if (!propValue.constructor || !propValue.constructor.name) {
+	      return ANONYMOUS;
+	    }
+	    return propValue.constructor.name;
+	  }
+	
+	  ReactPropTypes.checkPropTypes = checkPropTypes;
+	  ReactPropTypes.PropTypes = ReactPropTypes;
+	
+	  return ReactPropTypes;
+	};
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
+
+/***/ }),
+/* 46 */
+/*!****************************************************************!*\
+  !*** ./~/react-redux/~/prop-types/~/fbjs/lib/emptyFunction.js ***!
+  \****************************************************************/
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * 
+	 */
+	
+	function makeEmptyFunction(arg) {
+	  return function () {
+	    return arg;
+	  };
+	}
+	
+	/**
+	 * This function accepts and discards inputs; it has no side effects. This is
+	 * primarily useful idiomatically for overridable function endpoints which
+	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+	 */
+	var emptyFunction = function emptyFunction() {};
+	
+	emptyFunction.thatReturns = makeEmptyFunction;
+	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+	emptyFunction.thatReturnsThis = function () {
+	  return this;
+	};
+	emptyFunction.thatReturnsArgument = function (arg) {
+	  return arg;
+	};
+	
+	module.exports = emptyFunction;
+
+/***/ }),
+/* 47 */
+/*!************************************************************!*\
+  !*** ./~/react-redux/~/prop-types/~/fbjs/lib/invariant.js ***!
+  \************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 */
+	
+	'use strict';
+	
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	var validateFormat = function validateFormat(format) {};
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  validateFormat = function validateFormat(format) {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  };
+	}
+	
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  validateFormat(format);
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	      error.name = 'Invariant Violation';
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	}
+	
+	module.exports = invariant;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
+
+/***/ }),
+/* 48 */
+/*!**********************************************************!*\
+  !*** ./~/react-redux/~/prop-types/~/fbjs/lib/warning.js ***!
+  \**********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 */
+	
+	'use strict';
+	
+	var emptyFunction = __webpack_require__(/*! ./emptyFunction */ 46);
+	
+	/**
+	 * Similar to invariant but only logs a warning if the condition is not met.
+	 * This can be used to log issues in development environments in critical
+	 * paths. Removing the logging code for production environments will keep the
+	 * same logic and follow the same code paths.
+	 */
+	
+	var warning = emptyFunction;
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  (function () {
+	    var printWarning = function printWarning(format) {
+	      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	        args[_key - 1] = arguments[_key];
+	      }
+	
+	      var argIndex = 0;
+	      var message = 'Warning: ' + format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      });
+	      if (typeof console !== 'undefined') {
+	        console.error(message);
+	      }
+	      try {
+	        // --- Welcome to debugging React ---
+	        // This error was thrown as a convenience so that you can use this stack
+	        // to find the callsite that caused this warning to fire.
+	        throw new Error(message);
+	      } catch (x) {}
+	    };
+	
+	    warning = function warning(condition, format) {
+	      if (format === undefined) {
+	        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+	      }
+	
+	      if (format.indexOf('Failed Composite propType: ') === 0) {
+	        return; // Ignore CompositeComponent proptype check.
+	      }
+	
+	      if (!condition) {
+	        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+	          args[_key2 - 2] = arguments[_key2];
+	        }
+	
+	        printWarning.apply(undefined, [format].concat(args));
+	      }
+	    };
+	  })();
+	}
+	
+	module.exports = warning;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
+
+/***/ }),
+/* 49 */
+/*!****************************************************************!*\
+  !*** ./~/react-redux/~/prop-types/lib/ReactPropTypesSecret.js ***!
+  \****************************************************************/
+/***/ (function(module, exports) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	'use strict';
+	
+	var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+	
+	module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+/* 50 */
+/*!******************************************************!*\
+  !*** ./~/react-redux/~/prop-types/checkPropTypes.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	'use strict';
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 47);
+	  var warning = __webpack_require__(/*! fbjs/lib/warning */ 48);
+	  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ 49);
+	  var loggedTypeFailures = {};
+	}
+	
+	/**
+	 * Assert that the values match with the type specs.
+	 * Error messages are memorized and will only be shown once.
+	 *
+	 * @param {object} typeSpecs Map of name to a ReactPropType
+	 * @param {object} values Runtime values that need to be type-checked
+	 * @param {string} location e.g. "prop", "context", "child context"
+	 * @param {string} componentName Name of the component for error messages.
+	 * @param {?Function} getStack Returns the component stack.
+	 * @private
+	 */
+	function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    for (var typeSpecName in typeSpecs) {
+	      if (typeSpecs.hasOwnProperty(typeSpecName)) {
+	        var error;
+	        // Prop type validation may throw. In case they do, we don't want to
+	        // fail the render phase where it didn't fail before. So we log it.
+	        // After these have been cleaned up, we'll let them throw.
+	        try {
+	          // This is intentionally an invariant that gets caught. It's the same
+	          // behavior as without this statement except with a better message.
+	          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'React.PropTypes.', componentName || 'React class', location, typeSpecName);
+	          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+	        } catch (ex) {
+	          error = ex;
+	        }
+	        warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
+	        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+	          // Only monitor this failure once because there tends to be a lot of the
+	          // same error.
+	          loggedTypeFailures[error.message] = true;
+	
+	          var stack = getStack ? getStack() : '';
+	
+	          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+	        }
+	      }
+	    }
+	  }
+	}
+	
+	module.exports = checkPropTypes;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
+
+/***/ }),
+/* 51 */
+/*!****************************************************************!*\
+  !*** ./~/react-redux/~/prop-types/factoryWithThrowingShims.js ***!
+  \****************************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	'use strict';
+	
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 46);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 47);
+	
+	module.exports = function() {
+	  // Important!
+	  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+	  function shim() {
+	    invariant(
+	      false,
+	      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+	      'Use PropTypes.checkPropTypes() to call them. ' +
+	      'Read more at http://fb.me/use-check-prop-types'
+	    );
+	  };
+	  shim.isRequired = shim;
+	  function getShim() {
+	    return shim;
+	  };
+	  var ReactPropTypes = {
+	    array: shim,
+	    bool: shim,
+	    func: shim,
+	    number: shim,
+	    object: shim,
+	    string: shim,
+	    symbol: shim,
+	
+	    any: shim,
+	    arrayOf: getShim,
+	    element: shim,
+	    instanceOf: getShim,
+	    node: shim,
+	    objectOf: getShim,
+	    oneOf: getShim,
+	    oneOfType: getShim,
+	    shape: getShim
+	  };
+	
+	  ReactPropTypes.checkPropTypes = emptyFunction;
+	  ReactPropTypes.PropTypes = ReactPropTypes;
+	
+	  return ReactPropTypes;
+	};
+
+
+/***/ }),
+/* 52 */
 /*!***********************************************!*\
   !*** ./~/react-redux/lib/utils/storeShape.js ***!
   \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(/*! react */ 40);
+	var _propTypes = __webpack_require__(/*! prop-types */ 44);
 	
-	exports["default"] = _react.PropTypes.shape({
-	  subscribe: _react.PropTypes.func.isRequired,
-	  dispatch: _react.PropTypes.func.isRequired,
-	  getState: _react.PropTypes.func.isRequired
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	exports["default"] = _propTypes2["default"].shape({
+	  subscribe: _propTypes2["default"].func.isRequired,
+	  dispatch: _propTypes2["default"].func.isRequired,
+	  getState: _propTypes2["default"].func.isRequired
 	});
 
-/***/ },
-/* 45 */
+/***/ }),
+/* 53 */
 /*!********************************************!*\
   !*** ./~/react-redux/lib/utils/warning.js ***!
   \********************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -1193,12 +2075,12 @@ var rt_file_uploader =
 	  /* eslint-enable no-empty */
 	}
 
-/***/ },
-/* 46 */
+/***/ }),
+/* 54 */
 /*!*************************************************!*\
   !*** ./~/react-redux/lib/components/connect.js ***!
   \*************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
@@ -1210,31 +2092,31 @@ var rt_file_uploader =
 	
 	var _react = __webpack_require__(/*! react */ 40);
 	
-	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 44);
+	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 52);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _shallowEqual = __webpack_require__(/*! ../utils/shallowEqual */ 47);
+	var _shallowEqual = __webpack_require__(/*! ../utils/shallowEqual */ 55);
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 	
-	var _wrapActionCreators = __webpack_require__(/*! ../utils/wrapActionCreators */ 48);
+	var _wrapActionCreators = __webpack_require__(/*! ../utils/wrapActionCreators */ 56);
 	
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 	
-	var _warning = __webpack_require__(/*! ../utils/warning */ 45);
+	var _warning = __webpack_require__(/*! ../utils/warning */ 53);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 70);
+	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 78);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ 80);
+	var _hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ 88);
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _invariant = __webpack_require__(/*! invariant */ 81);
+	var _invariant = __webpack_require__(/*! invariant */ 89);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -1595,14 +2477,14 @@ var rt_file_uploader =
 	    return (0, _hoistNonReactStatics2["default"])(Connect, WrappedComponent);
 	  };
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 43)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
 
-/***/ },
-/* 47 */
+/***/ }),
+/* 55 */
 /*!*************************************************!*\
   !*** ./~/react-redux/lib/utils/shallowEqual.js ***!
   \*************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -1631,19 +2513,19 @@ var rt_file_uploader =
 	  return true;
 	}
 
-/***/ },
-/* 48 */
+/***/ }),
+/* 56 */
 /*!*******************************************************!*\
   !*** ./~/react-redux/lib/utils/wrapActionCreators.js ***!
   \*******************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 	
-	var _redux = __webpack_require__(/*! redux */ 49);
+	var _redux = __webpack_require__(/*! redux */ 57);
 	
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -1651,39 +2533,39 @@ var rt_file_uploader =
 	  };
 	}
 
-/***/ },
-/* 49 */
+/***/ }),
+/* 57 */
 /*!******************************!*\
   !*** ./~/redux/lib/index.js ***!
   \******************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 	
-	var _createStore = __webpack_require__(/*! ./createStore */ 50);
+	var _createStore = __webpack_require__(/*! ./createStore */ 58);
 	
 	var _createStore2 = _interopRequireDefault(_createStore);
 	
-	var _combineReducers = __webpack_require__(/*! ./combineReducers */ 65);
+	var _combineReducers = __webpack_require__(/*! ./combineReducers */ 73);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
-	var _bindActionCreators = __webpack_require__(/*! ./bindActionCreators */ 67);
+	var _bindActionCreators = __webpack_require__(/*! ./bindActionCreators */ 75);
 	
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 	
-	var _applyMiddleware = __webpack_require__(/*! ./applyMiddleware */ 68);
+	var _applyMiddleware = __webpack_require__(/*! ./applyMiddleware */ 76);
 	
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 	
-	var _compose = __webpack_require__(/*! ./compose */ 69);
+	var _compose = __webpack_require__(/*! ./compose */ 77);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
-	var _warning = __webpack_require__(/*! ./utils/warning */ 66);
+	var _warning = __webpack_require__(/*! ./utils/warning */ 74);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -1704,14 +2586,14 @@ var rt_file_uploader =
 	exports.bindActionCreators = _bindActionCreators2['default'];
 	exports.applyMiddleware = _applyMiddleware2['default'];
 	exports.compose = _compose2['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 43)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
 
-/***/ },
-/* 50 */
+/***/ }),
+/* 58 */
 /*!************************************!*\
   !*** ./~/redux/lib/createStore.js ***!
   \************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1719,11 +2601,11 @@ var rt_file_uploader =
 	exports.ActionTypes = undefined;
 	exports['default'] = createStore;
 	
-	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 51);
+	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 59);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _symbolObservable = __webpack_require__(/*! symbol-observable */ 61);
+	var _symbolObservable = __webpack_require__(/*! symbol-observable */ 69);
 	
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 	
@@ -1975,16 +2857,16 @@ var rt_file_uploader =
 	  }, _ref2[_symbolObservable2['default']] = observable, _ref2;
 	}
 
-/***/ },
-/* 51 */
+/***/ }),
+/* 59 */
 /*!*******************************************!*\
   !*** ./~/redux/~/lodash/isPlainObject.js ***!
   \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 52),
-	    getPrototype = __webpack_require__(/*! ./_getPrototype */ 58),
-	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 60);
+	var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 60),
+	    getPrototype = __webpack_require__(/*! ./_getPrototype */ 66),
+	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 68);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -2046,16 +2928,16 @@ var rt_file_uploader =
 	module.exports = isPlainObject;
 
 
-/***/ },
-/* 52 */
+/***/ }),
+/* 60 */
 /*!*****************************************!*\
   !*** ./~/redux/~/lodash/_baseGetTag.js ***!
   \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(/*! ./_Symbol */ 53),
-	    getRawTag = __webpack_require__(/*! ./_getRawTag */ 56),
-	    objectToString = __webpack_require__(/*! ./_objectToString */ 57);
+	var Symbol = __webpack_require__(/*! ./_Symbol */ 61),
+	    getRawTag = __webpack_require__(/*! ./_getRawTag */ 64),
+	    objectToString = __webpack_require__(/*! ./_objectToString */ 65);
 	
 	/** `Object#toString` result references. */
 	var nullTag = '[object Null]',
@@ -2075,8 +2957,7 @@ var rt_file_uploader =
 	  if (value == null) {
 	    return value === undefined ? undefinedTag : nullTag;
 	  }
-	  value = Object(value);
-	  return (symToStringTag && symToStringTag in value)
+	  return (symToStringTag && symToStringTag in Object(value))
 	    ? getRawTag(value)
 	    : objectToString(value);
 	}
@@ -2084,14 +2965,14 @@ var rt_file_uploader =
 	module.exports = baseGetTag;
 
 
-/***/ },
-/* 53 */
+/***/ }),
+/* 61 */
 /*!*************************************!*\
   !*** ./~/redux/~/lodash/_Symbol.js ***!
   \*************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(/*! ./_root */ 54);
+	var root = __webpack_require__(/*! ./_root */ 62);
 	
 	/** Built-in value references. */
 	var Symbol = root.Symbol;
@@ -2099,14 +2980,14 @@ var rt_file_uploader =
 	module.exports = Symbol;
 
 
-/***/ },
-/* 54 */
+/***/ }),
+/* 62 */
 /*!***********************************!*\
   !*** ./~/redux/~/lodash/_root.js ***!
   \***********************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 55);
+	var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 63);
 	
 	/** Detect free variable `self`. */
 	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -2117,12 +2998,12 @@ var rt_file_uploader =
 	module.exports = root;
 
 
-/***/ },
-/* 55 */
+/***/ }),
+/* 63 */
 /*!*****************************************!*\
   !*** ./~/redux/~/lodash/_freeGlobal.js ***!
   \*****************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
 	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
@@ -2131,14 +3012,14 @@ var rt_file_uploader =
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
-/* 56 */
+/***/ }),
+/* 64 */
 /*!****************************************!*\
   !*** ./~/redux/~/lodash/_getRawTag.js ***!
   \****************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(/*! ./_Symbol */ 53);
+	var Symbol = __webpack_require__(/*! ./_Symbol */ 61);
 	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -2186,12 +3067,12 @@ var rt_file_uploader =
 	module.exports = getRawTag;
 
 
-/***/ },
-/* 57 */
+/***/ }),
+/* 65 */
 /*!*********************************************!*\
   !*** ./~/redux/~/lodash/_objectToString.js ***!
   \*********************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -2217,14 +3098,14 @@ var rt_file_uploader =
 	module.exports = objectToString;
 
 
-/***/ },
-/* 58 */
+/***/ }),
+/* 66 */
 /*!*******************************************!*\
   !*** ./~/redux/~/lodash/_getPrototype.js ***!
   \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(/*! ./_overArg */ 59);
+	var overArg = __webpack_require__(/*! ./_overArg */ 67);
 	
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -2232,12 +3113,12 @@ var rt_file_uploader =
 	module.exports = getPrototype;
 
 
-/***/ },
-/* 59 */
+/***/ }),
+/* 67 */
 /*!**************************************!*\
   !*** ./~/redux/~/lodash/_overArg.js ***!
   \**************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Creates a unary function that invokes `func` with its argument transformed.
@@ -2256,12 +3137,12 @@ var rt_file_uploader =
 	module.exports = overArg;
 
 
-/***/ },
-/* 60 */
+/***/ }),
+/* 68 */
 /*!******************************************!*\
   !*** ./~/redux/~/lodash/isObjectLike.js ***!
   \******************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is object-like. A value is object-like if it's not `null`
@@ -2294,22 +3175,22 @@ var rt_file_uploader =
 	module.exports = isObjectLike;
 
 
-/***/ },
-/* 61 */
+/***/ }),
+/* 69 */
 /*!**********************************************!*\
   !*** ./~/redux/~/symbol-observable/index.js ***!
   \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! ./lib/index */ 62);
+	module.exports = __webpack_require__(/*! ./lib/index */ 70);
 
 
-/***/ },
-/* 62 */
+/***/ }),
+/* 70 */
 /*!**************************************************!*\
   !*** ./~/redux/~/symbol-observable/lib/index.js ***!
   \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {'use strict';
 	
@@ -2317,7 +3198,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _ponyfill = __webpack_require__(/*! ./ponyfill */ 64);
+	var _ponyfill = __webpack_require__(/*! ./ponyfill */ 72);
 	
 	var _ponyfill2 = _interopRequireDefault(_ponyfill);
 	
@@ -2340,14 +3221,14 @@ var rt_file_uploader =
 	
 	var result = (0, _ponyfill2['default'])(root);
 	exports['default'] = result;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../../../../webpack/buildin/module.js */ 63)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../../../../webpack/buildin/module.js */ 71)(module)))
 
-/***/ },
-/* 63 */
+/***/ }),
+/* 71 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(module) {
 		if(!module.webpackPolyfill) {
@@ -2361,12 +3242,12 @@ var rt_file_uploader =
 	}
 
 
-/***/ },
-/* 64 */
+/***/ }),
+/* 72 */
 /*!*****************************************************!*\
   !*** ./~/redux/~/symbol-observable/lib/ponyfill.js ***!
   \*****************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -2392,25 +3273,25 @@ var rt_file_uploader =
 		return result;
 	};
 
-/***/ },
-/* 65 */
+/***/ }),
+/* 73 */
 /*!****************************************!*\
   !*** ./~/redux/lib/combineReducers.js ***!
   \****************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	exports['default'] = combineReducers;
 	
-	var _createStore = __webpack_require__(/*! ./createStore */ 50);
+	var _createStore = __webpack_require__(/*! ./createStore */ 58);
 	
-	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 51);
+	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 59);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _warning = __webpack_require__(/*! ./utils/warning */ 66);
+	var _warning = __webpack_require__(/*! ./utils/warning */ 74);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -2541,14 +3422,14 @@ var rt_file_uploader =
 	    return hasChanged ? nextState : state;
 	  };
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 43)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
 
-/***/ },
-/* 66 */
+/***/ }),
+/* 74 */
 /*!**************************************!*\
   !*** ./~/redux/lib/utils/warning.js ***!
   \**************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -2576,12 +3457,12 @@ var rt_file_uploader =
 	  /* eslint-enable no-empty */
 	}
 
-/***/ },
-/* 67 */
+/***/ }),
+/* 75 */
 /*!*******************************************!*\
   !*** ./~/redux/lib/bindActionCreators.js ***!
   \*******************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -2635,12 +3516,12 @@ var rt_file_uploader =
 	  return boundActionCreators;
 	}
 
-/***/ },
-/* 68 */
+/***/ }),
+/* 76 */
 /*!****************************************!*\
   !*** ./~/redux/lib/applyMiddleware.js ***!
   \****************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -2650,7 +3531,7 @@ var rt_file_uploader =
 	
 	exports['default'] = applyMiddleware;
 	
-	var _compose = __webpack_require__(/*! ./compose */ 69);
+	var _compose = __webpack_require__(/*! ./compose */ 77);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
@@ -2701,12 +3582,12 @@ var rt_file_uploader =
 	  };
 	}
 
-/***/ },
-/* 69 */
+/***/ }),
+/* 77 */
 /*!********************************!*\
   !*** ./~/redux/lib/compose.js ***!
   \********************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -2747,16 +3628,16 @@ var rt_file_uploader =
 	  };
 	}
 
-/***/ },
-/* 70 */
+/***/ }),
+/* 78 */
 /*!*************************************************!*\
   !*** ./~/react-redux/~/lodash/isPlainObject.js ***!
   \*************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 71),
-	    getPrototype = __webpack_require__(/*! ./_getPrototype */ 77),
-	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 79);
+	var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 79),
+	    getPrototype = __webpack_require__(/*! ./_getPrototype */ 85),
+	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 87);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -2818,16 +3699,16 @@ var rt_file_uploader =
 	module.exports = isPlainObject;
 
 
-/***/ },
-/* 71 */
+/***/ }),
+/* 79 */
 /*!***********************************************!*\
   !*** ./~/react-redux/~/lodash/_baseGetTag.js ***!
   \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(/*! ./_Symbol */ 72),
-	    getRawTag = __webpack_require__(/*! ./_getRawTag */ 75),
-	    objectToString = __webpack_require__(/*! ./_objectToString */ 76);
+	var Symbol = __webpack_require__(/*! ./_Symbol */ 80),
+	    getRawTag = __webpack_require__(/*! ./_getRawTag */ 83),
+	    objectToString = __webpack_require__(/*! ./_objectToString */ 84);
 	
 	/** `Object#toString` result references. */
 	var nullTag = '[object Null]',
@@ -2847,8 +3728,7 @@ var rt_file_uploader =
 	  if (value == null) {
 	    return value === undefined ? undefinedTag : nullTag;
 	  }
-	  value = Object(value);
-	  return (symToStringTag && symToStringTag in value)
+	  return (symToStringTag && symToStringTag in Object(value))
 	    ? getRawTag(value)
 	    : objectToString(value);
 	}
@@ -2856,14 +3736,14 @@ var rt_file_uploader =
 	module.exports = baseGetTag;
 
 
-/***/ },
-/* 72 */
+/***/ }),
+/* 80 */
 /*!*******************************************!*\
   !*** ./~/react-redux/~/lodash/_Symbol.js ***!
   \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(/*! ./_root */ 73);
+	var root = __webpack_require__(/*! ./_root */ 81);
 	
 	/** Built-in value references. */
 	var Symbol = root.Symbol;
@@ -2871,14 +3751,14 @@ var rt_file_uploader =
 	module.exports = Symbol;
 
 
-/***/ },
-/* 73 */
+/***/ }),
+/* 81 */
 /*!*****************************************!*\
   !*** ./~/react-redux/~/lodash/_root.js ***!
   \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 74);
+	var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 82);
 	
 	/** Detect free variable `self`. */
 	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -2889,12 +3769,12 @@ var rt_file_uploader =
 	module.exports = root;
 
 
-/***/ },
-/* 74 */
+/***/ }),
+/* 82 */
 /*!***********************************************!*\
   !*** ./~/react-redux/~/lodash/_freeGlobal.js ***!
   \***********************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
 	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
@@ -2903,14 +3783,14 @@ var rt_file_uploader =
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
-/* 75 */
+/***/ }),
+/* 83 */
 /*!**********************************************!*\
   !*** ./~/react-redux/~/lodash/_getRawTag.js ***!
   \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(/*! ./_Symbol */ 72);
+	var Symbol = __webpack_require__(/*! ./_Symbol */ 80);
 	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -2958,12 +3838,12 @@ var rt_file_uploader =
 	module.exports = getRawTag;
 
 
-/***/ },
-/* 76 */
+/***/ }),
+/* 84 */
 /*!***************************************************!*\
   !*** ./~/react-redux/~/lodash/_objectToString.js ***!
   \***************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -2989,14 +3869,14 @@ var rt_file_uploader =
 	module.exports = objectToString;
 
 
-/***/ },
-/* 77 */
+/***/ }),
+/* 85 */
 /*!*************************************************!*\
   !*** ./~/react-redux/~/lodash/_getPrototype.js ***!
   \*************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(/*! ./_overArg */ 78);
+	var overArg = __webpack_require__(/*! ./_overArg */ 86);
 	
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -3004,12 +3884,12 @@ var rt_file_uploader =
 	module.exports = getPrototype;
 
 
-/***/ },
-/* 78 */
+/***/ }),
+/* 86 */
 /*!********************************************!*\
   !*** ./~/react-redux/~/lodash/_overArg.js ***!
   \********************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Creates a unary function that invokes `func` with its argument transformed.
@@ -3028,12 +3908,12 @@ var rt_file_uploader =
 	module.exports = overArg;
 
 
-/***/ },
-/* 79 */
+/***/ }),
+/* 87 */
 /*!************************************************!*\
   !*** ./~/react-redux/~/lodash/isObjectLike.js ***!
   \************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is object-like. A value is object-like if it's not `null`
@@ -3066,12 +3946,12 @@ var rt_file_uploader =
 	module.exports = isObjectLike;
 
 
-/***/ },
-/* 80 */
+/***/ }),
+/* 88 */
 /*!**********************************************************!*\
   !*** ./~/react-redux/~/hoist-non-react-statics/index.js ***!
   \**********************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Copyright 2015, Yahoo! Inc.
@@ -3125,12 +4005,12 @@ var rt_file_uploader =
 	};
 
 
-/***/ },
-/* 81 */
+/***/ }),
+/* 89 */
 /*!**********************************************!*\
   !*** ./~/react-redux/~/invariant/browser.js ***!
   \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2013-2015, Facebook, Inc.
@@ -3184,22 +4064,22 @@ var rt_file_uploader =
 	
 	module.exports = invariant;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 43)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../webpack/~/node-libs-browser/~/process/browser.js */ 43)))
 
-/***/ },
-/* 82 */
+/***/ }),
+/* 90 */
 /*!************************************!*\
   !*** ./~/redux-thunk/lib/index.js ***!
   \************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	function createThunkMiddleware(extraArgument) {
 	  return function (_ref) {
-	    var dispatch = _ref.dispatch;
-	    var getState = _ref.getState;
+	    var dispatch = _ref.dispatch,
+	        getState = _ref.getState;
 	    return function (next) {
 	      return function (action) {
 	        if (typeof action === 'function') {
@@ -3217,12 +4097,12 @@ var rt_file_uploader =
 	
 	exports['default'] = thunk;
 
-/***/ },
-/* 83 */
+/***/ }),
+/* 91 */
 /*!*******************************!*\
   !*** ./src/reducers/index.js ***!
   \*******************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3230,45 +4110,45 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(/*! redux */ 49);
+	var _redux = __webpack_require__(/*! redux */ 57);
 	
-	var _fileDepot = __webpack_require__(/*! ./src/reducers/fileDepot */ 84);
+	var _fileDepot = __webpack_require__(/*! ./src/reducers/fileDepot */ 92);
 	
 	var _fileDepot2 = _interopRequireDefault(_fileDepot);
 	
-	var _layoutDepot = __webpack_require__(/*! ./src/reducers/layoutDepot */ 113);
+	var _layoutDepot = __webpack_require__(/*! ./src/reducers/layoutDepot */ 121);
 	
 	var _layoutDepot2 = _interopRequireDefault(_layoutDepot);
 	
-	var _modeDepot = __webpack_require__(/*! ./src/reducers/modeDepot */ 114);
+	var _modeDepot = __webpack_require__(/*! ./src/reducers/modeDepot */ 122);
 	
 	var _modeDepot2 = _interopRequireDefault(_modeDepot);
 	
-	var _editDepot = __webpack_require__(/*! ./src/reducers/editDepot */ 115);
+	var _editDepot = __webpack_require__(/*! ./src/reducers/editDepot */ 123);
 	
 	var _editDepot2 = _interopRequireDefault(_editDepot);
 	
-	var _placeholderDepot = __webpack_require__(/*! ./src/reducers/placeholderDepot */ 116);
+	var _placeholderDepot = __webpack_require__(/*! ./src/reducers/placeholderDepot */ 124);
 	
 	var _placeholderDepot2 = _interopRequireDefault(_placeholderDepot);
 	
-	var _galleryStatusDepot = __webpack_require__(/*! ./src/reducers/galleryStatusDepot */ 117);
+	var _galleryStatusDepot = __webpack_require__(/*! ./src/reducers/galleryStatusDepot */ 125);
 	
 	var _galleryStatusDepot2 = _interopRequireDefault(_galleryStatusDepot);
 	
-	var _galleryFilterDepot = __webpack_require__(/*! ./src/reducers/galleryFilterDepot */ 118);
+	var _galleryFilterDepot = __webpack_require__(/*! ./src/reducers/galleryFilterDepot */ 126);
 	
 	var _galleryFilterDepot2 = _interopRequireDefault(_galleryFilterDepot);
 	
-	var _galleryImageDepot = __webpack_require__(/*! ./src/reducers/galleryImageDepot */ 119);
+	var _galleryImageDepot = __webpack_require__(/*! ./src/reducers/galleryImageDepot */ 127);
 	
 	var _galleryImageDepot2 = _interopRequireDefault(_galleryImageDepot);
 	
-	var _gallerySelectionDepot = __webpack_require__(/*! ./src/reducers/gallerySelectionDepot */ 120);
+	var _gallerySelectionDepot = __webpack_require__(/*! ./src/reducers/gallerySelectionDepot */ 128);
 	
 	var _gallerySelectionDepot2 = _interopRequireDefault(_gallerySelectionDepot);
 	
-	var _globalErrorDepot = __webpack_require__(/*! ./src/reducers/globalErrorDepot */ 121);
+	var _globalErrorDepot = __webpack_require__(/*! ./src/reducers/globalErrorDepot */ 129);
 	
 	var _globalErrorDepot2 = _interopRequireDefault(_globalErrorDepot);
 	
@@ -3287,12 +4167,12 @@ var rt_file_uploader =
 	  globalErrorDepot: _globalErrorDepot2.default
 	});
 
-/***/ },
-/* 84 */
+/***/ }),
+/* 92 */
 /*!***********************************!*\
   !*** ./src/reducers/fileDepot.js ***!
   \***********************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3300,11 +4180,11 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
-	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 89);
+	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 97);
 	
 	var _getIterator3 = _interopRequireDefault(_getIterator2);
 	
@@ -3312,11 +4192,11 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -3566,18 +4446,18 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 85 */
+/***/ }),
+/* 93 */
 /*!***************************************************!*\
   !*** ./~/babel-runtime/helpers/defineProperty.js ***!
   \***************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 86);
+	var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 94);
 	
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 	
@@ -3598,71 +4478,71 @@ var rt_file_uploader =
 	  return obj;
 	};
 
-/***/ },
-/* 86 */
+/***/ }),
+/* 94 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/core-js/object/define-property.js ***!
   \***********************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/define-property */ 87), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/define-property */ 95), __esModule: true };
 
-/***/ },
-/* 87 */
+/***/ }),
+/* 95 */
 /*!************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/object/define-property.js ***!
   \************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.object.define-property */ 88);
+	__webpack_require__(/*! ../../modules/es6.object.define-property */ 96);
 	var $Object = __webpack_require__(/*! ../../modules/_core */ 7).Object;
 	module.exports = function defineProperty(it, key, desc){
 	  return $Object.defineProperty(it, key, desc);
 	};
 
-/***/ },
-/* 88 */
+/***/ }),
+/* 96 */
 /*!*********************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.object.define-property.js ***!
   \*********************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var $export = __webpack_require__(/*! ./_export */ 5);
 	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 	$export($export.S + $export.F * !__webpack_require__(/*! ./_descriptors */ 15), 'Object', {defineProperty: __webpack_require__(/*! ./_object-dp */ 11).f});
 
-/***/ },
-/* 89 */
+/***/ }),
+/* 97 */
 /*!*************************************************!*\
   !*** ./~/babel-runtime/core-js/get-iterator.js ***!
   \*************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/get-iterator */ 90), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/get-iterator */ 98), __esModule: true };
 
-/***/ },
-/* 90 */
+/***/ }),
+/* 98 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/get-iterator.js ***!
   \**************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../modules/web.dom.iterable */ 91);
-	__webpack_require__(/*! ../modules/es6.string.iterator */ 106);
-	module.exports = __webpack_require__(/*! ../modules/core.get-iterator */ 108);
+	__webpack_require__(/*! ../modules/web.dom.iterable */ 99);
+	__webpack_require__(/*! ../modules/es6.string.iterator */ 114);
+	module.exports = __webpack_require__(/*! ../modules/core.get-iterator */ 116);
 
-/***/ },
-/* 91 */
+/***/ }),
+/* 99 */
 /*!***********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/web.dom.iterable.js ***!
   \***********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ./es6.array.iterator */ 92);
+	__webpack_require__(/*! ./es6.array.iterator */ 100);
 	var global        = __webpack_require__(/*! ./_global */ 6)
 	  , hide          = __webpack_require__(/*! ./_hide */ 10)
-	  , Iterators     = __webpack_require__(/*! ./_iterators */ 95)
-	  , TO_STRING_TAG = __webpack_require__(/*! ./_wks */ 104)('toStringTag');
+	  , Iterators     = __webpack_require__(/*! ./_iterators */ 103)
+	  , TO_STRING_TAG = __webpack_require__(/*! ./_wks */ 112)('toStringTag');
 	
 	for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
 	  var NAME       = collections[i]
@@ -3672,24 +4552,24 @@ var rt_file_uploader =
 	  Iterators[NAME] = Iterators.Array;
 	}
 
-/***/ },
-/* 92 */
+/***/ }),
+/* 100 */
 /*!*************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.array.iterator.js ***!
   \*************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var addToUnscopables = __webpack_require__(/*! ./_add-to-unscopables */ 93)
-	  , step             = __webpack_require__(/*! ./_iter-step */ 94)
-	  , Iterators        = __webpack_require__(/*! ./_iterators */ 95)
+	var addToUnscopables = __webpack_require__(/*! ./_add-to-unscopables */ 101)
+	  , step             = __webpack_require__(/*! ./_iter-step */ 102)
+	  , Iterators        = __webpack_require__(/*! ./_iterators */ 103)
 	  , toIObject        = __webpack_require__(/*! ./_to-iobject */ 24);
 	
 	// 22.1.3.4 Array.prototype.entries()
 	// 22.1.3.13 Array.prototype.keys()
 	// 22.1.3.29 Array.prototype.values()
 	// 22.1.3.30 Array.prototype[@@iterator]()
-	module.exports = __webpack_require__(/*! ./_iter-define */ 96)(Array, 'Array', function(iterated, kind){
+	module.exports = __webpack_require__(/*! ./_iter-define */ 104)(Array, 'Array', function(iterated, kind){
 	  this._t = toIObject(iterated); // target
 	  this._i = 0;                   // next index
 	  this._k = kind;                // kind
@@ -3714,53 +4594,53 @@ var rt_file_uploader =
 	addToUnscopables('values');
 	addToUnscopables('entries');
 
-/***/ },
-/* 93 */
+/***/ }),
+/* 101 */
 /*!**************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_add-to-unscopables.js ***!
   \**************************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(){ /* empty */ };
 
-/***/ },
-/* 94 */
+/***/ }),
+/* 102 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iter-step.js ***!
   \*****************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(done, value){
 	  return {value: value, done: !!done};
 	};
 
-/***/ },
-/* 95 */
+/***/ }),
+/* 103 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iterators.js ***!
   \*****************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = {};
 
-/***/ },
-/* 96 */
+/***/ }),
+/* 104 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iter-define.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var LIBRARY        = __webpack_require__(/*! ./_library */ 97)
+	var LIBRARY        = __webpack_require__(/*! ./_library */ 105)
 	  , $export        = __webpack_require__(/*! ./_export */ 5)
-	  , redefine       = __webpack_require__(/*! ./_redefine */ 98)
+	  , redefine       = __webpack_require__(/*! ./_redefine */ 106)
 	  , hide           = __webpack_require__(/*! ./_hide */ 10)
 	  , has            = __webpack_require__(/*! ./_has */ 23)
-	  , Iterators      = __webpack_require__(/*! ./_iterators */ 95)
-	  , $iterCreate    = __webpack_require__(/*! ./_iter-create */ 99)
-	  , setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 103)
-	  , getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 105)
-	  , ITERATOR       = __webpack_require__(/*! ./_wks */ 104)('iterator')
+	  , Iterators      = __webpack_require__(/*! ./_iterators */ 103)
+	  , $iterCreate    = __webpack_require__(/*! ./_iter-create */ 107)
+	  , setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 111)
+	  , getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 113)
+	  , ITERATOR       = __webpack_require__(/*! ./_wks */ 112)('iterator')
 	  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
 	  , FF_ITERATOR    = '@@iterator'
 	  , KEYS           = 'keys'
@@ -3821,55 +4701,55 @@ var rt_file_uploader =
 	  return methods;
 	};
 
-/***/ },
-/* 97 */
+/***/ }),
+/* 105 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_library.js ***!
   \***************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = true;
 
-/***/ },
-/* 98 */
+/***/ }),
+/* 106 */
 /*!****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_redefine.js ***!
   \****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(/*! ./_hide */ 10);
 
-/***/ },
-/* 99 */
+/***/ }),
+/* 107 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iter-create.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var create         = __webpack_require__(/*! ./_object-create */ 100)
+	var create         = __webpack_require__(/*! ./_object-create */ 108)
 	  , descriptor     = __webpack_require__(/*! ./_property-desc */ 19)
-	  , setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 103)
+	  , setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 111)
 	  , IteratorPrototype = {};
 	
 	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-	__webpack_require__(/*! ./_hide */ 10)(IteratorPrototype, __webpack_require__(/*! ./_wks */ 104)('iterator'), function(){ return this; });
+	__webpack_require__(/*! ./_hide */ 10)(IteratorPrototype, __webpack_require__(/*! ./_wks */ 112)('iterator'), function(){ return this; });
 	
 	module.exports = function(Constructor, NAME, next){
 	  Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
 	  setToStringTag(Constructor, NAME + ' Iterator');
 	};
 
-/***/ },
-/* 100 */
+/***/ }),
+/* 108 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-create.js ***!
   \*********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 	var anObject    = __webpack_require__(/*! ./_an-object */ 12)
-	  , dPs         = __webpack_require__(/*! ./_object-dps */ 101)
+	  , dPs         = __webpack_require__(/*! ./_object-dps */ 109)
 	  , enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ 35)
 	  , IE_PROTO    = __webpack_require__(/*! ./_shared-key */ 32)('IE_PROTO')
 	  , Empty       = function(){ /* empty */ }
@@ -3884,7 +4764,7 @@ var rt_file_uploader =
 	    , gt     = '>'
 	    , iframeDocument;
 	  iframe.style.display = 'none';
-	  __webpack_require__(/*! ./_html */ 102).appendChild(iframe);
+	  __webpack_require__(/*! ./_html */ 110).appendChild(iframe);
 	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
 	  // createDict = iframe.contentWindow.Object;
 	  // html.removeChild(iframe);
@@ -3910,12 +4790,12 @@ var rt_file_uploader =
 	};
 
 
-/***/ },
-/* 101 */
+/***/ }),
+/* 109 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-dps.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var dP       = __webpack_require__(/*! ./_object-dp */ 11)
 	  , anObject = __webpack_require__(/*! ./_an-object */ 12)
@@ -3931,36 +4811,36 @@ var rt_file_uploader =
 	  return O;
 	};
 
-/***/ },
-/* 102 */
+/***/ }),
+/* 110 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_html.js ***!
   \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(/*! ./_global */ 6).document && document.documentElement;
 
-/***/ },
-/* 103 */
+/***/ }),
+/* 111 */
 /*!*************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_set-to-string-tag.js ***!
   \*************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var def = __webpack_require__(/*! ./_object-dp */ 11).f
 	  , has = __webpack_require__(/*! ./_has */ 23)
-	  , TAG = __webpack_require__(/*! ./_wks */ 104)('toStringTag');
+	  , TAG = __webpack_require__(/*! ./_wks */ 112)('toStringTag');
 	
 	module.exports = function(it, tag, stat){
 	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
 	};
 
-/***/ },
-/* 104 */
+/***/ }),
+/* 112 */
 /*!***********************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_wks.js ***!
   \***********************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var store      = __webpack_require__(/*! ./_shared */ 33)('wks')
 	  , uid        = __webpack_require__(/*! ./_uid */ 34)
@@ -3974,12 +4854,12 @@ var rt_file_uploader =
 	
 	$exports.store = store;
 
-/***/ },
-/* 105 */
+/***/ }),
+/* 113 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-gpo.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 	var has         = __webpack_require__(/*! ./_has */ 23)
@@ -3995,18 +4875,18 @@ var rt_file_uploader =
 	  } return O instanceof Object ? ObjectProto : null;
 	};
 
-/***/ },
-/* 106 */
+/***/ }),
+/* 114 */
 /*!**************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.string.iterator.js ***!
   \**************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var $at  = __webpack_require__(/*! ./_string-at */ 107)(true);
+	var $at  = __webpack_require__(/*! ./_string-at */ 115)(true);
 	
 	// 21.1.3.27 String.prototype[@@iterator]()
-	__webpack_require__(/*! ./_iter-define */ 96)(String, 'String', function(iterated){
+	__webpack_require__(/*! ./_iter-define */ 104)(String, 'String', function(iterated){
 	  this._t = String(iterated); // target
 	  this._i = 0;                // next index
 	// 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -4020,12 +4900,12 @@ var rt_file_uploader =
 	  return {value: point, done: false};
 	});
 
-/***/ },
-/* 107 */
+/***/ }),
+/* 115 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_string-at.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var toInteger = __webpack_require__(/*! ./_to-integer */ 30)
 	  , defined   = __webpack_require__(/*! ./_defined */ 27);
@@ -4045,47 +4925,47 @@ var rt_file_uploader =
 	  };
 	};
 
-/***/ },
-/* 108 */
+/***/ }),
+/* 116 */
 /*!************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/core.get-iterator.js ***!
   \************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var anObject = __webpack_require__(/*! ./_an-object */ 12)
-	  , get      = __webpack_require__(/*! ./core.get-iterator-method */ 109);
+	  , get      = __webpack_require__(/*! ./core.get-iterator-method */ 117);
 	module.exports = __webpack_require__(/*! ./_core */ 7).getIterator = function(it){
 	  var iterFn = get(it);
 	  if(typeof iterFn != 'function')throw TypeError(it + ' is not iterable!');
 	  return anObject(iterFn.call(it));
 	};
 
-/***/ },
-/* 109 */
+/***/ }),
+/* 117 */
 /*!*******************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/core.get-iterator-method.js ***!
   \*******************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var classof   = __webpack_require__(/*! ./_classof */ 110)
-	  , ITERATOR  = __webpack_require__(/*! ./_wks */ 104)('iterator')
-	  , Iterators = __webpack_require__(/*! ./_iterators */ 95);
+	var classof   = __webpack_require__(/*! ./_classof */ 118)
+	  , ITERATOR  = __webpack_require__(/*! ./_wks */ 112)('iterator')
+	  , Iterators = __webpack_require__(/*! ./_iterators */ 103);
 	module.exports = __webpack_require__(/*! ./_core */ 7).getIteratorMethod = function(it){
 	  if(it != undefined)return it[ITERATOR]
 	    || it['@@iterator']
 	    || Iterators[classof(it)];
 	};
 
-/***/ },
-/* 110 */
+/***/ }),
+/* 118 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_classof.js ***!
   \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// getting tag from 19.1.3.6 Object.prototype.toString()
 	var cof = __webpack_require__(/*! ./_cof */ 26)
-	  , TAG = __webpack_require__(/*! ./_wks */ 104)('toStringTag')
+	  , TAG = __webpack_require__(/*! ./_wks */ 112)('toStringTag')
 	  // ES3 wrong here
 	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
 	
@@ -4107,12 +4987,12 @@ var rt_file_uploader =
 	    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
 	};
 
-/***/ },
-/* 111 */
+/***/ }),
+/* 119 */
 /*!******************************!*\
   !*** ./src/actions/index.js ***!
   \******************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4136,7 +5016,7 @@ var rt_file_uploader =
 	exports.changeGallerySelection = changeGallerySelection;
 	exports.setGlobalError = setGlobalError;
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -4460,12 +5340,12 @@ var rt_file_uploader =
 	  };
 	}
 
-/***/ },
-/* 112 */
+/***/ }),
+/* 120 */
 /*!********************************!*\
   !*** ./src/constants/index.js ***!
   \********************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -4484,12 +5364,12 @@ var rt_file_uploader =
 	var GLOBAL_ERROR_OVERFLOW = exports.GLOBAL_ERROR_OVERFLOW = 'GLOBAL_ERROR_OVERFLOW';
 	var GLOBAL_ERROR_NONE = exports.GLOBAL_ERROR_NONE = 'GLOBAL_ERROR_NONE';
 
-/***/ },
-/* 113 */
+/***/ }),
+/* 121 */
 /*!*************************************!*\
   !*** ./src/reducers/layoutDepot.js ***!
   \*************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4497,7 +5377,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -4505,7 +5385,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4534,12 +5414,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 114 */
+/***/ }),
+/* 122 */
 /*!***********************************!*\
   !*** ./src/reducers/modeDepot.js ***!
   \***********************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4547,7 +5427,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -4555,11 +5435,11 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -4594,12 +5474,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 115 */
+/***/ }),
+/* 123 */
 /*!***********************************!*\
   !*** ./src/reducers/editDepot.js ***!
   \***********************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4607,7 +5487,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -4615,7 +5495,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4671,12 +5551,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 116 */
+/***/ }),
+/* 124 */
 /*!******************************************!*\
   !*** ./src/reducers/placeholderDepot.js ***!
   \******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4684,7 +5564,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -4692,7 +5572,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4731,12 +5611,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 117 */
+/***/ }),
+/* 125 */
 /*!********************************************!*\
   !*** ./src/reducers/galleryStatusDepot.js ***!
   \********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4744,7 +5624,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -4752,7 +5632,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4781,12 +5661,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 118 */
+/***/ }),
+/* 126 */
 /*!********************************************!*\
   !*** ./src/reducers/galleryFilterDepot.js ***!
   \********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4794,7 +5674,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -4802,7 +5682,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4869,12 +5749,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 119 */
+/***/ }),
+/* 127 */
 /*!*******************************************!*\
   !*** ./src/reducers/galleryImageDepot.js ***!
   \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4882,7 +5762,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -4890,7 +5770,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4928,12 +5808,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 120 */
+/***/ }),
+/* 128 */
 /*!***********************************************!*\
   !*** ./src/reducers/gallerySelectionDepot.js ***!
   \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4941,7 +5821,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -4949,7 +5829,7 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -4984,12 +5864,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 121 */
+/***/ }),
+/* 129 */
 /*!******************************************!*\
   !*** ./src/reducers/globalErrorDepot.js ***!
   \******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -4997,7 +5877,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 85);
+	var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ 93);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -5005,11 +5885,11 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -5056,12 +5936,12 @@ var rt_file_uploader =
 	  return state;
 	};
 
-/***/ },
-/* 122 */
+/***/ }),
+/* 130 */
 /*!****************************************!*\
   !*** ./src/components/AppContainer.js ***!
   \****************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -5075,15 +5955,15 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _App = __webpack_require__(/*! ./src/components/App */ 123);
+	var _App = __webpack_require__(/*! ./src/components/App */ 131);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -5131,12 +6011,12 @@ var rt_file_uploader =
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, null, mergeProps)(_App2.default);
 
-/***/ },
-/* 123 */
+/***/ }),
+/* 131 */
 /*!*******************************!*\
   !*** ./src/components/App.js ***!
   \*******************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -5144,23 +6024,23 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 124);
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 132);
 	
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 128);
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 136);
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 129);
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 137);
 	
 	var _createClass3 = _interopRequireDefault(_createClass2);
 	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 130);
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 138);
 	
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 149);
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 157);
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
@@ -5168,15 +6048,15 @@ var rt_file_uploader =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ToolBarContainer = __webpack_require__(/*! ./src/components/ToolBarContainer */ 157);
+	var _ToolBarContainer = __webpack_require__(/*! ./src/components/ToolBarContainer */ 165);
 	
 	var _ToolBarContainer2 = _interopRequireDefault(_ToolBarContainer);
 	
-	var _ThumbnailViewerContainer = __webpack_require__(/*! ./src/components/ThumbnailViewerContainer */ 159);
+	var _ThumbnailViewerContainer = __webpack_require__(/*! ./src/components/ThumbnailViewerContainer */ 167);
 	
 	var _ThumbnailViewerContainer2 = _interopRequireDefault(_ThumbnailViewerContainer);
 	
-	var _GalleryContainer = __webpack_require__(/*! ./src/components/GalleryContainer */ 174);
+	var _GalleryContainer = __webpack_require__(/*! ./src/components/GalleryContainer */ 182);
 	
 	var _GalleryContainer2 = _interopRequireDefault(_GalleryContainer);
 	
@@ -5273,48 +6153,48 @@ var rt_file_uploader =
 	  onFileDrop: _react2.default.PropTypes.func.isRequired
 	};
 
-/***/ },
-/* 124 */
+/***/ }),
+/* 132 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/core-js/object/get-prototype-of.js ***!
   \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/get-prototype-of */ 125), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/get-prototype-of */ 133), __esModule: true };
 
-/***/ },
-/* 125 */
+/***/ }),
+/* 133 */
 /*!*************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/object/get-prototype-of.js ***!
   \*************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.object.get-prototype-of */ 126);
+	__webpack_require__(/*! ../../modules/es6.object.get-prototype-of */ 134);
 	module.exports = __webpack_require__(/*! ../../modules/_core */ 7).Object.getPrototypeOf;
 
-/***/ },
-/* 126 */
+/***/ }),
+/* 134 */
 /*!**********************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.object.get-prototype-of.js ***!
   \**********************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.9 Object.getPrototypeOf(O)
 	var toObject        = __webpack_require__(/*! ./_to-object */ 38)
-	  , $getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 105);
+	  , $getPrototypeOf = __webpack_require__(/*! ./_object-gpo */ 113);
 	
-	__webpack_require__(/*! ./_object-sap */ 127)('getPrototypeOf', function(){
+	__webpack_require__(/*! ./_object-sap */ 135)('getPrototypeOf', function(){
 	  return function getPrototypeOf(it){
 	    return $getPrototypeOf(toObject(it));
 	  };
 	});
 
-/***/ },
-/* 127 */
+/***/ }),
+/* 135 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-sap.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// most Object methods by ES6 should accept primitives
 	var $export = __webpack_require__(/*! ./_export */ 5)
@@ -5327,12 +6207,12 @@ var rt_file_uploader =
 	  $export($export.S + $export.F * fails(function(){ fn(1); }), 'Object', exp);
 	};
 
-/***/ },
-/* 128 */
+/***/ }),
+/* 136 */
 /*!***************************************************!*\
   !*** ./~/babel-runtime/helpers/classCallCheck.js ***!
   \***************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -5344,18 +6224,18 @@ var rt_file_uploader =
 	  }
 	};
 
-/***/ },
-/* 129 */
+/***/ }),
+/* 137 */
 /*!************************************************!*\
   !*** ./~/babel-runtime/helpers/createClass.js ***!
   \************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 86);
+	var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ 94);
 	
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 	
@@ -5379,18 +6259,18 @@ var rt_file_uploader =
 	  };
 	}();
 
-/***/ },
-/* 130 */
+/***/ }),
+/* 138 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/helpers/possibleConstructorReturn.js ***!
   \**************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _typeof2 = __webpack_require__(/*! ../helpers/typeof */ 131);
+	var _typeof2 = __webpack_require__(/*! ../helpers/typeof */ 139);
 	
 	var _typeof3 = _interopRequireDefault(_typeof2);
 	
@@ -5404,22 +6284,22 @@ var rt_file_uploader =
 	  return call && ((typeof call === "undefined" ? "undefined" : (0, _typeof3.default)(call)) === "object" || typeof call === "function") ? call : self;
 	};
 
-/***/ },
-/* 131 */
+/***/ }),
+/* 139 */
 /*!*******************************************!*\
   !*** ./~/babel-runtime/helpers/typeof.js ***!
   \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _iterator = __webpack_require__(/*! ../core-js/symbol/iterator */ 132);
+	var _iterator = __webpack_require__(/*! ../core-js/symbol/iterator */ 140);
 	
 	var _iterator2 = _interopRequireDefault(_iterator);
 	
-	var _symbol = __webpack_require__(/*! ../core-js/symbol */ 135);
+	var _symbol = __webpack_require__(/*! ../core-js/symbol */ 143);
 	
 	var _symbol2 = _interopRequireDefault(_symbol);
 	
@@ -5433,63 +6313,63 @@ var rt_file_uploader =
 	  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
 	};
 
-/***/ },
-/* 132 */
+/***/ }),
+/* 140 */
 /*!****************************************************!*\
   !*** ./~/babel-runtime/core-js/symbol/iterator.js ***!
   \****************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol/iterator */ 133), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol/iterator */ 141), __esModule: true };
 
-/***/ },
-/* 133 */
+/***/ }),
+/* 141 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/symbol/iterator.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.string.iterator */ 106);
-	__webpack_require__(/*! ../../modules/web.dom.iterable */ 91);
-	module.exports = __webpack_require__(/*! ../../modules/_wks-ext */ 134).f('iterator');
+	__webpack_require__(/*! ../../modules/es6.string.iterator */ 114);
+	__webpack_require__(/*! ../../modules/web.dom.iterable */ 99);
+	module.exports = __webpack_require__(/*! ../../modules/_wks-ext */ 142).f('iterator');
 
-/***/ },
-/* 134 */
+/***/ }),
+/* 142 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_wks-ext.js ***!
   \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	exports.f = __webpack_require__(/*! ./_wks */ 104);
+	exports.f = __webpack_require__(/*! ./_wks */ 112);
 
-/***/ },
-/* 135 */
+/***/ }),
+/* 143 */
 /*!*******************************************!*\
   !*** ./~/babel-runtime/core-js/symbol.js ***!
   \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol */ 136), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol */ 144), __esModule: true };
 
-/***/ },
-/* 136 */
+/***/ }),
+/* 144 */
 /*!**************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/symbol/index.js ***!
   \**************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.symbol */ 137);
-	__webpack_require__(/*! ../../modules/es6.object.to-string */ 146);
-	__webpack_require__(/*! ../../modules/es7.symbol.async-iterator */ 147);
-	__webpack_require__(/*! ../../modules/es7.symbol.observable */ 148);
+	__webpack_require__(/*! ../../modules/es6.symbol */ 145);
+	__webpack_require__(/*! ../../modules/es6.object.to-string */ 154);
+	__webpack_require__(/*! ../../modules/es7.symbol.async-iterator */ 155);
+	__webpack_require__(/*! ../../modules/es7.symbol.observable */ 156);
 	module.exports = __webpack_require__(/*! ../../modules/_core */ 7).Symbol;
 
-/***/ },
-/* 137 */
+/***/ }),
+/* 145 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.symbol.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	// ECMAScript 6 symbols shim
@@ -5497,25 +6377,25 @@ var rt_file_uploader =
 	  , has            = __webpack_require__(/*! ./_has */ 23)
 	  , DESCRIPTORS    = __webpack_require__(/*! ./_descriptors */ 15)
 	  , $export        = __webpack_require__(/*! ./_export */ 5)
-	  , redefine       = __webpack_require__(/*! ./_redefine */ 98)
-	  , META           = __webpack_require__(/*! ./_meta */ 138).KEY
+	  , redefine       = __webpack_require__(/*! ./_redefine */ 106)
+	  , META           = __webpack_require__(/*! ./_meta */ 146).KEY
 	  , $fails         = __webpack_require__(/*! ./_fails */ 16)
 	  , shared         = __webpack_require__(/*! ./_shared */ 33)
-	  , setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 103)
+	  , setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ 111)
 	  , uid            = __webpack_require__(/*! ./_uid */ 34)
-	  , wks            = __webpack_require__(/*! ./_wks */ 104)
-	  , wksExt         = __webpack_require__(/*! ./_wks-ext */ 134)
-	  , wksDefine      = __webpack_require__(/*! ./_wks-define */ 139)
-	  , keyOf          = __webpack_require__(/*! ./_keyof */ 140)
-	  , enumKeys       = __webpack_require__(/*! ./_enum-keys */ 141)
-	  , isArray        = __webpack_require__(/*! ./_is-array */ 142)
+	  , wks            = __webpack_require__(/*! ./_wks */ 112)
+	  , wksExt         = __webpack_require__(/*! ./_wks-ext */ 142)
+	  , wksDefine      = __webpack_require__(/*! ./_wks-define */ 147)
+	  , keyOf          = __webpack_require__(/*! ./_keyof */ 148)
+	  , enumKeys       = __webpack_require__(/*! ./_enum-keys */ 149)
+	  , isArray        = __webpack_require__(/*! ./_is-array */ 150)
 	  , anObject       = __webpack_require__(/*! ./_an-object */ 12)
 	  , toIObject      = __webpack_require__(/*! ./_to-iobject */ 24)
 	  , toPrimitive    = __webpack_require__(/*! ./_to-primitive */ 18)
 	  , createDesc     = __webpack_require__(/*! ./_property-desc */ 19)
-	  , _create        = __webpack_require__(/*! ./_object-create */ 100)
-	  , gOPNExt        = __webpack_require__(/*! ./_object-gopn-ext */ 143)
-	  , $GOPD          = __webpack_require__(/*! ./_object-gopd */ 145)
+	  , _create        = __webpack_require__(/*! ./_object-create */ 108)
+	  , gOPNExt        = __webpack_require__(/*! ./_object-gopn-ext */ 151)
+	  , $GOPD          = __webpack_require__(/*! ./_object-gopd */ 153)
 	  , $DP            = __webpack_require__(/*! ./_object-dp */ 11)
 	  , $keys          = __webpack_require__(/*! ./_object-keys */ 21)
 	  , gOPD           = $GOPD.f
@@ -5640,11 +6520,11 @@ var rt_file_uploader =
 	
 	  $GOPD.f = $getOwnPropertyDescriptor;
 	  $DP.f   = $defineProperty;
-	  __webpack_require__(/*! ./_object-gopn */ 144).f = gOPNExt.f = $getOwnPropertyNames;
+	  __webpack_require__(/*! ./_object-gopn */ 152).f = gOPNExt.f = $getOwnPropertyNames;
 	  __webpack_require__(/*! ./_object-pie */ 37).f  = $propertyIsEnumerable;
 	  __webpack_require__(/*! ./_object-gops */ 36).f = $getOwnPropertySymbols;
 	
-	  if(DESCRIPTORS && !__webpack_require__(/*! ./_library */ 97)){
+	  if(DESCRIPTORS && !__webpack_require__(/*! ./_library */ 105)){
 	    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
 	  }
 	
@@ -5727,12 +6607,12 @@ var rt_file_uploader =
 	// 24.3.3 JSON[@@toStringTag]
 	setToStringTag(global.JSON, 'JSON', true);
 
-/***/ },
-/* 138 */
+/***/ }),
+/* 146 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_meta.js ***!
   \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var META     = __webpack_require__(/*! ./_uid */ 34)('meta')
 	  , isObject = __webpack_require__(/*! ./_is-object */ 13)
@@ -5788,29 +6668,29 @@ var rt_file_uploader =
 	  onFreeze: onFreeze
 	};
 
-/***/ },
-/* 139 */
+/***/ }),
+/* 147 */
 /*!******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_wks-define.js ***!
   \******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var global         = __webpack_require__(/*! ./_global */ 6)
 	  , core           = __webpack_require__(/*! ./_core */ 7)
-	  , LIBRARY        = __webpack_require__(/*! ./_library */ 97)
-	  , wksExt         = __webpack_require__(/*! ./_wks-ext */ 134)
+	  , LIBRARY        = __webpack_require__(/*! ./_library */ 105)
+	  , wksExt         = __webpack_require__(/*! ./_wks-ext */ 142)
 	  , defineProperty = __webpack_require__(/*! ./_object-dp */ 11).f;
 	module.exports = function(name){
 	  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
 	  if(name.charAt(0) != '_' && !(name in $Symbol))defineProperty($Symbol, name, {value: wksExt.f(name)});
 	};
 
-/***/ },
-/* 140 */
+/***/ }),
+/* 148 */
 /*!*************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_keyof.js ***!
   \*************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var getKeys   = __webpack_require__(/*! ./_object-keys */ 21)
 	  , toIObject = __webpack_require__(/*! ./_to-iobject */ 24);
@@ -5823,12 +6703,12 @@ var rt_file_uploader =
 	  while(length > index)if(O[key = keys[index++]] === el)return key;
 	};
 
-/***/ },
-/* 141 */
+/***/ }),
+/* 149 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_enum-keys.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// all enumerable object keys, includes symbols
 	var getKeys = __webpack_require__(/*! ./_object-keys */ 21)
@@ -5846,12 +6726,12 @@ var rt_file_uploader =
 	  } return result;
 	};
 
-/***/ },
-/* 142 */
+/***/ }),
+/* 150 */
 /*!****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_is-array.js ***!
   \****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 7.2.2 IsArray(argument)
 	var cof = __webpack_require__(/*! ./_cof */ 26);
@@ -5859,16 +6739,16 @@ var rt_file_uploader =
 	  return cof(arg) == 'Array';
 	};
 
-/***/ },
-/* 143 */
+/***/ }),
+/* 151 */
 /*!***********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-gopn-ext.js ***!
   \***********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 	var toIObject = __webpack_require__(/*! ./_to-iobject */ 24)
-	  , gOPN      = __webpack_require__(/*! ./_object-gopn */ 144).f
+	  , gOPN      = __webpack_require__(/*! ./_object-gopn */ 152).f
 	  , toString  = {}.toString;
 	
 	var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -5887,12 +6767,12 @@ var rt_file_uploader =
 	};
 
 
-/***/ },
-/* 144 */
+/***/ }),
+/* 152 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-gopn.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 	var $keys      = __webpack_require__(/*! ./_object-keys-internal */ 22)
@@ -5902,12 +6782,12 @@ var rt_file_uploader =
 	  return $keys(O, hiddenKeys);
 	};
 
-/***/ },
-/* 145 */
+/***/ }),
+/* 153 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_object-gopd.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var pIE            = __webpack_require__(/*! ./_object-pie */ 37)
 	  , createDesc     = __webpack_require__(/*! ./_property-desc */ 19)
@@ -5926,53 +6806,53 @@ var rt_file_uploader =
 	  if(has(O, P))return createDesc(!pIE.f.call(O, P), O[P]);
 	};
 
-/***/ },
-/* 146 */
+/***/ }),
+/* 154 */
 /*!***************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.object.to-string.js ***!
   \***************************************************************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 
 
-/***/ },
-/* 147 */
+/***/ }),
+/* 155 */
 /*!********************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es7.symbol.async-iterator.js ***!
   \********************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ./_wks-define */ 139)('asyncIterator');
+	__webpack_require__(/*! ./_wks-define */ 147)('asyncIterator');
 
-/***/ },
-/* 148 */
+/***/ }),
+/* 156 */
 /*!****************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es7.symbol.observable.js ***!
   \****************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ./_wks-define */ 139)('observable');
+	__webpack_require__(/*! ./_wks-define */ 147)('observable');
 
-/***/ },
-/* 149 */
+/***/ }),
+/* 157 */
 /*!*********************************************!*\
   !*** ./~/babel-runtime/helpers/inherits.js ***!
   \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _setPrototypeOf = __webpack_require__(/*! ../core-js/object/set-prototype-of */ 150);
+	var _setPrototypeOf = __webpack_require__(/*! ../core-js/object/set-prototype-of */ 158);
 	
 	var _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf);
 	
-	var _create = __webpack_require__(/*! ../core-js/object/create */ 154);
+	var _create = __webpack_require__(/*! ../core-js/object/create */ 162);
 	
 	var _create2 = _interopRequireDefault(_create);
 	
-	var _typeof2 = __webpack_require__(/*! ../helpers/typeof */ 131);
+	var _typeof2 = __webpack_require__(/*! ../helpers/typeof */ 139);
 	
 	var _typeof3 = _interopRequireDefault(_typeof2);
 	
@@ -5994,42 +6874,42 @@ var rt_file_uploader =
 	  if (superClass) _setPrototypeOf2.default ? (0, _setPrototypeOf2.default)(subClass, superClass) : subClass.__proto__ = superClass;
 	};
 
-/***/ },
-/* 150 */
+/***/ }),
+/* 158 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/core-js/object/set-prototype-of.js ***!
   \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/set-prototype-of */ 151), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/set-prototype-of */ 159), __esModule: true };
 
-/***/ },
-/* 151 */
+/***/ }),
+/* 159 */
 /*!*************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/object/set-prototype-of.js ***!
   \*************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.object.set-prototype-of */ 152);
+	__webpack_require__(/*! ../../modules/es6.object.set-prototype-of */ 160);
 	module.exports = __webpack_require__(/*! ../../modules/_core */ 7).Object.setPrototypeOf;
 
-/***/ },
-/* 152 */
+/***/ }),
+/* 160 */
 /*!**********************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.object.set-prototype-of.js ***!
   \**********************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// 19.1.3.19 Object.setPrototypeOf(O, proto)
 	var $export = __webpack_require__(/*! ./_export */ 5);
-	$export($export.S, 'Object', {setPrototypeOf: __webpack_require__(/*! ./_set-proto */ 153).set});
+	$export($export.S, 'Object', {setPrototypeOf: __webpack_require__(/*! ./_set-proto */ 161).set});
 
-/***/ },
-/* 153 */
+/***/ }),
+/* 161 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_set-proto.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// Works with __proto__ only. Old v8 can't work with null proto objects.
 	/* eslint-disable no-proto */
@@ -6043,7 +6923,7 @@ var rt_file_uploader =
 	  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
 	    function(test, buggy, set){
 	      try {
-	        set = __webpack_require__(/*! ./_ctx */ 8)(Function.call, __webpack_require__(/*! ./_object-gopd */ 145).f(Object.prototype, '__proto__').set, 2);
+	        set = __webpack_require__(/*! ./_ctx */ 8)(Function.call, __webpack_require__(/*! ./_object-gopd */ 153).f(Object.prototype, '__proto__').set, 2);
 	        set(test, []);
 	        buggy = !(test instanceof Array);
 	      } catch(e){ buggy = true; }
@@ -6057,45 +6937,45 @@ var rt_file_uploader =
 	  check: check
 	};
 
-/***/ },
-/* 154 */
+/***/ }),
+/* 162 */
 /*!**************************************************!*\
   !*** ./~/babel-runtime/core-js/object/create.js ***!
   \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/create */ 155), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/create */ 163), __esModule: true };
 
-/***/ },
-/* 155 */
+/***/ }),
+/* 163 */
 /*!***************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/object/create.js ***!
   \***************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.object.create */ 156);
+	__webpack_require__(/*! ../../modules/es6.object.create */ 164);
 	var $Object = __webpack_require__(/*! ../../modules/_core */ 7).Object;
 	module.exports = function create(P, D){
 	  return $Object.create(P, D);
 	};
 
-/***/ },
-/* 156 */
+/***/ }),
+/* 164 */
 /*!************************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.object.create.js ***!
   \************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var $export = __webpack_require__(/*! ./_export */ 5)
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	$export($export.S, 'Object', {create: __webpack_require__(/*! ./_object-create */ 100)});
+	$export($export.S, 'Object', {create: __webpack_require__(/*! ./_object-create */ 108)});
 
-/***/ },
-/* 157 */
+/***/ }),
+/* 165 */
 /*!********************************************!*\
   !*** ./src/components/ToolBarContainer.js ***!
   \********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -6109,15 +6989,15 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _ToolBar = __webpack_require__(/*! ./src/components/ToolBar */ 158);
+	var _ToolBar = __webpack_require__(/*! ./src/components/ToolBar */ 166);
 	
 	var _ToolBar2 = _interopRequireDefault(_ToolBar);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -6186,12 +7066,12 @@ var rt_file_uploader =
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps, mergeProps)(_ToolBar2.default);
 
-/***/ },
-/* 158 */
+/***/ }),
+/* 166 */
 /*!***********************************!*\
   !*** ./src/components/ToolBar.js ***!
   \***********************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -6216,6 +7096,7 @@ var rt_file_uploader =
 	      onGalleryImageFetch = _ref.onGalleryImageFetch;
 	
 	  var isOverFlow = fileCount >= opts.limit;
+	  var remains = opts.limit - fileCount;
 	
 	  return _react2.default.createElement(
 	    'div',
@@ -6230,7 +7111,7 @@ var rt_file_uploader =
 	        _react2.default.createElement(
 	          'span',
 	          null,
-	          '\u9078\u64C7\u6A94\u6848'
+	          'Choose files from'
 	        )
 	      ),
 	      _react2.default.createElement(
@@ -6252,8 +7133,13 @@ var rt_file_uploader =
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'rt-button rt-button-mini rt-button-default ' + (isOverFlow ? 'rt-button-disabled' : '') },
-	          '\u672C\u5730\u6A94\u6848'
+	          'LOCAL'
 	        )
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { style: { margin: '0px 5px', color: 'grey' } },
+	        '/'
 	      ),
 	      _react2.default.createElement(
 	        'button',
@@ -6263,7 +7149,7 @@ var rt_file_uploader =
 	            onGalleryImageFetch(opts.onFetchGallery);
 	          }
 	        },
-	        '\u9732\u5929\u5716\u5EAB'
+	        'ONLINE IMAGES'
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -6271,18 +7157,18 @@ var rt_file_uploader =
 	        _react2.default.createElement(
 	          'span',
 	          { className: 'separator' },
-	          '\u6216'
+	          'or'
 	        ),
 	        _react2.default.createElement(
 	          'span',
 	          null,
-	          '\u62D6\u66F3\u6A94\u6848\u81F3\u6B64'
+	          'DRAG IT HERE'
 	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'limit-hint-text ' + (errMsg ? 'is-hidden' : '') },
-	        (showHint ? '最多' : '尚') + '\u53EF\u4E0A\u50B3 ' + (opts.limit - fileCount) + ' \u500B\u6A94\u6848'
+	        'Can still upload ' + remains + ' ' + (remains === 1 ? 'files' : 'files')
 	      ),
 	      _react2.default.createElement(
 	        'label',
@@ -6304,12 +7190,12 @@ var rt_file_uploader =
 	  onGalleryImageFetch: _react2.default.PropTypes.func.isRequired
 	};
 
-/***/ },
-/* 159 */
+/***/ }),
+/* 167 */
 /*!****************************************************!*\
   !*** ./src/components/ThumbnailViewerContainer.js ***!
   \****************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -6317,11 +7203,11 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _slicedToArray2 = __webpack_require__(/*! babel-runtime/helpers/slicedToArray */ 160);
+	var _slicedToArray2 = __webpack_require__(/*! babel-runtime/helpers/slicedToArray */ 168);
 	
 	var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 	
-	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 89);
+	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 97);
 	
 	var _getIterator3 = _interopRequireDefault(_getIterator2);
 	
@@ -6331,19 +7217,19 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
-	var _ThumbnailViewer = __webpack_require__(/*! ./src/components/ThumbnailViewer */ 164);
+	var _ThumbnailViewer = __webpack_require__(/*! ./src/components/ThumbnailViewer */ 172);
 	
 	var _ThumbnailViewer2 = _interopRequireDefault(_ThumbnailViewer);
 	
-	var _utils = __webpack_require__(/*! ./src/utils */ 173);
+	var _utils = __webpack_require__(/*! ./src/utils */ 181);
 	
 	var utils = _interopRequireWildcard(_utils);
 	
@@ -6469,22 +7355,22 @@ var rt_file_uploader =
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps, mergeProps)(_ThumbnailViewer2.default);
 
-/***/ },
-/* 160 */
+/***/ }),
+/* 168 */
 /*!**************************************************!*\
   !*** ./~/babel-runtime/helpers/slicedToArray.js ***!
   \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _isIterable2 = __webpack_require__(/*! ../core-js/is-iterable */ 161);
+	var _isIterable2 = __webpack_require__(/*! ../core-js/is-iterable */ 169);
 	
 	var _isIterable3 = _interopRequireDefault(_isIterable2);
 	
-	var _getIterator2 = __webpack_require__(/*! ../core-js/get-iterator */ 89);
+	var _getIterator2 = __webpack_require__(/*! ../core-js/get-iterator */ 97);
 	
 	var _getIterator3 = _interopRequireDefault(_getIterator2);
 	
@@ -6528,36 +7414,36 @@ var rt_file_uploader =
 	  };
 	}();
 
-/***/ },
-/* 161 */
+/***/ }),
+/* 169 */
 /*!************************************************!*\
   !*** ./~/babel-runtime/core-js/is-iterable.js ***!
   \************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/is-iterable */ 162), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/is-iterable */ 170), __esModule: true };
 
-/***/ },
-/* 162 */
+/***/ }),
+/* 170 */
 /*!*************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/is-iterable.js ***!
   \*************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../modules/web.dom.iterable */ 91);
-	__webpack_require__(/*! ../modules/es6.string.iterator */ 106);
-	module.exports = __webpack_require__(/*! ../modules/core.is-iterable */ 163);
+	__webpack_require__(/*! ../modules/web.dom.iterable */ 99);
+	__webpack_require__(/*! ../modules/es6.string.iterator */ 114);
+	module.exports = __webpack_require__(/*! ../modules/core.is-iterable */ 171);
 
-/***/ },
-/* 163 */
+/***/ }),
+/* 171 */
 /*!***********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/core.is-iterable.js ***!
   \***********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var classof   = __webpack_require__(/*! ./_classof */ 110)
-	  , ITERATOR  = __webpack_require__(/*! ./_wks */ 104)('iterator')
-	  , Iterators = __webpack_require__(/*! ./_iterators */ 95);
+	var classof   = __webpack_require__(/*! ./_classof */ 118)
+	  , ITERATOR  = __webpack_require__(/*! ./_wks */ 112)('iterator')
+	  , Iterators = __webpack_require__(/*! ./_iterators */ 103);
 	module.exports = __webpack_require__(/*! ./_core */ 7).isIterable = function(it){
 	  var O = Object(it);
 	  return O[ITERATOR] !== undefined
@@ -6565,12 +7451,12 @@ var rt_file_uploader =
 	    || Iterators.hasOwnProperty(classof(O));
 	};
 
-/***/ },
-/* 164 */
+/***/ }),
+/* 172 */
 /*!*******************************************!*\
   !*** ./src/components/ThumbnailViewer.js ***!
   \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -6578,7 +7464,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ 165);
+	var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ 173);
 	
 	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 	
@@ -6586,23 +7472,23 @@ var rt_file_uploader =
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 124);
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 132);
 	
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 128);
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 136);
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 129);
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 137);
 	
 	var _createClass3 = _interopRequireDefault(_createClass2);
 	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 130);
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 138);
 	
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 149);
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 157);
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
@@ -6610,7 +7496,7 @@ var rt_file_uploader =
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _constants = __webpack_require__(/*! ./src/constants */ 112);
+	var _constants = __webpack_require__(/*! ./src/constants */ 120);
 	
 	var CONSTANTS = _interopRequireWildcard(_constants);
 	
@@ -6925,18 +7811,18 @@ var rt_file_uploader =
 	  onFileDelete: _react2.default.PropTypes.func.isRequired
 	};
 
-/***/ },
-/* 165 */
+/***/ }),
+/* 173 */
 /*!******************************************************!*\
   !*** ./~/babel-runtime/helpers/toConsumableArray.js ***!
   \******************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _from = __webpack_require__(/*! ../core-js/array/from */ 166);
+	var _from = __webpack_require__(/*! ../core-js/array/from */ 174);
 	
 	var _from2 = _interopRequireDefault(_from);
 	
@@ -6954,44 +7840,44 @@ var rt_file_uploader =
 	  }
 	};
 
-/***/ },
-/* 166 */
+/***/ }),
+/* 174 */
 /*!***********************************************!*\
   !*** ./~/babel-runtime/core-js/array/from.js ***!
   \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/array/from */ 167), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/array/from */ 175), __esModule: true };
 
-/***/ },
-/* 167 */
+/***/ }),
+/* 175 */
 /*!************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/fn/array/from.js ***!
   \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.string.iterator */ 106);
-	__webpack_require__(/*! ../../modules/es6.array.from */ 168);
+	__webpack_require__(/*! ../../modules/es6.string.iterator */ 114);
+	__webpack_require__(/*! ../../modules/es6.array.from */ 176);
 	module.exports = __webpack_require__(/*! ../../modules/_core */ 7).Array.from;
 
-/***/ },
-/* 168 */
+/***/ }),
+/* 176 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/es6.array.from.js ***!
   \*********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var ctx            = __webpack_require__(/*! ./_ctx */ 8)
 	  , $export        = __webpack_require__(/*! ./_export */ 5)
 	  , toObject       = __webpack_require__(/*! ./_to-object */ 38)
-	  , call           = __webpack_require__(/*! ./_iter-call */ 169)
-	  , isArrayIter    = __webpack_require__(/*! ./_is-array-iter */ 170)
+	  , call           = __webpack_require__(/*! ./_iter-call */ 177)
+	  , isArrayIter    = __webpack_require__(/*! ./_is-array-iter */ 178)
 	  , toLength       = __webpack_require__(/*! ./_to-length */ 29)
-	  , createProperty = __webpack_require__(/*! ./_create-property */ 171)
-	  , getIterFn      = __webpack_require__(/*! ./core.get-iterator-method */ 109);
+	  , createProperty = __webpack_require__(/*! ./_create-property */ 179)
+	  , getIterFn      = __webpack_require__(/*! ./core.get-iterator-method */ 117);
 	
-	$export($export.S + $export.F * !__webpack_require__(/*! ./_iter-detect */ 172)(function(iter){ Array.from(iter); }), 'Array', {
+	$export($export.S + $export.F * !__webpack_require__(/*! ./_iter-detect */ 180)(function(iter){ Array.from(iter); }), 'Array', {
 	  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
 	  from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
 	    var O       = toObject(arrayLike)
@@ -7020,12 +7906,12 @@ var rt_file_uploader =
 	});
 
 
-/***/ },
-/* 169 */
+/***/ }),
+/* 177 */
 /*!*****************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iter-call.js ***!
   \*****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// call something on iterator step with safe closing on error
 	var anObject = __webpack_require__(/*! ./_an-object */ 12);
@@ -7040,28 +7926,28 @@ var rt_file_uploader =
 	  }
 	};
 
-/***/ },
-/* 170 */
+/***/ }),
+/* 178 */
 /*!*********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_is-array-iter.js ***!
   \*********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// check on default Array iterator
-	var Iterators  = __webpack_require__(/*! ./_iterators */ 95)
-	  , ITERATOR   = __webpack_require__(/*! ./_wks */ 104)('iterator')
+	var Iterators  = __webpack_require__(/*! ./_iterators */ 103)
+	  , ITERATOR   = __webpack_require__(/*! ./_wks */ 112)('iterator')
 	  , ArrayProto = Array.prototype;
 	
 	module.exports = function(it){
 	  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 	};
 
-/***/ },
-/* 171 */
+/***/ }),
+/* 179 */
 /*!***********************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_create-property.js ***!
   \***********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var $defineProperty = __webpack_require__(/*! ./_object-dp */ 11)
@@ -7072,14 +7958,14 @@ var rt_file_uploader =
 	  else object[index] = value;
 	};
 
-/***/ },
-/* 172 */
+/***/ }),
+/* 180 */
 /*!*******************************************************************!*\
   !*** ./~/babel-runtime/~/core-js/library/modules/_iter-detect.js ***!
   \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var ITERATOR     = __webpack_require__(/*! ./_wks */ 104)('iterator')
+	var ITERATOR     = __webpack_require__(/*! ./_wks */ 112)('iterator')
 	  , SAFE_CLOSING = false;
 	
 	try {
@@ -7101,12 +7987,12 @@ var rt_file_uploader =
 	  return safe;
 	};
 
-/***/ },
-/* 173 */
+/***/ }),
+/* 181 */
 /*!****************************!*\
   !*** ./src/utils/index.js ***!
   \****************************/
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 	
@@ -7136,12 +8022,12 @@ var rt_file_uploader =
 	  }
 	}
 
-/***/ },
-/* 174 */
+/***/ }),
+/* 182 */
 /*!********************************************!*\
   !*** ./src/components/GalleryContainer.js ***!
   \********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -7155,11 +8041,11 @@ var rt_file_uploader =
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 41);
 	
-	var _Gallery = __webpack_require__(/*! ./src/components/Gallery */ 175);
+	var _Gallery = __webpack_require__(/*! ./src/components/Gallery */ 183);
 	
 	var _Gallery2 = _interopRequireDefault(_Gallery);
 	
-	var _actions = __webpack_require__(/*! ./src/actions */ 111);
+	var _actions = __webpack_require__(/*! ./src/actions */ 119);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -7240,12 +8126,12 @@ var rt_file_uploader =
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps, mergeProps)(_Gallery2.default);
 
-/***/ },
-/* 175 */
+/***/ }),
+/* 183 */
 /*!***********************************!*\
   !*** ./src/components/Gallery.js ***!
   \***********************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -7253,7 +8139,7 @@ var rt_file_uploader =
 	  value: true
 	});
 	
-	var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ 165);
+	var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ 173);
 	
 	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 	
@@ -7295,12 +8181,12 @@ var rt_file_uploader =
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'title-text' },
-	          '\u9732\u5929\u5716\u5EAB'
+	          'Online Images'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'limit-hint' },
-	          ' - \u5C1A\u53EF\u9078\u64C7 ' + (selectionLimit - selection.length)
+	          ' - Can still choose ' + (selectionLimit - selection.length)
 	        )
 	      ),
 	      _react2.default.createElement(
@@ -7413,12 +8299,12 @@ var rt_file_uploader =
 	                  onToggle();
 	                }
 	              },
-	              '\u78BA\u5B9A\u65B0\u589E'
+	              'CONFIRM'
 	            ),
 	            _react2.default.createElement(
 	              'a',
 	              { href: '#', onClick: onToggle },
-	              '\u53D6\u6D88'
+	              'CANCEL'
 	            )
 	          )
 	        )
@@ -7453,15 +8339,15 @@ var rt_file_uploader =
 	  onUpload: _react2.default.PropTypes.func.isRequired
 	};
 
-/***/ },
-/* 176 */
+/***/ }),
+/* 184 */
 /*!********************************!*\
   !*** ./~/redux-watch/index.js ***!
   \********************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
-	var getValue = __webpack_require__(/*! object-path */ 177).get
+	var getValue = __webpack_require__(/*! object-path */ 185).get
 	
 	function defaultCompare (a, b) {
 	  return a === b
@@ -7485,12 +8371,12 @@ var rt_file_uploader =
 	module.exports = watch
 
 
-/***/ },
-/* 177 */
+/***/ }),
+/* 185 */
 /*!**********************************************!*\
   !*** ./~/redux-watch/~/object-path/index.js ***!
   \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory){
 	  'use strict';
@@ -7772,6 +8658,6 @@ var rt_file_uploader =
 	});
 
 
-/***/ }
+/***/ })
 /******/ ]);
 //# sourceMappingURL=rt_file_uploader.js.map

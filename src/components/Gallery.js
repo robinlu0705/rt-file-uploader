@@ -8,8 +8,8 @@ export default function Gallery({ categoryOpts, currentCategory, currentPage, it
       <div className="overlay" onClick={onToggle}></div>
       <div className="dialog">
         <div className="title">
-          <div className="title-text">露天圖庫</div>
-          <div className="limit-hint">{` - 尚可選擇 ${selectionLimit - selection.length}`}</div>
+          <div className="title-text">Online Images</div>
+          <div className="limit-hint">{` - Can still choose ${selectionLimit - selection.length}`}</div>
         </div>
         <div className="content">
           <div className="wrap">
@@ -93,9 +93,9 @@ export default function Gallery({ categoryOpts, currentCategory, currentPage, it
                   onToggle();
                 }}
               >
-                確定新增
+                CONFIRM
               </button>
-              <a href="#" onClick={onToggle}>取消</a>
+              <a href="#" onClick={onToggle}>CANCEL</a>
             </div>
           </div>
         </div>
