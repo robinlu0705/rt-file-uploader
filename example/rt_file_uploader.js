@@ -7168,7 +7168,7 @@ var rt_file_uploader =
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'limit-hint-text ' + (errMsg ? 'is-hidden' : '') },
-	        'Can still upload ' + remains + ' ' + (remains === 1 ? 'files' : 'files')
+	        'Can still upload ' + remains + ' ' + (remains === 1 ? 'file' : 'files')
 	      ),
 	      _react2.default.createElement(
 	        'label',
