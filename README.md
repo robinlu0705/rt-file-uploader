@@ -4,6 +4,8 @@ An UI plugin for file(image) uploading.
 
 Supports drag-and-drop uploading, drag-and-drop reordering, uploading from online images.
 
+### See a [Demo](https://robinlu0705.github.io/rt-file-uploader/example/)
+
 ## Dependencies
 
 **include style-sheet using less.js (or you can pre-compile less file to css)**
